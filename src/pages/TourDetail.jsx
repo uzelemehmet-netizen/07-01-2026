@@ -1729,8 +1729,8 @@ export default function TourDetail() {
               <div
                 key={pkg.id}
                 className={[
-                  "relative rounded-2xl border bg-slate-950/40 shadow-sm p-5 flex flex-col h-full overflow-hidden",
-                  pkg.level === "plus" ? "border-emerald-300/70 shadow-md" : "border-slate-200/60",
+                  "relative rounded-2xl border bg-slate-900 shadow-sm p-5 flex flex-col h-full overflow-hidden text-white",
+                  pkg.level === "plus" ? "border-emerald-300/70 shadow-md" : "border-slate-700",
                 ].join(" ")}
                 style={
                   tour.name === "Bali Adası"
@@ -1747,60 +1747,24 @@ export default function TourDetail() {
                     : undefined
                 }
               >
-                {pkg.badge && (
-                  <span
-                    className={[
-                      "absolute -top-3 left-4 inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-[0.16em] uppercase",
-                      pkg.level === "plus"
-                        ? "bg-emerald-600 text-white shadow"
-                        : "bg-slate-900 text-white shadow",
-                    ].join(" ")}
-                  >
-                    {pkg.badge}
-                  </span>
-                )}
                 <h3 className="mt-1 text-base md:text-lg font-semibold text-white mb-1">{pkg.name}</h3>
                 {pkg.headline && (
-                  <p
-                    className={
-                      effectiveId === "lombok"
-                        ? "text-xs md:text-sm text-gray-800 mb-3"
-                        : "text-xs md:text-sm text-slate-100/90 mb-3"
-                    }
-                  >
+                  <p className="text-xs md:text-sm text-slate-100/90 mb-3">
                     {pkg.headline}
                   </p>
                 )}
 
                 {typeof pkg.computedPrice === "number" && (
                   <div className="mb-2">
-                    <p
-                      className={
-                        effectiveId === "lombok"
-                          ? "text-xs text-gray-800"
-                          : "text-xs text-slate-100/80"
-                      }
-                    >
+                    <p className="text-xs text-slate-100/80">
 	              Kişi başı, 850 USD'ye kadar uçak bileti dahil; bu tutarın üzerindeki bilet farkı
 	              misafir tarafından ayrıca karşılanır.
                     </p>
-                    <p
-                      className={
-                        effectiveId === "lombok"
-                          ? "text-2xl font-bold text-emerald-700"
-                          : "text-2xl font-bold text-emerald-200"
-                      }
-                    >
+                    <p className="text-2xl font-bold text-emerald-200">
                       ${pkg.computedPrice}
                     </p>
                     {hasDiscount && pkg.computedBasePrice && (
-                      <p
-                        className={
-                          effectiveId === "lombok"
-                            ? "text-[11px] text-red-500 line-through"
-                            : "text-[11px] text-red-300 line-through"
-                        }
-                      >
+                      <p className="text-[11px] text-red-300 line-through">
                         ${pkg.computedBasePrice}
                       </p>
                     )}
@@ -1810,7 +1774,7 @@ export default function TourDetail() {
                 <button
                   type="button"
                   onClick={() => setPackagesExpanded((prev) => !prev)}
-                  className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/60 text-[11px] font-medium text-white bg-white/10 hover:bg-white/15 transition-colors mb-2"
+                  className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/60 text-[11px] font-medium text-white bg-white/20 hover:bg-white/25 transition-colors mb-2"
                 >
                   {packagesExpanded ? "Paket detaylarını gizle" : "Tüm paket detaylarını göster"}
                   <span className="ml-1 text-xs">{packagesExpanded ? "−" : "+"}</span>
@@ -1868,8 +1832,8 @@ export default function TourDetail() {
 
       {/* CTA ve buton altı açılan formlar (sayfanın üst kısmında) */}
       <section className="bg-gradient-to-r from-sky-600 to-emerald-500 py-10 md:py-12 relative overflow-hidden">
-        {/* Sadece Lombok sayfasında, CTA arka planına tam yükseklik aktivite görselleri bindir */}
-        {effectiveId === "lombok" && (
+        {/* Bali ve Lombok sayfalarında, CTA arka planına tam yükseklik aktivite görselleri bindir */}
+        {(effectiveId === "bali" || effectiveId === "lombok") && (
           <div className="pointer-events-none absolute inset-0 z-0">
             {/* Üstten alta kadar sol tarafta dalış & mercan resifi görseli */}
             <div className="absolute inset-y-0 left-0 w-1/2 md:w-1/3 lg:w-1/4 opacity-95">
@@ -1895,7 +1859,7 @@ export default function TourDetail() {
         <div className="max-w-6xl mx-auto px-4 text-white relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {tour.name} için ön kayıt ve toplu tatil talebi
+              {tour.name} tatil rezervasyonu
             </h2>
             <p className="text-sm md:text-base mb-6 text-white/90">
               Bu organizasyonu bireysel / ailenizle katılabildiğiniz bir toplu tatil olarak değerlendiriyor ya da kendi grubunuz
@@ -2659,9 +2623,12 @@ export default function TourDetail() {
           {Array.isArray(tour.itinerary) && tour.itinerary.length > 0 ? (
             tour.itinerary.map((day) => {
             const dayBgKey = id ? `${id}-itinerary-day-${day.day}` : "";
-            const dayBgImage = dayBgKey && imageUrls[dayBgKey]
+            const dayBgKeyEffective = effectiveId ? `${effectiveId}-itinerary-day-${day.day}` : "";
+            const dayBgImage = (dayBgKey && imageUrls[dayBgKey])
               ? imageUrls[dayBgKey]
-              : "https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=1200";
+              : (dayBgKeyEffective && imageUrls[dayBgKeyEffective])
+                ? imageUrls[dayBgKeyEffective]
+                : "https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
             const isFreeDay =
               day.title?.toLowerCase().includes("serbest") ||
@@ -2681,7 +2648,7 @@ export default function TourDetail() {
               return (
                 <div key={day.day} className="relative w-full">
                   {/* Sol tarafta görsel alanı – kartın üst ve alt noktalarıyla hizalı */}
-                  <div className="hidden md:block absolute inset-y-0 left-4 md:left-8 w-40 lg:w-52 rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-slate-100">
+                  <div className="hidden md:block absolute inset-y-0 left-4 md:left-4 w-52 lg:left-8 lg:w-56 rounded-none overflow-hidden shadow-lg border border-slate-200 bg-slate-100">
                     <img
                       src={freeImageSrc}
                       alt={`${day.title} için görsel`}
@@ -2691,7 +2658,7 @@ export default function TourDetail() {
                   </div>
 
                   {/* Asıl serbest gün kartı – geniş alan kaplasın diye sağa doğru uzatıldı */}
-                  <div className="rounded-2xl bg-white shadow-sm border border-slate-100 p-4 md:p-5 flex gap-4 md:gap-6 ml-0 md:ml-56 lg:ml-64 mr-0 md:mr-6 lg:mr-10">
+                  <div className="rounded-lg bg-slate-50 text-slate-900 shadow-sm border border-slate-200 p-4 md:p-5 flex gap-4 md:gap-6 ml-0 md:ml-56 lg:ml-64 mr-0 md:mr-6 lg:mr-10">
                     <div className="flex-shrink-0">
                       <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-emerald-500 to-sky-500 text-white flex items-center justify-center text-xs md:text-sm font-semibold shadow">
                         {day.day}. Gün
@@ -2700,8 +2667,8 @@ export default function TourDetail() {
                     <div className="flex-1">
                       <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
                         <div className="md:flex-1">
-                          <h3 className="font-semibold text-base md:text-lg mb-2 text-gray-900">{day.title}</h3>
-                          <ul className="space-y-1.5 mb-1 text-sm text-gray-800">
+                          <h3 className="font-semibold text-base md:text-lg mb-2 text-slate-900">{day.title}</h3>
+                          <ul className="space-y-1.5 mb-1 text-sm text-slate-700">
                             {day.activities.map((activity, idx) => (
                               <li key={idx} className="flex items-start gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0" />
@@ -2720,7 +2687,7 @@ export default function TourDetail() {
                                 <div
                                   key={extra.id}
                                   data-optional-extra-card
-                                  className="bg-emerald-50 rounded-2xl border border-emerald-100 p-3 text-xs md:text-sm shadow-sm"
+                                  className="bg-white rounded-lg border border-slate-200 p-3 text-xs md:text-sm shadow-sm"
                                 >
                                   <button
                                     type="button"
@@ -2733,15 +2700,15 @@ export default function TourDetail() {
                                       <p className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-100 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-800 mb-1">
                                         Opsiyonel Ekstra Aktivite (Ücretli)
                                       </p>
-                                      <p className="font-semibold leading-snug text-gray-900">
+                                      <p className="font-semibold leading-snug text-slate-900">
                                         {extra.title}
                                       </p>
                                       {extra.shortDescription && (
-                                        <p className="text-[11px] text-gray-700 mt-0.5">
+                                        <p className="text-[11px] text-slate-600 mt-0.5">
                                           {extra.shortDescription}
                                         </p>
                                       )}
-                                      <p className="text-[10px] text-red-600 mt-1">
+                                      <p className="text-[10px] text-rose-600 mt-1">
                                         {isOpen
                                           ? "Detayları kapatmak için tekrar tıklayabilirsiniz."
                                           : "Detayları görmek için karta tıklayabilirsiniz."}
@@ -2753,14 +2720,14 @@ export default function TourDetail() {
                                   </button>
 
                                   {isOpen && (
-                                    <div className="mt-2 pt-2 border-t border-emerald-100 space-y-1.5">
+                                    <div className="mt-2 pt-2 border-t border-slate-200 space-y-1.5">
                                       {extra.priceNote && (
                                         <p className="text-[11px] font-semibold text-emerald-800">
                                           {renderWithInclusionHighlight(extra.priceNote)}
                                         </p>
                                       )}
                                       {Array.isArray(extra.details) && extra.details.length > 0 && (
-                                        <ul className="space-y-1.5 text-[11px] text-gray-800">
+                                        <ul className="space-y-1.5 text-[11px] text-slate-700">
                                           {extra.details.map((item, idx) => (
                                             <li key={idx} className="flex items-start gap-2">
                                               <span className="w-1 h-1 rounded-full bg-emerald-500 mt-1 flex-shrink-0" />
@@ -2770,7 +2737,7 @@ export default function TourDetail() {
                                         </ul>
                                       )}
                                       {extra.note && (
-                                        <p className="text-[10px] text-gray-700">
+                                        <p className="text-[10px] text-slate-600">
                                           {renderWithInclusionHighlight(extra.note)}
                                         </p>
                                       )}
@@ -2788,110 +2755,112 @@ export default function TourDetail() {
               );
             }
 
-            // Diğer günler: görselli koyu arka planlı kart
+            // Diğer günler: yalnızca program kartı (rehberli gün)
             return (
-              <div key={day.day} className="max-w-6xl mr-auto">
-                <div className="relative rounded-2xl overflow-hidden shadow group">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transform group-hover:scale-105 transition-transform duration-700"
-                    style={{
-                      backgroundImage: `url(${dayBgImage})`,
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-colors duration-300" />
-                  <div className="relative p-5 md:p-6 flex gap-4 md:gap-6 text-white">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-emerald-500 to-sky-500 text-white flex items-center justify-center text-[13px] md:text-sm font-semibold shadow-lg">
-                        {day.day}. Gün
-                      </div>
+              <div key={day.day} className="relative w-full">
+                {/* Rehberli gün kartı – masaüstünde sağdan sayfa bitişine kadar uzar */}
+                <div className="relative overflow-hidden rounded-lg bg-slate-300 text-slate-900 shadow-sm border border-slate-400 p-4 md:p-5 md:pr-[18rem] lg:pr-[22rem] flex gap-4 md:gap-6 ml-0 md:ml-0 lg:ml-0 mr-0 md:mr-[150px]">
+                  {/* Sağ tarafta arka plan görseli (rehberli gün kartının üstünde) */}
+                  <div className="pointer-events-none hidden md:block absolute inset-y-0 right-0 md:w-[18rem] lg:w-[22rem] z-20">
+                    <img
+                      src={dayBgImage}
+                      alt=""
+                      className="w-full h-full object-cover -translate-x-[40px]"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="relative z-10 w-full flex gap-4 md:gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-emerald-500 to-sky-500 text-white flex items-center justify-center text-[13px] md:text-sm font-semibold shadow-lg">
+                      {day.day}. Gün
                     </div>
-                    <div className="flex-1">
-                      <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
-                        <div className="md:flex-1">
-                          <h3 className="font-semibold text-lg md:text-xl mb-2 drop-shadow-md">{day.title}</h3>
-                          <ul className="space-y-1.5 mb-1">
-                            {day.activities.map((activity, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-sm">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 mt-1.5 flex-shrink-0" />
-                                <span className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
-                                  {renderWithInclusionHighlight(activity)}
-                                </span>
-                              </li>
-                            ))}
-                          </ul>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch">
+                      <div className="md:flex-1">
+                        <h3 className="font-semibold text-lg md:text-xl mb-2">{day.title}</h3>
+                        <ul className="space-y-1.5 mb-1">
+                          {day.activities.map((activity, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0" />
+                              <span>{renderWithInclusionHighlight(activity)}</span>
+                            </li>
+                          ))}
+                        </ul>
                         </div>
-
-                        {Array.isArray(day.optionalExtras) && day.optionalExtras.length > 0 && (
-                          <div className="w-full md:w-72 lg:w-80 flex-shrink-0">
-                            {day.optionalExtras.map((extra) => {
-                              const extraKey = `${day.day}-${extra.id}`;
-                              const isOpen = openOptionalExtraId === extraKey;
-                              return (
-                                <div
-                                  key={extra.id}
-                                  data-optional-extra-card
-                                  className="bg-white/10 rounded-2xl border border-white/20 p-3 text-xs md:text-sm shadow-sm backdrop-blur-[2px]"
-                                >
-                                  <button
-                                    type="button"
-                                    onClick={() =>
-                                      setOpenOptionalExtraId((prev) => (prev === extraKey ? null : extraKey))
-                                    }
-                                    className="w-full text-left flex items-center justify-between gap-2"
-                                  >
-                                    <div>
-                                      <p className="inline-flex items-center px-2 py-0.5 rounded-full bg-black/35 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-100 mb-1">
-                                        Opsiyonel Ekstra Aktivite (Ücretli)
-                                      </p>
-                                      <p className="font-semibold leading-snug text-white">
-                                        {extra.title}
-                                      </p>
-                                      {extra.shortDescription && (
-                                        <p className="text-[11px] text-white/85 mt-0.5">
-                                          {extra.shortDescription}
-                                        </p>
-                                      )}
-                                      <p className="text-[10px] text-red-300 mt-1">
-                                        {isOpen
-                                          ? "Detayları kapatmak için tekrar tıklayabilirsiniz."
-                                          : "Detayları görmek için karta tıklayabilirsiniz."}
-                                      </p>
-                                    </div>
-                                    <span className="text-base font-semibold text-white/80">
-                                      {isOpen ? "−" : "+"}
-                                    </span>
-                                  </button>
-
-                                  {isOpen && (
-                                    <div className="mt-2 pt-2 border-t border-white/15 space-y-1.5">
-                                      {extra.priceNote && (
-                                        <p className="text-[11px] font-semibold text-amber-200">
-                                          {renderWithInclusionHighlight(extra.priceNote)}
-                                        </p>
-                                      )}
-                                      {Array.isArray(extra.details) && extra.details.length > 0 && (
-                                        <ul className="space-y-1.5 text-[11px] text-white/90">
-                                          {extra.details.map((item, idx) => (
-                                            <li key={idx} className="flex items-start gap-2">
-                                              <span className="w-1 h-1 rounded-full bg-emerald-300 mt-1 flex-shrink-0" />
-                                              <span>{renderWithInclusionHighlight(item)}</span>
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      )}
-                                      {extra.note && (
-                                        <p className="text-[10px] text-white/80">
-                                          {renderWithInclusionHighlight(extra.note)}
-                                        </p>
-                                      )}
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
                       </div>
+
+                      {Array.isArray(day.optionalExtras) && day.optionalExtras.length > 0 && (
+                        <div className="w-full md:w-72 lg:w-80 flex-shrink-0">
+                          {day.optionalExtras.map((extra) => {
+                            const extraKey = `${day.day}-${extra.id}`;
+                            const isOpen = openOptionalExtraId === extraKey;
+                            return (
+                              <div
+                                key={extra.id}
+                                data-optional-extra-card
+                                className="bg-white rounded-lg border border-slate-200 p-3 text-xs md:text-sm shadow-sm"
+                              >
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setOpenOptionalExtraId((prev) => (prev === extraKey ? null : extraKey))
+                                  }
+                                  className="w-full text-left flex items-center justify-between gap-2"
+                                >
+                                  <div>
+                                    <p className="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-100 text-[10px] font-semibold uppercase tracking-[0.16em] text-emerald-800 mb-1">
+                                      Opsiyonel Ekstra Aktivite (Ücretli)
+                                    </p>
+                                    <p className="font-semibold leading-snug text-slate-900">
+                                      {extra.title}
+                                    </p>
+                                    {extra.shortDescription && (
+                                      <p className="text-[11px] text-slate-600 mt-0.5">
+                                        {extra.shortDescription}
+                                      </p>
+                                    )}
+                                    <p className="text-[10px] text-rose-600 mt-1">
+                                      {isOpen
+                                        ? "Detayları kapatmak için tekrar tıklayabilirsiniz."
+                                        : "Detayları görmek için karta tıklayabilirsiniz."}
+                                    </p>
+                                  </div>
+                                  <span className="text-base font-semibold text-emerald-700">
+                                    {isOpen ? "−" : "+"}
+                                  </span>
+                                </button>
+
+                                {isOpen && (
+                                  <div className="mt-2 pt-2 border-t border-slate-200 space-y-1.5">
+                                    {extra.priceNote && (
+                                      <p className="text-[11px] font-semibold text-emerald-800">
+                                        {renderWithInclusionHighlight(extra.priceNote)}
+                                      </p>
+                                    )}
+                                    {Array.isArray(extra.details) && extra.details.length > 0 && (
+                                      <ul className="space-y-1.5 text-[11px] text-slate-700">
+                                        {extra.details.map((item, idx) => (
+                                          <li key={idx} className="flex items-start gap-2">
+                                            <span className="w-1 h-1 rounded-full bg-emerald-500 mt-1 flex-shrink-0" />
+                                            <span>{renderWithInclusionHighlight(item)}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                    {extra.note && (
+                                      <p className="text-[10px] text-slate-600">
+                                        {renderWithInclusionHighlight(extra.note)}
+                                      </p>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
