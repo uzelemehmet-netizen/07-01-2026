@@ -42,14 +42,14 @@ export const TOURS_CONFIG = [
 		name: "Lombok Adası",
 		description:
 			"Bali'nin sakin kız kardeşi Lombok, el değmemiş plajları ve Rinjani Yanardağı ile macera severleri bekliyor.",
-		duration: "5 Gece 6 Gün",
+		duration: "6 Gece 7 Gün",
 		concept: "Doğa & Plaj",
-		suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Sörf"],
+		suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Sörf", "Adrenalin", "Su Sporları", "Lüks & Dinlenme"],
 		includes: [
-			"Konaklama",
-			"Transferler",
-			"Kahvaltı (opsiyonel)",
-			"Aktiviteler & geziler",
+			"İstanbul çıkışlı gidiş-dönüş uçak bileti",
+			"Gili ve sahil bölgesinde 6 gece konaklama",
+			"Her gün otelde sabah kahvaltısı",
+			"Programdaki seçili rehberli günler ve transferler",
 		],
 		dateRange: "Sezonluk dönemlerde",
 		price: 3299,
@@ -96,14 +96,13 @@ export const TOURS_CONFIG = [
 		name: "Komodo Adası",
 		description:
 			"UNESCO Dünya Mirası Komodo Ulusal Parkı, Komodo ejderleri, pembe kumsallar ve turkuaz koylarıyla vahşi doğa ve tekne turu deneyimini bir arada sunar.",
-		duration: "3 Gece 4 Gün",
-		concept: "Doğa & Macera",
-		suitableFor: ["Doğa & Macera", "Yaban Hayatı", "Dalış", "Fotoğrafçılık"],
+		duration: "6 Gece 7 Gün",
+		concept: "Doğa & Plaj",
+		suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Sörf", "Adrenalin", "Su Sporları", "Lüks & Dinlenme"],
 		includes: [
-			"Konaklama",
-			"Transferler",
-			"Kahvaltı (opsiyonel)",
-			"Aktiviteler & geziler",
+			"İstanbul çıkışlı gidiş-dönüş uçak bileti",
+			"Her gün otelde sabah kahvaltısı",
+			"Programdaki rehberli günler ve transferler",
 		],
 		dateRange: "Belirli sezonlarda, sınırlı tekne kontenjanı ile",
 		price: 3899,
@@ -115,15 +114,15 @@ export const TOURS_CONFIG = [
 		name: "Sulawesi Adası",
 		description:
 			"Tana Toraja gelenekleri, Makassar sahilleri ve Wakatobi'nin dünyaca ünlü dalış noktalarıyla kültür ve deniz deneyimini birleştiren geniş kapsamlı bir rota.",
-		duration: "9 Gece 10 Gün",
-		concept: "Kültür & Dalış",
-		suitableFor: ["Doğa & Macera", "Kültürel Keşif", "Dalış", "Yaban Hayatı"],
-		includes: [
-			"Konaklama",
-			"Transferler",
-			"Kahvaltı (opsiyonel)",
-			"Aktiviteler & geziler",
-		],
+			duration: "6 Gece 7 Gün",
+			concept: "Doğa & Plaj",
+			suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Sörf", "Adrenalin", "Su Sporları", "Lüks & Dinlenme"],
+			includes: [
+				"İstanbul çıkışlı gidiş-dönüş uçak bileti",
+				"Gili ve sahil bölgesinde 6 gece konaklama",
+				"Her gün otelde sabah kahvaltısı",
+				"Programdaki seçili rehberli günler ve transferler",
+			],
 		dateRange: "Özel tarihler ve resmi tatillere göre planlanır",
 		price: 4199,
 		image:
@@ -157,10 +156,97 @@ export default function Tours() {
 
 				// Tarih bilgisini de temel listeye yansıt
 				setTours((prev) =>
-					prev.map((tour) => ({
-						...tour,
-						dateRange: overrides[tour.id]?.dateRange || tour.dateRange || "",
-					})),
+					prev.map((tour) => {
+						const o = overrides[tour.id] || {};
+						// Eğer admin panelinden startDate / endDate geliyorsa, okunabilir dateRange hazırla
+						let dateRange = o.dateRange || tour.dateRange || "";
+						// Desteklenen farklı admin alan adları için esnek start/end okuma
+						const possibleStart = o.startDate || o.start_date || o.start || o.sDate || o.s_date || o.startAt || o.start_at || (o.dates && o.dates.start) || null;
+						const possibleEnd = o.endDate || o.end_date || o.end || o.eDate || o.e_date || o.endAt || o.end_at || (o.dates && o.dates.end) || null;
+						if (possibleStart && possibleEnd) {
+							try {
+								const sRaw = possibleStart;
+								const eRaw = possibleEnd;
+								const s = typeof sRaw?.toDate === "function" ? sRaw.toDate() : new Date(sRaw);
+								const e = typeof eRaw?.toDate === "function" ? eRaw.toDate() : new Date(eRaw);
+								if (!isNaN(s) && !isNaN(e)) {
+									const msPerDay = 1000 * 60 * 60 * 24;
+									const days = Math.round((e - s) / msPerDay) + 1;
+									const nights = Math.max(0, days - 1);
+									const fmt = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
+									const startFmt = fmt.format(s);
+									const endFmt = fmt.format(e);
+									dateRange = `Planlanan tarih: ${startFmt} - ${endFmt} (${days} gün / ${nights} gece)`;
+								}
+							} catch (err) {
+								// parsing hatası olursa mevcut dateRange bırakılır
+							}
+						} else if (o.dateRange && typeof o.dateRange === "string") {
+							// Eğer admin doğrudan okunabilir bir dateRange string'i girmişse, olası '-'' ile ayrılmış tarihleri parse etmeye çalış
+							const parseDateFlexible = (input) => {
+								if (!input) return null;
+								const s = input.toString().trim();
+								let d = new Date(s);
+								if (!isNaN(d)) return d;
+								const monthsTR = {
+									ocak: 'January', şubat: 'February', mart: 'March', nisan: 'April', mayıs: 'May', haziran: 'June',
+									temmuz: 'July', temmuz: 'July', ağustos: 'August', agustos: 'August', eylül: 'September', ekim: 'October', kasım: 'November', aralık: 'December'
+								};
+
+								const isReasonableDate = (d) => {
+									return d instanceof Date && !isNaN(d) && d.getFullYear && d.getFullYear() >= 2000 && d.getFullYear() <= 2100;
+								};
+								let replaced = s.toLowerCase();
+								Object.keys(monthsTR).forEach((tr) => {
+									const eng = monthsTR[tr];
+									replaced = replaced.replace(new RegExp(tr, 'g'), eng);
+								});
+								d = new Date(replaced);
+								if (!isNaN(d)) return d;
+								const m = s.match(/(\d{1,2})[\.\-/ ](\d{1,2})[\.\-/ ](\d{2,4})/);
+								if (m) {
+									const day = Number(m[1]);
+									const month = Number(m[2]) - 1;
+									let year = Number(m[3]);
+									if (year < 100) year += 2000;
+									return new Date(year, month, day);
+								}
+								const m2 = replaced.match(/(\d{1,2})\s+([A-Za-z]+)\s*(\d{4})?/);
+								if (m2) {
+									const day = Number(m2[1]);
+									const monthName = m2[2];
+									const year = m2[3] ? Number(m2[3]) : new Date().getFullYear();
+									const tryDate = new Date(`${monthName} ${day}, ${year}`);
+									if (!isNaN(tryDate)) return tryDate;
+								}
+								return null;
+							};
+							const parts = o.dateRange.split(/–|—|\-|to/).map((p) => p.trim());
+							if (parts.length >= 2) {
+								try {
+									const s = parseDateFlexible(parts[0]);
+									const e = parseDateFlexible(parts[1]);
+									if (isReasonableDate(s) && isReasonableDate(e)) {
+										const msPerDay = 1000 * 60 * 60 * 24;
+										const days = Math.round((e - s) / msPerDay) + 1;
+										if (days > 0 && days < 1000) {
+											const nights = Math.max(0, days - 1);
+											const fmt = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
+											const startFmt = fmt.format(s);
+											const endFmt = fmt.format(e);
+											dateRange = `Planlanan tarih: ${startFmt} - ${endFmt} (${days} gün / ${nights} gece)`;
+										}
+									}
+								} catch (err) {
+									// ignore
+								}
+							}
+						}
+						return {
+							...tour,
+							dateRange,
+						};
+					}),
 				);
 			} catch (error) {
 				console.error("Tur ayarları yüklenirken hata:", error);
@@ -344,16 +430,29 @@ export default function Tours() {
 						const discountedPrice = hasDiscount
 							? Math.round(basePrice * (1 - discountPercent / 100))
 							: basePrice;
-						// Kart üzerinde gösterilecek referans fiyat: Bali için paketlerin en düşüğü, diğerleri için standart indirimli fiyat
+						// Kart üzerinde gösterilecek referans fiyat: mümkünse paketlerin 'temel' (keşif) paket fiyatı, yoksa indirimli/base fiyat
 						let displayPrice = discountedPrice;
-						if (tour.id === "bali" && basePrice) {
-							const multipliers = [0.7, 0.85, 1];
-							const packageBasePrices = multipliers.map((m) => Math.round(basePrice * m));
-							const packageFinalPrices = packageBasePrices.map((p) =>
-								hasDiscount ? Math.round(p * (1 - discountPercent / 100)) : p,
-							);
-							if (packageFinalPrices.length > 0) {
-								displayPrice = Math.min(...packageFinalPrices);
+						if (basePrice) {
+							const sourcePackages = override.packages && Array.isArray(override.packages) && override.packages.length > 0
+								? override.packages
+								: tour.packages && Array.isArray(tour.packages) && tour.packages.length > 0
+								? tour.packages
+								: null;
+
+							if (sourcePackages) {
+								// 'temel' seviyesini veya id'de 'basic' geçen paketi bul
+								const basicPkg = sourcePackages.find(
+									(p) => (p.level && p.level.toString().toLowerCase() === "temel") || (p.id && p.id.toString().toLowerCase().includes("basic")),
+								);
+								const chosen = basicPkg || sourcePackages[0];
+								const multiplier = chosen && typeof chosen.priceMultiplier === "number" ? chosen.priceMultiplier : 1;
+								const pkgBase = Math.round(basePrice * multiplier);
+								displayPrice = hasDiscount ? Math.round(pkgBase * (1 - discountPercent / 100)) : pkgBase;
+							} else {
+								// Eğer paket bilgisi yoksa varsayılan olarak 'temel' paket multiplier'ı kullan (0.7)
+								const defaultMultiplier = 0.7;
+								const pkgBase = Math.round(basePrice * defaultMultiplier);
+								displayPrice = hasDiscount ? Math.round(pkgBase * (1 - discountPercent / 100)) : pkgBase;
 							}
 						}
 						const promoLabel = override.promoLabel || "";
@@ -429,7 +528,7 @@ export default function Tours() {
 										<div className="mr-2">
 											<p>{tour.duration}</p>
 											<div className="text-[11px] text-gray-600 mt-0.5 space-y-0.5">
-												{tour.id === "bali" ? (
+												{(tour.id === "bali" || tour.id === "lombok") ? (
 													<>
 														<p>4–5 yıldızlı otel konaklaması</p>
 														<p>2 kişilik oda paylaşımı (çift veya arkadaş)</p>
@@ -449,22 +548,26 @@ export default function Tours() {
 										<div className="inline-block rounded-2xl bg-gradient-to-l from-emerald-600/90 to-emerald-500/80 px-3 py-2 text-right min-w-[150px] shadow-sm">
 											{basePrice ? (
 												<>
-													{/* Üst satır: indirim varsa eski fiyat, yoksa 'Toplam' etiketi */}
-													<p
-														className={`text-sm font-semibold mb-0.5 ${hasDiscount ? "text-black line-through" : "text-white/90"}`}
-													>
-														{hasDiscount ? `$${basePrice}` : "Toplam"}
-													</p>
-													{/* Orta satır: her zaman görünen ana fiyat */}
-													<p className="text-xl font-bold text-white">
+													<div className="flex flex-col items-end">
+														{/* Üst satır: indirim varsa eski fiyat, yoksa 'Toplam' etiketi */}
+														<p className={`text-sm font-semibold mb-0.5 ${hasDiscount ? "text-black line-through" : "text-white/90"}`}>
+															{hasDiscount ? `$${basePrice}` : "Toplam"}
+														</p>
+														{/* Başlayan fiyatlarla üst etiketi (sadece Lombok) - aynı hizaya yerleştirildi */}
+														{tour.id === "lombok" && (
+															<p className="text-sm text-white/90 mb-1">Başlayan fiyatlarla</p>
+														)}
+													</div>
+													{/* Orta satır: ana fiyat */}
+													<p className="text-xl font-bold text-white whitespace-nowrap">
 														${displayPrice}
-														<span className="text-[10px] font-normal ml-1 align-middle">
-															{tour.id === "bali"
+														<span className="ml-1 text-[10px] font-normal align-middle whitespace-nowrap">
+															{(tour.id === "bali" || tour.id === "lombok")
 																? "(kişi başı 850 USD'ye kadar uçak bileti dahil)"
 																: "(uçak bileti hariç)"}
 														</span>
 													</p>
-													{/* Alt satır: açıklama metni, indirim varsa % oranlı, yoksa kişi başı toplam fiyat */}
+													{/* Alt satır: açıklama metni */}
 													<p className="text-[11px] text-white/90">
 														{hasDiscount
 															? `Kişi başı, rezervasyonunu tamamlayan ilk 5 kişi için %${discountPercent} indirimli özel fiyat`
@@ -499,6 +602,11 @@ export default function Tours() {
 												{tour.id === "bali" && (
 													<p className="mt-1 text-[11px] text-gray-600">
 														Program kapsamındaki otel konaklamaları ve her gün sabah kahvaltısı fiyata dahildir; 2. ve 4. gün rehberli programlarda grup halinde öğle yemeği dahildir. Diğer öğünler ve otel dışındaki yiyecek-içecek harcamaları tura dahil değildir.
+													</p>
+												)}
+												{tour.id === "lombok" && (
+													<p className="mt-1 text-[11px] text-gray-600">
+														Lombok rotasında konaklamalar Gili ve sahil bölgelerinde planlanır; kahvaltılar fiyata dahil olup bölgesel transferler ve seçili doğa turları programa dahildir. Özel su sporu aktiviteleri ve bazı rehberli deneyimler paket kapsamında olmayabilir ve opsiyonel ek hizmet olarak sunulur.
 													</p>
 												)}
 											</div>
