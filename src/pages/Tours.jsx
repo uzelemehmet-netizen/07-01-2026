@@ -56,24 +56,6 @@ export const TOURS_CONFIG = [
 		image: "/lombok-island-beach-waterfall.jpg",
 	},
 	{
-		id: "sumatra",
-		name: "Sumatra Adası",
-		description:
-			"Vahşi Sumatra, yağmur ormanları, orangutanlar ve etkileyici Toba Gölü ile eşsiz bir doğa deneyimi sunuyor.",
-		duration: "6 Gece 7 Gün",
-		concept: "Doğa & Macera",
-		suitableFor: ["Doğa & Macera", "Kültürel Keşif", "Yaban Hayatı"],
-		includes: [
-			"Konaklama",
-			"Transferler",
-			"Kahvaltı (opsiyonel)",
-			"Aktiviteler & geziler",
-		],
-		dateRange: "Belirli dönemlerde sınırlı kontenjanla",
-		price: 3499,
-		image: "/sumatra-rainforest-orangutan-lake-toba.jpg",
-	},
-	{
 		id: "java",
 		name: "Java Adası",
 		description:
@@ -90,6 +72,24 @@ export const TOURS_CONFIG = [
 		dateRange: "Resmi ve okul tatillerine göre planlanır",
 		price: 3199,
 		image: "/java-borobudur-temple-volcano-sunrise.jpg",
+	},
+	{
+		id: "sumatra",
+		name: "Sumatra Adası",
+		description:
+			"Vahşi Sumatra, yağmur ormanları, orangutanlar ve etkileyici Toba Gölü ile eşsiz bir doğa deneyimi sunuyor.",
+		duration: "6 Gece 7 Gün",
+		concept: "Doğa & Macera",
+		suitableFor: ["Doğa & Macera", "Kültürel Keşif", "Yaban Hayatı"],
+		includes: [
+			"Konaklama",
+			"Transferler",
+			"Kahvaltı (opsiyonel)",
+			"Aktiviteler & geziler",
+		],
+		dateRange: "Belirli dönemlerde sınırlı kontenjanla",
+		price: 3499,
+		image: "/sumatra-rainforest-orangutan-lake-toba.jpg",
 	},
   {
 		id: "komodo",
@@ -190,7 +190,7 @@ export default function Tours() {
 								if (!isNaN(d)) return d;
 								const monthsTR = {
 									ocak: 'January', şubat: 'February', mart: 'March', nisan: 'April', mayıs: 'May', haziran: 'June',
-									temmuz: 'July', temmuz: 'July', ağustos: 'August', agustos: 'August', eylül: 'September', ekim: 'October', kasım: 'November', aralık: 'December'
+									temmuz: 'July', ağustos: 'August', agustos: 'August', eylül: 'September', ekim: 'October', kasım: 'November', aralık: 'December'
 								};
 
 								const isReasonableDate = (d) => {
@@ -410,6 +410,11 @@ export default function Tours() {
 			<section className="pb-16 px-4 max-w-6xl mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 					{tours.map((tour) => {
+						const formatUSD = (value) => {
+							if (typeof value !== "number" || !isFinite(value)) return "";
+							return `$${Math.round(value)}`;
+						};
+
 						const override = tourOverrides[tour.id] || {};
 
 						const basePriceRaw =
@@ -426,36 +431,40 @@ export default function Tours() {
 								? override.discountPercent
 								: tour.discountPercent ?? 0;
 						const discountPercent = Number(discountPercentRaw) || 0;
-						const hasDiscount = basePrice !== null && discountPercent > 0;
-						const discountedPrice = hasDiscount
-							? Math.round(basePrice * (1 - discountPercent / 100))
-							: basePrice;
-						// Kart üzerinde gösterilecek referans fiyat: mümkünse paketlerin 'temel' (keşif) paket fiyatı, yoksa indirimli/base fiyat
-						let displayPrice = discountedPrice;
-						if (basePrice) {
-							const sourcePackages = override.packages && Array.isArray(override.packages) && override.packages.length > 0
+						// Fiyat kutusunda her zaman temel/en ucuz paket baz alınsın.
+						const sourcePackages =
+							override.packages && Array.isArray(override.packages) && override.packages.length > 0
 								? override.packages
 								: tour.packages && Array.isArray(tour.packages) && tour.packages.length > 0
 								? tour.packages
 								: null;
 
-							if (sourcePackages) {
-								// 'temel' seviyesini veya id'de 'basic' geçen paketi bul
-								const basicPkg = sourcePackages.find(
-									(p) => (p.level && p.level.toString().toLowerCase() === "temel") || (p.id && p.id.toString().toLowerCase().includes("basic")),
-								);
-								const chosen = basicPkg || sourcePackages[0];
-								const multiplier = chosen && typeof chosen.priceMultiplier === "number" ? chosen.priceMultiplier : 1;
-								const pkgBase = Math.round(basePrice * multiplier);
-								displayPrice = hasDiscount ? Math.round(pkgBase * (1 - discountPercent / 100)) : pkgBase;
-							} else {
-								// Eğer paket bilgisi yoksa varsayılan olarak 'temel' paket multiplier'ı kullan (0.7)
-								const defaultMultiplier = 0.7;
-								const pkgBase = Math.round(basePrice * defaultMultiplier);
-								displayPrice = hasDiscount ? Math.round(pkgBase * (1 - discountPercent / 100)) : pkgBase;
+						let cheapestMultiplier = 0.7; // paket yoksa varsayılan 'temel' çarpan
+						if (sourcePackages) {
+							const multipliers = sourcePackages
+								.map((p) => (typeof p?.priceMultiplier === "number" ? p.priceMultiplier : null))
+								.filter((n) => typeof n === "number" && n > 0);
+							if (multipliers.length > 0) {
+								cheapestMultiplier = Math.min(...multipliers);
 							}
 						}
+
+						const pkgBasePrice = basePrice !== null ? Math.round(basePrice * cheapestMultiplier) : null;
+						const hasDiscount = pkgBasePrice !== null && discountPercent > 0;
+						const displayPrice = hasDiscount
+							? Math.round(pkgBasePrice * (1 - discountPercent / 100))
+							: pkgBasePrice;
 						const promoLabel = override.promoLabel || "";
+						const discountNote = hasDiscount
+							? (() => {
+								const promoText = promoLabel ? promoLabel.trim() : "";
+								if (promoText) {
+									const hasPercentInText = /%\s*\d+/.test(promoText);
+									return hasPercentInText ? promoText : `${promoText} %${discountPercent}`;
+								}
+								return `Kişi başı, rezervasyonunu tamamlayan ilk 5 kişi için %${discountPercent} indirimli özel fiyat`;
+							})()
+							: "Kişi başı güncel fiyat";
 
 						const heroKey = `${tour.id}-tour-hero`;
 						const heroImage =
@@ -506,7 +515,7 @@ export default function Tours() {
 									<div className="absolute bottom-0 left-0 right-0 p-5 flex justify-between items-end gap-3 text-left">
 										<div>
 											<h2 className="text-2xl font-bold text-white mb-1">{tour.name}</h2>
-											<p className="text-xs text-white/90 line-clamp-2 md:line-clamp-3">{tour.description}</p>
+																	<p className="text-xs text-white/90 line-clamp-2 md:line-clamp-3">{tour.description}</p>
 										</div>
 									</div>
 								</Link>
@@ -545,39 +554,41 @@ export default function Tours() {
 												)}
 											</div>
 										</div>
-										<div className="inline-block rounded-2xl bg-gradient-to-l from-emerald-600/90 to-emerald-500/80 px-3 py-2 text-right min-w-[150px] shadow-sm">
-											{basePrice ? (
-												<>
-													<div className="flex flex-col items-end">
-														{/* Üst satır: indirim varsa eski fiyat, yoksa 'Toplam' etiketi */}
-														<p className={`text-sm font-semibold mb-0.5 ${hasDiscount ? "text-black line-through" : "text-white/90"}`}>
-															{hasDiscount ? `$${basePrice}` : "Toplam"}
-														</p>
-														{/* Başlayan fiyatlarla üst etiketi (sadece Lombok) - aynı hizaya yerleştirildi */}
-														{tour.id === "lombok" && (
-															<p className="text-sm text-white/90 mb-1">Başlayan fiyatlarla</p>
-														)}
-													</div>
-													{/* Orta satır: ana fiyat */}
-													<p className="text-xl font-bold text-white whitespace-nowrap">
-														${displayPrice}
-														<span className="ml-1 text-[10px] font-normal align-middle whitespace-nowrap">
-															{(tour.id === "bali" || tour.id === "lombok")
-																? "(kişi başı 850 USD'ye kadar uçak bileti dahil)"
-																: "(uçak bileti hariç)"}
+										<div className="flex flex-col items-end w-full sm:w-[220px]">
+											<div className="inline-block rounded-2xl bg-gradient-to-l from-emerald-600/90 to-emerald-500/80 px-3 py-2 text-right shadow-sm w-full min-h-[112px] flex flex-col justify-center">
+												{pkgBasePrice ? (
+													<>
+														<div className="flex flex-col items-end">
+															<p className={`text-sm font-semibold mb-0.5 ${hasDiscount ? "text-white line-through decoration-red-500 decoration-1" : "text-white/90"}`}>
+																{hasDiscount ? formatUSD(pkgBasePrice) : "Toplam"}
+															</p>
+														</div>
+														<p className="text-xl font-bold text-white whitespace-nowrap leading-none">
+															<span className="block">
+																{hasDiscount ? (
+																	<span className="inline-flex items-baseline gap-1">
+																		<span className="text-[10px] font-semibold text-white/90 whitespace-nowrap">İndirimli fiyat</span>
+																		<span>{formatUSD(displayPrice)}</span>
+																	</span>
+																) : (
+																formatUSD(displayPrice)
+															)}
+														</span>
+														<span className="block text-[10px] font-normal text-white/90 leading-none">
+															kişi başı 850 USD'ye kadar uçak bileti dahil
 														</span>
 													</p>
-													{/* Alt satır: açıklama metni */}
+													<p className="text-sm text-white/90 mt-0.5">Başlayan fiyatlarla</p>
 													<p className="text-[11px] text-white/90">
-														{hasDiscount
-															? `Kişi başı, rezervasyonunu tamamlayan ilk 5 kişi için %${discountPercent} indirimli özel fiyat`
-															: "Kişi başı güncel fiyat"}
+														{discountNote}
 													</p>
 												</>
 											) : (
 												<p className="text-[11px] text-white/90">Fiyat bilgisi yakında</p>
 											)}
 										</div>
+
+									</div>
 									</div>
 
 									{/* Alt bilgi ve CTA bloğunu kartın altına sabitle */}

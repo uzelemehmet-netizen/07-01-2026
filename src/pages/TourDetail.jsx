@@ -656,7 +656,7 @@ const toursData = {
   },
   sumatra: {
     name: "Sumatra Adası",
-    hero: "/placeholder.svg?height=800&width=1600",
+    hero: "/sumatra-rainforest-orangutan-lake-toba.jpg",
     summary:
       "Vahşi ve el değmemiş Sumatra, dünyanın en büyük volkanik gölü Toba, orangutanların doğal yaşam alanı olan yağmur ormanları ve benzersiz Batak kültürü ile gerçek bir macera vadediyor. Dünyada başka hiçbir yerde bulamayacağınız otantik bir deneyim.",
     suitableFor: ["Doğa & Macera", "Kültürel Keşif", "Yaban Hayatı", "Fotoğrafçılık"],
@@ -790,90 +790,202 @@ const toursData = {
       { name: "Sipiso-piso", description: "Muhteşem şelale" },
     ],
     gallery: [
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
+      "/sumatra-rainforest-orangutan-lake-toba.jpg",
+      "/ernests-vaga-mzJFI9o5_zc-unsplash.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
     ],
   },
   java: {
     name: "Java Adası",
-    hero:
-      "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    hero: "/java-borobudur-temple-volcano-sunrise.jpg",
     summary:
-      "Endonezya'nın kültürel kalbi Java, UNESCO Dünya Mirası Borobudur ve Prambanan tapınakları, aktif yanardağlar, çay plantasyonları ve canlı başkent Jakarta ile tarih, kültür ve doğayı mükemmel bir şekilde harmanlıyor.",
-    suitableFor: ["Kültürel Keşif", "Tarih", "Fotoğrafçılık", "Şehir Turu"],
-    duration: "5 Gece 6 Gün",
-    concept: "Kültürel Keşif",
+      "Java'yı klasik bir 'tek şehir turu' gibi değil; Jakarta'dan başlayıp Bandung'un yaylalarına, Pangandaran'ın nehir & kanyonlarına ve Yogyakarta'nın kültür rotalarına uzanan, az konaklama noktasıyla çok farklı atmosfer sunan konforlu bir road trip olarak yaşayın.",
+    suitableFor: ["Road Trip", "Kültürel Keşif", "Doğa & Macera", "Fotoğrafçılık", "Şehir Turu"],
+    duration: "10 Gece 11 Gün",
+    concept: "Road Trip & Şehirler",
     price: "3.199",
+    notes: {
+      freeTime:
+        "Serbest günler; şehri kendi ritminizde keşfetmeniz, alışveriş ve kafe/restoran planınızı özgürce yapabilmeniz için bilerek esnek bırakılır. Dilerseniz bu zamanlara opsiyonel duraklar ve deneyimler eklenebilir.",
+      discipline:
+        "Programın sağlıklı ilerlemesi için zamanlamaya uyum ve grup düzenine saygı esastır. Güvenlik brifingleri ve rehber yönlendirmelerine uyulması beklenir. Önemli bilgilendirme notu (mutlaka okuyun): Seçmiş olduğunuz bu Java turu, kısa rota geçişleri dışında kalan uzun bir kara yolu yolculuğu da kapsamındadır. Bu nedenle küçük çocuklu ailelerin, 50 yaş üzeri misafirlerin, kara yolu yolculuğunu sevmeyen kişilerin ve tatil beklentisi ağırlıklı olarak su sporları/adrenalin/gece kulüpleri olan kişilerin katılması tavsiye edilmez. Bu tur; uzun yolculukları seven, doğa turizmini, tarihi ve kültürel gezileri önemseyen ve yeni kültürler öğrenmeye açık misafirler için tasarlanmıştır.",
+    },
+    packages: [
+      {
+        id: "temel",
+        level: "temel",
+        name: "Temel Paket",
+        badge: "Bu turda sunulmaz",
+        headline: "Bu Java turu yalnızca Premium paket olarak planlanmıştır.",
+        priceMultiplier: 0,
+        highlights: [],
+        notes: "Bu paket satışta değildir; fiyatlandırma 0 olarak gösterilir.",
+      },
+      {
+        id: "plus",
+        level: "plus",
+        name: "Standart Paket",
+        badge: "Bu turda sunulmaz",
+        headline: "Bu Java turu yalnızca Premium paket olarak planlanmıştır.",
+        priceMultiplier: 0,
+        highlights: [],
+        notes: "Bu paket satışta değildir; fiyatlandırma 0 olarak gösterilir.",
+      },
+      {
+        id: "premium",
+        level: "premium",
+        name: "Premium Paket",
+        badge: "Aktif paket",
+        headline: "Bu Java turunun planlanan tek paketidir.",
+        priceMultiplier: 1,
+        highlights: [
+          "Bu sayfadaki gün gün program Premium paket içindir.",
+          "Rota, konaklama standardı ve operasyon planı Premium seviyeye göre kurgulanır.",
+        ],
+        notes:
+          "Net hizmet kapsamı ve operasyon detayları; tarih, kişi sayısı ve tercihlere göre rezervasyon öncesinde yazılı olarak paylaşılır.",
+      },
+    ],
     itinerary: [
       {
         day: 1,
-        title: "Java'ya Hoşgeldiniz - Jakarta",
+        title: "Jakarta Varış, Dinlenme ve Serbest Zaman",
         activities: [
-          "İstanbul'dan Jakarta'ya uçuş",
-          "Havalimanı karşılama ve transfer",
-          "Jakarta şehir turu (Monas, Kota Tua)",
-          "Otel check-in",
-          "Jakarta gece hayatı tanıtımı",
+          "İstanbul'dan Jakarta'ya varış (uçuş detayları teklif aşamasında netleşir)",
+          "Havalimanında karşılama, kısa bilgilendirme ve otele transfer",
+          "Otele giriş (check-in) ve yolculuk sonrası dinlenme",
+          "Dileyenler için kısa şehir tanışması (zaman ve enerjiye göre): Monas çevresi veya Kota Tua bölgesi",
+          "Akşam: serbest zaman (dinlenme / kısa yürüyüş / opsiyonel akşam yemeği önerileri)",
         ],
         accommodation: "The Hermitage Jakarta (5⭐)",
       },
       {
         day: 2,
-        title: "Yogyakarta - Kültür Başkenti",
+        title: "Serbest Gün – Jakarta → Bandung (Tren) Geçişi ve Serbest Akşam",
         activities: [
-          "Jakarta'dan Yogyakarta'ya uçuş",
-          "Kraton Sarayı ziyareti",
-          "Taman Sari Su Sarayı",
-          "Malioboro sokağı alışveriş",
-          "Geleneksel Javanese yemeği",
-          "Batik yapım workshop",
+          "Kahvaltı sonrası saat 10:25 Whoosh hızlı treni ile Bandung şehrine hareket",
+          "11:15 Bandung şehrine varış",
+          "11:35 otele geçiş, check-in işlemleri ve kısa dinlenme",
+          "Öğle yemeği (grup planına göre)",
+          "Ardından kısa Bandung şehir turu (dileyen misafirler günü tamamen serbest geçirebilir)",
+          "Akşama doğru otele dönüş ve serbest zaman",
         ],
-        accommodation: "The Phoenix Hotel Yogyakarta (5⭐)",
+        accommodation: "Bandung şehir merkezinde seçili otel (4⭐/5⭐)",
       },
       {
         day: 3,
-        title: "Borobudur ve Prambanan",
+        title: "Ciwidey Yaylaları – Çay Bahçeleri, Situ Patengan ve Rengganis Asma Köprü (Rehberli Gün)",
         activities: [
-          "Sabah erken Borobudur gün doğumu",
-          "Dünyanın en büyük Budist tapınağı turu",
-          "Mendut tapınağı",
-          "Prambanan Hindu tapınakları",
-          "Ramayana balesi gösterisi",
+          "Sabah kahvaltısından sonra otelden çıkıyoruz ve 1,5-2 saatlik araç yolculuğunun ardından Ciwidey bölgesine ulaşıyoruz",
+          "Situ Patenggang (Situ Patengan) çevresinde çay bahçeleri, göl ve yayla gezisi: piknik alanları, manzara ve fotoğraf molaları",
+          "Yerel pazar ziyareti ve alışveriş için serbest zaman",
+          "Rengganis bölgesine 10-15 dakikalık araç yolculuğu",
+          "Rengganis bölgesinde 1500 metre uzunluğundaki sallanan asma köprüden geçerken manzara ve fotoğraf molası",
+          "Günün sonunda ormanın içinde doğa harikası olan açık termal kaplıcayı keşfedebilir ve sıcak suyu deneyimleyebilirsiniz",
+          "Akşam Bandung'a dönüş ve serbest zaman",
         ],
-        accommodation: "The Phoenix Hotel Yogyakarta (5⭐)",
+        accommodation: "Bandung şehir merkezinde seçili otel (4⭐/5⭐)",
       },
       {
         day: 4,
-        title: "Bromo Yanardağı Macerası",
+        title: "Serbest Gün – Bandung Şehir ve Kişisel Tercihler",
         activities: [
-          "Gece Bromo'ya transfer",
-          "Gün doğumunda yanardağ manzarası",
-          "Bromo kraterine jeep turu",
-          "Savana yürüyüşü",
-          "Cemoro Lawang köyü",
+          "Otelde kahvaltı sonrası tamamen sizin belirlediğiniz serbest gün",
+          "Kafeler, alışveriş merkezleri ve şehir içi keşif: lokal yaşamı yakından takip edebilir, alışveriş yapabilir, bir şeyler içerek günü değerlendirebilirsiniz",
+          "Şehir içi gezileriniz için Gojek, GoCar veya Grab mobil uygulamaları ile taksi ya da motosiklet ulaşımını kolayca sağlayabilirsiniz",
+          "Serbest günlerde şehir gezileri, alışveriş, kafe ve restoranlar konusunda rehberlik talep etmeniz halinde ücret karşılığında size eşlik etmesi için rehber tedarik edilir",
+          "Dileyenler için: kısa müze/seyir noktası veya yerel pazar ziyareti (opsiyonel)",
+          "Akşam: serbest zaman",
         ],
-        accommodation: "Jiwa Jawa Resort Bromo (4⭐)",
+        accommodation: "Bandung şehir merkezinde seçili otel (4⭐/5⭐)",
       },
       {
         day: 5,
-        title: "Serbest Gün ve Alışveriş",
+        title: "Bandung → Pangandaran (Kara Yolu) ve Sahil Akşamı",
         activities: [
-          "Yogyakarta'ya dönüş",
-          "Spa ve wellness",
-          "Batik ve gümüş alışverişi",
-          "Yerel pazar gezisi",
-          "Veda yemeği ve gösteri",
+          "Kahvaltıdan sonra otelden check-out işlemleri ve Bandung şehrinden ayrılış",
+          "Bandung'dan Pangandaran'a kara yolu ile geçiş (yaklaşık 5–6 saat; mola planlanır)",
+          "Pangandaran'a varışta otel check-in işlemleri, otele yerleşme ve akşam saatine kadar dinlenme süresi",
+          "Akşama doğru sahile inip dinlenme alanlarında coconut suyu eşliğinde gün batımı keyfi",
+          "Akşam: serbest zaman",
         ],
-        accommodation: "The Phoenix Hotel Yogyakarta (5⭐)",
+        accommodation: "Pangandaran sahil bölgesinde seçili otel veya resort",
       },
       {
         day: 6,
-        title: "Veda Java",
-        activities: ["Kahvaltı ve son fotoğraflar", "Havalimanına transfer", "İstanbul'a dönüş uçuşu"],
+        title: "Pangandaran – Body Rafting & Doğa Günü (Rehberli Gün)",
+        activities: [
+          "Kahvaltı sonrası otelden ayrılıyoruz ve 45 dakikalık kara yolculuğunun ardından Citumang body rafting alanına ulaşıyoruz",
+          "Body rafting alanında kısa bir bilgilendirmenin ardından can yeleklerini giyiyoruz",
+          "Kısa bir yürüyüşün ardından başlangıç noktasına ulaşıyoruz",
+          "Rehber eşliğinde Citumang Nehri'nin sakin akıntılarına kendimizi bırakıyoruz",
+          "Yaklaşık 2 km boyunca ilerlerken bazı noktalardaki küçük atlama noktalarından atlamak etkinliğin en keyifli anlarındandır",
+          "Etkinliğin sonunda ayrılmadan önce öğle yemeği ve Pangandaran sahiline dönüp dinlenme molası",
+          "Akşam: serbest zaman",
+        ],
+        accommodation: "Pangandaran sahil bölgesinde seçili otel veya resort",
+      },
+      {
+        day: 7,
+        title: "Pangandaran Serbest Gün – Sahil & Kişisel Tercihler",
+        activities: [
+          "Kahvaltı sonrası sahilde serbest zaman",
+          "Dileyenler için opsiyonel: Green Canyon tekne/nehir rotası veya Citumang gibi alternatif doğa aktiviteleri",
+          "Kafe, deniz, dinlenme ve fotoğraf için serbest akış",
+          "Akşam: serbest zaman",
+        ],
+        accommodation: "Pangandaran sahil bölgesinde seçili otel veya resort",
+      },
+      {
+        day: 8,
+        title: "Serbest Gün – Pangandaran → Yogyakarta (Kara Yolu) ve Akşam Serbest",
+        activities: [
+          "Kahvaltı ve otelden çıkış",
+          "Pangandaran'dan Yogyakarta'ya kara yolu ile geçiş (yaklaşık 5–6 saat; mola planlanır)",
+          "Varışta check-in ve kısa dinlenme",
+          "Akşam: Malioboro çevresinde serbest yürüyüş / alışveriş (enerjiye göre)",
+        ],
+        accommodation: "Yogyakarta şehir merkezinde seçili otel (4⭐/5⭐)",
+      },
+      {
+        day: 9,
+        title: "Merapi Yanardağı Off-Road (Jeep) Turu (Rehberli Gün)",
+        activities: [
+          "Kahvaltı sonrası Merapi bölgesine doğru hareket (süre operasyon planına göre)",
+          "Jeep ile Merapi çevresinde off-road rota: lav alanları ve manzara durakları",
+          "Program akışına göre kısa müze/seyir noktası durakları (müsaitlik ve hava durumuna bağlı)",
+          "Öğle yemeği molası (operasyon planına göre)",
+          "Öğleden sonra Obelix Sea View'a geçiş: eğlence alanları, fotoğraf noktaları ve Yogyakarta manzarası",
+          "Gün batımı saatine doğru Obelix Sea View seyir terasında gün batımı keyfi (hava durumuna göre)",
+          "Akşam otele dönüş ve dinlenme",
+          "Akşam: serbest zaman",
+        ],
+        accommodation: "Yogyakarta şehir merkezinde seçili otel (4⭐/5⭐)",
+      },
+      {
+        day: 10,
+        title: "Prambanan & Plaosan Jeep Turu (Rehberli Gün)",
+        activities: [
+          "Prambanan Tapınak Kompleksi ziyareti: UNESCO mirası olan bu etkileyici Hindu tapınaklar grubunda rehber eşliğinde ana tapınakları (Şiva, Brahma ve Vişnu) geziyor; avlular, kabartmalar ve hikâye anlatan taş işlemelerini inceleyerek fotoğraf ve serbest keşif için zaman ayırıyoruz",
+          "Prambanan ziyaretinin ardından Plaosan bölgesinde jeep turu: kırsal rota, manzara durakları ve fotoğraf molaları",
+          "Öğle yemeği ve program akışına göre kısa dinlenme/mola",
+          "Akşam: serbest zaman",
+        ],
+        accommodation: "Yogyakarta şehir merkezinde seçili otel (4⭐/5⭐)",
+      },
+      {
+        day: 11,
+        title: "Borobudur Ziyareti ve Dönüş",
+        activities: [
+          "Kahvaltı ve check-out (uçuş saatine göre)",
+          "Borobudur ziyareti (saat ve giriş kuralları operasyon planına göre netleşir)",
+          "Havalimanına transfer",
+          "İstanbul'a dönüş (uçuş detayları teklif aşamasında netleşir)",
+          "Bu aşamada vedalaşıyoruz ve uzun Java yolculuğumuz tamamlanıyor",
+        ],
         accommodation: "-",
       },
     ],
@@ -881,31 +993,28 @@ const toursData = {
       {
         category: "Kültürel Deneyimler",
         items: [
-          "Antik tapınak turları",
-          "Geleneksel dans gösterileri",
-          "Batik yapım workshop",
-          "Wayang kuklası gösterisi",
-          "Javanese mutfağı dersleri",
+          "Kraton Sarayı ve geleneksel Java yaşamı",
+          "Batik tanıtımı ve atölye deneyimi",
+          "Yerel pazarlar ve sokak lezzetleri",
+          "Geleneksel dans/müzik gösterisi (opsiyonel)",
         ],
       },
       {
         category: "Tarih & Mimari",
         items: [
-          "Borobudur tapınağı",
-          "Prambanan kompleksi",
-          "Kraton Sarayı",
-          "Hollanda kolonyal yapıları",
-          "Müze ziyaretleri",
+          "Borobudur Tapınağı",
+          "Prambanan Tapınak Kompleksi",
+          "Mendut Tapınağı",
+          "Kota Tua kolonyal mimari yürüyüşü",
         ],
       },
       {
-        category: "Doğa & Macera",
+        category: "Doğa & Manzara",
         items: [
-          "Bromo yanardağı turu",
-          "Ijen krateri trekking",
-          "Çay plantasyonu gezileri",
-          "Şelale yürüyüşleri",
-          "Countryside bisiklet turları",
+          "Bromo Yanardağı gün doğumu manzara noktası",
+          "Kaldera içinde kısa yürüyüş ve fotoğraf molaları",
+          "Savana ve kum denizi bölgesi",
+          "Mevsime göre çay/yeşil rota durakları (opsiyonel)",
         ],
       },
     ],
@@ -918,20 +1027,21 @@ const toursData = {
         "Java, geleneksel köy yaşamından modern Jakarta'nın kozmopolit atmosferine kadar geniş bir yelpaze sunuyor. Yogyakarta'nın sanatsal ruhu, yerel pazarların canlılığı ve misafirperver halk, adayı özel kılıyor.",
     },
     routes: [
-      { name: "Borobudur", description: "UNESCO tapınağı ve gün doğumu" },
-      { name: "Prambanan", description: "Hindu tapınakları kompleksi" },
-      { name: "Bromo Yanardağı", description: "İkonik krater ve gün doğumu" },
-      { name: "Yogyakarta", description: "Kültür ve sanat başkenti" },
-      { name: "Jakarta", description: "Modern başkent ve gökdelenler" },
-      { name: "Ijen Krateri", description: "Mavi alev fenomeni" },
+      { name: "Jakarta", description: "Varış, dinlenme ve kısa şehir atmosferi" },
+      { name: "Bandung", description: "Kafe şehir kültürü ve yayla rotaları" },
+      { name: "Ciwidey", description: "Çay bahçeleri, göl/yayla ve kaplıca" },
+      { name: "Pangandaran", description: "Sahil + nehir/kanyon doğa deneyimleri" },
+      { name: "Yogyakarta", description: "Şehir kültürü ve UNESCO tapınak rotaları" },
+      { name: "Prambanan", description: "UNESCO Hindu tapınak kompleksi" },
+      { name: "Borobudur", description: "UNESCO Budist tapınağı" },
     ],
     gallery: [
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
-      "/placeholder.svg?height=600&width=900",
+      "/java-borobudur-temple-volcano-sunrise.jpg",
+      "/ernests-vaga-mzJFI9o5_zc-unsplash.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
     ],
   },
   komodo: {
@@ -939,10 +1049,10 @@ const toursData = {
     hero:
       "https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1200",
     summary:
-      "UNESCO Dünya Mirası Komodo Ulusal Parkı, efsanevi Komodo ejderleri, pembe kumsallar ve turkuaz koylarıyla tam bir vahşi yaşam ve tekne turu rotası sunar.",
-    suitableFor: ["Doğa & Macera", "Yaban Hayatı", "Dalış", "Fotoğrafçılık"],
-    duration: "3 Gece 4 Gün",
-    concept: "Doğa & Macera",
+      "UNESCO Dünya Mirası Komodo Ulusal Parkı; Komodo ejderleri, pembe kumsallar ve turkuaz koylarla vahşi yaşam ve tekne turu deneyimini bir arada sunar.",
+    suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Fotoğrafçılık"],
+    duration: "4 Gece 5 Gün",
+    concept: "Doğa & Plaj",
     price: "3.899",
     itinerary: [
       {
@@ -980,11 +1090,11 @@ const toursData = {
       },
       {
         day: 4,
-        title: "Veda Komodo",
+        title: "Serbest Zaman ve Kapanış",
         activities: [
           "Kahvaltı ve serbest zaman",
+          "Son alışveriş / kafe molaları (uçuş saatine göre)",
           "Havalimanına transfer",
-          "İstanbul'a dönüş uçuşu",
         ],
         accommodation: "-",
       },
@@ -994,8 +1104,8 @@ const toursData = {
         category: "Yaban Hayatı",
         items: [
           "Komodo ejderlerini doğal habitatında gözlem",
-          "Vahşi yaşam fotoğrafçılığı",
           "Milli park rehberli yürüyüşler",
+          "Vahşi yaşam fotoğrafçılığı",
         ],
       },
       {
@@ -1003,7 +1113,7 @@ const toursData = {
         items: [
           "Pembe kumsallarda yüzme",
           "Manta noktalarında snorkeling",
-          "Mercan resiflerinde dalış",
+          "Mercan resiflerinde dalış (opsiyonel)",
         ],
       },
       {
@@ -1024,10 +1134,10 @@ const toursData = {
         "Komodo bölgesi, gündüzleri tekne turları ve doğa keşfi, akşamları ise Labuan Bajo'nun sakin sahil kasabası atmosferiyle macera ve dinlenmeyi bir araya getirir.",
     },
     routes: [
+      { name: "Labuan Bajo", description: "Turların başladığı sahil kasabası" },
       { name: "Komodo Adası", description: "Komodo ejderlerinin doğal yaşam alanı" },
       { name: "Padar Adası", description: "İkonik üç koy manzarası" },
       { name: "Pink Beach", description: "Pembe kumlu plaj ve snorkeling" },
-      { name: "Labuan Bajo", description: "Turların başladığı balıkçı kasabası" },
       { name: "Manta Point", description: "Manta vatozları ile yüzme ihtimali" },
     ],
     gallery: [
@@ -1035,6 +1145,28 @@ const toursData = {
       "https://images.pexels.com/photos/11896657/pexels-photo-11896657.jpeg?auto=compress&cs=tinysrgb&w=1200",
       "https://images.pexels.com/photos/1320686/pexels-photo-1320686.jpeg?auto=compress&cs=tinysrgb&w=1200",
       "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    ],
+  },
+  sulawesi: {
+    name: "Sulawesi Adası",
+    hero:
+      "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    summary:
+      "Sulawesi; Tana Toraja'nın gelenekleri, Makassar kıyıları ve dalış odaklı rotalarıyla kültür ve deniz deneyimini birleştiren geniş kapsamlı bir keşif sunar.",
+    suitableFor: ["Kültürel Keşif", "Doğa & Macera", "Deniz & Plaj Tatili", "Fotoğrafçılık"],
+    duration: "6 Gece 7 Gün",
+    concept: "Kültür & Deniz",
+    price: "4.199",
+    routes: [
+      { name: "Makassar", description: "Sahil hattı, şehir keşfi ve rota başlangıcı" },
+      { name: "Tana Toraja", description: "Yerel gelenekler, köyler ve kültürel duraklar" },
+      { name: "Wakatobi (opsiyonel)", description: "Dalış ve mercan resifleri odaklı ada deneyimi" },
+    ],
+    gallery: [
+      "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg",
     ],
   },
 };
@@ -1064,6 +1196,7 @@ export default function TourDetail() {
 
   const isBali = effectiveId === "bali";
   const isLombok = effectiveId === "lombok";
+  const isJava = effectiveId === "java";
 
   const [showPlannedForm, setShowPlannedForm] = useState(false);
   const [showGroupForm, setShowGroupForm] = useState(false);
@@ -1146,12 +1279,71 @@ export default function TourDetail() {
   const discountedPrice = hasDiscount ? Math.round(basePrice * (1 - discountPercent / 100)) : basePrice;
   const promoLabel = pricingOverride?.promoLabel || "";
 
-  const hasPackages = Array.isArray(tour?.packages) && (tour?.packages?.length ?? 0) > 0;
+  const routeNames = Array.isArray(tour?.routes)
+    ? tour.routes.map((r) => r?.name).filter(Boolean)
+    : [];
+  const routesShortText = routeNames.length > 0
+    ? `${routeNames.slice(0, 4).join(", ")}${routeNames.length > 4 ? "…" : ""}`
+    : "";
+
+  const fallbackPackages = [
+    {
+      id: `${effectiveId || id || "tur"}-basic`,
+      level: "temel",
+      name: "Temel Paket",
+      badge: "Başlangıç",
+      headline: "Program akışını koruyan, daha esnek içerikli başlangıç paketi.",
+      priceMultiplier: 1,
+      highlights: [
+        tour?.duration ? `Süre: ${tour.duration}` : "",
+        tour?.concept ? `Konsept: ${tour.concept}` : "",
+        routesShortText ? `Rota: ${routesShortText}` : "",
+      ].filter(Boolean),
+      notes:
+        "Bu tur için dahil/haric kapsam, seçilen paket seviyesine göre değişebilir. Net kapsam ve operasyon detayları rezervasyon öncesinde yazılı paylaşılır.",
+    },
+    {
+      id: `${effectiveId || id || "tur"}-standard`,
+      level: "plus",
+      name: "Standart Paket",
+      badge: "Dengeli",
+      headline: "Daha dolu içerik ve daha az belirsizlik isteyenler için dengeli seçenek.",
+      priceMultiplier: 1,
+      highlights: [
+        tour?.duration ? `Süre: ${tour.duration}` : "",
+        tour?.concept ? `Konsept: ${tour.concept}` : "",
+        routesShortText ? `Rota: ${routesShortText}` : "",
+      ].filter(Boolean),
+      notes:
+        "Standart paket, programın ana akışını referans alır ve kapsamı netleştirir. Tur içeriği, sezon ve operasyon koşullarına göre teklif aşamasında son hâline getirilir.",
+    },
+    {
+      id: `${effectiveId || id || "tur"}-premium`,
+      level: "premium",
+      name: "Premium Paket",
+      badge: "En kapsamlı",
+      headline: "Daha kapsamlı planlama ve daha yüksek konfor beklentisi olanlar için üst seviye paket.",
+      priceMultiplier: 1,
+      highlights: [
+        tour?.duration ? `Süre: ${tour.duration}` : "",
+        tour?.concept ? `Konsept: ${tour.concept}` : "",
+        routesShortText ? `Rota: ${routesShortText}` : "",
+      ].filter(Boolean),
+      notes:
+        "Premium paket, daha kapsamlı bir planlama hedefler. Net hizmet kapsamı ve fiyat; tarih, kişi sayısı ve tercihlerinize göre teklif aşamasında paylaşılır.",
+    },
+  ];
+
+  const rawPackages = Array.isArray(tour?.packages) && (tour?.packages?.length ?? 0) > 0
+    ? tour.packages
+    : fallbackPackages;
+
+  const hasPackages = Array.isArray(rawPackages) && (rawPackages?.length ?? 0) > 0;
   let packagePrices = [];
-  let packages = tour?.packages || [];
+  let packages = rawPackages || [];
 
   if (hasPackages && basePrice) {
-    packages = tour.packages.map((pkg) => {
+    packages = rawPackages.map((pkg) => {
       const multiplier = typeof pkg.priceMultiplier === "number" ? pkg.priceMultiplier : 1;
       const pkgBasePrice = Math.round(basePrice * multiplier);
       const pkgFinalPrice = hasDiscount
@@ -1166,7 +1358,19 @@ export default function TourDetail() {
     });
   }
 
-  const startingPrice = hasPackages && packagePrices.length > 0 ? Math.min(...packagePrices) : discountedPrice;
+  const nonZeroPackagePrices = packagePrices.filter((p) => typeof p === "number" && p > 0);
+  const startingPrice = hasPackages && nonZeroPackagePrices.length > 0
+    ? Math.min(...nonZeroPackagePrices)
+    : discountedPrice;
+
+  const defaultDepositPackageId = hasPackages
+    ? (isJava
+        ? (packages.find((p) => p.level === "premium" && typeof p.computedPrice === "number" && p.computedPrice > 0)?.id ||
+            packages.find((p) => p.level === "premium")?.id ||
+            packages[0]?.id ||
+            "")
+        : (packages[0]?.id || ""))
+    : "";
 
   // Tur hero görselleri için imageUrls yükle
   useEffect(() => {
@@ -1219,7 +1423,7 @@ export default function TourDetail() {
   }));
 
   const [depositForm, setDepositForm] = useState(() => ({
-    packageId: hasPackages && tour.packages[0] ? tour.packages[0].id : "",
+    packageId: defaultDepositPackageId,
     people: "",
     name: "",
     email: "",
@@ -1503,7 +1707,7 @@ export default function TourDetail() {
     : [];
 
   const selectedDepositPackage = hasPackages
-    ? (packages.find((p) => p.id === depositForm.packageId) || packages[0])
+    ? (packages.find((p) => p.id === depositForm.packageId) || packages.find((p) => p.level === "premium") || packages[0])
     : null;
 
   // Kaporalı rezervasyon hesabı için kişi sayısını sayıya çevir
@@ -1654,11 +1858,9 @@ export default function TourDetail() {
   </p>
   <p className="text-xs md:text-sm font-semibold text-gray-900 mb-2">Tur Paket Seçenekleri</p>
   <p className="text-xs md:text-sm text-gray-800 leading-relaxed">
-    Aynı rota için üç farklı seviye hazırladık: bütçe dostu Temel paket, dengeli Plus seçeneği ve bu sayfadaki detaylı
-    programı referans alan Premium paket. Aşağıdaki kartlardan bütçe ve beklentinize en uygun olanı seçebilirsiniz;
-    sayfadaki gün gün program Premium içindir, Temel ve Plus paketler bu programın sadeleştirilmiş hâlleridir. Tüm
-    paketlerde, rota yapısına uygun seçili otel havuzu kullanılır; oda tipi, yemek kapsamı ve dahil edilen aktiviteler
-    paket seviyesine göre değişir.
+    {isJava
+      ? "Bu Java tatil turu yalnızca Premium paket olarak planlanmıştır. Temel ve Standart paket fiyatları 0 olarak gösterilir; bu paketler satışta değildir."
+      : "Aynı rota için üç farklı seviye hazırladık: bütçe dostu Temel paket, dengeli Plus seçeneği ve bu sayfadaki detaylı programı referans alan Premium paket. Aşağıdaki kartlardan bütçe ve beklentinize en uygun olanı seçebilirsiniz; sayfadaki gün gün program Premium içindir, Temel ve Plus paketler bu programın sadeleştirilmiş hâlleridir. Tüm paketlerde, rota yapısına uygun seçili otel havuzu kullanılır; oda tipi, yemek kapsamı ve dahil edilen aktiviteler paket seviyesine göre değişir."}
   </p>
   </div>
           <div className="bg-gradient-to-br from-sky-600 to-emerald-500 rounded-2xl shadow p-5 text-white flex items-start gap-3">
@@ -1667,7 +1869,9 @@ export default function TourDetail() {
             </div>
             <div>
               <h3 className="font-semibold mb-1">
-                {hasPackages ? "Başlangıç Fiyatı – Temel Paket" : "Başlangıç Fiyatı"}
+                {hasPackages
+                  ? (isJava ? "Başlangıç Fiyatı – Premium Paket" : "Başlangıç Fiyatı – Temel Paket")
+                  : "Başlangıç Fiyatı"}
               </h3>
               {startingPrice ? (
                 <>
@@ -1683,7 +1887,14 @@ export default function TourDetail() {
                         </span>
                       </p>
                       <p className="text-xs opacity-90">
-                        Kişi başı, rezervasyonunu tamamlayan ilk 5 kişi için %{discountPercent} indirimli özel fiyattır.
+                        {(() => {
+                          const promoText = promoLabel ? promoLabel.trim() : "";
+                          if (promoText) {
+                            const hasPercentInText = /%\s*\d+/.test(promoText);
+                            return hasPercentInText ? promoText : `${promoText} %${discountPercent}`;
+                          }
+                          return `Kişi başı, rezervasyonunu tamamlayan ilk 5 kişi için %${discountPercent} indirimli özel fiyattır.`;
+                        })()}
                       </p>
                     </>
                   ) : (
@@ -1706,8 +1917,9 @@ export default function TourDetail() {
                 <p className="text-xs opacity-90">Fiyat bilgisi yakında güncellenecek.</p>
               )}
               <p className="text-[11px] opacity-90 mt-2">
-                Bu sayfadaki gün gün program ve kapsam, Premium paket içindir. Temel ve Plus paketler, bu programın sadeleştirilmiş
-                versiyonlarıdır.
+                {isJava
+                  ? "Bu sayfadaki gün gün program ve kapsam Premium paket içindir. Bu Java turu yalnızca Premium paket olarak planlanmıştır."
+                  : "Bu sayfadaki gün gün program ve kapsam, Premium paket içindir. Temel ve Plus paketler, bu programın sadeleştirilmiş versiyonlarıdır."}
               </p>
               <p className="text-[11px] opacity-90 mt-1">
                 Neden bu fiyat? Çünkü biz boş tur paketi değil, gerçek bir tatil deneyimi satıyoruz. Gereksiz bilgilerle doldurulmuş
@@ -1833,13 +2045,19 @@ export default function TourDetail() {
       {/* CTA ve buton altı açılan formlar (sayfanın üst kısmında) */}
       <section className="bg-gradient-to-r from-sky-600 to-emerald-500 py-10 md:py-12 relative overflow-hidden">
         {/* Bali ve Lombok sayfalarında, CTA arka planına tam yükseklik aktivite görselleri bindir */}
-        {(effectiveId === "bali" || effectiveId === "lombok") && (
+        {(isBali || isLombok || isJava) && (
           <div className="pointer-events-none absolute inset-0 z-0">
             {/* Üstten alta kadar sol tarafta dalış & mercan resifi görseli */}
             <div className="absolute inset-y-0 left-0 w-1/2 md:w-1/3 lg:w-1/4 opacity-95">
               <img
-                src="https://res.cloudinary.com/dj1xg1c56/image/upload/v1767781298/vecteezy_diver-swimming-over-a-coral-reef-ai-generated_33502407_lsciky.jpg"
-                alt="Lombok - dalış ve mercan resifi"
+                src={
+                  isJava
+                    ? tour?.hero || tour?.image || "/placeholder.svg"
+                    : isLombok
+                      ? "/surya-bali-jet-ski-sanur.jpg"
+                      : "https://res.cloudinary.com/dj1xg1c56/image/upload/v1767781298/vecteezy_diver-swimming-over-a-coral-reef-ai-generated_33502407_lsciky.jpg"
+                }
+                alt={isJava ? "Java - tur görseli" : isLombok ? "Lombok - su sporu" : "Lombok - dalış ve mercan resifi"}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -1847,8 +2065,14 @@ export default function TourDetail() {
             {/* Üstten alta kadar sağ tarafta tekne / arkadaş grubu görseli */}
             <div className="absolute inset-y-0 right-0 w-1/2 md:w-1/3 lg:w-1/4 opacity-95">
               <img
-                src="/three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg"
-                alt="Lombok - teknede kutlama ve arkadaş grubu"
+                src={
+                  isJava
+                    ? (Array.isArray(tour?.gallery) && tour.gallery[1] ? tour.gallery[1] : tour?.hero || tour?.image || "/placeholder.svg")
+                    : isLombok
+                      ? "/lombok-island-beach-waterfall.jpg"
+                      : "/three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg"
+                }
+                alt={isJava ? "Java - tur görseli" : "Lombok - teknede kutlama ve arkadaş grubu"}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -2121,11 +2345,11 @@ export default function TourDetail() {
                     onChange={handleDepositChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm"
                   >
-                    {packages.map((pkg) => (
+                      {(isJava ? packages.filter((pkg) => pkg.level === "premium") : packages).map((pkg) => (
                       <option key={pkg.id} value={pkg.id}>
                         {pkg.name} (kişi başı: ${pkg.computedPrice})
                       </option>
-                    ))}
+                      ))}
                   </select>
                 </div>
                 <div>
@@ -2622,17 +2846,30 @@ export default function TourDetail() {
         <div className="space-y-5">
           {Array.isArray(tour.itinerary) && tour.itinerary.length > 0 ? (
             tour.itinerary.map((day) => {
+            const maxItineraryDay = Array.isArray(tour.itinerary)
+              ? Math.max(...tour.itinerary.map((d) => Number(d?.day) || 0))
+              : 0;
             const dayBgKey = id ? `${id}-itinerary-day-${day.day}` : "";
             const dayBgKeyEffective = effectiveId ? `${effectiveId}-itinerary-day-${day.day}` : "";
-            const dayBgImage = (dayBgKey && imageUrls[dayBgKey])
+            const dayBgOverride = (dayBgKey && imageUrls[dayBgKey])
               ? imageUrls[dayBgKey]
               : (dayBgKeyEffective && imageUrls[dayBgKeyEffective])
                 ? imageUrls[dayBgKeyEffective]
-                : "https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=1200";
+                : null;
+            const dayBgImage = dayBgOverride
+              ? dayBgOverride
+              : "https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=1200";
+
+            const normalizedDayTitle = (day.title || "").toLowerCase();
+            const isExplicitGuidedDay = normalizedDayTitle.includes("rehberli");
+            const isEdgeDay = (Number(day.day) || 0) === 1 || (Number(day.day) || 0) === maxItineraryDay;
 
             const isFreeDay =
-              day.title?.toLowerCase().includes("serbest") ||
-              (effectiveId === "lombok" && day.day === 1);
+              normalizedDayTitle.includes("serbest gün") ||
+              normalizedDayTitle.includes("serbest gun") ||
+              normalizedDayTitle.includes("tam gün serbest") ||
+              normalizedDayTitle.includes("tam gun serbest") ||
+              ((effectiveId === "lombok" && (day.day === 1 || day.day === 7)) || (isEdgeDay && !isExplicitGuidedDay));
 
             // Serbest günler: sade, açık renk kart
             if (isFreeDay) {
@@ -2643,7 +2880,7 @@ export default function TourDetail() {
                 "/young-slim-woman-sitting-bikini-bathing-suit-yacht-basking-sun.jpg",
               ];
               const freeImageIndex = day.day % freeDayImages.length;
-              const freeImageSrc = freeDayImages[freeImageIndex];
+              const freeImageSrc = dayBgOverride || freeDayImages[freeImageIndex];
 
               return (
                 <div key={day.day} className="relative w-full">
@@ -2876,39 +3113,56 @@ export default function TourDetail() {
       </section>
 
       {/* Tur Kapsamı ve Hizmet Yaklaşımı (varsa) */}
-      {(tour.included || tour.notIncluded || tour.notes) && (
-        <section className="max-w-6xl mx-auto px-4 mb-16">
+      <section className="max-w-6xl mx-auto px-4 mb-16">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">Tur Kapsamı ve Hizmet Yaklaşımı</h2>
           <div className="mb-5 rounded-2xl bg-gradient-to-r from-emerald-600/10 to-sky-500/10 border border-emerald-100 px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 mb-1">
               Bu tur deneyim odaklı bir premium pakettir
             </p>
             <p className="text-sm text-gray-800 leading-relaxed">
-              Fiyatlarımız, Balide yalnızca yer gösteren klasik turlara göre değil; gün boyu dolu, aktivitelerle zenginleşmiş bir deneyim akışına göre belirlenmiştir. Programda body rafting, tam gün tekne turu, şnorkel molaları ve doğayla birebir temas ettiğiniz anlar bir aradadır. Bu turda sadece gezi yapmaz; su aktiviteleriyle denizi yaşar, yeşilin içinde nefes alır ve Balinin ruhunu gerçekten hissedersiniz.
+              Fiyatlarımız; sadece “yer gösteren” klasik turlara göre değil, gün gün akışı netleşmiş ve deneyim odaklı bir tatil planına göre belirlenir. Programda rehberli günler, serbest zaman blokları ve talebe göre eklenebilen opsiyonel deneyimler dengeli şekilde kurgulanır.
             </p>
           </div>
-          {tour.notes?.approach && (
+
+          {((tour.notes && tour.notes.approach) || (!tour.notes && true)) && (
             <p className="text-sm text-gray-700 mb-4">
-              {renderWithInclusionHighlight(tour.notes.approach)}
+              {renderWithInclusionHighlight(
+                tour.notes?.approach ||
+                  "Bu sayfadaki içerik, seçilen paket seviyesine göre uyarlanabilen bir tur akışını temsil eder. Net kapsam ve operasyon detayları rezervasyon öncesinde yazılı olarak paylaşılır."
+              )}
             </p>
           )}
 
           <div id="pricing-details" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-            {tour.included && (
+            {(Array.isArray(tour.included) ? tour.included.length > 0 : true) && (
               <div className="rounded-2xl shadow-sm border border-emerald-300 p-5 bg-gradient-to-br from-emerald-600 to-emerald-500">
                 <h3 className="text-lg font-semibold mb-3 text-white">Fiyata Dahil Olanlar</h3>
                 <ul className="list-disc list-inside space-y-1.5 text-sm text-white/95">
-                  {tour.included.map((item, idx) => (
+                  {(Array.isArray(tour.included)
+                    ? tour.included
+                    : [
+                        "Tur akışı ve operasyon planlaması",
+                        "Programda belirtilen ana rota ve temel koordinasyon",
+                        "Rezervasyon sürecinde yazılı olarak netleştirilen hizmet kapsamı",
+                      ]
+                  ).map((item, idx) => (
                     <li key={idx}>{renderWithInclusionHighlight(item)}</li>
                   ))}
                 </ul>
               </div>
             )}
-            {tour.notIncluded && (
+            {(Array.isArray(tour.notIncluded) ? tour.notIncluded.length > 0 : true) && (
               <div className="rounded-2xl shadow-sm border border-rose-300 p-5 bg-gradient-to-br from-rose-600 to-rose-500">
                 <h3 className="text-lg font-semibold mb-3 text-white">Fiyata Dahil Olmayanlar</h3>
                 <ul className="list-disc list-inside space-y-1.5 text-sm text-white/95">
-                  {tour.notIncluded.map((item, idx) => (
+                  {(Array.isArray(tour.notIncluded)
+                    ? tour.notIncluded
+                    : [
+                        "Kişisel harcamalar ve bireysel tercihler",
+                        "Programda yer alsa bile seçime bağlı opsiyonel deneyimler",
+                        "Resmi vergiler/harçlar (varsa) ve yurtdışı çıkış harcı",
+                      ]
+                  ).map((item, idx) => (
                     <li key={idx}>{renderWithInclusionHighlight(item)}</li>
                   ))}
                 </ul>
@@ -2916,28 +3170,33 @@ export default function TourDetail() {
             )}
           </div>
 
-          {(tour.notes?.freeTime || tour.notes?.discipline) && (
+          {((tour.notes && (tour.notes.freeTime || tour.notes.discipline)) || !tour.notes) && (
             <div className="space-y-4">
-              {tour.notes?.freeTime && (
+              {(tour.notes?.freeTime || !tour.notes) && (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-1">Serbest Zaman Yaklaşımımız</h3>
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    {renderWithInclusionHighlight(tour.notes.freeTime)}
+                    {renderWithInclusionHighlight(
+                      tour.notes?.freeTime ||
+                        "Serbest zaman dilimleri, katılımcıların kendi ritmi ve tercihleriyle hareket edebilmesi için esnek bırakılır. Dilerseniz bu zamanlara opsiyonel aktiviteler eklenebilir."
+                    )}
                   </p>
                 </div>
               )}
-              {tour.notes?.discipline && (
+              {(tour.notes?.discipline || !tour.notes) && (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-1">Grup Disiplini ve Uyum</h3>
                   <p className="text-sm text-gray-700 leading-relaxed">
-                    {renderWithInclusionHighlight(tour.notes.discipline)}
+                    {renderWithInclusionHighlight(
+                      tour.notes?.discipline ||
+                        "Programın sağlıklı ilerlemesi için zamanlamaya uyum ve grup düzenine saygı esastır. Güvenlik brifingleri ve rehber yönlendirmelerine uyulması beklenir."
+                    )}
                   </p>
                 </div>
               )}
             </div>
           )}
         </section>
-      )}
 
       {/* Önemli Açıklamalar & Uyarılar (açılır/kapanır) */}
       <section className="max-w-6xl mx-auto px-4 mb-16">

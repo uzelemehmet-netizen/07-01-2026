@@ -169,6 +169,207 @@ export default function AdminDashboard() {
     fetchTours();
   }, []);
 
+  const formatBytes = (bytes) => {
+    if (!Number.isFinite(bytes)) return '';
+    const kb = 1024;
+    const mb = kb * 1024;
+    const gb = mb * 1024;
+    if (bytes >= gb) return `${(bytes / gb).toFixed(2)} GB`;
+    if (bytes >= mb) return `${(bytes / mb).toFixed(2)} MB`;
+    if (bytes >= kb) return `${(bytes / kb).toFixed(2)} KB`;
+    return `${bytes} B`;
+  };
+
+  const compressImageIfNeeded = async (inputFile, maxBytes = 10 * 1024 * 1024) => {
+    if (!inputFile?.type?.startsWith('image/')) {
+      throw new Error('Sadece resim dosyaları yüklenebilir.');
+    }
+
+    const readJpegOrientation = async (file) => {
+      // EXIF orientation sadece JPEG'de anlamlıdır.
+      if (file.type !== 'image/jpeg') return 1;
+
+      const slice = file.slice(0, 256 * 1024);
+      const buffer = await slice.arrayBuffer();
+      const view = new DataView(buffer);
+
+      // JPEG SOI
+      if (view.getUint16(0, false) !== 0xffd8) return 1;
+
+      let offset = 2;
+      while (offset < view.byteLength) {
+        const marker = view.getUint16(offset, false);
+        offset += 2;
+
+        // APP1
+        if (marker === 0xffe1) {
+          const length = view.getUint16(offset, false);
+          const exifOffset = offset + 2;
+
+          // "Exif\0\0"
+          if (view.getUint32(exifOffset, false) !== 0x45786966) return 1;
+
+          const tiffOffset = exifOffset + 6;
+          const little = view.getUint16(tiffOffset, false) === 0x4949;
+          const firstIfdOffset = view.getUint32(tiffOffset + 4, little);
+          let ifd = tiffOffset + firstIfdOffset;
+          if (ifd < 0 || ifd >= view.byteLength) return 1;
+
+          const entries = view.getUint16(ifd, little);
+          ifd += 2;
+          for (let i = 0; i < entries; i += 1) {
+            const entryOffset = ifd + i * 12;
+            if (entryOffset + 12 > view.byteLength) break;
+            const tag = view.getUint16(entryOffset, little);
+            // Orientation tag = 0x0112
+            if (tag === 0x0112) {
+              const value = view.getUint16(entryOffset + 8, little);
+              return value >= 1 && value <= 8 ? value : 1;
+            }
+          }
+
+          return 1;
+        }
+
+        // SOS ya da EOI görürsek bırak.
+        if (marker === 0xffda || marker === 0xffd9) break;
+
+        const size = view.getUint16(offset, false);
+        offset += size;
+
+        if (size < 2) break;
+      }
+
+      return 1;
+    };
+
+    const applyOrientationTransform = (ctx, orientation, canvasW, canvasH) => {
+      // https://i.stack.imgur.com/VGsAj.gif
+      // 1: normal
+      // 2: flip horizontal
+      // 3: rotate 180
+      // 4: flip vertical
+      // 5: transpose
+      // 6: rotate 90 CW
+      // 7: transverse
+      // 8: rotate 90 CCW
+      switch (orientation) {
+        case 2:
+          ctx.translate(canvasW, 0);
+          ctx.scale(-1, 1);
+          break;
+        case 3:
+          ctx.translate(canvasW, canvasH);
+          ctx.rotate(Math.PI);
+          break;
+        case 4:
+          ctx.translate(0, canvasH);
+          ctx.scale(1, -1);
+          break;
+        case 5:
+          ctx.rotate(0.5 * Math.PI);
+          ctx.scale(1, -1);
+          break;
+        case 6:
+          ctx.rotate(0.5 * Math.PI);
+          ctx.translate(0, -canvasH);
+          break;
+        case 7:
+          ctx.rotate(0.5 * Math.PI);
+          ctx.translate(canvasW, -canvasH);
+          ctx.scale(-1, 1);
+          break;
+        case 8:
+          ctx.rotate(-0.5 * Math.PI);
+          ctx.translate(-canvasW, 0);
+          break;
+        default:
+          break;
+      }
+    };
+
+    if (inputFile.size <= maxBytes) {
+      return { file: inputFile, didCompress: false, originalBytes: inputFile.size, outputBytes: inputFile.size };
+    }
+
+    const originalBytes = inputFile.size;
+    let maxDimension = 2400;
+    let quality = 0.85;
+
+    const loadImageElement = (file) =>
+      new Promise((resolve, reject) => {
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
+        img.onload = () => {
+          URL.revokeObjectURL(objectUrl);
+          resolve(img);
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error('Görsel okunamadı (bozuk dosya olabilir).'));
+        };
+        img.src = objectUrl;
+      });
+
+    const toBlob = (canvas, type, q) =>
+      new Promise((resolve) => {
+        canvas.toBlob((b) => resolve(b), type, q);
+      });
+
+    const orientation = await readJpegOrientation(inputFile);
+    const img = await loadImageElement(inputFile);
+    const originalW = img.naturalWidth || img.width;
+    const originalH = img.naturalHeight || img.height;
+
+    if (!originalW || !originalH) {
+      throw new Error('Görsel boyutları okunamadı.');
+    }
+
+    // Sıkıştırmayı en fazla birkaç tur dene: önce kalite düşür, sonra boyutu küçült.
+    for (let outer = 0; outer < 6; outer += 1) {
+      const scale = Math.min(1, maxDimension / Math.max(originalW, originalH));
+      const targetW = Math.max(1, Math.round(originalW * scale));
+      const targetH = Math.max(1, Math.round(originalH * scale));
+
+      const swapWH = orientation >= 5 && orientation <= 8;
+      const canvasW = swapWH ? targetH : targetW;
+      const canvasH = swapWH ? targetW : targetH;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = canvasW;
+      canvas.height = canvasH;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Canvas desteklenmiyor.');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      applyOrientationTransform(ctx, orientation, canvasW, canvasH);
+      // drawImage boyutları her zaman "orijinal" hedef boyuttur.
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      // Kaliteyi birkaç adım düşür
+      const qualitySteps = [quality, 0.78, 0.7, 0.62, 0.54, 0.46, 0.4];
+      for (let i = 0; i < qualitySteps.length; i += 1) {
+        const q = qualitySteps[i];
+        const blob = await toBlob(canvas, 'image/jpeg', q);
+        if (!blob) continue;
+        if (blob.size <= maxBytes) {
+          const outName = inputFile.name.replace(/\.[a-z0-9]+$/i, '') + '.jpg';
+          const outFile = new File([blob], outName, { type: 'image/jpeg' });
+          return { file: outFile, didCompress: true, originalBytes, outputBytes: blob.size };
+        }
+      }
+
+      // Hâlâ büyükse boyutu biraz daha küçült
+      maxDimension = Math.round(maxDimension * 0.85);
+      quality = Math.max(0.75, quality - 0.05);
+    }
+
+    throw new Error(
+      `Görsel 10MB altına indirilemedi. Lütfen daha küçük bir dosya seçin (mevcut: ${formatBytes(originalBytes)}).`
+    );
+  };
+
   // Dosya yükleme ve URL kaydetme
   const handleFileUpload = async (e, imageId) => {
     const file = e.target.files?.[0];
@@ -178,9 +379,80 @@ export default function AdminDashboard() {
     setUploadProgress(prev => ({ ...prev, [imageId]: 'Yükleniyor...' }));
 
     try {
-      const storageRef = ref(storage, `images/${imageId}/${Date.now()}-${file.name}`);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
+      // Firebase Storage (Google Cloud Storage) free planda çoğu projede "Upgrade" isteyebilir.
+      // Bu projede pratik çözüm: Cloudinary'ye upload edip URL'yi Firestore'a kaydetmek.
+      const cloudinaryUploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+      const cloudinaryCloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dj1xg1c56';
+
+      const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+      let progressPrefix = '';
+      let fileToUpload = file;
+      if (file.size > MAX_UPLOAD_BYTES) {
+        setUploadProgress((prev) => ({
+          ...prev,
+          [imageId]: `Sıkıştırılıyor... (${formatBytes(file.size)})`,
+        }));
+        const compressed = await compressImageIfNeeded(file, MAX_UPLOAD_BYTES);
+        fileToUpload = compressed.file;
+        progressPrefix = `Sıkıştırıldı: ${formatBytes(compressed.originalBytes)} → ${formatBytes(compressed.outputBytes)} | `;
+        setUploadProgress((prev) => ({
+          ...prev,
+          [imageId]: `${progressPrefix}Yükleniyor...`,
+        }));
+      }
+
+      const uploadToCloudinary = (uploadFile) =>
+        new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          const url = `https://api.cloudinary.com/v1_1/${cloudinaryCloudName}/image/upload`;
+          xhr.open('POST', url);
+
+          xhr.upload.onprogress = (evt) => {
+            if (!evt.lengthComputable) return;
+            const percent = Math.round((evt.loaded / evt.total) * 100);
+            setUploadProgress((prev) => ({
+              ...prev,
+              [imageId]: `${progressPrefix}Yükleniyor... (${percent}%)`,
+            }));
+          };
+
+          xhr.onload = () => {
+            try {
+              const parsed = JSON.parse(xhr.responseText || '{}');
+              if (xhr.status >= 200 && xhr.status < 300) {
+                const secureUrl = parsed.secure_url || parsed.url;
+                if (!secureUrl) {
+                  reject(new Error('Cloudinary yanıtında URL bulunamadı.'));
+                  return;
+                }
+                resolve(secureUrl);
+                return;
+              }
+              reject(new Error(`Cloudinary upload başarısız (${xhr.status}): ${parsed?.error?.message || xhr.responseText}`));
+            } catch (parseErr) {
+              reject(new Error(`Cloudinary upload başarısız (${xhr.status}): ${xhr.responseText}`));
+            }
+          };
+
+          xhr.onerror = () => reject(new Error('Cloudinary upload ağ hatası.'));
+
+          const formData = new FormData();
+          formData.append('file', uploadFile);
+          formData.append('upload_preset', cloudinaryUploadPreset);
+          formData.append('folder', `endonezya-kasifi/${imageId}`);
+          xhr.send(formData);
+        });
+
+      let downloadURL;
+      if (cloudinaryUploadPreset) {
+        downloadURL = await uploadToCloudinary(fileToUpload);
+      } else {
+        // Cloudinary preset yoksa eski Firebase Storage yoluna düşmek yerine
+        // kullanıcıyı net şekilde yönlendirelim (free planda genelde upload bloklanıyor).
+        throw new Error(
+          "Firebase Storage bu projede 'upgrade' istediği için tarayıcıdan upload başarısız oluyor. Cloudinary için .env dosyasına VITE_CLOUDINARY_UPLOAD_PRESET ekleyip (Unsigned Upload Preset) tekrar deneyin."
+        );
+      }
 
       setImageUrls(prev => ({
         ...prev,
@@ -193,7 +465,15 @@ export default function AdminDashboard() {
       }, 2000);
     } catch (error) {
       console.error('Yükleme hatası:', error);
+      console.error('Yükleme hata detayları:', {
+        code: error?.code,
+        message: error?.message,
+        name: error?.name,
+        customData: error?.customData,
+        serverResponse: error?.serverResponse,
+      });
       setUploadProgress(prev => ({ ...prev, [imageId]: 'Hata!' }));
+      alert(error?.message || 'Dosya yüklenirken bir hata oluştu.');
     } finally {
       setUploading(false);
     }
@@ -823,7 +1103,7 @@ export default function AdminDashboard() {
       {/* Info Box */}
       <div className="bg-blue-50 border-l-4 border-blue-500 p-4 max-w-7xl mx-auto mb-8">
         <p className="text-sm text-blue-800">
-          <strong>Dosya Yükleme:</strong> Resim dosyasını seç veya URL gir. Yüklenen resimler Firebase Storage'da saklanır.
+          <strong>Dosya Yükleme:</strong> Resim dosyasını seç veya URL gir. Bu projede dosyalar Cloudinary'ye yüklenip URL Firestore'a kaydedilir. 10MB üzeri görseller otomatik sıkıştırılır ve yeni boyut gösterilir.
         </p>
       </div>
     </div>
