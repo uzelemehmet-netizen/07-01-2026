@@ -5,7 +5,8 @@ const resources = {
   tr: {
     translation: {
       navigation: {
-        siteTitle: 'Evlilik ve Seyahat Rehberi',
+        siteTitle: 'Seyahat Organizasyonu',
+        siteSubtitle: 'Evlilik İşlemleri Rehberliği',
         home: 'Ana Sayfa',
         about: 'Hakkımızda',
         travel: 'Seyahat',
@@ -20,7 +21,8 @@ const resources = {
   id: {
     translation: {
       navigation: {
-        siteTitle: 'Panduan Pernikahan & Liburan',
+        siteTitle: 'Organisasi Perjalanan',
+        siteSubtitle: 'Panduan Proses Pernikahan',
         home: 'Beranda',
         about: 'Tentang Kami',
         travel: 'Perjalanan',

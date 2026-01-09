@@ -8,6 +8,7 @@ import { MapPin, Calendar, Users, Award, Hotel } from "lucide-react";
 import ImageLightbox from "../components/ImageLightbox";
 import { db } from "../config/firebase";
 import { doc, onSnapshot, getDoc } from "firebase/firestore";
+import { TOURS_CONFIG } from "./Tours";
 
 // Ön rezervasyon hesaplamaları için varsayılan kapora oranı (yüzde)
 const DEPOSIT_PERCENT = 30;
@@ -658,86 +659,208 @@ const toursData = {
     name: "Sumatra Adası",
     hero: "/sumatra-rainforest-orangutan-lake-toba.jpg",
     summary:
-      "Vahşi ve el değmemiş Sumatra, dünyanın en büyük volkanik gölü Toba, orangutanların doğal yaşam alanı olan yağmur ormanları ve benzersiz Batak kültürü ile gerçek bir macera vadediyor. Dünyada başka hiçbir yerde bulamayacağınız otantik bir deneyim.",
+      "Vahşi ve el değmemiş Kuzey Sumatra; orangutanların doğal yaşam alanı olan yağmur ormanları (Bukit Lawang) ve dünyanın en büyük volkanik gölü Lake Toba (Samosir Adası) ile gerçek bir macera vadediyor. Uzun karayolu günlerinden sonra dinlenme ve serbest zaman blokları özellikle korunarak, tempo daha sürdürülebilir şekilde planlanmıştır.",
     suitableFor: ["Doğa & Macera", "Kültürel Keşif", "Yaban Hayatı", "Fotoğrafçılık"],
-    duration: "6 Gece 7 Gün",
+    duration: "8 Gece 9 Gün",
     concept: "Doğa & Macera",
     price: "3.499",
+    packages: [
+      {
+        id: "sumatra-basic",
+        level: "temel",
+        name: "Sumatra Keşif Temel",
+        badge: "Bütçe dostu",
+        headline:
+          "Uçuş + konaklamayı sabitleyip; trekking, kültür günü ve bazı deneyimleri bütçe/ilgi alanına göre sonradan eklemek isteyenler için giriş seviyesi paket.",
+        priceMultiplier: 0.7,
+        highlights: [
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı 850 USD'ye kadar; üzerindeki fark ayrıca karşılanır)",
+          "Medan (1 gece) + Bukit Lawang (3 gece) + Samosir/Lake Toba (4 gece) toplam 8 gece konaklama",
+          "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
+          "Varış günü kısa gün batımı tekne turu (Samosir) dahildir (hava/feribot koşullarına göre 6. güne kaydırılabilir)",
+          "Orangutan trekking & tubing ve Batak kültür günü bu pakete dahil değildir; istenirse opsiyonel ekstra olarak planlanır",
+        ],
+        notes:
+          "Temel paket, Sumatra rotasının lojistiğini (uçuş + konaklama + ana transfer akışı) güvence altına alır. Trekking, kültür günü ve opsiyonel turlar ise bütçenize göre sonradan eklenebilir.",
+      },
+      {
+        id: "sumatra-plus",
+        level: "plus",
+        name: "Sumatra Deneyim Standart",
+        badge: "Dengeli seçenek",
+        headline:
+          "Orangutan trekking & tubing gününü pakete dahil edip, diğer günlerde daha esnek ilerlemek isteyenler için dengeli deneyim seviyesi.",
+        priceMultiplier: 0.85,
+        highlights: [
+          "Uçak bileti, 8 gece konaklama ve kahvaltıya ek olarak 3. gün orangutan trekking & tubing deneyimi (rehberli) dahildir",
+          "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
+          "Varış günü kısa gün batımı tekne turu (Samosir) dahildir (hava/feribot koşullarına göre 6. güne kaydırılabilir)",
+          "Tele Observation Tower / panorama turu gibi ek turlar bu pakete dahil değildir; serbest günlerde opsiyonel olarak eklenebilir",
+          "Batak kültür & ada turu bu pakete dahil değildir; istenirse opsiyonel ekstra olarak planlanır",
+        ],
+        notes:
+          "Standart paket, Sumatra deneyiminin en güçlü günü olan orangutan trekking & nehir gününü baştan dahil eder. Lake Toba/Samosir tarafında ise serbest zamanlar korunur; ek panorama turları isteğe göre planlanır.",
+      },
+      {
+        id: "sumatra-premium",
+        level: "premium",
+        name: "Sumatra Deneyim Premium",
+        badge: "En kapsamlı",
+        headline:
+          "Trekking + kültür günü dahil; sürpriz maliyetleri en aza indiren, dolu dolu Sumatra deneyimi.",
+        priceMultiplier: 1,
+        highlights: [
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı 850 USD'ye kadar; üzerindeki fark ayrıca karşılanır)",
+          "Medan, Bukit Lawang ve Samosir/Lake Toba bölgelerinde 8 gece konaklama (program akışına göre)",
+          "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
+          "3. gün orangutan trekking & tubing deneyimi (rehberli) dahildir",
+          "Batak kültür & ada turu (Samosir çevresi) dahildir (saha koşullarına göre akış esnetilebilir)",
+        ],
+        notes:
+          "Premium paket, trekking ve kültürel keşif bloklarını baştan dahil ederek planlama yükünü azaltır. Opsiyonel ekstra deneyimler (özel turlar/ek aktiviteler) ise serbest günlerde isteğe göre ayrıca eklenebilir.",
+      },
+    ],
     itinerary: [
       {
         day: 1,
-        title: "Sumatra'ya Hoşgeldiniz",
+        title: "Medan'a Varış & Şehir Tanışması",
         activities: [
-          "İstanbul'dan Medan'a uçuş",
-          "Havalimanı karşılama",
-          "Medan şehir turu (Maimun Sarayı, Büyük Cami)",
-          "Otel check-in ve dinlenme",
+          "Tur programımız burada başlıyor.",
+          "Uçuş planınıza göre Medan'a varış; havalimanında karşılama ve gün akışı için kısa bilgilendirme.",
+          "Otele transfer (~45–60 dk) ve check-in; yol yorgunluğunu atmak için dinlenme.",
+          "Zaman ve enerji uygunsa kısa şehir tanışması: Maimun Sarayı ve Büyük Cami çevresi (hafif tempo, fotoğraf molaları).",
+          "Akşam: serbest zaman (yerel restoran önerileriyle kendi ritminizde yemek).",
         ],
         accommodation: "JW Marriott Medan (5⭐)",
       },
       {
         day: 2,
-        title: "Toba Gölü'ne Yolculuk",
+        title: "Medan → Bukit Lawang (Gunung Leuser Kapısı) | Yarı Serbest",
         activities: [
-          "Medan'dan Toba Gölü'ne scenic yolculuk",
-          "Sipiso-piso şelalesi ziyareti",
-          "Samosir Adası'na feribot",
-          "Batak geleneksel köyü turu",
-          "Göl kenarında akşam yemeği",
+          "08:30 – Medan'da otelden check-out ve yola çıkış (saatler trafiğe göre esnetilebilir).",
+          "Karayolu transferi ~3,5–4,5 saat: palmiyelikler, köy yolları ve doğal manzaralar eşliğinde rota.",
+          "13:00 civarı Bukit Lawang'a varış, otele giriş ve dinlenme (odaların hazır olma durumuna göre bekleme olabilir).",
+          "Bohorok Nehri boyunca hafif tempo yürüyüş: köy merkezi, nehir kıyısı ve fotoğraf noktaları.",
+          "Trekking brifingi: milli park kuralları, güvenlik, ekipman önerileri (kapalı ayakkabı, yağmurluk, sülük çorabı vb.).",
+          "Akşam: serbest zaman (hafif yemek + ertesi gün için erken dinlenme önerilir).",
         ],
-        accommodation: "Toledo Inn Lake Toba (4⭐)",
+        accommodation: "Ecolodge Bukit Lawang (Boutique)",
       },
       {
         day: 3,
-        title: "Toba Gölü Keşfi",
+        title: "Bukit Lawang | Orangutan Trekking & Nehir Deneyimi (Aktivite Günü)",
         activities: [
-          "Kayık ile göl turu",
-          "Geleneksel Batak evi ziyareti",
-          "Yerel el sanatları workshop",
-          "Sıcak su kaynakları",
-          "Gün batımı manzarası",
+          "08:00 – Rehberle buluşma ve Gunung Leuser çevresinde orangutan gözlem trekkingi (yaklaşık 3–5 saat; kondisyon: orta).",
+          "Trekking boyunca vahşi yaşam gözlemi: gibbons, Thomas leaf monkey ve tropik kuş türleri; hayvanlara yaklaşmadan güvenli mesafe kuralı.",
+          "Öğleden sonra Bohorok Nehri'nde tubing: akıntıya göre güvenli parkur, can yeleği/rehber önerilerine uyum.",
+          "Dileyenler için opsiyonel kısa keşif: Bat Cave (Yarasa Mağarası) – el feneri ve yerel rehber önerilir.",
+          "Akşam: nehir kenarında dinlenme ve serbest zaman (jungle sesleri eşliğinde).",
         ],
-        accommodation: "Toledo Inn Lake Toba (4⭐)",
+        accommodation: "Ecolodge Bukit Lawang (Boutique)",
       },
       {
         day: 4,
-        title: "Bukit Lawang - Orangutan Cenneti",
+        title: "Bukit Lawang | Serbest Gün (Dinlenme + Opsiyonel Ekstra Deneyimler)",
         activities: [
-          "Toba'dan Bukit Lawang'a transfer",
-          "Gunung Leuser Milli Parkı girişi",
-          "Jungle lodge check-in",
-          "Akşam jungle turu",
+          "Serbest gün: uyku telafisi, nehir kenarı dinlenme, kafe molaları ve kısa yürüyüşlerle günü kendi ritminizde değerlendirme.",
+          "Köy merkezi keşfi: yerel dükkanlar, nehir kıyısı yürüyüş yolları ve fotoğraf noktaları.",
+          "Opsiyonel (ücretli) fikirler: kısa şelale yürüyüşü / rafting / ekstra tubing rotası (mevsim ve su seviyesine göre).",
+          "Dilerseniz ekibimiz, ilgi alanınıza göre ücretli opsiyonel turların saatlerini ve lojistiğini planlamanıza yardımcı olur.",
+        ],
+        optionalExtras: [
+          {
+            id: "sumatra-bukitlawang-tangkahan-elephants",
+            title: "4. Gün | Tangkahan Fil Kampı & Nehir Keyfi (Opsiyonel)",
+            shortDescription:
+              "Bukit Lawang'dan günübirlik çıkışla Tangkahan bölgesine geçip, fil kampı çevresinde doğa deneyimi ve nehir manzaraları (opsiyonel ve ücretli).",
+            priceNote:
+              "Tura dahil değildir; fiyat kişi sayısı, araç tipi ve sezon koşullarına göre değişir. Kesin ücret rezervasyon aşamasında netleştirilir.",
+            details: [
+              "📍 Lokasyon: Tangkahan (Kuzey Sumatra)",
+              "⏱ Süre: Tam gün (transferler dahil; sabah erken çıkış önerilir)",
+              "İçerik: doğa yürüyüşü / nehir çevresi keşfi / koruma projeleri hakkında kısa bilgilendirme",
+              "Not: Program, sahadaki koşullara ve bölgedeki güncel uygulamalara göre değişebilir",
+            ],
+            note:
+              "Bu tur, daha sakin ve farklı bir doğa atmosferi isteyen misafirler için iyi bir alternatiftir; yorucu bir trekking yerine daha dengeli bir gün planı sunar.",
+          },
         ],
         accommodation: "Ecolodge Bukit Lawang (Boutique)",
       },
       {
         day: 5,
-        title: "Orangutan Trekking",
+        title: "Bukit Lawang → Lake Toba (Samosir Adası) | Yarı Serbest",
         activities: [
-          "Sabah erken orangutan trekking",
-          "Vahşi orangutanları doğal habitatta gözlem",
-          "Yağmur ormanı florası ve faunası",
-          "Bohorok nehri tube floating",
-          "Gece jungle sesleri deneyimi",
+          "08:00 – Bukit Lawang'da otelden check-out ve Lake Toba yönüne yola çıkış.",
+          "Karayolu transferi ~5–6,5 saat (trafik/yağışa göre); yol üstü kısa mola ve manzara durakları.",
+          "Parapat'tan Samosir (Tuk-Tuk) feribotu ~45–60 dk; göl manzaralı geçiş.",
+          "16:30–18:00 – Samosir varış, otele giriş ve dinlenme.",
+          "Akşam: göl kıyısında yürüyüş + gün batımı; serbest akşam yemeği.",
+          "Varış günü kısa gün batımı tekne turu (60–90 dk) tur paketine dahildir; hava/feribot gecikmesi olursa 6. güne kaydırılabilir.",
         ],
-        accommodation: "Ecolodge Bukit Lawang (Boutique)",
+        accommodation: "Toledo Inn Lake Toba (4⭐)",
       },
       {
         day: 6,
-        title: "Kültür ve Doğa",
+        title: "Samosir | Serbest Gün (Dinlenme + Göl Keyfi)",
         activities: [
-          "Sabah kuş gözlemi",
-          "Yerel köy ziyareti",
-          "Geleneksel Sumatran yemekleri",
-          "Medan'a dönüş yolculuğu",
-          "Veda akşam yemeği",
+          "Serbest gün: göl kenarında dinlenme, kafe molaları ve sakin yürüyüşlerle Samosir atmosferine yayılma.",
+          "Güvenli alanlarda yüzme veya iskele çevresinde serbest vakit (mevsim/yerel tavsiyeye göre).",
+          "Kısa bisiklet turu (Tuk-Tuk çevresi) veya kano gibi hafif aktivitelerle günü esnek değerlendirme.",
+          "Dileyenler için ücretli opsiyonel turlar aşağıdaki kartlarda listelenmiştir.",
+        ],
+        optionalExtras: [
+          {
+            id: "sumatra-samosir-tele-aek-pano",
+            title: "6. Gün | Tele Observation Tower + Aek Tano Ponggol Panorama Turu (Opsiyonel)",
+            shortDescription:
+              "Lake Toba'nın 360° manzarasını izleyebileceğiniz Tele seyir noktası ve Aek Tano Ponggol fotoğraf durağını içeren günübirlik rota (opsiyonel ve ücretli).",
+            priceNote:
+              "Tura dahil değildir; araç tipi ve kişi sayısına göre fiyat değişir. Kesin ücret rezervasyon aşamasında paylaşılır.",
+            details: [
+              "⏱ Süre: Yaklaşık 5–7 saat (durak sürelerine göre)",
+              "📸 İçerik: Tele panoramik manzara + Aek Tano Ponggol köprüsü fotoğraf molası",
+              "Uygunluk: Hafif tempo – manzara odaklı bir gün",
+              "Not: Hava koşulları manzarayı etkileyebilir; esnek plan önerilir",
+            ],
+          },
+        ],
+        accommodation: "Toledo Inn Lake Toba (4⭐)",
+      },
+      {
+        day: 7,
+        title: "Samosir: Batak Kültürü & Göl Aktiviteleri (Aktivite Günü)",
+        activities: [
+          "08:30 – Tuk-Tuk bölgesinde kısa tanışma yürüyüşü: göl kıyısı, iskeleler ve günlük yaşamın ritmi.",
+          "09:30 – Cultural Village Visit: geleneksel Batak ev mimarisi, kültürün temel ritüelleri ve yaşam biçimi hakkında rehber anlatımı.",
+          "11:00 – Batak kral mezarları ve taş anıtlar: tarihî duraklarda fotoğraf + hikâye anlatımı (kısa ve akıcı rota).",
+          "12:30 – Göl manzaralı öğle molası: menüden bireysel seçim (yemek dahil olup olmadığı paket seçimine göre netleşir).",
+          "14:00 – Samosir bisiklet turu (2–3 saat): manzara noktalarında duraklayarak, grup temposuna uygun rahat rota.",
+          "16:30 – Serbest zaman: güvenli alanlarda yüzme veya kano; isteyenler için kafe molaları.",
+          "20:15 civarı – Müsait günlerde geleneksel Batak dans gösterisi: müzik/dans kültürünü yerinde izleme (program gününe göre).",
+        ],
+        accommodation: "Toledo Inn Lake Toba (4⭐)",
+      },
+      {
+        day: 8,
+        title: "Samosir → Medan | Dinlenme ve Serbest Akşam (Yol Sonrası Rahat Gün)",
+        activities: [
+          "09:30 – Samosir'de otelden check-out; feribot + karayolu ile Medan'a dönüşe başlama.",
+          "Yolculuk toplam ~4–5,5 saat (trafik/feribot saatlerine göre); kısa mola planlanır.",
+          "15:00–16:30 – Medan'a varış, otele giriş ve dinlenme.",
+          "Akşam: serbest zaman (son alışveriş / yemek önerileri; ertesi gün uçuşuna uygun erken dinlenme önerilir).",
         ],
         accommodation: "JW Marriott Medan (5⭐)",
       },
       {
-        day: 7,
+        day: 9,
         title: "Veda Sumatra",
-        activities: ["Kahvaltı ve son alışveriş", "Havalimanına transfer", "İstanbul'a dönüş uçuşu"],
+        activities: [
+          "Uçuş saatine göre kahvaltı ve otelden check-out (genelde uçuş saatinden 3–4 saat önce otelden çıkış planlanır).",
+          "Medan Havalimanı'na (KNO) transfer ~45–90 dk; check-in ve pasaport işlemleri için zaman bırakılır.",
+          "İstanbul'a dönüş uçuşu.",
+          "Tur programımız burada son buluyor.",
+        ],
         accommodation: "-",
       },
     ],
@@ -745,31 +868,27 @@ const toursData = {
       {
         category: "Yaban Hayatı",
         items: [
-          "Orangutan trekking",
-          "Thomas Leaf maymunları gözlemi",
-          "Tropik kuş gözlemi",
-          "Gece jungle safari",
-          "Endemik hayvan fotoğrafçılığı",
+          "Rehberli orangutan gözlem trekkingi (Gunung Leuser çevresi)",
+          "Gibbons ve Thomas leaf monkey gözlemi",
+          "Kuş gözlemi ve doğa fotoğrafçılığı",
         ],
       },
       {
         category: "Doğa Deneyimleri",
         items: [
-          "Yağmur ormanı trekking",
-          "Şelale yürüyüşleri",
-          "Nehir rafting",
-          "Tube floating",
-          "Volkanik göl turları",
+          "Yağmur ormanı yürüyüşleri (1 günlük rota)",
+          "Bohorok Nehri tubing",
+          "Lake Toba'da yüzme (güvenli alanlarda) ve kano",
+          "Tele panoramik seyir noktaları",
         ],
       },
       {
         category: "Kültürel Keşif",
         items: [
-          "Batak köyü ziyareti",
-          "Geleneksel müzik ve dans",
-          "Yerel el sanatları",
-          "Kahve plantasyonu turu",
-          "Sumatran mutfağı workshop",
+          "Batak kültür köyleri ve geleneksel evler",
+          "Geleneksel Batak dans gösterisi (müsait günlere göre)",
+          "El sanatları ve yerel pazarlar",
+          "Sumatra mutfağı deneyimi (yerel restoran önerileri)",
         ],
       },
     ],
@@ -782,12 +901,12 @@ const toursData = {
         "Sumatra, turistik olmayan, otantik yaşamı deneyimlemek isteyenler için ideal. Jungle trekking'den göl kenarında dinlenmeyeçin, yaban hayatı gözleminden yerel kültürü keşfetmeye kadar geniş bir yelpazede deneyimler sunuyor.",
     },
     routes: [
-      { name: "Toba Gölü", description: "Dünyanın en büyük volkanik gölü" },
-      { name: "Samosir Adası", description: "Batak kültür merkezi" },
-      { name: "Bukit Lawang", description: "Orangutan trekking merkezi" },
-      { name: "Gunung Leuser NP", description: "UNESCO Dünya Mirası yağmur ormanı" },
-      { name: "Berastagi", description: "Yanardağlar ve serin iklim" },
-      { name: "Sipiso-piso", description: "Muhteşem şelale" },
+      { name: "Bukit Lawang", description: "Orangutan trekkingi, Bat Cave ve Bohorok Nehri tubing" },
+      { name: "Gunung Leuser NP", description: "UNESCO Dünya Mirası yağmur ormanı ekosistemi" },
+      { name: "Lake Toba", description: "UNESCO Global Geopark – volkanik göl manzaraları" },
+      { name: "Samosir (Tuk-Tuk)", description: "Bisiklet turu, Batak köyleri ve göl aktiviteleri" },
+      { name: "Tele Observation Tower", description: "360° panoramik seyir noktası" },
+      { name: "Aek Tano Ponggol", description: "Köprü ve fotoğraf noktaları" },
     ],
     gallery: [
       "/sumatra-rainforest-orangutan-lake-toba.jpg",
@@ -1197,6 +1316,52 @@ export default function TourDetail() {
   const isBali = effectiveId === "bali";
   const isLombok = effectiveId === "lombok";
   const isJava = effectiveId === "java";
+  const isSumatra = effectiveId === "sumatra";
+
+  const getPremiumDifferences = (tourKey, pkgLevel) => {
+    if (pkgLevel === "premium") return [];
+
+    if (tourKey === "bali") {
+      return pkgLevel === "temel"
+        ? [
+            "Ayung Nehri rafting deneyimi bu pakete dahil değildir (isteğe bağlı eklenebilir).",
+            "Tam gün tekne turu ve bazı ekstra aktiviteler bu fiyata dahil değildir.",
+            "Otel konforu ve dahil öğün sayısı Premium'a göre daha sade tutulur; bütçeyi korumaya odaklıdır.",
+          ]
+        : [
+            "Tam gün tekne turu bu pakete dahil değildir (isterseniz opsiyonel olarak eklenebilir).",
+            "Yemekler ve ekstra aktiviteler Premium pakete göre daha sınırlıdır.",
+          ];
+    }
+
+    if (tourKey === "lombok") {
+      return pkgLevel === "temel"
+        ? [
+            "Gili Adaları tekne turu bu pakete dahil değildir (isteğe bağlı eklenebilir).",
+            "Güney plajları & sörf deneyimi bu pakete dahil değildir (isteğe bağlı eklenebilir).",
+            "Senaru şelaleleri & Rinjani manzara turu bu pakete dahil değildir.",
+          ]
+        : [
+            "Senaru şelaleleri & Rinjani manzara turu bu pakete dahil değildir (isterseniz opsiyonel olarak eklenebilir).",
+            "Pink Beach tekne turu gibi ek deneyimler bu pakete dahil değildir.",
+          ];
+    }
+
+    if (tourKey === "sumatra") {
+      return pkgLevel === "temel"
+        ? [
+            "Orangutan trekking & tubing deneyimi bu pakete dahil değildir (isteğe bağlı eklenebilir).",
+            "Batak kültür & ada turu bu pakete dahil değildir (isteğe bağlı eklenebilir).",
+            "Tele Observation Tower / panorama turu gibi ek turlar bu fiyata dahil değildir.",
+          ]
+        : [
+            "Batak kültür & ada turu bu pakete dahil değildir (isterseniz opsiyonel olarak eklenebilir).",
+            "Tele Observation Tower / panorama turu gibi ek turlar bu pakete dahil değildir.",
+          ];
+    }
+
+    return [];
+  };
 
   const [showPlannedForm, setShowPlannedForm] = useState(false);
   const [showGroupForm, setShowGroupForm] = useState(false);
@@ -1279,6 +1444,194 @@ export default function TourDetail() {
   const discountedPrice = hasDiscount ? Math.round(basePrice * (1 - discountPercent / 100)) : basePrice;
   const promoLabel = pricingOverride?.promoLabel || "";
 
+  const normalizePlannedDateRangeLabel = (text) => {
+    if (!text || typeof text !== "string") return "";
+    return text
+      .replace(/^\s*planlanan\s*tarih\s*:\s*/i, "")
+      .replace(/^\s*planlanan\s*tur\s*tarihleri\s*:\s*/i, "")
+      .trim();
+  };
+
+  const parseDateFlexible = (input) => {
+    if (!input) return null;
+    let s = input.toString().trim();
+    s = s.replace(/\(.*?\)/g, " ");
+    s = s.replace(/planlanan\s*tarih\s*:\s*/i, "");
+    s = s.replace(/planlanan\s*tur\s*tarihleri\s*:\s*/i, "");
+    s = s.replace(/^[^0-9a-zA-ZğüşöçıİĞÜŞÖÇ]+/g, "");
+    s = s.replace(/[^0-9a-zA-ZğüşöçıİĞÜŞÖÇ\.\-\/\s]+/g, " ").trim();
+
+    let d = new Date(s);
+    if (!isNaN(d)) return d;
+
+    const monthsTR = {
+      ocak: "January",
+      şubat: "February",
+      mart: "March",
+      nisan: "April",
+      mayıs: "May",
+      haziran: "June",
+      temmuz: "July",
+      ağustos: "August",
+      agustos: "August",
+      eylül: "September",
+      ekim: "October",
+      kasım: "November",
+      aralık: "December",
+    };
+
+    let replaced = s.toLowerCase();
+    Object.keys(monthsTR).forEach((tr) => {
+      replaced = replaced.replace(new RegExp(tr, "g"), monthsTR[tr]);
+    });
+    d = new Date(replaced);
+    if (!isNaN(d)) return d;
+
+    const m = replaced.match(/(\d{1,2})[\.\-/ ](\d{1,2})[\.\-/ ](\d{2,4})/);
+    if (m) {
+      const day = Number(m[1]);
+      const month = Number(m[2]) - 1;
+      let year = Number(m[3]);
+      if (year < 100) year += 2000;
+      return new Date(year, month, day);
+    }
+
+    const m2 = replaced.match(/(\d{1,2})\s+([a-zA-Z]+)\s*(\d{4})?/);
+    if (m2) {
+      const day = Number(m2[1]);
+      const monthName = m2[2];
+      const year = m2[3] ? Number(m2[3]) : new Date().getFullYear();
+      const tryDate = new Date(`${monthName} ${day}, ${year}`);
+      if (!isNaN(tryDate)) return tryDate;
+    }
+
+    return null;
+  };
+
+  const parseDateRangeText = (text) => {
+    if (!text || typeof text !== "string") return null;
+    let cleaned = text
+      .replace(/\(.*?\)/g, " ")
+      .replace(/planlanan\s*tarih\s*:\s*/i, "")
+      .replace(/planlanan\s*tur\s*tarihleri\s*:\s*/i, "")
+      .trim();
+
+    // "12-19 Mart" veya "12–19 Mart 2026"
+    let m = cleaned.match(/(\d{1,2})\s*[-–—]\s*(\d{1,2})\s+([a-zA-ZğüşöçıİĞÜŞÖÇ]+)\s*(\d{4})?/i);
+    if (m) {
+      const d1 = Number(m[1]);
+      const d2 = Number(m[2]);
+      const monthName = m[3];
+      const year = m[4] ? Number(m[4]) : new Date().getFullYear();
+      const start = parseDateFlexible(`${d1} ${monthName} ${year}`);
+      const end = parseDateFlexible(`${d2} ${monthName} ${year}`);
+      return start && end ? { start, end } : null;
+    }
+
+    // "28 Mart - 3 Nisan" / "28 Mart – 3 Nisan 2026"
+    m = cleaned.match(
+      /(\d{1,2})\s+([a-zA-ZğüşöçıİĞÜŞÖÇ]+)\s*[-–—]\s*(\d{1,2})\s+([a-zA-ZğüşöçıİĞÜŞÖÇ]+)\s*(\d{4})?/i,
+    );
+    if (m) {
+      const d1 = Number(m[1]);
+      const month1 = m[2];
+      const d2 = Number(m[3]);
+      const month2 = m[4];
+      const year = m[5] ? Number(m[5]) : new Date().getFullYear();
+      const start = parseDateFlexible(`${d1} ${month1} ${year}`);
+      const end = parseDateFlexible(`${d2} ${month2} ${year}`);
+      return start && end ? { start, end } : null;
+    }
+
+    const parts = cleaned
+      .split(/\s[-–—]\s|\bto\b/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    if (parts.length >= 2) {
+      const start = parseDateFlexible(parts[0]);
+      const end = parseDateFlexible(parts[1]);
+      return start && end ? { start, end } : null;
+    }
+
+    return null;
+  };
+
+  const computeDaysNightsFromDates = (start, end) => {
+    if (!(start instanceof Date) || !(end instanceof Date) || isNaN(start) || isNaN(end)) return null;
+    const startUtc = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+    const endUtc = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const days = Math.round((endUtc - startUtc) / msPerDay) + 1;
+    if (!Number.isFinite(days) || days <= 0 || days >= 1000) return null;
+    const nights = Math.max(0, days - 1);
+    return { days, nights };
+  };
+
+  const formatDurationFromDaysNights = (days, nights) => {
+    const d = Number(days);
+    const n = Number(nights);
+    if (!Number.isFinite(d) || !Number.isFinite(n) || d <= 0) return "";
+    return `${n} Gece ${d} Gün`;
+  };
+
+  const configTour = effectiveId ? TOURS_CONFIG.find((t) => t.id === effectiveId) : null;
+  const plannedDateRangeTextRaw = pricingOverride?.dateRange || configTour?.dateRange || "";
+  const plannedDateRangeText = normalizePlannedDateRangeLabel(plannedDateRangeTextRaw);
+
+  const possibleStart =
+    pricingOverride?.startDate ||
+    pricingOverride?.start_date ||
+    pricingOverride?.dateStart ||
+    pricingOverride?.date_start ||
+    pricingOverride?.start ||
+    pricingOverride?.sDate ||
+    pricingOverride?.s_date ||
+    pricingOverride?.startAt ||
+    pricingOverride?.start_at ||
+    (pricingOverride?.dates && (pricingOverride.dates.start || pricingOverride.dates.startDate || pricingOverride.dates.dateStart)) ||
+    null;
+  const possibleEnd =
+    pricingOverride?.endDate ||
+    pricingOverride?.end_date ||
+    pricingOverride?.dateEnd ||
+    pricingOverride?.date_end ||
+    pricingOverride?.end ||
+    pricingOverride?.eDate ||
+    pricingOverride?.e_date ||
+    pricingOverride?.endAt ||
+    pricingOverride?.end_at ||
+    (pricingOverride?.dates && (pricingOverride.dates.end || pricingOverride.dates.endDate || pricingOverride.dates.dateEnd)) ||
+    null;
+
+  const startDate = possibleStart
+    ? (typeof possibleStart?.toDate === "function" ? possibleStart.toDate() : new Date(possibleStart))
+    : null;
+  const endDate = possibleEnd
+    ? (typeof possibleEnd?.toDate === "function" ? possibleEnd.toDate() : new Date(possibleEnd))
+    : null;
+
+  const computedDaysNights = startDate && endDate ? computeDaysNightsFromDates(startDate, endDate) : null;
+  const computedDurationFromDates = computedDaysNights
+    ? formatDurationFromDaysNights(computedDaysNights.days, computedDaysNights.nights)
+    : "";
+
+  const computedDurationFromText = (() => {
+    const t = pricingOverride?.dateRange;
+    if (!t || typeof t !== "string") return "";
+    const m1 = t.match(/(\d+)\s*g[uü]n\s*\/\s*(\d+)\s*gece/i);
+    if (m1) return formatDurationFromDaysNights(Number(m1[1]), Number(m1[2]));
+    const m2 = t.match(/(\d+)\s*gece\s*\/\s*(\d+)\s*g[uü]n/i);
+    if (m2) return formatDurationFromDaysNights(Number(m2[2]), Number(m2[1]));
+    const range = parseDateRangeText(t);
+    if (range?.start && range?.end) {
+      const dn = computeDaysNightsFromDates(range.start, range.end);
+      return dn ? formatDurationFromDaysNights(dn.days, dn.nights) : "";
+    }
+    return "";
+  })();
+
+  const effectiveDuration = computedDurationFromDates || computedDurationFromText || tour?.duration || "";
+
   const routeNames = Array.isArray(tour?.routes)
     ? tour.routes.map((r) => r?.name).filter(Boolean)
     : [];
@@ -1295,7 +1648,7 @@ export default function TourDetail() {
       headline: "Program akışını koruyan, daha esnek içerikli başlangıç paketi.",
       priceMultiplier: 1,
       highlights: [
-        tour?.duration ? `Süre: ${tour.duration}` : "",
+        effectiveDuration ? `Süre: ${effectiveDuration}` : "",
         tour?.concept ? `Konsept: ${tour.concept}` : "",
         routesShortText ? `Rota: ${routesShortText}` : "",
       ].filter(Boolean),
@@ -1310,7 +1663,7 @@ export default function TourDetail() {
       headline: "Daha dolu içerik ve daha az belirsizlik isteyenler için dengeli seçenek.",
       priceMultiplier: 1,
       highlights: [
-        tour?.duration ? `Süre: ${tour.duration}` : "",
+        effectiveDuration ? `Süre: ${effectiveDuration}` : "",
         tour?.concept ? `Konsept: ${tour.concept}` : "",
         routesShortText ? `Rota: ${routesShortText}` : "",
       ].filter(Boolean),
@@ -1325,7 +1678,7 @@ export default function TourDetail() {
       headline: "Daha kapsamlı planlama ve daha yüksek konfor beklentisi olanlar için üst seviye paket.",
       priceMultiplier: 1,
       highlights: [
-        tour?.duration ? `Süre: ${tour.duration}` : "",
+        effectiveDuration ? `Süre: ${effectiveDuration}` : "",
         tour?.concept ? `Konsept: ${tour.concept}` : "",
         routesShortText ? `Rota: ${routesShortText}` : "",
       ].filter(Boolean),
@@ -1416,7 +1769,7 @@ export default function TourDetail() {
     email: "",
     phone: "",
     participation: "bireysel",
-    tour: tour ? `${tour.name} - ${tour.duration}` : "",
+    tour: tour ? `${tour.name} - ${effectiveDuration}` : "",
     people: "",
     notes: "",
     privacy: false,
@@ -1485,7 +1838,7 @@ export default function TourDetail() {
     console.log("Planned tour pre-registration:", plannedForm);
 
     const whatsappText = `Toplu tatil organizasyonu ön kayıt talebi\n\n`
-      + `Tur: ${tour.name} (${tour.duration})\n`
+      + `Tur: ${tour.name} (${effectiveDuration})\n`
       + `Ad Soyad: ${plannedForm.name}\n`
       + `E-posta: ${plannedForm.email}\n`
       + `Telefon: ${plannedForm.phone}\n`
@@ -1508,7 +1861,7 @@ export default function TourDetail() {
           EMAILJS_TOURS_TEMPLATE_ID_PLANNED,
           {
             tour_name: tour.name,
-            tour_duration: tour.duration,
+            tour_duration: effectiveDuration,
             name: plannedForm.name,
             email: plannedForm.email,
             phone: plannedForm.phone,
@@ -1539,7 +1892,7 @@ export default function TourDetail() {
       : groupForm.budget;
 
     const whatsappText = `Toplu tatil organizasyonu için grup teklif talebi\n\n`
-      + `Referans rota / tatil: ${tour.name} (${tour.duration})\n`
+      + `Referans rota / tatil: ${tour.name} (${effectiveDuration})\n`
       + `Ad Soyad: ${groupForm.name}\n`
       + `E-posta: ${groupForm.email}\n`
       + `Telefon: ${groupForm.phone}\n`
@@ -1565,7 +1918,7 @@ export default function TourDetail() {
           EMAILJS_TOURS_TEMPLATE_ID_GROUP,
           {
             tour_name: tour.name,
-            tour_duration: tour.duration,
+            tour_duration: effectiveDuration,
             name: groupForm.name,
             email: groupForm.email,
             phone: groupForm.phone,
@@ -1630,7 +1983,7 @@ export default function TourDetail() {
           EMAILJS_TOURS_TEMPLATE_ID_PLANNED,
           {
             tour_name: tour.name,
-            tour_duration: tour.duration,
+            tour_duration: effectiveDuration,
             name: depositForm.name,
             email: depositForm.email,
             phone: depositForm.phone,
@@ -1777,9 +2130,9 @@ export default function TourDetail() {
 
           {/* Kısa özet etiketleri: süre, konsept ve premium deneyim vurgusu */}
           <div className="mt-4 flex flex-wrap gap-2 text-xs md:text-sm text-white/90">
-            {tour.duration && (
+            {effectiveDuration && (
               <span className="px-3 py-1 rounded-full bg-black/40 border border-white/20 backdrop-blur-[2px]">
-                {tour.duration}
+                {effectiveDuration}
               </span>
             )}
             {tour.concept && (
@@ -1831,7 +2184,12 @@ export default function TourDetail() {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 mb-1">Süre & Konsept</h3>
-            <p className="text-sm text-gray-800">{tour.duration}</p>
+            <p className="text-sm text-gray-800">{effectiveDuration}</p>
+            {plannedDateRangeText && (
+              <p className="mt-1 text-[11px] text-gray-700 font-semibold">
+                Planlanan Tur Tarihleri: {plannedDateRangeText}
+              </p>
+            )}
             {tour.concept && (
               <p className="mt-1 inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-100">
                 {tour.concept}
@@ -1937,7 +2295,7 @@ export default function TourDetail() {
       {hasPackages && (
   <section className="max-w-6xl mx-auto px-4 mb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {packages.map((pkg) => (
+            {(isJava ? packages.filter((pkg) => pkg.level === "premium") : packages).map((pkg) => (
               <div
                 key={pkg.id}
                 className={[
@@ -2011,20 +2369,9 @@ export default function TourDetail() {
                           Premium paket ile farkları
                         </p>
                         <ul className="space-y-1.5 text-[11px] text-slate-100/90">
-                          {pkg.level === "temel" ? (
-                            <>
-                              <li>{renderWithInclusionHighlight("Ayung Nehri rafting deneyimi bu pakete dahil değildir (isteğe bağlı eklenebilir).")}</li>
-                              <li>{renderWithInclusionHighlight("Tam gün tekne turu ve bazı ekstra aktiviteler bu fiyata dahil değildir.")}</li>
-                              <li>
-                                {renderWithInclusionHighlight("Otel konforu ve dahil öğün sayısı Premium'a göre daha sade tutulur; bütçeyi korumaya odaklıdır.")}
-                              </li>
-                            </>
-                          ) : (
-                            <>
-                              <li>{renderWithInclusionHighlight("Tam gün tekne turu bu pakete dahil değildir (isterseniz opsiyonel olarak eklenebilir).")}</li>
-                              <li>{renderWithInclusionHighlight("Yemekler ve ekstra aktiviteler Premium pakete göre daha sınırlıdır.")}</li>
-                            </>
-                          )}
+                          {getPremiumDifferences(effectiveId, pkg.level).map((item) => (
+                            <li key={item}>{renderWithInclusionHighlight(item)}</li>
+                          ))}
                         </ul>
                       </div>
                     )}
@@ -2199,7 +2546,7 @@ export default function TourDetail() {
                       value={plannedForm.tour}
                       onChange={handlePlannedChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 text-sm"
-                      placeholder={tour ? `${tour.name} - ${tour.duration}` : "Örn: Bali - 4 Gece 5 Gün"}
+                      placeholder={tour ? `${tour.name} - ${effectiveDuration}` : "Örn: Bali - 4 Gece 5 Gün"}
                     />
                   </div>
                   <div>

@@ -59,18 +59,26 @@ export const TOURS_CONFIG = [
 		id: "java",
 		name: "Java Adası",
 		description:
-			"Endonezya'nın kalbi Java, büyüleyici Borobudur Tapınağı, Prambanan ve aktif yanardağlarıyla kültür hazinesi.",
-		duration: "5 Gece 6 Gün",
-		concept: "Kültürel Keşif",
-		suitableFor: ["Kültürel Keşif", "Tarih", "Fotoğrafçılık"],
+			"Java'yı klasik bir şehir turu gibi değil; Jakarta'dan başlayıp Bandung'un yaylalarına, Pangandaran'ın nehir & doğa rotalarına ve Yogyakarta'nın UNESCO tapınaklarına uzanan konforlu bir road trip olarak yaşayın.",
+		duration: "10 Gece 11 Gün",
+		concept: "Road Trip & Şehirler (Premium)",
+		suitableFor: ["Road Trip", "Kültürel Keşif", "Doğa & Macera", "Fotoğrafçılık", "Şehir Turu"],
 		includes: [
-			"Konaklama",
-			"Transferler",
-			"Kahvaltı (opsiyonel)",
-			"Aktiviteler & geziler",
+			"Jakarta, Bandung, Pangandaran ve Yogyakarta konaklamaları",
+			"Rota içi transferler (tren/araç) ve operasyon koordinasyonu",
+			"Programdaki rehberli günler ve transferler",
+			"Planlama ve rezervasyon öncesi yazılı bilgilendirme",
 		],
-		dateRange: "Resmi ve okul tatillerine göre planlanır",
+		dateRange: "Belirli dönemlerde sınırlı kontenjanla",
 		price: 3199,
+		packages: [
+			{
+				id: "java-premium",
+				level: "premium",
+				name: "Premium Paket",
+				priceMultiplier: 1,
+			},
+		],
 		image: "/java-borobudur-temple-volcano-sunrise.jpg",
 	},
 	{
@@ -78,14 +86,14 @@ export const TOURS_CONFIG = [
 		name: "Sumatra Adası",
 		description:
 			"Vahşi Sumatra, yağmur ormanları, orangutanlar ve etkileyici Toba Gölü ile eşsiz bir doğa deneyimi sunuyor.",
-		duration: "6 Gece 7 Gün",
+		duration: "8 Gece 9 Gün",
 		concept: "Doğa & Macera",
 		suitableFor: ["Doğa & Macera", "Kültürel Keşif", "Yaban Hayatı"],
 		includes: [
-			"Konaklama",
-			"Transferler",
-			"Kahvaltı (opsiyonel)",
-			"Aktiviteler & geziler",
+			"Medan, Bukit Lawang ve Samosir (Lake Toba) konaklamaları",
+			"Rota içi özel araç transferleri + feribot geçişleri",
+			"Her gün otelde sabah kahvaltısı",
+			"Programdaki rehberli günler ve seçili aktiviteler",
 		],
 		dateRange: "Belirli dönemlerde sınırlı kontenjanla",
 		price: 3499,
@@ -154,15 +162,165 @@ export default function Tours() {
 				});
 				setTourOverrides(overrides);
 
+				const formatDurationFromDaysNights = (days, nights) => {
+					const d = Number(days);
+					const n = Number(nights);
+					if (!Number.isFinite(d) || !Number.isFinite(n) || d <= 0) return "";
+					return `${n} Gece ${d} Gün`;
+				};
+
+				const extractDaysNightsFromText = (text) => {
+					if (!text || typeof text !== "string") return null;
+					// ör: "(7 gün / 6 gece)" veya "(6 gece / 7 gün)"
+					const m1 = text.match(/(\d+)\s*g[uü]n\s*\/\s*(\d+)\s*gece/i);
+					if (m1) return { days: Number(m1[1]), nights: Number(m1[2]) };
+					const m2 = text.match(/(\d+)\s*gece\s*\/\s*(\d+)\s*g[uü]n/i);
+					if (m2) return { nights: Number(m2[1]), days: Number(m2[2]) };
+					return null;
+				};
+
+				const parseDateFlexible = (input) => {
+					if (!input) return null;
+					let s = input.toString().trim();
+					// "Planlanan tarih:" gibi prefix'leri, parantez içlerini ve gereksiz karakterleri temizle
+					s = s.replace(/\(.*?\)/g, " ");
+					s = s.replace(/planlanan\s*tarih\s*:\s*/i, "");
+					s = s.replace(/^[^0-9a-zA-ZğüşöçıİĞÜŞÖÇ]+/g, "");
+					s = s.replace(/[^0-9a-zA-ZğüşöçıİĞÜŞÖÇ\.\-\/\s]+/g, " ").trim();
+
+					let d = new Date(s);
+					if (!isNaN(d)) return d;
+					const monthsTR = {
+						ocak: "January",
+						şubat: "February",
+						mart: "March",
+						nisan: "April",
+						mayıs: "May",
+						haziran: "June",
+						temmuz: "July",
+						ağustos: "August",
+						agustos: "August",
+						eylül: "September",
+						ekim: "October",
+						kasım: "November",
+						aralık: "December",
+					};
+
+					let replaced = s.toLowerCase();
+					Object.keys(monthsTR).forEach((tr) => {
+						replaced = replaced.replace(new RegExp(tr, "g"), monthsTR[tr]);
+					});
+					d = new Date(replaced);
+					if (!isNaN(d)) return d;
+
+					const m = replaced.match(/(\d{1,2})[\.\-/ ](\d{1,2})[\.\-/ ](\d{2,4})/);
+					if (m) {
+						const day = Number(m[1]);
+						const month = Number(m[2]) - 1;
+						let year = Number(m[3]);
+						if (year < 100) year += 2000;
+						return new Date(year, month, day);
+					}
+
+					const m2 = replaced.match(/(\d{1,2})\s+([a-zA-Z]+)\s*(\d{4})?/);
+					if (m2) {
+						const day = Number(m2[1]);
+						const monthName = m2[2];
+						const year = m2[3] ? Number(m2[3]) : new Date().getFullYear();
+						const tryDate = new Date(`${monthName} ${day}, ${year}`);
+						if (!isNaN(tryDate)) return tryDate;
+					}
+
+					return null;
+				};
+
+				const parseDateRangeText = (text) => {
+					if (!text || typeof text !== "string") return null;
+					let cleaned = text
+						.replace(/\(.*?\)/g, " ")
+						.replace(/planlanan\s*tarih\s*:\s*/i, "")
+						.replace(/planlanan\s*tur\s*tarihleri\s*:\s*/i, "")
+						.trim();
+
+					// Yaygın format: "12-19 Mart" veya "12–19 Mart 2026"
+					let m = cleaned.match(
+						/(\d{1,2})\s*[-–—]\s*(\d{1,2})\s+([a-zA-ZğüşöçıİĞÜŞÖÇ]+)\s*(\d{4})?/i,
+					);
+					if (m) {
+						const d1 = Number(m[1]);
+						const d2 = Number(m[2]);
+						const monthName = m[3];
+						const year = m[4] ? Number(m[4]) : new Date().getFullYear();
+						const start = parseDateFlexible(`${d1} ${monthName} ${year}`);
+						const end = parseDateFlexible(`${d2} ${monthName} ${year}`);
+						return start && end ? { start, end } : null;
+					}
+
+					// Format: "28 Mart - 3 Nisan" / "28 Mart – 3 Nisan 2026"
+					m = cleaned.match(
+						/(\d{1,2})\s+([a-zA-ZğüşöçıİĞÜŞÖÇ]+)\s*[-–—]\s*(\d{1,2})\s+([a-zA-ZğüşöçıİĞÜŞÖÇ]+)\s*(\d{4})?/i,
+					);
+					if (m) {
+						const d1 = Number(m[1]);
+						const month1 = m[2];
+						const d2 = Number(m[3]);
+						const month2 = m[4];
+						const year = m[5] ? Number(m[5]) : new Date().getFullYear();
+						const start = parseDateFlexible(`${d1} ${month1} ${year}`);
+						const end = parseDateFlexible(`${d2} ${month2} ${year}`);
+						return start && end ? { start, end } : null;
+					}
+
+					// Fallback: "to" / "–" / "—" / " - " ayracıyla iki parçaya böl
+					const parts = cleaned
+						.split(/\s[-–—]\s|\bto\b/)
+						.map((p) => p.trim())
+						.filter(Boolean);
+					if (parts.length >= 2) {
+						const start = parseDateFlexible(parts[0]);
+						const end = parseDateFlexible(parts[1]);
+						return start && end ? { start, end } : null;
+					}
+
+					return null;
+				};
+
+				const isReasonableDate = (d) => {
+					return d instanceof Date && !isNaN(d) && d.getFullYear && d.getFullYear() >= 2000 && d.getFullYear() <= 2100;
+				};
+
 				// Tarih bilgisini de temel listeye yansıt
 				setTours((prev) =>
 					prev.map((tour) => {
 						const o = overrides[tour.id] || {};
 						// Eğer admin panelinden startDate / endDate geliyorsa, okunabilir dateRange hazırla
 						let dateRange = o.dateRange || tour.dateRange || "";
+						let computedDuration = "";
 						// Desteklenen farklı admin alan adları için esnek start/end okuma
-						const possibleStart = o.startDate || o.start_date || o.start || o.sDate || o.s_date || o.startAt || o.start_at || (o.dates && o.dates.start) || null;
-						const possibleEnd = o.endDate || o.end_date || o.end || o.eDate || o.e_date || o.endAt || o.end_at || (o.dates && o.dates.end) || null;
+						const possibleStart =
+							o.startDate ||
+							o.start_date ||
+							o.dateStart ||
+							o.date_start ||
+							o.start ||
+							o.sDate ||
+							o.s_date ||
+							o.startAt ||
+							o.start_at ||
+							(o.dates && (o.dates.start || o.dates.startDate || o.dates.dateStart)) ||
+							null;
+						const possibleEnd =
+							o.endDate ||
+							o.end_date ||
+							o.dateEnd ||
+							o.date_end ||
+							o.end ||
+							o.eDate ||
+							o.e_date ||
+							o.endAt ||
+							o.end_at ||
+							(o.dates && (o.dates.end || o.dates.endDate || o.dates.dateEnd)) ||
+							null;
 						if (possibleStart && possibleEnd) {
 							try {
 								const sRaw = possibleStart;
@@ -173,68 +331,35 @@ export default function Tours() {
 									const msPerDay = 1000 * 60 * 60 * 24;
 									const days = Math.round((e - s) / msPerDay) + 1;
 									const nights = Math.max(0, days - 1);
-									const fmt = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
-									const startFmt = fmt.format(s);
-									const endFmt = fmt.format(e);
-									dateRange = `Planlanan tarih: ${startFmt} - ${endFmt} (${days} gün / ${nights} gece)`;
+									// dateRange metni admin tarafından verilmişse (ör. bayram dönemi notu), onu koru.
+									// Yoksa sadece okunabilir tarih aralığı üret.
+									if (!o.dateRange) {
+										const fmt = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
+										const startFmt = fmt.format(s);
+										const endFmt = fmt.format(e);
+										dateRange = `${startFmt} - ${endFmt}`;
+									}
+									computedDuration = formatDurationFromDaysNights(days, nights);
 								}
 							} catch (err) {
 								// parsing hatası olursa mevcut dateRange bırakılır
 							}
 						} else if (o.dateRange && typeof o.dateRange === "string") {
-							// Eğer admin doğrudan okunabilir bir dateRange string'i girmişse, olası '-'' ile ayrılmış tarihleri parse etmeye çalış
-							const parseDateFlexible = (input) => {
-								if (!input) return null;
-								const s = input.toString().trim();
-								let d = new Date(s);
-								if (!isNaN(d)) return d;
-								const monthsTR = {
-									ocak: 'January', şubat: 'February', mart: 'March', nisan: 'April', mayıs: 'May', haziran: 'June',
-									temmuz: 'July', ağustos: 'August', agustos: 'August', eylül: 'September', ekim: 'October', kasım: 'November', aralık: 'December'
-								};
-
-								const isReasonableDate = (d) => {
-									return d instanceof Date && !isNaN(d) && d.getFullYear && d.getFullYear() >= 2000 && d.getFullYear() <= 2100;
-								};
-								let replaced = s.toLowerCase();
-								Object.keys(monthsTR).forEach((tr) => {
-									const eng = monthsTR[tr];
-									replaced = replaced.replace(new RegExp(tr, 'g'), eng);
-								});
-								d = new Date(replaced);
-								if (!isNaN(d)) return d;
-								const m = s.match(/(\d{1,2})[\.\-/ ](\d{1,2})[\.\-/ ](\d{2,4})/);
-								if (m) {
-									const day = Number(m[1]);
-									const month = Number(m[2]) - 1;
-									let year = Number(m[3]);
-									if (year < 100) year += 2000;
-									return new Date(year, month, day);
-								}
-								const m2 = replaced.match(/(\d{1,2})\s+([A-Za-z]+)\s*(\d{4})?/);
-								if (m2) {
-									const day = Number(m2[1]);
-									const monthName = m2[2];
-									const year = m2[3] ? Number(m2[3]) : new Date().getFullYear();
-									const tryDate = new Date(`${monthName} ${day}, ${year}`);
-									if (!isNaN(tryDate)) return tryDate;
-								}
-								return null;
-							};
-							const parts = o.dateRange.split(/–|—|\-|to/).map((p) => p.trim());
-							if (parts.length >= 2) {
+							// Admin dateRange string'i içinden önce (x gün / y gece) yakala; yoksa start-end tarihlerini parse et
+							const extracted = extractDaysNightsFromText(o.dateRange);
+							if (extracted?.days && extracted?.nights >= 0) {
+								computedDuration = formatDurationFromDaysNights(extracted.days, extracted.nights);
+							} else {
 								try {
-									const s = parseDateFlexible(parts[0]);
-									const e = parseDateFlexible(parts[1]);
-									if (isReasonableDate(s) && isReasonableDate(e)) {
+									const range = parseDateRangeText(o.dateRange);
+									if (range?.start && range?.end && isReasonableDate(range.start) && isReasonableDate(range.end)) {
+										const s = range.start;
+										const e = range.end;
 										const msPerDay = 1000 * 60 * 60 * 24;
 										const days = Math.round((e - s) / msPerDay) + 1;
 										if (days > 0 && days < 1000) {
 											const nights = Math.max(0, days - 1);
-											const fmt = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
-											const startFmt = fmt.format(s);
-											const endFmt = fmt.format(e);
-											dateRange = `Planlanan tarih: ${startFmt} - ${endFmt} (${days} gün / ${nights} gece)`;
+											computedDuration = formatDurationFromDaysNights(days, nights);
 										}
 									}
 								} catch (err) {
@@ -245,6 +370,7 @@ export default function Tours() {
 						return {
 							...tour,
 							dateRange,
+							duration: computedDuration || tour.duration,
 						};
 					}),
 				);
@@ -255,6 +381,14 @@ export default function Tours() {
 
 		fetchTours();
 	}, []);
+
+	const normalizePlannedDateRangeLabel = (text) => {
+		if (!text || typeof text !== "string") return "";
+		return text
+			.replace(/^\s*planlanan\s*tarih\s*:\s*/i, "")
+			.replace(/^\s*planlanan\s*tur\s*tarihleri\s*:\s*/i, "")
+			.trim();
+	};
 
 	// Firestore + localStorage'dan görsel URL'lerini yükle
 	useEffect(() => {
@@ -439,13 +573,23 @@ export default function Tours() {
 								? tour.packages
 								: null;
 
-						let cheapestMultiplier = 0.7; // paket yoksa varsayılan 'temel' çarpan
+						let cheapestMultiplier = tour.id === "java" ? 1 : 0.7; // Java: yalnız Premium; diğerleri: paket yoksa varsayılan 'temel'
 						if (sourcePackages) {
-							const multipliers = sourcePackages
-								.map((p) => (typeof p?.priceMultiplier === "number" ? p.priceMultiplier : null))
-								.filter((n) => typeof n === "number" && n > 0);
-							if (multipliers.length > 0) {
-								cheapestMultiplier = Math.min(...multipliers);
+							if (tour.id === "java") {
+								const premiumPkg = sourcePackages.find((p) => {
+									const level = (p?.level || "").toString().toLowerCase();
+									const pid = (p?.id || "").toString().toLowerCase();
+									return level === "premium" || pid.includes("premium");
+								});
+								const premiumMultiplier = premiumPkg && typeof premiumPkg.priceMultiplier === "number" ? premiumPkg.priceMultiplier : 1;
+								cheapestMultiplier = premiumMultiplier > 0 ? premiumMultiplier : 1;
+							} else {
+								const multipliers = sourcePackages
+									.map((p) => (typeof p?.priceMultiplier === "number" ? p.priceMultiplier : null))
+									.filter((n) => typeof n === "number" && n > 0);
+								if (multipliers.length > 0) {
+									cheapestMultiplier = Math.min(...multipliers);
+								}
 							}
 						}
 
@@ -545,6 +689,23 @@ export default function Tours() {
 														<p>Havalimanı–otel–aktivite alanları arası ulaşım</p>
 														<p>7/24 ulaşılabilir Türkçe destek ve yerel ekip</p>
 													</>
+												) : tour.id === "sumatra" ? (
+													<>
+														<p>Road trip konsepti: az konaklama noktası, farklı atmosferler</p>
+														<p>3–4 yıldızlı otel ve bölgesel butik konaklama</p>
+														<p>2 kişilik oda paylaşımı (çift veya arkadaş)</p>
+														<p>Otellerde sabah kahvaltısı</p>
+														<p>Medan ↔ Bukit Lawang ↔ Samosir rota transferleri</p>
+														<p>7/24 ulaşılabilir Türkçe destek ve yerel ekip</p>
+													</>
+												) : tour.id === "java" ? (
+													<>
+														<p>Road trip konsepti: az konaklama noktası, farklı atmosferler</p>
+														<p>Tren + kara yolu geçişleri (Bandung dahil)</p>
+														<p>Rehberli günler + serbest zaman dengesi</p>
+														<p>Rota içi transferler ve operasyon koordinasyonu</p>
+														<p>7/24 Türkçe destek ve yerel ekip</p>
+													</>
 												) : (
 													<>
 														<p>3-4 yıldızlı oteller</p>
@@ -560,7 +721,7 @@ export default function Tours() {
 													<>
 														<div className="flex flex-col items-end">
 															<p className={`text-sm font-semibold mb-0.5 ${hasDiscount ? "text-white line-through decoration-red-500 decoration-1" : "text-white/90"}`}>
-																{hasDiscount ? formatUSD(pkgBasePrice) : "Toplam"}
+																		{hasDiscount ? formatUSD(pkgBasePrice) : (tour.id === "java" ? "Premium" : "Toplam")}
 															</p>
 														</div>
 														<p className="text-xl font-bold text-white whitespace-nowrap leading-none">
@@ -575,10 +736,12 @@ export default function Tours() {
 															)}
 														</span>
 														<span className="block text-[10px] font-normal text-white/90 leading-none">
-															kişi başı 850 USD'ye kadar uçak bileti dahil
+																	kişi başı 850 USD'ye kadar uçak bileti dahil
 														</span>
 													</p>
-													<p className="text-sm text-white/90 mt-0.5">Başlayan fiyatlarla</p>
+																<p className="text-sm text-white/90 mt-0.5">
+																	{tour.id === "java" ? "Premium paket fiyatı" : "Başlayan fiyatlarla"}
+																</p>
 													<p className="text-[11px] text-white/90">
 														{discountNote}
 													</p>
@@ -595,7 +758,7 @@ export default function Tours() {
 									<div className="mt-auto pt-3 space-y-3">
 										{tour.dateRange && (
 											<p className="text-xs text-gray-700 font-semibold">
-												{tour.dateRange}
+												Planlanan Tur Tarihleri: {normalizePlannedDateRangeLabel(tour.dateRange)}
 											</p>
 										)}
 
@@ -620,6 +783,16 @@ export default function Tours() {
 														Lombok rotasında konaklamalar Gili ve sahil bölgelerinde planlanır; kahvaltılar fiyata dahil olup bölgesel transferler ve seçili doğa turları programa dahildir. Özel su sporu aktiviteleri ve bazı rehberli deneyimler paket kapsamında olmayabilir ve opsiyonel ek hizmet olarak sunulur.
 													</p>
 												)}
+																{tour.id === "java" && (
+																	<p className="mt-1 text-[11px] text-gray-600">
+																		Java turu road trip konseptindedir ve yalnızca Premium paket olarak planlanır. Rota içi transferler ve rehberli gün akışı paket kapsamında organize edilir; uçak bileti hariçtir ve net kapsam/tarih rezervasyon öncesinde yazılı paylaşılır.
+																	</p>
+																)}
+																{tour.id === "sumatra" && (
+																	<p className="mt-1 text-[11px] text-gray-600">
+																		Sumatra turu doğa & macera odaklı, road trip mantığında planlanır. Medan → Bukit Lawang → Samosir (Lake Toba) rotasında transferler ve rehberli gün akışı paket kapsamında organize edilir; uçak bileti kapsamı ve net tarih/kapsam rezervasyon öncesinde yazılı olarak paylaşılır.
+																	</p>
+																)}
 											</div>
 										)}
 

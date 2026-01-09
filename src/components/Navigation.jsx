@@ -41,8 +41,17 @@ export default function Navigation() {
     <>
       <nav className="sticky top-0 z-50 bg-gradient-to-r from-white via-emerald-50 to-white shadow-lg border-b border-emerald-100">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-center items-center md:justify-between gap-4">
-          <Link to="/" className="text-xl md:text-2xl font-bold text-emerald-600" style={{ fontFamily: '"Poppins", sans-serif' }}>
-            {t('navigation.siteTitle')}
+          <Link
+            to="/"
+            className="flex flex-col leading-tight"
+            style={{ fontFamily: '"Poppins", sans-serif' }}
+          >
+            <span className="text-xl md:text-2xl font-bold text-gray-900">
+              {t('navigation.siteTitle')}
+            </span>
+            <span className="text-[11px] md:text-xs font-semibold text-emerald-600">
+              {t('navigation.siteSubtitle')}
+            </span>
           </Link>
 
           <div className="hidden md:flex gap-3 items-center">
