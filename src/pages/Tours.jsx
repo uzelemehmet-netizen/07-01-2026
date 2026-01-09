@@ -172,6 +172,13 @@ export default function Tours() {
 	const [tours, setTours] = useState(TOURS_CONFIG);
 	const [tourOverrides, setTourOverrides] = useState({});
 	const [imageUrls, setImageUrls] = useState({});
+	const DEFAULT_YOUTUBE_SHORTS = [
+		"https://youtube.com/shorts/vWmWhptuxO4?si=0J9sYR6GEoeteCtd",
+		"https://youtube.com/shorts/uA76Odj1Krw?si=Q4B4f8U7E8EoijcC",
+		"https://youtube.com/shorts/nfxlrWqq5HI?si=sM09lqmFWjJmuP6E",
+		"https://youtube.com/shorts/LNOCVMd2Ndc?si=QgMChHopi8BvN2Ne",
+	];
+	const [youtubeShortUrls, setYoutubeShortUrls] = useState(DEFAULT_YOUTUBE_SHORTS);
 	const [openPreRegId, setOpenPreRegId] = useState(null);
 	const activeTour = openPreRegId ? tours.find((t) => t.id === openPreRegId) : null;
 
@@ -447,6 +454,86 @@ export default function Tours() {
 
 		fetchImageUrls();
 	}, []);
+
+	// Firestore + localStorage'dan YouTube Shorts URL'lerini yükle
+	useEffect(() => {
+		try {
+			const saved = localStorage.getItem("youtubeShortUrls");
+			if (saved) {
+				const parsed = JSON.parse(saved);
+				if (Array.isArray(parsed) && parsed.length > 0) {
+					setYoutubeShortUrls((prev) => {
+						const next = [...prev];
+						for (let i = 0; i < Math.min(4, parsed.length); i += 1) {
+							if (typeof parsed[i] === "string" && parsed[i].trim()) next[i] = parsed[i].trim();
+						}
+						return next;
+					});
+				}
+			}
+		} catch (e) {
+			console.error("youtubeShortUrls localStorage okuma hatası:", e);
+		}
+
+		const fetchShorts = async () => {
+			try {
+				const snap = await getDoc(doc(db, "siteSettings", "youtubeShorts"));
+				if (snap.exists()) {
+					const data = snap.data() || {};
+					const urls = Array.isArray(data.urls) ? data.urls : [];
+					if (urls.length > 0) {
+						setYoutubeShortUrls((prev) => {
+							const next = [...prev];
+							for (let i = 0; i < Math.min(4, urls.length); i += 1) {
+								if (typeof urls[i] === "string" && urls[i].trim()) next[i] = urls[i].trim();
+							}
+							try {
+								localStorage.setItem("youtubeShortUrls", JSON.stringify(next));
+							} catch (e) {
+								console.error("youtubeShortUrls localStorage yazma hatası:", e);
+							}
+							return next;
+						});
+					}
+				}
+			} catch (error) {
+				console.error("Firestore youtubeShorts yüklenirken hata:", error);
+			}
+		};
+
+		fetchShorts();
+	}, []);
+
+	const toYouTubeEmbedUrl = (inputUrl) => {
+		if (!inputUrl || typeof inputUrl !== "string") return "";
+		const raw = inputUrl.trim();
+		if (!raw) return "";
+		try {
+			const url = new URL(raw);
+			const host = url.hostname.replace(/^www\./, "").toLowerCase();
+			let videoId = "";
+			if (host === "youtube.com" || host === "m.youtube.com") {
+				// /shorts/{id}
+				const shortsMatch = url.pathname.match(/^\/shorts\/([^/?#]+)/i);
+				if (shortsMatch) videoId = shortsMatch[1];
+				// /watch?v={id}
+				if (!videoId) {
+					const v = url.searchParams.get("v");
+					if (v) videoId = v;
+				}
+			} else if (host === "youtu.be") {
+				videoId = url.pathname.replace(/^\//, "").split("/")[0] || "";
+			}
+			if (!videoId) return "";
+			const embed = new URL(`https://www.youtube.com/embed/${videoId}`);
+			embed.searchParams.set("rel", "0");
+			embed.searchParams.set("modestbranding", "1");
+			embed.searchParams.set("playsinline", "1");
+			return embed.toString();
+		} catch {
+			return "";
+		}
+	};
 
 	const handleInlinePreRegSubmit = (e) => {
 		e.preventDefault();
@@ -880,6 +967,34 @@ export default function Tours() {
 								</div>
 
 							</article>
+						);
+					})}
+				</div>
+			</section>
+
+			{/* Tur kartlarının altı: YouTube Shorts izleme alanı (2x2) */}
+			<section className="pb-16 px-4 max-w-6xl mx-auto">
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+					{youtubeShortUrls.slice(0, 4).map((u, idx) => {
+						const embedUrl = toYouTubeEmbedUrl(u);
+						return (
+							<div key={`${idx}-${u || "empty"}`} className="bg-white rounded-2xl shadow-md overflow-hidden">
+								<div className="relative w-full pt-[177.78%]">
+									{embedUrl ? (
+										<iframe
+											src={embedUrl}
+											title={`YouTube Shorts ${idx + 1}`}
+											className="absolute inset-0 w-full h-full"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+											allowFullScreen
+										/>
+									) : (
+										<div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500">
+											Video bağlantısı bulunamadı
+										</div>
+									)}
+								</div>
+							</div>
 						);
 					})}
 				</div>

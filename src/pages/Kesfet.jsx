@@ -9,6 +9,41 @@ export default function KesfetPage() {
   const [imageUrls, setImageUrls] = useState({});
   const [activeFilter, setActiveFilter] = useState("hepsi");
 
+  const DEFAULT_YOUTUBE_SHORTS_KEŞFET = [
+    "https://youtube.com/shorts/GMWJqDjrfCc?si=EvzLwcEHvNgrsmBB",
+    "https://youtube.com/shorts/Mekyn6lNScU?si=L_fcl1et_3Ux1HlF",
+    "https://youtube.com/shorts/MAwCT5fAexg?si=baM6FEK-FEnFO8NE",
+    "https://youtube.com/shorts/IMtr5iyK_wo?si=cYcPTTBblJcm_967",
+    "https://youtube.com/shorts/XC-PBPhRwPY?si=DnhZJHCXjW5XgY3R",
+    "https://youtube.com/shorts/IDAnn-tz6HA?si=aF6Fsi_gi44a7_5F",
+  ];
+
+  const toYouTubeEmbedUrl = (rawUrl) => {
+    if (!rawUrl || typeof rawUrl !== "string") return "";
+    const input = rawUrl.trim();
+    if (!input) return "";
+
+    try {
+      const url = new URL(input);
+      let videoId = "";
+
+      if (url.hostname === "youtu.be") {
+        videoId = url.pathname.replace(/^\//, "").split("/")[0];
+      } else if (url.pathname.startsWith("/shorts/")) {
+        videoId = url.pathname.split("/shorts/")[1]?.split("/")[0] || "";
+      } else {
+        videoId = url.searchParams.get("v") || "";
+      }
+
+      if (!videoId) return "";
+      return `https://www.youtube.com/embed/${videoId}`;
+    } catch {
+      const match = input.match(/(?:shorts\/|v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+      if (!match?.[1]) return "";
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+  };
+
   // localStorage'dan resim URL'lerini ilk değer olarak yükle
   useEffect(() => {
     const saved = localStorage.getItem("imageUrls");
@@ -294,6 +329,35 @@ export default function KesfetPage() {
                       </div>
                     </a>
                   ))}
+                </div>
+
+                {/* Ada kartlarının altı: YouTube Shorts izleme alanı (3x2) */}
+                <div className="mt-10 max-w-6xl mx-auto">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {DEFAULT_YOUTUBE_SHORTS_KEŞFET.map((u, idx) => {
+                      const embedUrl = toYouTubeEmbedUrl(u);
+                      return (
+                        <div key={`${idx}-${u}`} className="bg-white dark:bg-[#1E1E1E] rounded-2xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
+                          <div className="relative w-full pt-[177.78%]">
+                            {embedUrl ? (
+                              <iframe
+                                src={embedUrl}
+                                title={`YouTube Shorts ${idx + 1}`}
+                                className="absolute inset-0 w-full h-full"
+                                loading="lazy"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              />
+                            ) : (
+                              <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500">
+                                Video bağlantısı bulunamadı
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

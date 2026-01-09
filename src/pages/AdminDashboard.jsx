@@ -82,6 +82,12 @@ export default function AdminDashboard() {
   const [selectedIsland, setSelectedIsland] = useState('bali');
   const [editingId, setEditingId] = useState(null);
   const [imageUrls, setImageUrls] = useState({});
+  const [youtubeShortUrls, setYoutubeShortUrls] = useState([
+    'https://youtube.com/shorts/vWmWhptuxO4?si=0J9sYR6GEoeteCtd',
+    'https://youtube.com/shorts/uA76Odj1Krw?si=Q4B4f8U7E8EoijcC',
+    'https://youtube.com/shorts/nfxlrWqq5HI?si=sM09lqmFWjJmuP6E',
+    'https://youtube.com/shorts/LNOCVMd2Ndc?si=QgMChHopi8BvN2Ne',
+  ]);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState({});
   const [toursSettings, setToursSettings] = useState([]);
@@ -121,6 +127,55 @@ export default function AdminDashboard() {
     };
 
     fetchImageUrls();
+  }, []);
+
+  // localStorage + Firestore'dan YouTube Shorts URL'lerini yükle
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('youtubeShortUrls');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setYoutubeShortUrls((prev) => {
+            const next = [...prev];
+            for (let i = 0; i < Math.min(4, parsed.length); i += 1) {
+              if (typeof parsed[i] === 'string' && parsed[i].trim()) next[i] = parsed[i].trim();
+            }
+            return next;
+          });
+        }
+      }
+    } catch (e) {
+      console.error('youtubeShortUrls localStorage okuma hatası:', e);
+    }
+
+    const fetchShorts = async () => {
+      try {
+        const snap = await getDoc(doc(db, 'siteSettings', 'youtubeShorts'));
+        if (snap.exists()) {
+          const data = snap.data() || {};
+          const urls = Array.isArray(data.urls) ? data.urls : [];
+          if (urls.length > 0) {
+            setYoutubeShortUrls((prev) => {
+              const next = [...prev];
+              for (let i = 0; i < Math.min(4, urls.length); i += 1) {
+                if (typeof urls[i] === 'string' && urls[i].trim()) next[i] = urls[i].trim();
+              }
+              try {
+                localStorage.setItem('youtubeShortUrls', JSON.stringify(next));
+              } catch (e) {
+                console.error('youtubeShortUrls localStorage yazma hatası:', e);
+              }
+              return next;
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Firestore youtubeShorts yüklenirken hata:', error);
+      }
+    };
+
+    fetchShorts();
   }, []);
 
   // Firestore'dan tur tarih ve fiyatlarını yükle
@@ -491,6 +546,14 @@ export default function AdminDashboard() {
     }));
   };
 
+  const handleYoutubeShortUrlChange = (index, value) => {
+    setYoutubeShortUrls((prev) => {
+      const next = [...prev];
+      next[index] = value;
+      return next;
+    });
+  };
+
   const handleSave = async () => {
     try {
       localStorage.setItem('imageUrls', JSON.stringify(imageUrls));
@@ -499,11 +562,24 @@ export default function AdminDashboard() {
     }
 
     try {
-      await setDoc(doc(db, 'imageUrls', 'imageUrls'), imageUrls || {}, { merge: true });
-      alert('Tüm resim URL\'leri kaydedildi!');
+      localStorage.setItem('youtubeShortUrls', JSON.stringify(youtubeShortUrls));
+    } catch (e) {
+      console.error('youtubeShortUrls localStorage kaydetme hatası:', e);
+    }
+
+    try {
+      await Promise.all([
+        setDoc(doc(db, 'imageUrls', 'imageUrls'), imageUrls || {}, { merge: true }),
+        setDoc(
+          doc(db, 'siteSettings', 'youtubeShorts'),
+          { urls: (Array.isArray(youtubeShortUrls) ? youtubeShortUrls : []).slice(0, 4) },
+          { merge: true }
+        ),
+      ]);
+      alert('Resim URL\'leri ve YouTube Shorts alanı kaydedildi!');
     } catch (error) {
       console.error('Firestore imageUrls kaydetme hatası:', error);
-      alert('Resim URL\'leri kaydedilirken bir hata oluştu. Detay için konsolu kontrol edin.');
+      alert('Kaydetme sırasında bir hata oluştu. Detay için konsolu kontrol edin.');
     }
   };
 
@@ -992,6 +1068,32 @@ export default function AdminDashboard() {
         </div>
       );
     }
+
+    if (activeTab === 'shorts') {
+      return (
+        <div className="bg-white rounded-xl shadow p-6">
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">Tur Sayfası – YouTube Shorts (4 video)</h2>
+          <p className="text-sm text-gray-600 mb-4">
+            Bu alana gireceğiniz URL\'ler tur kartlarının altında 2x2 olarak gözükecek ve video site içinde oynatılacaktır (YouTube\'a yönlendirme yok).
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="border rounded-xl p-4 bg-gray-50">
+                <label className="text-xs font-semibold text-gray-700 mb-1 block">Video {i + 1} URL</label>
+                <input
+                  type="url"
+                  value={youtubeShortUrls[i] || ''}
+                  onChange={(e) => handleYoutubeShortUrlChange(i, e.target.value)}
+                  placeholder="https://youtube.com/shorts/..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
   };
 
   return (
@@ -1115,6 +1217,16 @@ export default function AdminDashboard() {
           >
             Tur Paketleri
           </button>
+	  <button
+	    onClick={() => setActiveTab('shorts')}
+	    className={`px-6 py-3 font-semibold transition whitespace-nowrap ${
+	      activeTab === 'shorts'
+	        ? 'text-indigo-600 border-b-2 border-indigo-600'
+	        : 'text-gray-600 hover:text-gray-800'
+	    }`}
+	  >
+	    YouTube Shorts
+	  </button>
         </div>
         {/* Content */}
         {renderContent()}
