@@ -9,6 +9,7 @@ import Travel from './pages/Travel';
 import Tours from './pages/Tours';
 import GroupTours from './pages/GroupTours';
 import TourDetail from './pages/TourDetail';
+import Payment from './pages/Payment';
 import Wedding from './pages/Wedding';
 import YouTube from './pages/YouTube';
 import Privacy from './pages/Privacy';
@@ -48,6 +49,7 @@ function App() {
         <Route path="/tours" element={<Tours />} />
         <Route path="/tours/groups" element={<GroupTours />} />
         <Route path="/tours/:id" element={<TourDetail />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/kesfet" element={<Kesfet />} />
         <Route path="/kesfet/:island" element={<KesfetIsland />} />

@@ -96,7 +96,8 @@ const toursData = {
       "Wellness & Spa",
     ],
     duration: "6 Gece 7 Gün",
-    concept: "Kişi başı 850 USD'ye kadar uçak bileti dahil referans paket fiyatları",
+    concept:
+      "Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.",
     price: "3.699",
     packages: [
       {
@@ -108,7 +109,7 @@ const toursData = {
           "Uçak bileti, konaklama ve kahvaltıyı sabitleyip, tüm aktiviteleri isteğe bağlı seçmek isteyenler için giriş seviyesi paket.",
         priceMultiplier: 0.7,
         highlights: [
-          "İstanbul çıkışlı gidiş-dönüş uçak bileti (örnek havayolu ve aktarma detayları teklif aşamasında netleştirilir)",
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (havayolu/aktarma detayları rezervasyon sonrası yazılı olarak paylaşılır)",
           "Ubud ve sahil bölgesinde seçili otellerde 6 gece konaklama, her gün otel restoranında kahvaltı dahil",
           "Havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek",
           "Programdaki tüm günler serbesttir; Tegenungan Şelalesi ve Tegalalang pirinç terasları rehberli turu, Ubud Monkey Forest ziyareti, Ayung Nehri rafting günü, tam gün tekne turu, 3. gündeki ATV Quad Safari ve 5. gündeki Sea Walker, Jet Ski ve Parasailing gibi tüm deneyimler bu pakete dahil değildir; bu aktiviteleri isterseniz rezervasyon aşamasında veya sahada en az 24 saat önce opsiyonel olarak ekleyebilirsiniz",
@@ -149,7 +150,7 @@ const toursData = {
           "Rehberli günlerde grup halinde öğle yemekleri ve programda belirtilen pek çok ekstra detay fiyata dahildir",
         ],
         notes:
-          "Bu paket, sayfada gün gün anlattığımız programın referans alındığı tam kapsamlı versiyondur; uçak bileti, 2. ve 4. gün rehberli aktiviteler ve 6. gün tam gün tekne turu baştan ücrete dahildir. Tam gün tekne turu, grup büyüklüğüne göre özel veya paylaşımlı tekne ile organize edilir; küçük gruplarda kişi başı maliyet teklif aşamasında netleştirilir. 3. gündeki ATV Quad Safari ve 5. gündeki su sporları paketi gibi opsiyonel deneyimler bu pakete dahil değildir; ancak Premium misafirler için yaklaşık %25'e varan indirimli özel fiyatlarla sunulur, net tutar rezervasyon ve teklif aşamasında paylaşılır.",
+          "Bu paket, sayfada gün gün anlattığımız programın referans alındığı tam kapsamlı versiyondur; uçak bileti, 2. ve 4. gün rehberli aktiviteler ve 6. gün tam gün tekne turu baştan ücrete dahildir. Tam gün tekne turu, grup büyüklüğüne göre özel veya paylaşımlı tekne ile organize edilir; özel tekne tercih edilirse opsiyonel kişi başı fark oluşabilir. 3. gündeki ATV Quad Safari ve 5. gündeki su sporları paketi gibi opsiyonel deneyimler bu pakete dahil değildir; ancak Premium misafirler için yaklaşık %25'e varan indirimli özel fiyatlarla sunulur; kesin tutar seçiminizi onaylamadan önce yazılı olarak paylaşılır.",
       },
     ],
     itinerary: [
@@ -209,7 +210,7 @@ const toursData = {
               "Sürüş öncesi kısa güvenlik ve kullanım eğitimi",
             ],
             notes:
-	      "Bu ATV deneyimi, turun ana paketine dahil değildir; tamamen opsiyonel ve ek ücrete tabidir. Fiyatlar, seçilen rota ve sezon yoğunluğuna göre kişi başı ortalama 125–180 USD bandındadır. Premium paket misafirleri için bu aktivite, liste fiyatı üzerinden yaklaşık %25 indirimli özel fiyatlarla sunulur; net tutar rezervasyon ve teklif aşamasında paylaşılır.",
+	      "Bu ATV deneyimi, turun ana paketine dahil değildir; tamamen opsiyonel ve ek ücrete tabidir. Fiyatlar, seçilen rota ve sezon yoğunluğuna göre kişi başı ortalama 125–180 USD bandındadır. Premium paket misafirleri için bu aktivite, liste fiyatı üzerinden yaklaşık %25 indirimli özel fiyatlarla sunulur; kesin tutar seçiminizi onaylamadan önce yazılı olarak paylaşılır.",
           },
         ],
       },
@@ -253,7 +254,7 @@ const toursData = {
               "Parasailing: Denizin üzerinde yükselerek Bali sahil şeridini kuşbakışı izleme fırsatı sunar; manzara ve heyecanı bir arada yaşatan unutulmaz bir deneyimdir. (Uçuş süresi: yaklaşık 5–7 dakika)",
             ],
             note:
-	      "Bu paket tur fiyatına dahil değildir. Katılmak isteyen misafirler, uygun saat ve kontenjan için en az 24–48 saat önce rehberimize veya operasyon ekibimize bilgi vermelidir ya da indirimli fiyattan yararlanmak için rezervasyon aşamasında işaretleyerek pakete dahil edebilir. Premium paket misafirleri için, bu su sporları paketi liste fiyatı üzerinden yaklaşık %25 indirimli özel fiyatlarla sunulur; net tutar rezervasyon ve teklif aşamasında paylaşılır.",
+	      "Bu paket tur fiyatına dahil değildir. Katılmak isteyen misafirler, uygun saat ve kontenjan için en az 24–48 saat önce rehberimize veya operasyon ekibimize bilgi vermelidir ya da indirimli fiyattan yararlanmak için rezervasyon aşamasında işaretleyerek pakete dahil edebilir. Premium paket misafirleri için, bu su sporları paketi liste fiyatı üzerinden yaklaşık %25 indirimli özel fiyatlarla sunulur; kesin tutar seçiminizi onaylamadan önce yazılı olarak paylaşılır.",
           },
         ],
       },
@@ -269,7 +270,7 @@ const toursData = {
           "Teknede veya uygun bir adada öğle yemeği (tur programı kapsamında dahildir)",
           "16:30 – 17:00 arası tekne üzerinde veya sahilde gün batımı deneyimi ve Sanur'a dönüş",
           "18:30 – Otele varış, akşam serbest zaman",
-          "Tekne günü, grup büyüklüğüne göre özel veya paylaşımlı tekne ile planlanır; küçük gruplarda kişi başı fark teklif aşamasında netleştirilir",
+          "Tekne günü, grup büyüklüğüne göre özel veya paylaşımlı tekne ile planlanır; özel tekne tercih edilirse opsiyonel kişi başı fark oluşabilir",
         ],
         accommodation: "Sanur sahil bölgesinde seçili otel veya resort",
       },
@@ -331,7 +332,7 @@ const toursData = {
         "Bali'de zaman farklı akar. Sabahları yoga, gün boyunca plaj ve spa, akşamları gün batımı ve lezzetli yemekler... Ada, hem huzur arayanlar hem de macera tutkunları için mükemmel bir destinasyon.",
     },
     included: [
-      "Tüm paketlerde: kişi başı 850 USD'ye kadar İstanbul çıkışlı gidiş-dönüş uçak bileti",
+      "Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
       "Tüm paketlerde: seçili otellerde 6 gece konaklama ve her gün otel restoranında kahvaltı",
       "Tüm paketlerde: havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek",
       "Standart ve Premium paketlerde: rehberli günlerde programda yer alan geziler ve grup hizmetleri",
@@ -351,7 +352,7 @@ const toursData = {
     ],
     notes: {
       approach:
-        "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir toplu tatil organizasyonudur. Tüm paketlerde kişi başı 850 USD'ye kadar gidiş-dönüş uçak bileti, konaklama ve sabah kahvaltısı sabittir; uçak bileti tutarı bu sınırı aşarsa üzerindeki fark misafir tarafından ayrıca karşılanır. Standart ve Premium paketlerde 2. ve 4. gün rehberli aktiviteler, Premium pakette ise ek olarak 6. gün tam gün tekne turu dahildir. Diğer öğünler ve opsiyonel aktiviteler için misafirler dilerse otel restoranını, dilerse dışarıdaki farklı mekanları ve deneyimleri tercih edebilir. Böylece bütçenizi, neye ne kadar harcayacağınıza kendiniz karar verebileceğiniz şeffaf bir yapı içinde yönetebilirsiniz.",
+        "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir toplu tatil organizasyonudur. Uçak bileti; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder. Konaklama ve sabah kahvaltısı sabittir. Standart ve Premium paketlerde 2. ve 4. gün rehberli aktiviteler, Premium pakette ise ek olarak 6. gün tam gün tekne turu dahildir. Diğer öğünler ve opsiyonel aktiviteler için misafirler dilerse otel restoranını, dilerse dışarıdaki farklı mekanları ve deneyimleri tercih edebilir. Böylece bütçenizi, neye ne kadar harcayacağınıza kendiniz karar verebileceğiniz şeffaf bir yapı içinde yönetebilirsiniz.",
       freeTime:
         "Serbest zaman dilimleri, katılımcıların kendi damak zevki, bütçe ve ritmine göre hareket edebilmesi için bilerek esnek bırakılmıştır. Akşam yemekleri ve serbest günlerdeki öğünler için isterseniz otel restoranında dahil olan menüden seçim yapabilir, isterseniz dışarıda yeni mekânlar keşfedebilirsiniz. Otel dışındaki restoran ve kafelerde yapılacak yiyecek-içecek harcamaları tura dahil değildir; talep edilmesi halinde rehberimiz ve ekibimiz restoran ve mekân önerileriyle destek olur.",
       discipline:
@@ -388,7 +389,8 @@ const toursData = {
       "Arkadaş Grubu",
     ],
     duration: "6 Gece 7 Gün",
-    concept: "Kişi başı 850 USD'ye kadar uçak bileti dahil referans paket fiyatları",
+    concept:
+      "Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.",
     price: "3.299",
     packages: [
       {
@@ -400,7 +402,7 @@ const toursData = {
           "Uçak bileti ve konaklamayı sabitleyip, Gili, şelaleler ve güney plaj turlarını isteğe göre sonradan eklemek isteyenler için giriş seviyesi paket.",
         priceMultiplier: 0.7,
         highlights: [
-          "İstanbul çıkışlı gidiş-dönüş uçak bileti (örnek havayolu ve aktarma detayları teklif aşamasında netleştirilir)",
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (havayolu/aktarma detayları rezervasyon sonrası yazılı olarak paylaşılır)",
           "İlk 3 gece için Senggigi sahil bölgesinde, son 3 gece için Kuta Lombok çevresinde seçili otel veya butik tesislerde toplam 6 gece konaklama, her gün otel kahvaltısı dahil",
           "Havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek",
           "Gili Adaları tekne turu, Senaru şelale günü ve güney plajları & sörf turları bu pakete dahil değildir; isterseniz rezervasyon aşamasında veya sahada en az 24 saat önce opsiyonel ekstra olarak eklenebilir",
@@ -449,7 +451,7 @@ const toursData = {
         day: 1,
         title: "Lombok'a Varış, Senggigi'ye Transfer ve Gün Batımı",
         activities: [
-          "İstanbul'dan Lombok Havalimanı'na (Praya) uçuş; aktarma ve havayolu detayları teklif aşamasında netleştirilir",
+          "İstanbul'dan Lombok Havalimanı'na (Praya) uçuş; aktarma ve havayolu detayları rezervasyon sonrası yazılı olarak paylaşılır",
           "Lombok Havalimanı'nda karşılama ve batı kıyısındaki Senggigi bölgesine özel transfer",
           "Sahile yakın seçili otel veya butik tesiste check-in ve odalara yerleşme",
           "Akşamüstü Senggigi sahilinde gün batımı yürüyüşü, hafif aklimatizasyon ve dinlenme",
@@ -498,7 +500,7 @@ const toursData = {
               "Dalış sonrası adada serbest zaman ve deniz kenarında dinlenme imkânı",
             ],
             note:
-              "Bu dalış paketi tur fiyatına dahil değildir. Katılmak isteyen misafirler için, uygun saat ve kontenjanın ayrılabilmesi adına en az 48 saat önce bildirim yapılması gerekir. Premium paket misafirlerine, liste fiyatı üzerinden yaklaşık %20–25 indirimli özel fiyatlar sunulur; net tutar rezervasyon ve teklif aşamasında paylaşılır.",
+              "Bu dalış paketi tur fiyatına dahil değildir. Katılmak isteyen misafirler için, uygun saat ve kontenjanın ayrılabilmesi adına en az 48 saat önce bildirim yapılması gerekir. Premium paket misafirlerine, liste fiyatı üzerinden yaklaşık %20–25 indirimli özel fiyatlar sunulur; kesin tutar seçiminizi onaylamadan önce yazılı olarak paylaşılır.",
           },
         ],
       },
@@ -544,7 +546,7 @@ const toursData = {
               "Akşamüstü Kuta'ya dönüş ve otele transfer",
             ],
             note:
-              "Pink Beach tekne turu tur fiyatına dahil değildir. Katılmak isteyen misafirler, deniz ve hava koşullarına göre net saat ve günün belirlenebilmesi için en az 48 saat önce bildirim yapmalıdır. Premium paket misafirleri için liste fiyatı üzerinden yaklaşık %20 civarında indirim uygulanabilir; net tutar teklif aşamasında iletilir.",
+              "Pink Beach tekne turu tur fiyatına dahil değildir. Katılmak isteyen misafirler, deniz ve hava koşullarına göre net saat ve günün belirlenebilmesi için en az 48 saat önce bildirim yapmalıdır. Premium paket misafirleri için liste fiyatı üzerinden yaklaşık %20 civarında indirim uygulanabilir; kesin tutar seçiminizi onaylamadan önce yazılı olarak paylaşılır.",
           },
         ],
       },
@@ -614,7 +616,7 @@ const toursData = {
         "Lombok, bir yanda sörf tutkunları için dünya çapında tanınan güney plajlarına, diğer yanda doğa severler için kuzeydeki trekking ve şelale rotalarına sahiptir. Gili adalarında gün boyu denizle iç içe olup akşamları sakin bir sahil kasabasında dinlenebileceğiniz, özgünlüğünü büyük ölçüde koruyan nadir adalardan biridir.",
     },
     included: [
-      "Tüm paketlerde: kişi başı 850 USD'ye kadar İstanbul çıkışlı gidiş-dönüş uçak bileti",
+      "Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
       "Tüm paketlerde: Senggigi ve/veya Kuta Lombok bölgelerinde seçili otel veya butik tesislerde 6 gece konaklama ve her gün otel kahvaltısı",
       "Tüm paketlerde: Lombok Havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek",
       "Standart ve Premium paketlerde: bir tam gün Gili Adaları tekne turu (programda belirtilen içerik dahilinde)",
@@ -632,7 +634,7 @@ const toursData = {
     ],
     notes: {
       approach:
-        "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir Lombok tatilidir. Tüm paketlerde kişi başı 850 USD'ye kadar gidiş-dönüş uçak bileti, 5 gece konaklama ve sabah kahvaltısı sabittir; uçak bileti tutarı bu sınırı aşarsa üzerindeki fark misafir tarafından ayrıca karşılanır. Standart ve Premium paketlerde Gili tekne turu ve güney plajları & sörf günü dahildir; Premium pakette ek olarak Senaru şelaleleri & Rinjani manzara turu da baştan ücrete dahildir. Diğer öğünler ve opsiyonel aktiviteler konusunda misafirler kendi bütçe ve ilgi alanlarına göre seçim yapabilir.",
+        "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir Lombok tatilidir. Uçak bileti; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder. Konaklama ve sabah kahvaltısı sabittir. Standart ve Premium paketlerde Gili tekne turu ve güney plajları & sörf günü dahildir; Premium pakette ek olarak Senaru şelaleleri & Rinjani manzara turu da baştan ücrete dahildir. Diğer öğünler ve opsiyonel aktiviteler konusunda misafirler kendi bütçe ve ilgi alanlarına göre seçim yapabilir.",
       freeTime:
         "Serbest zaman blokları, Lombok'ta kendi ritminizi yakalayabilmeniz için bilerek korundu. Özellikle Kuta Lombok ve Senggigi çevresindeki akşamlar için sabit bir restoran zorunluluğu yoktur; dilerseniz sahil boyunca yerel warung'ları, dilerseniz daha şık restoran ve kafeleri tercih edebilirsiniz. Otel dışındaki yiyecek-içecek harcamaları tura dahil değildir; talep edilirse ekibimiz bölgeye uygun mekan ve aktivite önerileriyle destek olur.",
       discipline:
@@ -674,7 +676,7 @@ const toursData = {
           "Uçuş + konaklamayı sabitleyip; trekking, kültür günü ve bazı deneyimleri bütçe/ilgi alanına göre sonradan eklemek isteyenler için giriş seviyesi paket.",
         priceMultiplier: 0.7,
         highlights: [
-          "İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı 850 USD'ye kadar; üzerindeki fark ayrıca karşılanır)",
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
           "Medan (1 gece) + Bukit Lawang (3 gece) + Samosir/Lake Toba (4 gece) toplam 8 gece konaklama",
           "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
           "Varış günü kısa gün batımı tekne turu (Samosir) dahildir (hava/feribot koşullarına göre 6. güne kaydırılabilir)",
@@ -710,7 +712,7 @@ const toursData = {
           "Trekking + kültür günü dahil; sürpriz maliyetleri en aza indiren, dolu dolu Sumatra deneyimi.",
         priceMultiplier: 1,
         highlights: [
-          "İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı 850 USD'ye kadar; üzerindeki fark ayrıca karşılanır)",
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
           "Medan, Bukit Lawang ve Samosir/Lake Toba bölgelerinde 8 gece konaklama (program akışına göre)",
           "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
           "3. gün orangutan trekking & tubing deneyimi (rehberli) dahildir",
@@ -973,7 +975,7 @@ const toursData = {
         day: 1,
         title: "Jakarta Varış, Dinlenme ve Serbest Zaman",
         activities: [
-          "İstanbul'dan Jakarta'ya varış (uçuş detayları teklif aşamasında netleşir)",
+          "İstanbul'dan Jakarta'ya varış (uçuş detayları rezervasyon sonrası yazılı olarak paylaşılır)",
           "Havalimanında karşılama, kısa bilgilendirme ve otele transfer",
           "Otele giriş (check-in) ve yolculuk sonrası dinlenme",
           "Dileyenler için kısa şehir tanışması (zaman ve enerjiye göre): Monas çevresi veya Kota Tua bölgesi",
@@ -1102,7 +1104,7 @@ const toursData = {
           "Kahvaltı ve check-out (uçuş saatine göre)",
           "Borobudur ziyareti (saat ve giriş kuralları operasyon planına göre netleşir)",
           "Havalimanına transfer",
-          "İstanbul'a dönüş (uçuş detayları teklif aşamasında netleşir)",
+          "İstanbul'a dönüş (uçuş detayları rezervasyon sonrası yazılı olarak paylaşılır)",
           "Bu aşamada vedalaşıyoruz ve uzun Java yolculuğumuz tamamlanıyor",
         ],
         accommodation: "-",
@@ -1168,52 +1170,170 @@ const toursData = {
     hero:
       "https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1200",
     summary:
-      "UNESCO Dünya Mirası Komodo Ulusal Parkı; Komodo ejderleri, pembe kumsallar ve turkuaz koylarla vahşi yaşam ve tekne turu deneyimini bir arada sunar.",
-    suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Fotoğrafçılık"],
-    duration: "4 Gece 5 Gün",
-    concept: "Doğa & Plaj",
+      "Labuan Bajo çıkışlı tekne rotalarıyla UNESCO Dünya Mirası Komodo Ulusal Parkı'nı keşfedeceğiniz; Komodo ejderleri, Rinca trekkingi, Padar panoraması, Pink Beach ve Manta Point şnorkeli gibi öne çıkan durakları bir araya getiren macera odaklı rota.",
+    suitableFor: [
+      "Doğa & Macera",
+      "Deniz & Şnorkel",
+      "Fotoğrafçılık",
+      "Kültürel Keşif",
+      "Aileler (yavaş tempolu opsiyonlarla)",
+    ],
+    duration: "6 Gece 7 Gün",
+    concept: "Doğa • Deniz • Macera • Kültür",
     price: "3.899",
+    packages: [
+      {
+        id: "komodo-basic",
+        level: "temel",
+        name: "Komodo Macera Temel",
+        badge: "Esnek & ekonomik",
+        headline:
+          "Konaklama ve temel koordinasyonu sabitleyip, tekne/dalış yoğunluğunu tercihinize göre şekillendirmek isteyenlere uygun.",
+        priceMultiplier: 0.7,
+        highlights: [
+          "6 gece Labuan Bajo 4★ konaklama (kahvaltı dahil)",
+          "Havalimanı transferleri + yerel koordinasyon",
+          "Seçime göre ada/tekne günleri (opsiyonel eklenebilir)",
+          "7/24 destek hattı",
+        ],
+        notes:
+          "Temel paket, konaklama ve ana koordinasyonu sabitler. Ada/tekne günleri ve milli park ücretleri tercihe göre opsiyonel olarak eklenebilir.",
+      },
+      {
+        id: "komodo-plus",
+        level: "plus",
+        name: "Komodo Macera Standart",
+        badge: "Dengeli seçenek",
+        headline:
+          "Komodo'nun en güçlü duraklarını (Rinca/Komodo, Padar, Pink Beach, Manta Point) dengeli yoğunlukla deneyimlemek isteyenlere.",
+        priceMultiplier: 0.85,
+        highlights: [
+          "6 gece Labuan Bajo 4★ konaklama (kahvaltı dahil)",
+          "Rinca & Komodo trekking rotaları",
+          "Padar + Pink Beach + Manta Point şnorkel rotası",
+          "Tekne turu günlerinde öğle yemeği",
+        ],
+        notes:
+          "Standart paket, bu sayfadaki gün gün akışın ana duraklarını referans alır. Operasyonel detaylar (saat/rota gibi) rezervasyon sonrası yazılı olarak paylaşılır.",
+      },
+      {
+        id: "komodo-premium",
+        level: "premium",
+        name: "Komodo Macera Premium",
+        badge: "En kapsamlı",
+        headline:
+          "Daha yüksek konfor, daha net kapsam ve daha yoğun tekne/şnorkel programı isteyenlere.",
+        priceMultiplier: 1,
+        highlights: [
+          "6 gece Labuan Bajo üst segment konaklama opsiyonu (müsaitliğe göre)",
+          "Daha kapsamlı tekne/ada rotası planlaması",
+          "Milli park giriş/liman vergileri kapsamının netleştirilmesi",
+          "Öncelikli rezervasyon koordinasyonu",
+        ],
+        notes:
+          "Premium paket, kapsamı en net hale getirecek şekilde planlanır. Dalış gibi özel talepler ve ekipman ihtiyacı seçime göre ayrıca planlanır.",
+      },
+    ],
     itinerary: [
       {
         day: 1,
         title: "Labuan Bajo'ya Varış",
         activities: [
-          "İstanbul'dan Labuan Bajo'ya aktarmalı uçuşlar",
-          "Havalimanı karşılama ve otele transfer",
-          "Labuan Bajo tepe manzarasından gün batımı",
-          "Balıkçı kasabasında deniz ürünleri akşam yemeği",
+          "Flores (Labuan Bajo) havalimanında karşılama ve hızlı bir hoş geldiniz karşılaması",
+          "Otele transfer, check-in ve yol yorgunluğunu atmanız için kısa dinlenme",
+          "Dilerseniz marinada kısa bir yürüyüş: teknelerin, sahil kasabasının ve akşam ışıklarının tadını çıkarma",
+          "Turun akışı için kısa bilgilendirme: ertesi günlerin rota mantığı, tekne günlerinde dikkat edilmesi gerekenler",
+          "Gün batımı için Seraya Hill veya Bukit Cinta: Labuan Bajo'yu yukarıdan izleyip fotoğraf için en güzel ışığı yakalama (uçuş saatine göre)",
         ],
         accommodation: "Labuan Bajo butik otel (4⭐)",
       },
       {
         day: 2,
-        title: "Komodo Ejderleri ve Plajlar",
+        title: "Rinca Adası & Komodo Trekking",
         activities: [
-          "Sabah erken tekne ile Komodo Adası'na geçiş",
-          "Park rehberi eşliğinde Komodo ejderlerini gözlem",
-          "Pembe kumsalda fotoğraf molası",
-          "Mercan resiflerinde snorkeling",
+          "Sabah erken tekneye geçiş ve denize açılış: günün ilk saatlerinde daha sakin koylarda ilerleme",
+          "Rinca Adası milli park turu: park rehberi ile güvenli rota ve doğa anlatımı",
+          "Rehber eşliğinde trekking: Komodo ejderleri ve vahşi yaşam gözlemi (güvenlik kuralları rehber tarafından aktarılır)",
+          "Kalong (uçan tilki) noktası: gün batımına yakın saatte gökyüzünü kaplayan uçuşları izleme (hava/rota uygunluğuna göre)",
+          "Akşam Labuan Bajo'ya dönüş ve serbest zaman",
         ],
         accommodation: "Labuan Bajo butik otel (4⭐)",
       },
       {
         day: 3,
-        title: "Adalar ve Manzara Noktaları",
+        title: "Komodo & Pink Beach (Padar Panoraması + Şnorkel)",
         activities: [
-          "Padar Adası'na tekne transferi",
-          "Panoramik manzara için kısa trekking",
-          "Manta noktalarında yüzme veya snorkeling",
-          "Gün batımında tekneyle Labuan Bajo'ya dönüş",
+          "Sabah hareket – Padar Adası seyir noktası: kısa bir tırmanışla efsane üç koy manzarası ve bol fotoğraf",
+          "Pink Beach: pembe kumlarda serbest zaman; suya girme & şnorkel için en keyifli duraklardan biri",
+          "Teknede öğle yemeği: gün boyu deniz üstünde olduğumuz için pratik ve keyifli bir mola",
+          "Kanawa veya Taka Makassar: mercanlar ve renkli balıklar için şnorkel, dinlenme ve güneşi toplama (rota uygunluğuna göre)",
         ],
         accommodation: "Labuan Bajo butik otel (4⭐)",
       },
       {
         day: 4,
-        title: "Serbest Zaman ve Kapanış",
+        title: "Manta Point & Su Altı Keşfi",
         activities: [
-          "Kahvaltı ve serbest zaman",
-          "Son alışveriş / kafe molaları (uçuş saatine göre)",
-          "Havalimanına transfer",
+          "Sabah erken Manta Point: doğru şans ve doğru zamanda dev mantaları görme ihtimali",
+          "Şnorkel ile su altını keşfetme; isteyenler için tüplü dalış planı (opsiyonel, tercihe göre)",
+          "Siaba veya Bidadari gibi küçük adalarda rota devamı: daha sakin koylar ve berrak su (hava/deniz durumuna göre)",
+          "Günün kalanında yüzme ve serbest zaman: tekne üstünde dinlenme ve manzara keyfi",
+        ],
+        accommodation: "Labuan Bajo butik otel (4⭐)",
+      },
+      {
+        day: 5,
+        title: "Serbest Gün",
+        activities: [
+          "Bugün herkes için serbest gündür; sahile inebilir, alışveriş yapabilir, kafelerde dinlenebilirsiniz.",
+          "Dileyen misafirler için ekstra ücretli: yerel köy gezisi (yan taraftaki opsiyonel ekstra aktivite kartından seçilebilir)",
+          "Dileyen misafirlerimiz için, rehberlerimiz tarafından alışveriş, kafe, restoran tavsiyesi verilir.",
+          "Dileyen misafirlerimiz için diledikleri konuda ücret karşılığında rehber tayin edebiliriz.",
+        ],
+        accommodation: "Labuan Bajo butik otel (4⭐)",
+        optionalExtras: [
+          {
+            id: "komodo-free-day-village-tour",
+            title: "5. Gün | Yerel Köy Gezisi (Opsiyonel)",
+            shortDescription:
+              "Labuan Bajo çevresinde yerel yaşamı yakından görmek için kısa, kültür odaklı köy gezisi (opsiyonel ve ücretli).",
+            estimatedPricePerPerson: 75,
+            priceNote:
+              "Kişi başı ortalama 60–90 USD; tura dahil değildir ve isteğe bağlı ekstra bir hizmettir.",
+            details: [
+              "📍 Lokasyon: Labuan Bajo çevresi (rota, hava ve ulaşılabilirliğe göre planlanır)",
+              "⏱ Süre: Yaklaşık yarım gün",
+              "👥 Kime uygun: Kültür ve yerel yaşam meraklıları, fotoğrafçılar",
+              "Yerel köy yaşamı, günlük ritim ve bölgeye özgü anlatımlar",
+              "Kısa yürüyüşler ve fotoğraf durakları",
+              "Ulaşım ve organizasyon koordinasyonu (müsaitliğe göre)",
+            ],
+            notes:
+              "Bu köy gezisi tur paketine dahil değildir ve opsiyonel bir ek hizmettir. Kesin saat/rota, grup temposu ve güncel koşullara göre planlanır.",
+          },
+        ],
+      },
+      {
+        day: 6,
+        title: "Labuan Bajo Koyu & Gün Batımı",
+        activities: [
+          "Sabah: şehir içi keşif veya liman/marina gezisi; Labuan Bajo'nun gündüz ritmini yakalama",
+          "Kano / su sporları (pakete dahil; hava ve müsaitliğe göre): denizle daha aktif bir gün geçirmek isteyenlere",
+          "Öğleden sonra: Seraya Hill veya Bukit Cinta gün batımı noktası; turun en iyi vedalık manzaralarından biri",
+          "Fotoğraf & manzara molası: ışık en güzel saatlerdeyken bol bol çekim",
+          "Akşam: yerel mutfak deneyimi (isteğe bağlı) – deniz ürünleri ve yerel tatlar için öneriler paylaşılır",
+        ],
+        accommodation: "Labuan Bajo butik otel (4⭐)",
+      },
+      {
+        day: 7,
+        title: "Dönüş",
+        activities: [
+          "Kahvaltı ve valiz hazırlığı",
+          "Bugün misafirlerimizle son günümüz: uygun saatlerde kısa bir kafe buluşması ve vedalaşma",
+          "Otel check-out ve transfer organizasyonu",
+          "Havalimanında check-in sürecinde destek ve uğurlama",
+          "Dönüş uçuşu",
         ],
         accommodation: "-",
       },
@@ -1223,41 +1343,64 @@ const toursData = {
         category: "Yaban Hayatı",
         items: [
           "Komodo ejderlerini doğal habitatında gözlem",
-          "Milli park rehberli yürüyüşler",
+          "Rinca & Komodo rehberli trekking",
           "Vahşi yaşam fotoğrafçılığı",
         ],
       },
       {
-        category: "Plaj & Dalış",
+        category: "Deniz & Şnorkel",
         items: [
-          "Pembe kumsallarda yüzme",
-          "Manta noktalarında snorkeling",
-          "Mercan resiflerinde dalış (opsiyonel)",
+          "Pink Beach'te yüzme & şnorkel",
+          "Manta Point şnorkeli (manta ray görme ihtimali)",
+          "Kanawa / Taka Makassar şnorkel durakları (rota uygunluğuna göre)",
+          "Tüplü dalış (opsiyonel)",
         ],
       },
       {
-        category: "Doğa & Manzara",
+        category: "Manzara & Fotoğraf",
         items: [
-          "Padar Adası manzara yürüyüşü",
-          "Adalar arası tekne turları",
-          "Gün batımı seyir noktaları",
+          "Padar Adası panoraması",
+          "Seraya Hill / Bukit Cinta gün batımı",
+          "Labuan Bajo marina ve sahil kasabası atmosferi",
         ],
       },
+    ],
+    included: [
+      "Tüm paketlerde: Labuan Bajo'da 6 gece konaklama (4★ otel/butik tesis) ve her gün otel kahvaltısı",
+      "Tüm paketlerde: havalimanı–otel–otel arası transferler ve 7/24 ulaşılabilir Türkçe koordinasyon",
+      "Standart ve Premium paketlerde: Labuan Bajo çıkışlı ada/tekne günleri (programdaki ana duraklar dahilinde)",
+      "Standart ve Premium paketlerde: Rinca & Komodo trekking (yerel park rehberi ile)",
+      "Standart ve Premium paketlerde: Padar panoraması, Pink Beach ve Manta Point şnorkel rotaları (hava/deniz durumuna göre)",
+      "Standart ve Premium paketlerde: tekne turu günlerinde teknede öğle yemeği",
+      "Standart ve Premium paketlerde: milli park girişleri ve liman/feribot vergileri (program kapsamına göre)",
+      "Tüm paketlerde: 6. gün kano / su sporları deneyimi (hava ve müsaitliğe göre)",
+      "Yalnızca Premium pakette: daha kapsamlı rota/tekne planlaması ve üst segment konaklama opsiyonu (müsaitliğe göre)",
+    ],
+    notIncluded: [
+      "Temel paket için: Rinca & Komodo trekking, Padar/Pink Beach/Manta Point tekne günleri ve milli park girişleri bu fiyata dahil değildir; istenirse opsiyonel ekstra olarak planlanır",
+      "Tüm paketlerde: uluslararası uçuşlar",
+      "Tüm paketlerde: tüplü dalış ve dalış ekipmanları (opsiyonel)",
+      "Tüm paketlerde: tekne günleri dışındaki öğle/akşam yemekleri ve otel kapsamı dışındaki yiyecek-içecek harcamaları",
+      "Tüm paketlerde: içecekler, bahşiş ve kişisel harcamalar",
+      "Tüm paketlerde: 5. gün yerel köy gezisi gibi opsiyonel ekstra aktiviteler (katıldığınız kadar ayrıca ücretlendirilir)",
     ],
     about: {
       nature:
         "Komodo Ulusal Parkı, dramatik tepeler, savanah manzaraları, pembe kumsallar ve berrak turkuaz koylar ile Endonezya'nın en etkileyici doğa sahnelerinden birini sunar.",
       culture:
-        "Flores ve çevresindeki adalar, küçük balıkçı köyleri, geleneksel tekneler ve yerel deniz ürünleri mutfağı ile özgün bir ada yaşamı sunar.",
+        "Flores ve çevresindeki adalar; küçük balıkçı kasabaları, yerel pazarlar ve taze deniz ürünleri mutfağıyla otantik bir sahil kültürü sunar.",
       lifestyle:
-        "Komodo bölgesi, gündüzleri tekne turları ve doğa keşfi, akşamları ise Labuan Bajo'nun sakin sahil kasabası atmosferiyle macera ve dinlenmeyi bir araya getirir.",
+        "Gündüzleri tekneyle ada keşfi ve şnorkel, akşamları ise Labuan Bajo'da serbest zaman ve gün batımı duraklarıyla macera ve dinlenmeyi dengeler.",
     },
     routes: [
       { name: "Labuan Bajo", description: "Turların başladığı sahil kasabası" },
-      { name: "Komodo Adası", description: "Komodo ejderlerinin doğal yaşam alanı" },
-      { name: "Padar Adası", description: "İkonik üç koy manzarası" },
-      { name: "Pink Beach", description: "Pembe kumlu plaj ve snorkeling" },
-      { name: "Manta Point", description: "Manta vatozları ile yüzme ihtimali" },
+      { name: "Rinca Adası", description: "Rehberli trekking ve Komodo gözlemi" },
+      { name: "Komodo Ulusal Parkı", description: "UNESCO rotaları ve vahşi doğa" },
+      { name: "Padar Adası", description: "İkonik panoramik manzara" },
+      { name: "Pink Beach", description: "Pembe kumlu plaj ve şnorkel" },
+      { name: "Manta Point", description: "Manta ray bölgesi – şnorkel" },
+      { name: "Kanawa / Taka Makassar", description: "Şnorkel & dinlenme molaları" },
+      { name: "Seraya Hill / Bukit Cinta", description: "Gün batımı ve fotoğraf" },
     ],
     gallery: [
       "https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1200",
@@ -1271,21 +1414,257 @@ const toursData = {
     hero:
       "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
     summary:
-      "Sulawesi; Tana Toraja'nın gelenekleri, Makassar kıyıları ve dalış odaklı rotalarıyla kültür ve deniz deneyimini birleştiren geniş kapsamlı bir keşif sunar.",
-    suitableFor: ["Kültürel Keşif", "Doğa & Macera", "Deniz & Plaj Tatili", "Fotoğrafçılık"],
-    duration: "6 Gece 7 Gün",
-    concept: "Kültür & Deniz",
+      "Makassar'ın tropik sahil ritminden başlayıp, Manado ve Bunaken'in su altı dünyasına uzanan; finalde Jakarta ile metropol dokunuşu ekleyen, Endonezya içi aktarmalı uçuşlarla ilerleyen uçuş ağırlıklı keşif rotası.",
+    suitableFor: [
+      "Deniz & Şnorkel",
+      "Dalış (isteğe bağlı)",
+      "Doğa & Vahşi Yaşam",
+      "Fotoğrafçılık",
+      "Şehir & Kafe Kültürü",
+    ],
+    duration: "8 Gece 9 Gün",
+    concept: "Deniz • Doğa • Dalış • Tropik Şehir",
     price: "4.199",
+    packages: [
+      {
+        id: "sulawesi-basic",
+        level: "temel",
+        name: "Sulawesi Keşif Temel",
+        badge: "Esnek & ekonomik",
+        headline:
+          "Konaklama + uçuş omurgasını sabitleyip, tekne/park günlerini tercihinize göre şekillendirmek isteyenlere.",
+        priceMultiplier: 0.7,
+        highlights: [
+          "Makassar (2 gece) + Manado (5 gece) + Jakarta (1 gece) toplam 8 gece konaklama",
+          "Makassar → Manado ve Manado → Jakarta iç hat uçuşları",
+          "Havalimanı transferleri + 7/24 Türkçe koordinasyon",
+          "Serbest gün blokları ve kişisel keşif için esneklik",
+        ],
+        notes:
+          "Temel paket, rotanın uçuş omurgasını ve konaklamayı sabitler. Tekne/park günleri isteğe göre opsiyonel olarak planlanabilir.",
+      },
+      {
+        id: "sulawesi-plus",
+        level: "plus",
+        name: "Sulawesi Keşif Standart",
+        badge: "Dengeli seçenek",
+        headline:
+          "Makassar ada günü + Bunaken + Tangkoko gibi öne çıkan deneyimleri dengeli tempoda bir araya getiren paket.",
+        priceMultiplier: 0.85,
+        highlights: [
+          "Makassar tropik ada tekne günü",
+          "Bunaken Milli Parkı (şnorkel/dalış günü)",
+          "Tangkoko yağmur ormanı – vahşi yaşam keşfi",
+          "Jakarta'da kısa metropol dokunuşu",
+        ],
+        notes:
+          "Standart paket, bu sayfadaki gün gün akışın ana duraklarını referans alır. Uçuş saatleri ve operasyonel detaylar rezervasyon sonrası yazılı olarak paylaşılır.",
+      },
+      {
+        id: "sulawesi-premium",
+        level: "premium",
+        name: "Sulawesi Keşif Premium",
+        badge: "En kapsamlı",
+        headline:
+          "Daha net kapsam, daha dolu plan ve daha yüksek konfor hedefleyenler için üst seviye paket.",
+        priceMultiplier: 1,
+        highlights: [
+          "Tomohon volkanik manzaralar + Lake Linow + termal duraklar",
+          "Bunaken gününde daha kapsamlı planlama (hava/deniz durumuna göre)",
+          "Daha kapsamlı rezervasyon koordinasyonu ve önceliklendirme",
+        ],
+        notes:
+          "Premium paket, programı daha net kapsamla ve daha dolu günlerle planlamayı hedefler. Dalış gibi özel talepler tercihe göre ayrıca planlanır.",
+      },
+    ],
+    itinerary: [
+      {
+        day: 1,
+        title: "Makassar – Tropik Dünyaya İlk Adım",
+        activities: [
+          "Makassar'a varış ve havalimanında karşılama",
+          "Otele transfer (yaklaşık 30–40 dk) ve check-in",
+          "Kısa dinlenme sonrası sahil hattında yürüyüş: ilk tropik temas ve deniz havası",
+          "Gün batımında serbest zaman: kafe/oturup şehri izleme ve dinlenme",
+        ],
+        accommodation: "Makassar şehir oteli (4⭐)",
+      },
+      {
+        day: 2,
+        title: "Makassar – Ada & Deniz Deneyimi (Rehberli Gün)",
+        activities: [
+          "Sabah buluşma ve tekne iskelesine konforlu transfer: günün ritmini erkenden yakalıyoruz",
+          "Makassar açıklarındaki tropikal adalara tekne geçişi (yaklaşık 30–45 dk): rüzgâr, deniz kokusu ve ilk manzaralar",
+          "Gün boyu ‘turkuaz su + bembeyaz kum’ hissi: sakin koylarda yüzme molaları ve şnorkel için en güzel noktalar",
+          "Şnorkelde mercan dokuları ve renkli balıklarla tanışma: dalış yapmadan da ‘Bunaken öncesi’ harika bir ısınma",
+          "Sahil hattında serbest zaman: güneşlenme, kısa yürüyüş, fotoğraf ve dinlenme molaları",
+          "İsteyenler için sahil bölgesinde jet ski ve su sporları için uygun zaman aralığı (müsaitlik ve deniz durumuna bağlı)",
+          "Akşamüstü tekneyle dönüş: günün en güzel ışığında denizde son kareler",
+          "Makassar'a varış sonrası serbest akşam: önerilen kafe/restaurant noktalarıyla günü keyifle kapatma",
+        ],
+        accommodation: "Makassar şehir oteli (4⭐)",
+      },
+      {
+        day: 3,
+        title: "Makassar → Manado – Varış & Serbest Gün (Kalan Zamana Bağlı)",
+        activities: [
+          "Sabah havalimanına transfer",
+          "Makassar → Manado iç hat uçuşu (yaklaşık 1 saat 45 dk)",
+          "Varış sonrası otele transfer ve check-in",
+          "Günün kalan zamanı: serbest zaman (uçuş saati ve varış saatine bağlı)",
+        ],
+        accommodation: "Manado şehir oteli (4⭐)",
+        optionalExtras: [
+          {
+            id: "sulawesi-manado-arrival-short-city",
+            title: "3. Gün | Manado Kısa Şehir Keşfi (Opsiyonel)",
+            shortDescription:
+              "Varış gününde, gün içinde kalan zamana bağlı olarak kısa sahil yürüyüşü/şehir keşfi (opsiyonel ve ücretli).",
+            estimatedPricePerPerson: 35,
+            priceNote:
+              "Kişi başı ortalama 25–55 USD; tura dahil değildir (kalan zamana göre planlanır).",
+            details: [
+              "⏱ Süre: Varış saatine göre 1–2,5 saat",
+              "🗺 İçerik: sahil şeridi, kısa fotoğraf durakları, yerel kafe/market molası",
+              "📌 Not: Program uçuş saatleri ve trafik durumuna göre şekillenir",
+            ],
+            notes:
+              "Bu aktivite tur fiyatına dahil değildir. Uçuş/varış saatine göre aynı gün yapılabilir; zaman uygun değilse bir sonraki serbest zaman aralığına kaydırılabilir.",
+          },
+        ],
+      },
+      {
+        day: 4,
+        title: "Bunaken Milli Parkı – Okyanusun Altına Yolculuk (Rehberli Gün)",
+        activities: [
+          "Sabah erken buluşma ve tekneyle Bunaken Milli Parkı'na geçiş (yaklaşık 40–50 dk): denizin rengi açıldıkça değişir",
+          "Varışta kısa bilgilendirme: günün akışı, güvenlik ve en iyi şnorkel noktaları (deniz koşullarına göre)",
+          "Şnorkel molaları: mercan bahçeleri, tropik balıklar ve su altı ‘akvaryum’ hissi (yüzme bilmeyenler için de kontrollü seçenekler)",
+          "Dalış yapmayanlar için ada keyfi: kumsalda dinlenme, fotoğraf noktaları ve sakin bir tropik gün",
+          "Sertifikasız misafirler için eğitmen eşliğinde güvenli keşif dalışı (isteğe bağlı; müsaitliğe bağlı)",
+          "Sertifikalı dalgıçlar için Bunaken'in ünlü duvar dalış rotaları (isteğe bağlı; koşullara bağlı)",
+          "Adada öğle yemeği: deniz günü enerjisini tazeleme ve kısa dinlenme",
+          "Gün sonunda tekneyle Manado'ya dönüş ve otele transfer: tuzlu saç, bol fotoğraf ve dolu bir gün",
+        ],
+        accommodation: "Manado şehir oteli (4⭐)",
+      },
+      {
+        day: 5,
+        title: "Manado – Serbest Gün",
+        activities: [
+          "Kahvaltı sonrası tam gün serbest zaman",
+          "İsteyenler için: ekstra dalış, kısa ada turu veya sahil keyfi (isteğe bağlı)",
+          "İsteyenler için: spa, dinlenme ve kişisel keşif",
+          "Akşam serbest zaman: kafe/restoran önerileri paylaşılır",
+          "İsteyene dalış aktivitesi planlanır, isteyene tekne turu planlanır.",
+        ],
+        accommodation: "Manado şehir oteli (4⭐)",
+        optionalExtras: [
+          {
+            id: "sulawesi-free-day-adrenaline-watersports",
+            title: "5. Gün | Jet Ski & Su Sporları Turu (Opsiyonel)",
+            shortDescription:
+              "Jet ski benzeri su sporları ve adrenalin odaklı kısa aktiviteler (opsiyonel ve ücretli).",
+            estimatedPricePerPerson: 90,
+            priceNote: "Kişi başı ortalama 60–120 USD; tura dahil değildir.",
+            details: [
+              "İçerik, bölgedeki operatör ve müsaitliğe göre netleşir",
+              "Güvenlik ekipmanları ve kısa bilgilendirme operatör tarafından sağlanır",
+            ],
+            notes:
+              "Bu aktivite tur fiyatına dahil değildir; katılım durumuna göre ayrıca ücretlendirilir.",
+          },
+        ],
+      },
+      {
+        day: 6,
+        title: "Tomohon – Volkanlar, Sisler ve Termal Sular (Rehberli Gün)",
+        activities: [
+          "Sabah Manado'dan Tomohon bölgesine doğru yola çıkış (yaklaşık 1,5 saat): kıyıdan yüksek rakıma doğru manzara dönüşümü",
+          "Volkanik manzara durakları: sis, yeşil yamaçlar ve dramatik siluetlerle ‘kartpostal’ gibi fotoğraf noktaları",
+          "Lake Linow: gün ışığına göre ton değiştiren gölde yürüyüş ve manzara molası (en iyi kareler için zaman)",
+          "Bölgenin serin havasında kısa serbest zaman: sıcak içecek molası ve çevreyi sindirme",
+          "Doğal termal kaynaklarda dinlenme: günün yorgunluğunu atıp bedeni yenileme",
+          "Akşam Manado'ya dönüş: gün batımına doğru manzaralarla turu tamamlama",
+        ],
+        accommodation: "Manado şehir oteli (4⭐)",
+      },
+      {
+        day: 7,
+        title: "Tangkoko – Yağmur Ormanlarında Vahşi Doğa (Rehberli Gün)",
+        activities: [
+          "Sabah erken çıkış ve Tangkoko Milli Parkı'na transfer (yaklaşık 1,5–2 saat): gün doğumu ışığında tropik doğaya giriş",
+          "Rehber eşliğinde yağmur ormanı yürüyüşü: kuş sesleri, dev ağaçlar ve gerçek bir ‘vahşi doğa’ atmosferi",
+          "Tarsius (dünyanın en küçük primatlarından) ve siyah makakları doğal yaşam alanlarında gözlemleme şansı",
+          "Yürüyüş boyunca kısa duraklar: fotoğraf, nefes ve doğayı sindirme molaları (tempo grubun ritmine göre ayarlanır)",
+          "Doğa ve fotoğraf odaklı keşif: ‘belgesel sahnesi’ gibi anlar yakalamak için rehber yönlendirmeleri",
+          "Akşamüstü Manado'ya dönüş ve serbest akşam: günün etkisini sakin bir akşamla dengeleme",
+        ],
+        accommodation: "Manado şehir oteli (4⭐)",
+      },
+      {
+        day: 8,
+        title: "Manado → Jakarta – Metropole Geçiş",
+        activities: [
+          "Sabah otelden çıkış ve havalimanına transfer",
+          "Manado → Jakarta iç hat uçuşu (yaklaşık 3 saat)",
+          "Jakarta'ya varış, otele transfer ve kısa dinlenme",
+          "Akşam kısa şehir yürüyüşü: kafe ve serbest zaman",
+        ],
+        accommodation: "Jakarta şehir oteli (4⭐)",
+      },
+      {
+        day: 9,
+        title: "Jakarta → İstanbul – Dönüş",
+        activities: [
+          "Kahvaltı sonrası serbest zaman",
+          "Uçuş saatine göre Jakarta Havalimanı'na transfer (yaklaşık 45–60 dk)",
+          "Havalimanında check-in desteği ve uğurlama",
+          "Jakarta → İstanbul uçuşu",
+        ],
+        accommodation: "-",
+      },
+    ],
+    included: [
+      "Tüm paketlerde: Makassar (2 gece) + Manado (5 gece) + Jakarta (1 gece) toplam 8 gece konaklama ve her gün otel kahvaltısı",
+      "Tüm paketlerde: Makassar → Manado iç hat uçuşu (havayolu/saat detayları rezervasyon sonrası yazılı olarak paylaşılır)",
+      "Tüm paketlerde: Manado → Jakarta iç hat uçuşu (havayolu/saat detayları rezervasyon sonrası yazılı olarak paylaşılır)",
+      "Tüm paketlerde: havalimanı–otel transferleri ve 7/24 ulaşılabilir Türkçe koordinasyon",
+      "Standart ve Premium paketlerde: 2. gün Makassar ada tekne günü (programdaki ana duraklar dahilinde)",
+      "Standart ve Premium paketlerde: 4. gün Bunaken Milli Parkı tekne günü (şnorkel rotaları) ve adada öğle yemeği",
+      "Standart ve Premium paketlerde: 5. gün Tangkoko yağmur ormanı turu (rehberli)",
+      "Yalnızca Premium pakette: 6. gün Tomohon + Lake Linow + termal kaynaklar günü (program kapsamına göre)",
+    ],
+    notIncluded: [
+      "Temel paket için: Makassar ada tekne günü, Bunaken günü ve Tangkoko turu bu fiyata dahil değildir; istenirse opsiyonel ekstra olarak planlanır",
+      "Tüm paketlerde: uluslararası uçuşlar (İstanbul → Endonezya gidiş/dönüş)",
+      "Tüm paketlerde: tüplü dalış, dalış ekipmanları ve eğitmen ücretleri (isteğe bağlı)",
+      "Tüm paketlerde: öğle/akşam yemekleri ve otel kapsamı dışında kalan yiyecek-içecek harcamaları",
+      "Tüm paketlerde: kişisel harcamalar, bahşiş ve opsiyonel su sporları",
+      "Türkiye'den çıkışta ödenen yurtdışı çıkış harcı katılımcı tarafından ödenir",
+    ],
+    notes: {
+      approach:
+        "Bu program, Endonezya içi aktarmalı uçuşlarla ilerleyen uçuş ağırlıklı bir akıştır. Uzun ve yorucu karayolu yolculukları planlanmaz; sadece günlük turlar için gerekli kısa kara transferleri yapılır. Rehberli günlerde (tekne/milli park/orman rotaları) zamanlama, transfer ve operasyon akışı önceden planlanır; siz sadece deneyime odaklanırsınız. Serbest zaman blokları ise bilinçli olarak korunur: dinlenme, sahil/kafe keşfi ve isteğe bağlı ek deneyimler için esneklik sunar. Uçuş saatleri, tekne çıkışları ve operasyonel detaylar rezervasyon sonrası yazılı olarak paylaşılır.",
+      freeTime:
+        "Serbest gün ve serbest akşam blokları ‘boş bırakılmış gün’ değildir; temponuzu dengelemek ve Sulawesi’yi kendi ritminizde yaşamanız için bilerek korunur. Bu zamanlarda sahil hattında gün batımı, kafe/restoran keşfi, spa/masaj ve kısa yürüyüş rotaları gibi önerilerle destek oluruz. İsterseniz gün içinde kalan zamana ve müsaitliğe bağlı olarak dalış veya tekne turu gibi ek deneyimler de planlanabilir; katılım tamamen tercihinizdir.",
+      discipline:
+        "Rehberli günlerde uçuş/tekne/milli park girişleri saatli ilerlediği için buluşma saatlerine uyum ve güvenlik talimatlarına dikkat edilmesi önemlidir. Biz akışı mümkün olduğunca akıcı ve stressiz kurarız; sizden beklenen, zamanında hazır olmak ve rehber yönlendirmelerine uymaktır. Grup düzenine saygı ve karşılıklı nezaket, turun konforunu ve deneyim kalitesini doğrudan yükseltir.",
+    },
     routes: [
-      { name: "Makassar", description: "Sahil hattı, şehir keşfi ve rota başlangıcı" },
-      { name: "Tana Toraja", description: "Yerel gelenekler, köyler ve kültürel duraklar" },
-      { name: "Wakatobi (opsiyonel)", description: "Dalış ve mercan resifleri odaklı ada deneyimi" },
+      { name: "Makassar", description: "Tropik sahil şehri, rota başlangıcı" },
+      { name: "Makassar Adaları", description: "Tekneyle tropik adalar, yüzme & şnorkel" },
+      { name: "Manado", description: "Kuzey Sulawesi'nin kapısı" },
+      { name: "Bunaken", description: "Şnorkel ve dalış için dünyaca ünlü milli park" },
+      { name: "Tangkoko", description: "Yağmur ormanı ve vahşi yaşam gözlemi" },
+      { name: "Tomohon & Lake Linow", description: "Volkanik manzaralar ve termal duraklar" },
+      { name: "Jakarta", description: "Metropol atmosferi ve dönüş öncesi kısa mola" },
     ],
     gallery: [
       "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "/placeholder.jpg",
-      "/placeholder.jpg",
-      "/placeholder.jpg",
+      "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
     ],
   },
 };
@@ -1317,6 +1696,8 @@ export default function TourDetail() {
   const isLombok = effectiveId === "lombok";
   const isJava = effectiveId === "java";
   const isSumatra = effectiveId === "sumatra";
+  const isKomodo = effectiveId === "komodo";
+  const isSulawesi = effectiveId === "sulawesi";
 
   const getPremiumDifferences = (tourKey, pkgLevel) => {
     if (pkgLevel === "premium") return [];
@@ -1371,6 +1752,10 @@ export default function TourDetail() {
 
   // Kaporalı ön rezervasyon alanını açıp kapamak için
   const [showDepositForm, setShowDepositForm] = useState(false);
+
+  // Uçak bileti dahil seçildiyse ödeme öncesi zorunlu onay ekranı
+  const [showFlightConfirm, setShowFlightConfirm] = useState(false);
+  const [flightConfirmAccepted, setFlightConfirmAccepted] = useState(false);
 
   // Önemli açıklamalar & uyarılar bloğunu açıp kapamak için
   const [showImportantNotes, setShowImportantNotes] = useState(false);
@@ -1443,6 +1828,28 @@ export default function TourDetail() {
   const hasDiscount = basePrice !== null && discountPercent > 0;
   const discountedPrice = hasDiscount ? Math.round(basePrice * (1 - discountPercent / 100)) : basePrice;
   const promoLabel = pricingOverride?.promoLabel || "";
+
+  const normalizeUsdNumber = (value) => {
+    if (value === undefined || value === null || value === "") return null;
+    if (typeof value === "number" && isFinite(value)) return value;
+    if (typeof value === "string") {
+      const n = Number(value.replace(/[^0-9.]/g, ""));
+      return isFinite(n) && n > 0 ? n : null;
+    }
+    return null;
+  };
+
+  const flightIncludedLimitUsd = normalizeUsdNumber(pricingOverride?.flightIncludedLimitUsd);
+  const flightLimitPerPersonUsdRounded = Number.isFinite(flightIncludedLimitUsd)
+    ? Math.round(flightIncludedLimitUsd)
+    : 0;
+  const hasFlightLimit = flightLimitPerPersonUsdRounded > 0;
+  const flightInclusionShortNote = flightIncludedLimitUsd
+    ? `(uçak bileti kişi başı $${Math.round(flightIncludedLimitUsd)}’a kadar dahildir)`
+    : "(uçak bileti pakette belirtilen tutara kadar dahildir)";
+  const flightInclusionLongNote = flightIncludedLimitUsd
+    ? `Uçak bileti kişi başı $${Math.round(flightIncludedLimitUsd)}’a kadar pakete dahildir; belirtilen tutarı aşan fiyat farkı katılımcı tarafından ayrıca karşılanır.`
+    : "Uçak bileti, paket açıklamasında/broşürlerde/teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkı katılımcı tarafından ayrıca karşılanır.";
 
   const normalizePlannedDateRangeLabel = (text) => {
     if (!text || typeof text !== "string") return "";
@@ -1668,7 +2075,7 @@ export default function TourDetail() {
         routesShortText ? `Rota: ${routesShortText}` : "",
       ].filter(Boolean),
       notes:
-        "Standart paket, programın ana akışını referans alır ve kapsamı netleştirir. Tur içeriği, sezon ve operasyon koşullarına göre teklif aşamasında son hâline getirilir.",
+        "Standart paket, programın ana akışını referans alır ve kapsamı netleştirir. Operasyonel detaylar (saat/rota gibi) rezervasyon sonrası yazılı olarak paylaşılır.",
     },
     {
       id: `${effectiveId || id || "tur"}-premium`,
@@ -1683,7 +2090,7 @@ export default function TourDetail() {
         routesShortText ? `Rota: ${routesShortText}` : "",
       ].filter(Boolean),
       notes:
-        "Premium paket, daha kapsamlı bir planlama hedefler. Net hizmet kapsamı ve fiyat; tarih, kişi sayısı ve tercihlerinize göre teklif aşamasında paylaşılır.",
+        "Premium paket, daha kapsamlı bir planlama hedefler. Operasyonel detaylar (saat/rota gibi) rezervasyon sonrası yazılı olarak paylaşılır.",
     },
   ];
 
@@ -1784,6 +2191,7 @@ export default function TourDetail() {
     notes: "",
     extras: {},
     reservationType: "deposit",
+    includeFlight: true,
     acceptScope: false,
     acceptExtras: false,
     acceptContract: false,
@@ -1821,6 +2229,47 @@ export default function TourDetail() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  const closeFlightConfirm = () => {
+    setShowFlightConfirm(false);
+    setFlightConfirmAccepted(false);
+  };
+
+  const proceedToPayment = () => {
+    const reservationType = depositForm.reservationType === "full" ? "full" : "deposit";
+    const amountToPayNow = reservationType === "deposit" ? depositAmount : adjustedDepositGrandTotal;
+
+    navigate("/payment", {
+      state: {
+        tourId: id,
+        tourName: tour?.name || "",
+        packageId: selectedDepositPackage?.id || "",
+        packageName: selectedDepositPackage?.name || "",
+        reservationType,
+        people: depositPeopleCount,
+        includeFlight: hasFlightLimit ? !!depositForm.includeFlight : true,
+        flightLimitPerPersonUsd: hasFlightLimit ? flightLimitPerPersonUsdRounded : null,
+        flightDeductionTotalUsd: hasFlightLimit && !depositForm.includeFlight ? flightDeductionTotal : 0,
+        packageTotalUsd: adjustedDepositPackageTotal,
+        extrasSelected: selectedExtrasList.map((extra) => ({
+          id: extra.id,
+          day: extra.day,
+          title: extra.title,
+          estimatedPricePerPersonUsd: Number(extra.estimatedPricePerPerson) || 0,
+        })),
+        extrasTotalUsd: extrasTotal,
+        grandTotalUsd: adjustedDepositGrandTotal,
+        depositPercent: DEPOSIT_PERCENT,
+        amountToPayNowUsd: amountToPayNow,
+        contact: {
+          name: depositForm.name,
+          email: depositForm.email,
+          phone: depositForm.phone,
+          notes: depositForm.notes,
+        },
+      },
+    });
   };
 
   const handleDepositExtraToggle = (extraId) => {
@@ -1946,8 +2395,15 @@ export default function TourDetail() {
   const handleDepositSubmit = (e) => {
     e.preventDefault();
 
-    if (!selectedDepositPackage || !depositPeopleCount || !depositGrandTotal || !depositAmount) {
+    if (!selectedDepositPackage || !depositPeopleCount || !adjustedDepositGrandTotal || !depositAmount) {
       console.warn("Kaporalı ön rezervasyon için eksik bilgi: paket, kişi sayısı veya tutarlar hesaplanamadı.");
+      return;
+    }
+
+    // Uçak dahil seçildiyse ödeme öncesi zorunlu onay ekranını aç
+    if (hasFlightLimit && depositForm.includeFlight) {
+      setShowFlightConfirm(true);
+      setFlightConfirmAccepted(false);
       return;
     }
 
@@ -1967,7 +2423,7 @@ export default function TourDetail() {
       + `Katılımcı sayısı: ${depositPeopleCount}\n`
       + `Tahmini paket toplamı: $${depositPackageTotal}\n`
       + `Seçilen opsiyonel aktiviteler:\n${extrasSummary}\n`
-      + `Genel toplam (tahmini): $${depositGrandTotal}\n`
+      + `Genel toplam (tahmini): $${adjustedDepositGrandTotal}\n`
       + (reservationType === "deposit"
         ? `Ödenmesi gereken kapora (tahmini): $${depositAmount}\n`
         : "")
@@ -2009,6 +2465,8 @@ export default function TourDetail() {
           },
         );
     }
+
+      proceedToPayment();
   };
 
   if (!tour) {
@@ -2071,6 +2529,12 @@ export default function TourDetail() {
     ? selectedDepositPackage.computedPrice * depositPeopleCount
     : 0;
 
+  // Uçak bileti hariç seçilirse, tur için belirlenen uçak dahil limiti toplamdan düş
+  const flightDeductionTotal = hasFlightLimit && !depositForm.includeFlight
+    ? flightLimitPerPersonUsdRounded * depositPeopleCount
+    : 0;
+  const adjustedDepositPackageTotal = Math.max(0, depositPackageTotal - flightDeductionTotal);
+
   // Seçilen pakete göre, paket fiyatına dahil olmayan rehberli günleri de opsiyonel ekstra olarak sun
   // Şu an için opsiyonel ekstralar, tur programındaki tanımlı ekstralarla sınırlıdır.
   // (İleride Bali için paket seviyesine göre ekstra günler eklemek istenirse burası genişletilebilir.)
@@ -2085,8 +2549,8 @@ export default function TourDetail() {
     extrasTotalPerPerson *= 0.75;
   }
   const extrasTotal = depositPeopleCount * extrasTotalPerPerson;
-  const depositGrandTotal = depositPackageTotal + extrasTotal;
-  const depositAmount = depositGrandTotal > 0 ? Math.round((depositGrandTotal * DEPOSIT_PERCENT) / 100) : 0;
+  const adjustedDepositGrandTotal = adjustedDepositPackageTotal + extrasTotal;
+  const depositAmount = adjustedDepositGrandTotal > 0 ? Math.round((adjustedDepositGrandTotal * DEPOSIT_PERCENT) / 100) : 0;
 
   return (
     <div className="tour-detail-root min-h-screen bg-gradient-to-b from-white via-slate-50 to-sky-50/40">
@@ -2241,7 +2705,7 @@ export default function TourDetail() {
                       <p className="text-3xl font-bold mb-1">
                         ${startingPrice}
                         <span className="text-xs font-normal ml-1 align-middle">
-	                  (kişi başı 850 USD'ye kadar uçak bileti dahil)
+	                  {flightInclusionShortNote}
                         </span>
                       </p>
                       <p className="text-xs opacity-90">
@@ -2260,7 +2724,7 @@ export default function TourDetail() {
                       <p className="text-3xl font-bold mb-1">
                         ${startingPrice}
                         <span className="text-xs font-normal ml-1 align-middle">
-	                  (kişi başı 850 USD'ye kadar uçak bileti dahil)
+	                  {flightInclusionShortNote}
                         </span>
                       </p>
                       <p className="text-xs opacity-90">
@@ -2270,6 +2734,11 @@ export default function TourDetail() {
                       </p>
                     </>
                   )}
+				  {isSulawesi && (
+				    <p className="text-[11px] opacity-90 mt-1">
+				      Program kapsamındaki Endonezya iç hatlar uçuşları paket kapsamındadır, fiyata dahildir.
+				    </p>
+				  )}
                 </>
               ) : (
                 <p className="text-xs opacity-90">Fiyat bilgisi yakında güncellenecek.</p>
@@ -2327,9 +2796,13 @@ export default function TourDetail() {
                 {typeof pkg.computedPrice === "number" && (
                   <div className="mb-2">
                     <p className="text-xs text-slate-100/80">
-	              Kişi başı, 850 USD'ye kadar uçak bileti dahil; bu tutarın üzerindeki bilet farkı
-	              misafir tarafından ayrıca karşılanır.
+	              {flightInclusionLongNote}
                     </p>
+			    {isSulawesi && (
+			      <p className="text-xs text-slate-100/90 mt-1">
+			        Program kapsamındaki Endonezya iç hatlar uçuşları paket kapsamındadır, fiyata dahildir.
+			      </p>
+			    )}
                     <p className="text-2xl font-bold text-emerald-200">
                       ${pkg.computedPrice}
                     </p>
@@ -2391,8 +2864,8 @@ export default function TourDetail() {
 
       {/* CTA ve buton altı açılan formlar (sayfanın üst kısmında) */}
       <section className="bg-gradient-to-r from-sky-600 to-emerald-500 py-10 md:py-12 relative overflow-hidden">
-        {/* Bali ve Lombok sayfalarında, CTA arka planına tam yükseklik aktivite görselleri bindir */}
-        {(isBali || isLombok || isJava) && (
+        {/* Bali / Lombok / Java / Sumatra / Komodo / Sulawesi sayfalarında, CTA arka planına tam yükseklik görseller bindir */}
+        {(isBali || isLombok || isJava || isSumatra || isKomodo || isSulawesi) && (
           <div className="pointer-events-none absolute inset-0 z-0">
             {/* Üstten alta kadar sol tarafta dalış & mercan resifi görseli */}
             <div className="absolute inset-y-0 left-0 w-1/2 md:w-1/3 lg:w-1/4 opacity-95">
@@ -2400,11 +2873,29 @@ export default function TourDetail() {
                 src={
                   isJava
                     ? tour?.hero || tour?.image || "/placeholder.svg"
+                    : isSulawesi
+                      ? "/20160724_101830.jpg"
+                    : isKomodo
+                      ? "/vecteezy_ai-generated-woman-walking-on-the-beach-romantic_37348905.jpg"
+                      : isSumatra
+                        ? "/sumatra-rainforest-orangutan-lake-toba.jpg"
                     : isLombok
                       ? "/surya-bali-jet-ski-sanur.jpg"
                       : "https://res.cloudinary.com/dj1xg1c56/image/upload/v1767781298/vecteezy_diver-swimming-over-a-coral-reef-ai-generated_33502407_lsciky.jpg"
                 }
-                alt={isJava ? "Java - tur görseli" : isLombok ? "Lombok - su sporu" : "Lombok - dalış ve mercan resifi"}
+                alt={
+                  isJava
+                    ? "Java - tur görseli"
+                    : isSulawesi
+                      ? "Sulawesi - tur görseli"
+                    : isKomodo
+                      ? "Komodo - sahil yürüyüşü"
+                      : isSumatra
+                        ? "Sumatra - yağmur ormanı"
+                        : isLombok
+                          ? "Lombok - su sporu"
+                          : "Bali - dalış ve mercan resifi"
+                }
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -2415,11 +2906,27 @@ export default function TourDetail() {
                 src={
                   isJava
                     ? (Array.isArray(tour?.gallery) && tour.gallery[1] ? tour.gallery[1] : tour?.hero || tour?.image || "/placeholder.svg")
+                    : isSulawesi
+                      ? "/22392be0-3624-49f7-ba42-3405352c5c8d.avif"
+                    : isKomodo
+                      ? "https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                      : isSumatra
+                        ? "https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=1200"
                     : isLombok
                       ? "/lombok-island-beach-waterfall.jpg"
                       : "/three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg"
                 }
-                alt={isJava ? "Java - tur görseli" : "Lombok - teknede kutlama ve arkadaş grubu"}
+                alt={
+                  isJava
+                    ? "Java - tur görseli"
+                    : isSulawesi
+                      ? "Sulawesi - uçuş ağırlıklı rota"
+                    : isKomodo
+                      ? "Labuan Bajo - tekne manzarası"
+                      : isSumatra
+                        ? "Sumatra - Lake Toba"
+                        : "Lombok - teknede kutlama ve arkadaş grubu"
+                }
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -2673,13 +3180,13 @@ export default function TourDetail() {
               <h3 className="text-lg font-semibold mb-2 text-gray-900">Rezervasyon ve Ödeme Seçenekleri</h3>
 
               <p className="text-xs md:text-sm text-gray-600 mb-3">
-                Aşağıdaki alanlar, seçtiğiniz paket ve opsiyonel aktiviteler için <span className="font-semibold">tahmini toplam tur
+                Aşağıdaki alanlar, seçtiğiniz paket ve opsiyonel aktiviteler için <span className="font-semibold">toplam tur
                 bedelini</span> gösterir. Sağ taraftaki "Rezervasyon türünü seçiniz" kutusundan, <span className="font-semibold">doğrudan kesin kayıt</span>
                 ya da <span className="font-semibold">kaporalı ön rezervasyon</span> seçeneklerinden birini seçebilirsiniz. Seçiminize göre,
                 sadece <span className="font-semibold">kapora tutarı</span> veya <span className="font-semibold">toplam tur bedeli</span> esas alınır.
               </p>
               <p className="text-xs md:text-sm text-gray-600 mb-3">
-                Bu alan ön bilgilendirme amaçlıdır; net tutarlar size iletilecek resmi teklif ve paket tur sözleşmesinde kesinleşir.
+                Bu ekranda gördüğünüz tutar, seçtiğiniz seçeneklere göre hesaplanan ödeme tutarıdır.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -2714,12 +3221,34 @@ export default function TourDetail() {
                 </div>
               </div>
 
+              {hasFlightLimit && !isJava && (
+                <div className="border border-dashed border-slate-200 rounded-xl p-3 md:p-4 bg-slate-50">
+                  <label className="flex items-start gap-2 cursor-pointer text-sm text-gray-800">
+                    <input
+                      type="checkbox"
+                      name="includeFlight"
+                      checked={!!depositForm.includeFlight}
+                      onChange={handleDepositChange}
+                      className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                    />
+                    <span>
+                      <span className="font-semibold">Uçak bileti dahil</span>
+                      <span className="text-gray-600"> (kişi başı ${flightLimitPerPersonUsdRounded}’a kadar)</span>
+                    </span>
+                  </label>
+                  <p className="text-[11px] md:text-xs text-gray-600 mt-1">
+                    Uçak bileti hariç bırakılırsa, kişi başı ${flightLimitPerPersonUsdRounded} toplam bedelden düşülür ve ödeme ekranına
+                    direkt yönlendirilirsiniz.
+                  </p>
+                </div>
+              )}
+
               {optionalExtras.length > 0 && (
                 <div className="border border-dashed border-amber-200 rounded-xl p-3 md:p-4 bg-amber-50/60">
                   <p className="text-xs md:text-sm font-semibold text-amber-900 mb-2">Opsiyonel Ekstra Aktiviteler</p>
                   <p className="text-[11px] md:text-xs text-amber-900/90 mb-3">
                     Aşağıdaki aktiviteler paket fiyatına <span className="font-semibold">dahil değildir ✕</span>; katılım
-                    gösterdiğiniz kadar ekstra ücretlendirilir. Fiyatlar, kişi başı ortalama değerlerdir ve teklif aşamasında netleştirilir.
+                    gösterdiğiniz kadar ekstra ücretlendirilir. Fiyatlar, kişi başı ortalama değerlerdir.
                   </p>
                   <div className="space-y-2">
                     {optionalExtras.map((extra) => {
@@ -2744,11 +3273,11 @@ export default function TourDetail() {
                             <span className="text-gray-600">
                               {est > 0 ? (
                                 checked ? (
-                                  `(bugüne özel kişi başı ${displayValue} USD; net fiyat teklif aşamasında paylaşılır)`
+                                  `(bugüne özel kişi başı ${displayValue} USD)`
                                 ) : isPremiumPackage ? (
-                                  `(tahmini kişi başı ${displayValue} USD, Premium paket için yaklaşık %25 indirimli; net fiyat teklif aşamasında paylaşılır)`
+                                  `(tahmini kişi başı ${displayValue} USD, Premium paket için yaklaşık %25 indirimli)`
                                 ) : (
-                                  `(tahmini kişi başı ${est} USD, net fiyat teklif aşamasında paylaşılır)`
+                                  `(tahmini kişi başı ${est} USD)`
                                 )
                               ) : (
                                 `(tahmini fiyat için lütfen bizimle iletişime geçin)`
@@ -2767,15 +3296,21 @@ export default function TourDetail() {
                   <h4 className="font-semibold text-gray-900">Tahmini Tutar Özeti</h4>
                   <p>
                     Paket toplamı (tüm katılımcılar):
-                    <span className="font-semibold ml-1">${depositPackageTotal || 0}</span>
+                    <span className="font-semibold ml-1">${adjustedDepositPackageTotal || 0}</span>
                   </p>
+                  {hasFlightLimit && !depositForm.includeFlight && (
+                    <p className="text-[11px] md:text-xs text-emerald-700">
+                      Uçak bileti hariç seçildi:
+                      <span className="font-semibold ml-1">−${flightDeductionTotal || 0}</span>
+                    </p>
+                  )}
                   <p>
                     Seçilen opsiyonel aktiviteler (toplam):
                     <span className="font-semibold ml-1">${extrasTotal || 0}</span>
                   </p>
                   <p>
-                    Genel toplam (tahmini):
-                    <span className="font-semibold ml-1">${depositGrandTotal || 0}</span>
+                    Genel toplam:
+                    <span className="font-semibold ml-1">${adjustedDepositGrandTotal || 0}</span>
                   </p>
                   {depositForm.reservationType === "deposit" && (
                     <>
@@ -2791,13 +3326,12 @@ export default function TourDetail() {
                   )}
                   {depositForm.reservationType === "full" && (
                     <p>
-                      Ödenmesi gereken toplam tur bedeli (tahmini):
-                      <span className="font-semibold ml-1">${depositGrandTotal || 0}</span>
+                      Ödenmesi gereken toplam tur bedeli:
+                      <span className="font-semibold ml-1">${adjustedDepositGrandTotal || 0}</span>
                     </p>
                   )}
                   <p className="text-[11px] text-gray-600 mt-1">
-                    Bu hesaplama, güncel referans fiyatlara göre yaklaşık değerler üretir; net tutarlar rezervasyon onayı ve paket tur
-                    sözleşmesi aşamasında yazılı olarak paylaşılır.
+                    Not: Opsiyonel aktiviteler için belirtilen kişi başı tutarlar ortalama değerlerdir.
                   </p>
                 </div>
 
@@ -2941,6 +3475,17 @@ export default function TourDetail() {
                       güncel teklif ve ön bilgilendirme dokümanını (PDF)
                     </a>
                     {" "}
+                    ile
+                    {" "}
+                    <a
+                      href="/docs/on-bilgilendirme-formu.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sky-600 underline font-semibold"
+                    >
+                      ön bilgilendirme formunu
+                    </a>
+                    {" "}
                     ve
                     {" "}
                     <a
@@ -2986,9 +3531,55 @@ export default function TourDetail() {
                 type="submit"
                 className="w-full md:w-auto px-6 py-2.5 rounded-full bg-amber-500 text-slate-900 text-sm font-semibold hover:bg-amber-400 transition-colors"
               >
-                Ön rezervasyon talebimi ve kapora özetini gönder
+                Rezervasyonu tamamla
               </button>
             </form>
+          )}
+
+          {showDepositForm && showFlightConfirm && hasFlightLimit && !isJava && (
+            <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 px-4">
+              <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-slate-200 p-5 md:p-6">
+                <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                  Uçak bileti dahil kapsam onayı
+                </h4>
+                <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                  Seçtiğiniz pakette, uçak bileti kişi başı <span className="font-semibold">${flightLimitPerPersonUsdRounded}</span>’a kadar
+                  fiyatlara dahildir. Bilet kesim tarihinde, uçuş firmasının resmi satış fiyatları esas alınır. Belirtilen tutarın üzerindeki
+                  fark katılımcı tarafından ayrıca ödenir.
+                </p>
+
+                <label className="flex items-start gap-2 cursor-pointer text-sm text-gray-800 mb-4">
+                  <input
+                    type="checkbox"
+                    checked={flightConfirmAccepted}
+                    onChange={(e) => setFlightConfirmAccepted(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                  />
+                  <span>Okudum, anladım ve onaylıyorum.</span>
+                </label>
+
+                <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
+                  <button
+                    type="button"
+                    onClick={closeFlightConfirm}
+                    className="px-4 py-2 rounded-full border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
+                  >
+                    Geri dön
+                  </button>
+                  <button
+                    type="button"
+                    disabled={!flightConfirmAccepted}
+                    onClick={() => {
+                      closeFlightConfirm();
+                      proceedToPayment();
+                    }}
+                    className="px-5 py-2 rounded-full bg-amber-500 text-slate-900 text-sm font-semibold hover:bg-amber-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Ödemeye devam et
+                  </button>
+                </div>
+              </div>
+            </div>
           )}
 
           {showGroupForm && (
@@ -3467,7 +4058,7 @@ export default function TourDetail() {
               Bu tur deneyim odaklı bir premium pakettir
             </p>
             <p className="text-sm text-gray-800 leading-relaxed">
-              Fiyatlarımız; sadece “yer gösteren” klasik turlara göre değil, gün gün akışı netleşmiş ve deneyim odaklı bir tatil planına göre belirlenir. Programda rehberli günler, serbest zaman blokları ve talebe göre eklenebilen opsiyonel deneyimler dengeli şekilde kurgulanır.
+              Bu rota, “sadece yer gösteren” klasik turlardan farklı olarak gün gün akışı netleşmiş bir deneyim planına göre kurgulanır. Rehberli günlerde en güçlü anları (tekne/milli park/orman rotaları gibi) sizin için kilitler, lojistiği biz yönetiriz. Serbest zaman bloklarında ise acele ettirmeden dinlenmenize ve şehri/denizi kendi ritminizde keşfetmenize alan açar; isterseniz kalan zamana göre opsiyonel deneyimler de eklenebilir.
             </p>
           </div>
 
@@ -3580,6 +4171,10 @@ export default function TourDetail() {
               <li>
                 Tur rota planları ve aktiviteler, operasyonel sebepler ya da hava şartlarına bağlı olarak tarafımızca güncellenebilir.
               </li>
+                    <li>
+                      Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir;
+                      belirtilen tutarı aşan fiyat farkı katılımcı tarafından ayrıca karşılanır.
+                    </li>
               <li>
                 Endonezya&apos;ya gelmeden önce seyahat sağlık sigortası yaptırılmasını <span className="font-semibold text-rose-600">tavsiye ederiz</span>.
               </li>
@@ -3762,7 +4357,7 @@ export default function TourDetail() {
               <p className="text-xl font-bold text-slate-900">
                 ${startingPrice}
                 <span className="ml-1 text-[11px] font-normal align-middle text-slate-600">
-	          (850 USD'ye kadar uçak bileti dahil)
+	          (uçak bileti pakette belirtilen tutara kadar dahildir)
                 </span>
               </p>
             </div>

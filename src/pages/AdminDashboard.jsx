@@ -142,6 +142,10 @@ export default function AdminDashboard() {
             existing[tour.id]?.price !== undefined && existing[tour.id]?.price !== null
               ? existing[tour.id].price
               : tour.price || '',
+          flightIncludedLimitUsd:
+            existing[tour.id]?.flightIncludedLimitUsd !== undefined && existing[tour.id]?.flightIncludedLimitUsd !== null
+              ? existing[tour.id].flightIncludedLimitUsd
+              : '',
           discountPercent:
             existing[tour.id]?.discountPercent !== undefined && existing[tour.id]?.discountPercent !== null
               ? existing[tour.id].discountPercent
@@ -157,6 +161,7 @@ export default function AdminDashboard() {
           name: tour.name,
           dateRange: tour.dateRange || '',
           price: tour.price || '',
+          flightIncludedLimitUsd: '',
           discountPercent: '',
           promoLabel: '',
         }));
@@ -516,11 +521,18 @@ export default function AdminDashboard() {
       await Promise.all(
         toursSettings.map((tour) => {
           const discount = tour.discountPercent === '' ? 0 : Number(tour.discountPercent) || 0;
+          const flightLimitRaw = tour.flightIncludedLimitUsd;
+          const flightLimit =
+            flightLimitRaw === '' || flightLimitRaw === null || flightLimitRaw === undefined
+              ? null
+              : Number(flightLimitRaw);
+          const normalizedFlightLimit = Number.isFinite(flightLimit) && flightLimit > 0 ? flightLimit : null;
           return setDoc(
             doc(db, 'tours', tour.id),
             {
               dateRange: tour.dateRange || '',
               price: tour.price || '',
+              flightIncludedLimitUsd: normalizedFlightLimit,
               discountPercent: discount,
               promoLabel: tour.promoLabel || '',
             },
@@ -872,6 +884,7 @@ export default function AdminDashboard() {
             Buradan tur kartlarında görünen <span className="font-semibold">tur tarih aralıklarını</span>,
             <span className="font-semibold"> kişi başı normal fiyatları</span> ve isteğe bağlı
             <span className="font-semibold"> kampanya / indirim ayarlarını</span> güncelleyebilirsiniz.
+            Ayrıca fiyatların altında görünen <span className="font-semibold">uçak bileti dahil limiti</span> (USD) de buradan yönetilir.
             Değişiklikler kaydedildikten sonra ziyaretçi tarafındaki tur paketleri sayfasına yansır.
           </p>
 
@@ -911,6 +924,23 @@ export default function AdminDashboard() {
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                       placeholder="Örn: 3200"
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                      Uçak Bileti Dahil Tutar (USD) - Opsiyonel
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={tour.flightIncludedLimitUsd}
+                      onChange={(e) => handleTourFieldChange(tour.id, 'flightIncludedLimitUsd', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      placeholder="Örn: 850 (boş bırakabilirsiniz)"
+                    />
+                    <p className="text-[11px] text-gray-500 mt-1">
+                      Boş bırakırsanız ziyaretçi tarafında rakam gösterilmez; genel metin kullanılır.
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

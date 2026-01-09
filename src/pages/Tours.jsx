@@ -16,7 +16,8 @@ export const TOURS_CONFIG = [
 		description:
 			"Tropik cennet Bali, muhteşem plajları, mistik tapınakları, yeşil pirinç terasları ve misafirperver halkıyla sizi büyüleyecek. Bu rota; body rafting, tam gün tekne turu gibi özenle seçilmiş deneyimlerin dahil olduğu, sürpriz maliyetleri en aza indiren, premium bir tatil paketi olarak tasarlandı.",
 		duration: "6 Gece 7 Gün",
-		concept: "Kişi başı 850 USD'ye kadar uçak bileti dahil referans paket fiyatları",
+		concept:
+			"Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.",
 		suitableFor: [
 			"Balayı",
 			"Lüks & Dinlenme",
@@ -98,22 +99,31 @@ export const TOURS_CONFIG = [
 		dateRange: "Belirli dönemlerde sınırlı kontenjanla",
 		price: 3499,
 		image: "/sumatra-rainforest-orangutan-lake-toba.jpg",
-	},
-  {
+		},
+		{
 		id: "komodo",
 		name: "Komodo Adası",
 		description:
 			"UNESCO Dünya Mirası Komodo Ulusal Parkı, Komodo ejderleri, pembe kumsallar ve turkuaz koylarıyla vahşi doğa ve tekne turu deneyimini bir arada sunar.",
 		duration: "6 Gece 7 Gün",
 		concept: "Doğa & Plaj",
-		suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Sörf", "Adrenalin", "Su Sporları", "Lüks & Dinlenme"],
+			suitableFor: ["Tekne Turu", "Doğa & Macera", "Şnorkel", "Fotoğrafçılık", "Deniz & Plaj Tatili", "Adrenalin"],
 		includes: [
 			"İstanbul çıkışlı gidiş-dönüş uçak bileti",
-			"Her gün otelde sabah kahvaltısı",
-			"Programdaki rehberli günler ve transferler",
+				"Labuan Bajo konaklamaları + her gün otelde sabah kahvaltısı",
+				"Programdaki tekne günleri ve rehberli trekking rotaları (pakete göre)",
+				"Rota içi transferler (havalimanı/otel/liman) ve operasyon koordinasyonu",
 		],
 		dateRange: "Belirli sezonlarda, sınırlı tekne kontenjanı ile",
 		price: 3899,
+			packages: [
+				{
+					id: "komodo-premium",
+					level: "premium",
+					name: "Premium Paket",
+					priceMultiplier: 1,
+				},
+			],
 		image:
 			"https://images.pexels.com/photos/3601422/pexels-photo-3601422.jpeg?auto=compress&cs=tinysrgb&w=1200",
 	},
@@ -121,20 +131,34 @@ export const TOURS_CONFIG = [
 		id: "sulawesi",
 		name: "Sulawesi Adası",
 		description:
-			"Tana Toraja gelenekleri, Makassar sahilleri ve Wakatobi'nin dünyaca ünlü dalış noktalarıyla kültür ve deniz deneyimini birleştiren geniş kapsamlı bir rota.",
-			duration: "6 Gece 7 Gün",
-			concept: "Doğa & Plaj",
-			suitableFor: ["Doğa & Macera", "Deniz & Plaj Tatili", "Sörf", "Adrenalin", "Su Sporları", "Lüks & Dinlenme"],
-			includes: [
-				"İstanbul çıkışlı gidiş-dönüş uçak bileti",
-				"Gili ve sahil bölgesinde 6 gece konaklama",
-				"Her gün otelde sabah kahvaltısı",
-				"Programdaki seçili rehberli günler ve transferler",
-			],
+			"Makassar'ın tropik sahil ritminden başlayıp Manado ve Bunaken'in su altı dünyasına uzanan; Tangkoko yağmur ormanı ve Tomohon'un volkanik manzaralarıyla güçlenen, finalde Jakarta ile metropol dokunuşu ekleyen uçuş ağırlıklı keşif rotası.",
+		duration: "8 Gece 9 Gün",
+		concept: "Deniz • Doğa • Dalış • Tropik Şehir",
+		suitableFor: [
+			"Deniz & Şnorkel",
+			"Dalış (isteğe bağlı)",
+			"Doğa & Vahşi Yaşam",
+			"Fotoğrafçılık",
+			"Şehir & Kafe Kültürü",
+			"Macera",
+		],
+		includes: [
+			"Makassar (2 gece) + Manado (5 gece) + Jakarta (1 gece) toplam 8 gece konaklama",
+			"Makassar → Manado ve Manado → Jakarta iç hat uçuşları (pakete dahildir)",
+			"Havalimanı transferleri + rota içi operasyon koordinasyonu",
+			"7/24 Türkçe destek ve yerel ekip (rehberli günler pakete göre)",
+		],
 		dateRange: "Özel tarihler ve resmi tatillere göre planlanır",
 		price: 4199,
-		image:
-			"https://images.pexels.com/photos/3601453/pexels-photo-3601453.jpeg?auto=compress&cs=tinysrgb&w=1200",
+		packages: [
+			{
+				id: "sulawesi-premium",
+				level: "premium",
+				name: "Premium Paket",
+				priceMultiplier: 1,
+			},
+		],
+		image: "/20160724_101830.jpg",
 	},
 ];
 
@@ -549,7 +573,21 @@ export default function Tours() {
 							return `$${Math.round(value)}`;
 						};
 
+						const normalizeUsdNumber = (value) => {
+							if (value === undefined || value === null || value === "") return null;
+							if (typeof value === "number" && isFinite(value)) return value;
+							if (typeof value === "string") {
+								const n = Number(value.replace(/[^0-9.]/g, ""));
+								return isFinite(n) && n > 0 ? n : null;
+							}
+							return null;
+						};
+
 						const override = tourOverrides[tour.id] || {};
+						const flightIncludedLimitUsd = normalizeUsdNumber(override.flightIncludedLimitUsd);
+						const flightNoteShort = flightIncludedLimitUsd
+							? `uçak bileti kişi başı ${formatUSD(flightIncludedLimitUsd)}’a kadar dahildir; aşan fark katılımcı öder`
+							: "uçak bileti pakette belirtilen tutara kadar dahildir";
 
 						const basePriceRaw =
 							override.price !== undefined && override.price !== null && override.price !== ""
@@ -573,9 +611,9 @@ export default function Tours() {
 								? tour.packages
 								: null;
 
-						let cheapestMultiplier = tour.id === "java" ? 1 : 0.7; // Java: yalnız Premium; diğerleri: paket yoksa varsayılan 'temel'
+						let cheapestMultiplier = tour.id === "java" || tour.id === "komodo" || tour.id === "sulawesi" ? 1 : 0.7; // Premium kart: Java/Komodo/Sulawesi
 						if (sourcePackages) {
-							if (tour.id === "java") {
+							if (tour.id === "java" || tour.id === "komodo" || tour.id === "sulawesi") {
 								const premiumPkg = sourcePackages.find((p) => {
 									const level = (p?.level || "").toString().toLowerCase();
 									const pid = (p?.id || "").toString().toLowerCase();
@@ -706,6 +744,22 @@ export default function Tours() {
 														<p>Rota içi transferler ve operasyon koordinasyonu</p>
 														<p>7/24 Türkçe destek ve yerel ekip</p>
 													</>
+												) : tour.id === "komodo" ? (
+													<>
+														<p>Tekne odaklı ada keşfi: az konaklama noktası, maksimum deniz günü</p>
+														<p>Rehberli tekne günleri + serbest zaman dengesi</p>
+														<p>Milli park girişleri, tekne operasyonu ve güvenlik koordinasyonu</p>
+														<p>Rota içi transferler ve operasyon koordinasyonu</p>
+														<p>7/24 Türkçe destek ve yerel ekip</p>
+													</>
+												) : tour.id === "sulawesi" ? (
+													<>
+														<p>Uçuş ağırlıklı rota: uzun kara yolu yok, tempolu ama konforlu akış</p>
+														<p>Makassar → Manado → Jakarta iç hat uçuşları (aktarmalı olabilir)</p>
+														<p>Rehberli günler + serbest zaman dengesi (Bunaken/Tangkoko/Tomohon)</p>
+														<p>Rota içi transferler ve operasyon koordinasyonu</p>
+														<p>7/24 Türkçe destek ve yerel ekip</p>
+													</>
 												) : (
 													<>
 														<p>3-4 yıldızlı oteller</p>
@@ -721,7 +775,7 @@ export default function Tours() {
 													<>
 														<div className="flex flex-col items-end">
 															<p className={`text-sm font-semibold mb-0.5 ${hasDiscount ? "text-white line-through decoration-red-500 decoration-1" : "text-white/90"}`}>
-																		{hasDiscount ? formatUSD(pkgBasePrice) : (tour.id === "java" ? "Premium" : "Toplam")}
+																		{hasDiscount ? formatUSD(pkgBasePrice) : (tour.id === "java" || tour.id === "komodo" || tour.id === "sulawesi" ? "Premium" : "Toplam")}
 															</p>
 														</div>
 														<p className="text-xl font-bold text-white whitespace-nowrap leading-none">
@@ -736,11 +790,11 @@ export default function Tours() {
 															)}
 														</span>
 														<span className="block text-[10px] font-normal text-white/90 leading-none">
-																	kişi başı 850 USD'ye kadar uçak bileti dahil
+																{flightNoteShort}
 														</span>
 													</p>
 																<p className="text-sm text-white/90 mt-0.5">
-																	{tour.id === "java" ? "Premium paket fiyatı" : "Başlayan fiyatlarla"}
+																	{tour.id === "java" || tour.id === "komodo" || tour.id === "sulawesi" ? "Premium paket fiyatı" : "Başlayan fiyatlarla"}
 																</p>
 													<p className="text-[11px] text-white/90">
 														{discountNote}
@@ -786,6 +840,16 @@ export default function Tours() {
 																{tour.id === "java" && (
 																	<p className="mt-1 text-[11px] text-gray-600">
 																		Java turu road trip konseptindedir ve yalnızca Premium paket olarak planlanır. Rota içi transferler ve rehberli gün akışı paket kapsamında organize edilir; uçak bileti hariçtir ve net kapsam/tarih rezervasyon öncesinde yazılı paylaşılır.
+																	</p>
+																)}
+																{tour.id === "komodo" && (
+																	<p className="mt-1 text-[11px] text-gray-600">
+																		Komodo turu tekne odaklı bir ada keşfi konseptindedir. Tekne günleri, milli park operasyonu ve rehberli trekking akışı paket kapsamında organize edilir; net kapsam ve operasyon detayları rezervasyon öncesinde yazılı olarak paylaşılır.
+																	</p>
+																)}
+																{tour.id === "sulawesi" && (
+																	<p className="mt-1 text-[11px] text-gray-600">
+																		Sulawesi turu uçuş ağırlıklı bir akıştır; uzun ve yorucu kara yolu günleri planlanmaz. İç hat uçuşları ve rehberli gün akışı paket kapsamında organize edilir; uçuş saatleri ve operasyonel detaylar rezervasyon öncesinde yazılı olarak paylaşılır.
 																	</p>
 																)}
 																{tour.id === "sumatra" && (
@@ -840,6 +904,10 @@ export default function Tours() {
 					<li>
 						Tur rota planları ve aktiviteler, operasyonel sebepler ya da hava şartlarına bağlı olarak tarafımızca
 							güncellenebilir.
+					</li>
+					<li>
+						Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete
+						dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.
 					</li>
 					<li>
 						Endonezya&apos;ya gelmeden önce seyahat sağlık sigortası yaptırılması <span className="font-semibold">zorunludur</span>.
@@ -1044,6 +1112,10 @@ export default function Tours() {
 									<li>
 										Tur rota planları ve aktiviteler, operasyonel sebepler ya da hava şartlarına bağlı olarak tarafımızca güncellenebilir.
 									</li>
+										<li>
+											Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete
+											dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.
+										</li>
 									<li>
 										Endonezya'ya gelmeden önce seyahat sağlık sigortası yaptırılması <span className="font-semibold">zorunludur</span>.
 									</li>
