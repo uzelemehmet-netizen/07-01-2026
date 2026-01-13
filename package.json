@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "ensure:env": "node scripts/ensure-env-local.mjs",
+    "dev": "npm run ensure:env && vite",
     "build": "node scripts/generate-sitemap.mjs && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"

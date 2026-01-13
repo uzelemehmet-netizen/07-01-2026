@@ -94,3 +94,24 @@ h3 {
 .tracking-wide {
   letter-spacing: 0.015em;
 }
+
+/* Tailwind line-clamp plugin'i yokken basit clamp yardımcıları */
+.line-clamp-2,
+.line-clamp-3,
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  -webkit-line-clamp: 3;
+}
+
+.line-clamp-4 {
+  -webkit-line-clamp: 4;
+}

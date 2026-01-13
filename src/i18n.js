@@ -5,10 +5,11 @@ const resources = {
   tr: {
     translation: {
       navigation: {
-        siteTitle: 'Seyahat Organizasyonu',
-        siteSubtitle: 'Evlilik İşlemleri Rehberliği',
+        siteTitle: 'Endonezya Kaşifi',
+        siteSubtitle: 'PT MoonStar Global Indonesia',
         home: 'Ana Sayfa',
         about: 'Hakkımızda',
+        corporate: 'Kurumsal',
         travel: 'Seyahat',
         tours: 'Tur Paketleri',
         explore: 'Keşfet',
@@ -21,10 +22,11 @@ const resources = {
   id: {
     translation: {
       navigation: {
-        siteTitle: 'Organisasi Perjalanan',
-        siteSubtitle: 'Panduan Proses Pernikahan',
+        siteTitle: 'Endonezya Kaşifi',
+        siteSubtitle: 'PT MoonStar Global Indonesia',
         home: 'Beranda',
         about: 'Tentang Kami',
+        corporate: 'Perusahaan',
         travel: 'Perjalanan',
         tours: 'Paket Tur',
         explore: 'Jelajahi',

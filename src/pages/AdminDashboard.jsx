@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { auth, storage, db } from '../config/firebase';
+import { auth, db } from '../config/firebase';
 import { signOut } from 'firebase/auth';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, Edit2, Upload } from 'lucide-react';
 import { collection, getDocs, doc, setDoc, getDoc } from 'firebase/firestore';
 import { TOURS_CONFIG } from './Tours';
+import ReservationsTab from '../components/admin/ReservationsTab';
 
 // Tüm ada ve destinasyonlar
 const ISLANDS_DATA = {
@@ -94,7 +94,27 @@ export default function AdminDashboard() {
   const [toursLoading, setToursLoading] = useState(false);
   const [toursSaving, setToursSaving] = useState(false);
   const [toursMessage, setToursMessage] = useState('');
+  const [firestoreBlocked, setFirestoreBlocked] = useState(false);
+  const [firestoreBlockedReason, setFirestoreBlockedReason] = useState('');
   const navigate = useNavigate();
+
+  const cloudinaryUploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const cloudinaryCloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dj1xg1c56';
+
+  const isFirestorePermissionDenied = (err) => {
+    const code = err?.code || err?.name;
+    const msg = String(err?.message || '');
+    return code === 'permission-denied' || msg.includes('Missing or insufficient permissions');
+  };
+
+  const blockFirestoreIfNeeded = (err) => {
+    if (!isFirestorePermissionDenied(err)) return false;
+    setFirestoreBlocked(true);
+    setFirestoreBlockedReason(
+      'Firestore erişim izni yok (Missing or insufficient permissions). Bu panel localStorage ile çalışmaya devam edecek; Firestore kaydı için Firestore Rules güncellenmeli.'
+    );
+    return true;
+  };
 
   // localStorage'dan resim URL'lerini yükle
   useEffect(() => {
@@ -107,6 +127,7 @@ export default function AdminDashboard() {
   // Firestore'dan imageUrls konfigurasyonunu yükle
   useEffect(() => {
     const fetchImageUrls = async () => {
+      if (firestoreBlocked) return;
       try {
         const snap = await getDoc(doc(db, 'imageUrls', 'imageUrls'));
         if (snap.exists()) {
@@ -122,12 +143,13 @@ export default function AdminDashboard() {
           });
         }
       } catch (error) {
+        if (blockFirestoreIfNeeded(error)) return;
         console.error('Firestore imageUrls yüklenirken hata:', error);
       }
     };
 
     fetchImageUrls();
-  }, []);
+  }, [firestoreBlocked]);
 
   // localStorage + Firestore'dan YouTube Shorts URL'lerini yükle
   useEffect(() => {
@@ -150,6 +172,7 @@ export default function AdminDashboard() {
     }
 
     const fetchShorts = async () => {
+      if (firestoreBlocked) return;
       try {
         const snap = await getDoc(doc(db, 'siteSettings', 'youtubeShorts'));
         if (snap.exists()) {
@@ -171,18 +194,31 @@ export default function AdminDashboard() {
           }
         }
       } catch (error) {
+        if (blockFirestoreIfNeeded(error)) return;
         console.error('Firestore youtubeShorts yüklenirken hata:', error);
       }
     };
 
     fetchShorts();
-  }, []);
+  }, [firestoreBlocked]);
 
   // Firestore'dan tur tarih ve fiyatlarını yükle
   useEffect(() => {
     const fetchTours = async () => {
       setToursLoading(true);
       try {
+        if (firestoreBlocked) {
+          const fallback = TOURS_CONFIG.map((tour) => ({
+            id: tour.id,
+            name: tour.name,
+            dateRange: tour.dateRange || '',
+            price: tour.price || '',
+            discountPercent: '',
+            promoLabel: '',
+          }));
+          setToursSettings(fallback);
+          return;
+        }
         const snapshot = await getDocs(collection(db, 'tours'));
         const existing = {};
         snapshot.forEach((docSnap) => {
@@ -197,10 +233,6 @@ export default function AdminDashboard() {
             existing[tour.id]?.price !== undefined && existing[tour.id]?.price !== null
               ? existing[tour.id].price
               : tour.price || '',
-          flightIncludedLimitUsd:
-            existing[tour.id]?.flightIncludedLimitUsd !== undefined && existing[tour.id]?.flightIncludedLimitUsd !== null
-              ? existing[tour.id].flightIncludedLimitUsd
-              : '',
           discountPercent:
             existing[tour.id]?.discountPercent !== undefined && existing[tour.id]?.discountPercent !== null
               ? existing[tour.id].discountPercent
@@ -210,13 +242,24 @@ export default function AdminDashboard() {
 
         setToursSettings(merged);
       } catch (error) {
+        if (blockFirestoreIfNeeded(error)) {
+          const fallback = TOURS_CONFIG.map((tour) => ({
+            id: tour.id,
+            name: tour.name,
+            dateRange: tour.dateRange || '',
+            price: tour.price || '',
+            discountPercent: '',
+            promoLabel: '',
+          }));
+          setToursSettings(fallback);
+          return;
+        }
         console.error('Tur ayarları yüklenirken hata:', error);
         const fallback = TOURS_CONFIG.map((tour) => ({
           id: tour.id,
           name: tour.name,
           dateRange: tour.dateRange || '',
           price: tour.price || '',
-          flightIncludedLimitUsd: '',
           discountPercent: '',
           promoLabel: '',
         }));
@@ -227,7 +270,7 @@ export default function AdminDashboard() {
     };
 
     fetchTours();
-  }, []);
+  }, [firestoreBlocked]);
 
   const formatBytes = (bytes) => {
     if (!Number.isFinite(bytes)) return '';
@@ -441,9 +484,6 @@ export default function AdminDashboard() {
     try {
       // Firebase Storage (Google Cloud Storage) free planda çoğu projede "Upgrade" isteyebilir.
       // Bu projede pratik çözüm: Cloudinary'ye upload edip URL'yi Firestore'a kaydetmek.
-      const cloudinaryUploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-      const cloudinaryCloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dj1xg1c56';
-
       const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
       let progressPrefix = '';
       let fileToUpload = file;
@@ -510,7 +550,7 @@ export default function AdminDashboard() {
         // Cloudinary preset yoksa eski Firebase Storage yoluna düşmek yerine
         // kullanıcıyı net şekilde yönlendirelim (free planda genelde upload bloklanıyor).
         throw new Error(
-          "Firebase Storage bu projede 'upgrade' istediği için tarayıcıdan upload başarısız oluyor. Cloudinary için .env dosyasına VITE_CLOUDINARY_UPLOAD_PRESET ekleyip (Unsigned Upload Preset) tekrar deneyin."
+          "Cloudinary Upload Preset bulunamadı.\n\n- Lokal geliştirmede: `web-sitem-new/.env.local` (veya `.env`) içine `VITE_CLOUDINARY_UPLOAD_PRESET` ekleyin ve dev server'ı yeniden başlatın.\n- Canlı (deploy) sitede: Vite env değişkenleri build-time gömülür; Cloudflare Pages / Vercel / Netlify proje ayarlarından Production env olarak `VITE_CLOUDINARY_UPLOAD_PRESET` ekleyin ve yeniden deploy edin.\n\nGerekirse `VITE_CLOUDINARY_CLOUD_NAME` da tanımlayın."
         );
       }
 
@@ -567,6 +607,11 @@ export default function AdminDashboard() {
       console.error('youtubeShortUrls localStorage kaydetme hatası:', e);
     }
 
+    if (firestoreBlocked) {
+      alert('Kaydedildi (localStorage). Firestore kaydı yapılamadı: yetki yok.');
+      return;
+    }
+
     try {
       await Promise.all([
         setDoc(doc(db, 'imageUrls', 'imageUrls'), imageUrls || {}, { merge: true }),
@@ -578,6 +623,10 @@ export default function AdminDashboard() {
       ]);
       alert('Resim URL\'leri ve YouTube Shorts alanı kaydedildi!');
     } catch (error) {
+      if (blockFirestoreIfNeeded(error)) {
+        alert('Kaydedildi (localStorage). Firestore kaydı yapılamadı: yetki yok.');
+        return;
+      }
       console.error('Firestore imageUrls kaydetme hatası:', error);
       alert('Kaydetme sırasında bir hata oluştu. Detay için konsolu kontrol edin.');
     }
@@ -594,21 +643,18 @@ export default function AdminDashboard() {
     setToursSaving(true);
     setToursMessage('');
     try {
+      if (firestoreBlocked) {
+        setToursMessage('Firestore kaydı yapılamadı: yetki yok. (Bu alan sadece localStorage ile güncellenmez)');
+        return;
+      }
       await Promise.all(
         toursSettings.map((tour) => {
           const discount = tour.discountPercent === '' ? 0 : Number(tour.discountPercent) || 0;
-          const flightLimitRaw = tour.flightIncludedLimitUsd;
-          const flightLimit =
-            flightLimitRaw === '' || flightLimitRaw === null || flightLimitRaw === undefined
-              ? null
-              : Number(flightLimitRaw);
-          const normalizedFlightLimit = Number.isFinite(flightLimit) && flightLimit > 0 ? flightLimit : null;
           return setDoc(
             doc(db, 'tours', tour.id),
             {
               dateRange: tour.dateRange || '',
               price: tour.price || '',
-              flightIncludedLimitUsd: normalizedFlightLimit,
               discountPercent: discount,
               promoLabel: tour.promoLabel || '',
             },
@@ -618,6 +664,10 @@ export default function AdminDashboard() {
       );
       setToursMessage('Tur tarih ve fiyatları kaydedildi.');
     } catch (error) {
+      if (blockFirestoreIfNeeded(error)) {
+        setToursMessage('Firestore kaydı yapılamadı: yetki yok.');
+        return;
+      }
       console.error('Tur ayarları kaydedilirken hata:', error);
       setToursMessage('Kaydetme sırasında bir hata oluştu. Detay için konsolu kontrol edin.');
     } finally {
@@ -635,6 +685,10 @@ export default function AdminDashboard() {
   };
 
   const renderContent = () => {
+    if (activeTab === 'reservations') {
+      return <ReservationsTab />;
+    }
+
     if (activeTab === 'islands') {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -960,7 +1014,6 @@ export default function AdminDashboard() {
             Buradan tur kartlarında görünen <span className="font-semibold">tur tarih aralıklarını</span>,
             <span className="font-semibold"> kişi başı normal fiyatları</span> ve isteğe bağlı
             <span className="font-semibold"> kampanya / indirim ayarlarını</span> güncelleyebilirsiniz.
-            Ayrıca fiyatların altında görünen <span className="font-semibold">uçak bileti dahil limiti</span> (USD) de buradan yönetilir.
             Değişiklikler kaydedildikten sonra ziyaretçi tarafındaki tur paketleri sayfasına yansır.
           </p>
 
@@ -1000,23 +1053,6 @@ export default function AdminDashboard() {
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                       placeholder="Örn: 3200"
                     />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Uçak Bileti Dahil Tutar (USD) - Opsiyonel
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      value={tour.flightIncludedLimitUsd}
-                      onChange={(e) => handleTourFieldChange(tour.id, 'flightIncludedLimitUsd', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                      placeholder="Örn: 850 (boş bırakabilirsiniz)"
-                    />
-                    <p className="text-[11px] text-gray-500 mt-1">
-                      Boş bırakırsanız ziyaretçi tarafında rakam gösterilmez; genel metin kullanılır.
-                    </p>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1114,6 +1150,16 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {firestoreBlocked && (
+          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <p className="text-sm text-amber-900">
+              <strong>Firestore erişimi engellendi:</strong> {firestoreBlockedReason || 'Missing or insufficient permissions.'}
+            </p>
+            <p className="text-xs text-amber-800 mt-1">
+              Not: Görsel yükleme (Cloudinary) çalışır; fakat Firestore yazma/okuma kapalıysa "Kaydet" sadece bu tarayıcıda (localStorage) etkili olur.
+            </p>
+          </div>
+        )}
         {/* Tabs */}
         <div className="flex gap-2 mb-8 border-b border-gray-200 overflow-x-auto">
           <button
@@ -1217,6 +1263,16 @@ export default function AdminDashboard() {
           >
             Tur Paketleri
           </button>
+    <button
+      onClick={() => setActiveTab('reservations')}
+      className={`px-6 py-3 font-semibold transition whitespace-nowrap ${
+        activeTab === 'reservations'
+          ? 'text-indigo-600 border-b-2 border-indigo-600'
+          : 'text-gray-600 hover:text-gray-800'
+      }`}
+    >
+      Rezervasyonlar
+    </button>
 	  <button
 	    onClick={() => setActiveTab('shorts')}
 	    className={`px-6 py-3 font-semibold transition whitespace-nowrap ${
@@ -1246,6 +1302,9 @@ export default function AdminDashboard() {
       <div className="bg-blue-50 border-l-4 border-blue-500 p-4 max-w-7xl mx-auto mb-8">
         <p className="text-sm text-blue-800">
           <strong>Dosya Yükleme:</strong> Resim dosyasını seç veya URL gir. Bu projede dosyalar Cloudinary'ye yüklenip URL Firestore'a kaydedilir. 10MB üzeri görseller otomatik sıkıştırılır ve yeni boyut gösterilir.
+        </p>
+        <p className="text-xs text-blue-700 mt-2">
+          <strong>Cloudinary durum:</strong> upload preset {cloudinaryUploadPreset ? 'OK' : 'EKSİK'} | cloud name: {cloudinaryCloudName}
         </p>
       </div>
     </div>

@@ -17,6 +17,57 @@ npm install
 npm run dev
 ```
 
+## Admin Panel Görsel Yükleme (Cloudinary)
+
+Admin panelde lokal dosyadan görsel yükleme için Cloudinary "unsigned upload preset" gerekir.
+
+1. `.env.example` dosyasını `.env.local` olarak kopyalayın
+2. Cloudinary Dashboard → Settings → Upload → Upload presets → **Add upload preset**
+3. **Unsigned: ENABLE** edin
+4. Preset adını `.env.local` içine yazın:
+
+```dotenv
+VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset_name
+VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+```
+
+Not: Vite env değişiklikleri için `npm run dev` sürecini yeniden başlatmanız gerekir.
+
+Canlı (deploy) sitede ise `.env.local` okunmaz; `VITE_*` değişkenleri build sırasında gömülür. Bu yüzden hosting panelinizden (Cloudflare Pages / Vercel / Netlify) **Environment Variables** kısmına `VITE_CLOUDINARY_UPLOAD_PRESET` (ve gerekirse `VITE_CLOUDINARY_CLOUD_NAME`) ekleyip **yeniden deploy** etmelisiniz.
+
+## Admin Panel Firestore İzinleri
+
+Admin panel, bazı ayarları Firestore'a okur/yazar:
+
+- `imageUrls/imageUrls`
+- `siteSettings/youtubeShorts`
+- `tours/*`
+
+Tarayıcı konsolunda `FirebaseError: Missing or insufficient permissions` görüyorsanız, bu genelde Firestore Security Rules'un bu kullanıcıya izin vermediği anlamına gelir.
+
+Geliştirme için (minimum) örnek kural:
+
+```txt
+rules_version = '2';
+service cloud.firestore {
+	match /databases/{database}/documents {
+		function isSignedIn() { return request.auth != null; }
+
+		match /imageUrls/{docId} {
+			allow read, write: if isSignedIn();
+		}
+		match /siteSettings/{docId} {
+			allow read, write: if isSignedIn();
+		}
+		match /tours/{tourId} {
+			allow read, write: if isSignedIn();
+		}
+	}
+}
+```
+
+Üretim ortamında daha güvenli bir yaklaşım için admin kullanıcılarını **Custom Claims** ile işaretleyip sadece admin claim'ine izin vermeniz önerilir.
+
 ## Build
 
 ```bash

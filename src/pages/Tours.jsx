@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { openWhatsApp } from "../utils/whatsapp";
@@ -6,6 +6,10 @@ import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
+
+// Uçak bileti fiyatları çok değişken olduğu için kullanıcıya net fiyat sunabilmek adına
+// tüm turlarda kişi başı aynı limit kullanılır.
+const DEFAULT_FLIGHT_INCLUDED_LIMIT_USD = 750;
 
 // Admin paneli tarafından da kullanılan temel tur listesi
 // Next.js projesindeki "ada" bazlı turları referans alır
@@ -17,7 +21,7 @@ export const TOURS_CONFIG = [
 			"Tropik cennet Bali, muhteşem plajları, mistik tapınakları, yeşil pirinç terasları ve misafirperver halkıyla sizi büyüleyecek. Bu rota; body rafting, tam gün tekne turu gibi özenle seçilmiş deneyimlerin dahil olduğu, sürpriz maliyetleri en aza indiren, premium bir tatil paketi olarak tasarlandı.",
 		duration: "6 Gece 7 Gün",
 		concept:
-			"Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.",
+			`Uçak bileti kişi başı $${DEFAULT_FLIGHT_INCLUDED_LIMIT_USD}’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir.`,
 		suitableFor: [
 			"Balayı",
 			"Lüks & Dinlenme",
@@ -179,7 +183,10 @@ export default function Tours() {
 		"https://youtube.com/shorts/LNOCVMd2Ndc?si=QgMChHopi8BvN2Ne",
 	];
 	const [youtubeShortUrls, setYoutubeShortUrls] = useState(DEFAULT_YOUTUBE_SHORTS);
+	const [activeShortIndex, setActiveShortIndex] = useState(null);
+	const shortCardRefs = useRef([]);
 	const [openPreRegId, setOpenPreRegId] = useState(null);
+	const [isTourPickerOpen, setIsTourPickerOpen] = useState(false);
 	const activeTour = openPreRegId ? tours.find((t) => t.id === openPreRegId) : null;
 
 	// Firestore'dan tur tarih/fiyat/promo override'larını yükle
@@ -504,6 +511,31 @@ export default function Tours() {
 		fetchShorts();
 	}, []);
 
+	// Aktif Shorts videosu ekrandan çıkınca otomatik kapat
+	useEffect(() => {
+		if (activeShortIndex === null || activeShortIndex === undefined) return;
+		const el = shortCardRefs.current?.[activeShortIndex];
+		if (!el) return;
+		if (typeof IntersectionObserver === "undefined") return;
+
+		let closed = false;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const entry = entries[0];
+				if (!entry) return;
+				// Kart görünürlük oranı düşükse kapat (küçük scroll jitter'ında kapanmaması için eşik)
+				if (!closed && entry.intersectionRatio < 0.15) {
+					closed = true;
+					setActiveShortIndex(null);
+				}
+			},
+			{ threshold: [0, 0.15, 0.25, 0.5, 1] },
+		);
+
+		observer.observe(el);
+		return () => observer.disconnect();
+	}, [activeShortIndex]);
+
 	const toYouTubeEmbedUrl = (inputUrl) => {
 		if (!inputUrl || typeof inputUrl !== "string") return "";
 		const raw = inputUrl.trim();
@@ -530,6 +562,30 @@ export default function Tours() {
 			embed.searchParams.set("modestbranding", "1");
 			embed.searchParams.set("playsinline", "1");
 			return embed.toString();
+		} catch {
+			return "";
+		}
+	};
+
+	const getYouTubeVideoId = (inputUrl) => {
+		if (!inputUrl || typeof inputUrl !== "string") return "";
+		const raw = inputUrl.trim();
+		if (!raw) return "";
+		try {
+			const url = new URL(raw);
+			const host = url.hostname.replace(/^www\./, "").toLowerCase();
+			let videoId = "";
+			if (host === "youtube.com" || host === "m.youtube.com") {
+				const shortsMatch = url.pathname.match(/^\/shorts\/([^/?#]+)/i);
+				if (shortsMatch) videoId = shortsMatch[1];
+				if (!videoId) {
+					const v = url.searchParams.get("v");
+					if (v) videoId = v;
+				}
+			} else if (host === "youtu.be") {
+				videoId = url.pathname.replace(/^\//, "").split("/")[0] || "";
+			}
+			return videoId;
 		} catch {
 			return "";
 		}
@@ -609,8 +665,31 @@ export default function Tours() {
 		}
 	}, []);
 
+	const scrollToToursList = () => {
+		if (typeof document === "undefined") return;
+		const el = document.getElementById("tours-list");
+		if (!el) return;
+		el.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+
+	const openToursWhatsApp = () => {
+		const text =
+			"Merhaba, Endonezya tur paketleri hakkında bilgi almak istiyorum.\n" +
+			"Bireysel / aile katılımı için uygun tarih ve güncel fiyat bilgisini paylaşabilir misiniz?";
+		const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+		openWhatsApp(url);
+	};
+
+	const openTourPicker = () => {
+		setIsTourPickerOpen(true);
+	};
+
+	const closeTourPicker = () => {
+		setIsTourPickerOpen(false);
+	};
+
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-sky-50/40 overflow-x-hidden">
+		<div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-sky-50/40 overflow-x-hidden pb-24 md:pb-0">
 			<Navigation />
 
 			{/* Hero + sekmeler */}
@@ -626,6 +705,7 @@ export default function Tours() {
 						</span>
 						<button
 							type="button"
+							onClick={scrollToToursList}
 							className="w-full sm:w-auto px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold bg-sky-600 text-white shadow-md hover:bg-sky-700 transition-colors cursor-pointer"
 						>
 							Kişisel / Aile Olarak Katılacağım Turlar
@@ -651,8 +731,53 @@ export default function Tours() {
 				</p>
 			</section>
 
+			{/* Güven & süreç özeti */}
+			<section className="px-4 max-w-6xl mx-auto pb-10">
+				<div className="bg-white/70 backdrop-blur border border-slate-200 rounded-2xl shadow-sm p-4 md:p-6">
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+						<div className="rounded-xl bg-slate-50 border border-slate-200 p-4 text-left">
+							<p className="text-xs font-semibold text-slate-900 mb-1">Şeffaf süreç</p>
+							<p className="text-xs text-slate-700">
+								Ön kayıt sonrası program, kapsam ve güncel fiyat bilgisini yazılı olarak paylaşıyoruz.
+							</p>
+						</div>
+						<div className="rounded-xl bg-slate-50 border border-slate-200 p-4 text-left">
+							<p className="text-xs font-semibold text-slate-900 mb-1">Kesin kayıt adımı</p>
+							<p className="text-xs text-slate-700">
+								Kesin kayıt; sözleşme onayı ve ödeme süreci tamamlandıktan sonra gerçekleşir.
+							</p>
+						</div>
+						<div className="rounded-xl bg-slate-50 border border-slate-200 p-4 text-left">
+							<p className="text-xs font-semibold text-slate-900 mb-1">Hızlı iletişim</p>
+							<p className="text-xs text-slate-700">
+								Aklınızdaki soruları WhatsApp üzerinden hızlıca sorabilirsiniz.
+							</p>
+						</div>
+					</div>
+
+					<div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-3 text-left">
+						<div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+							<p className="text-xs font-semibold text-emerald-900 mb-1">1) Tur seç</p>
+							<p className="text-[11px] text-emerald-900/80">Size uygun turu seçip ön kayıt bırakın.</p>
+						</div>
+						<div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+							<p className="text-xs font-semibold text-emerald-900 mb-1">2) Bilgilendirme</p>
+							<p className="text-[11px] text-emerald-900/80">Program + kapsam + fiyatı yazılı iletelim.</p>
+						</div>
+						<div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+							<p className="text-xs font-semibold text-emerald-900 mb-1">3) Kesin kayıt</p>
+							<p className="text-[11px] text-emerald-900/80">Sözleşme onayı ve ödeme adımı tamamlanır.</p>
+						</div>
+						<div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
+							<p className="text-xs font-semibold text-emerald-900 mb-1">4) Hazırlık</p>
+							<p className="text-[11px] text-emerald-900/80">Uçuş/otel ve yolculuk öncesi bilgilendirme.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
 			{/* Tur kartları */}
-			<section className="pb-16 px-4 max-w-6xl mx-auto">
+			<section id="tours-list" className="pb-16 px-4 max-w-6xl mx-auto scroll-mt-28">
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 					{tours.map((tour) => {
 						const formatUSD = (value) => {
@@ -671,10 +796,10 @@ export default function Tours() {
 						};
 
 						const override = tourOverrides[tour.id] || {};
-						const flightIncludedLimitUsd = normalizeUsdNumber(override.flightIncludedLimitUsd);
-						const flightNoteShort = flightIncludedLimitUsd
-							? `uçak bileti kişi başı ${formatUSD(flightIncludedLimitUsd)}’a kadar dahildir; aşan fark katılımcı öder`
-							: "uçak bileti pakette belirtilen tutara kadar dahildir";
+						const flightLimitUsd = DEFAULT_FLIGHT_INCLUDED_LIMIT_USD;
+						const flightNoteShort = `uçak bileti kişi başı ${formatUSD(flightLimitUsd)}’a kadar dahildir`;
+						const flightNoteReason =
+							"Uçuş fiyatları çok değişken olduğu için limit sabitlenmiştir; limit üzeri fark ayrıca yansıtılır.";
 
 						const basePriceRaw =
 							override.price !== undefined && override.price !== null && override.price !== ""
@@ -739,6 +864,39 @@ export default function Tours() {
 						const heroImage =
 							imageUrls[heroKey] || tour.image || "https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg";
 
+						const mobilePerks =
+							tour.id === "bali" || tour.id === "lombok"
+								? [
+									"4–5 yıldızlı otel konaklaması",
+									"Kahvaltı + transferler",
+									"7/24 Türkçe destek",
+								]
+								: tour.id === "sumatra"
+									? [
+										"Road trip konsepti (doğa & macera)",
+										"Kahvaltı + rota transferleri",
+										"7/24 Türkçe destek",
+									]
+									: tour.id === "java"
+										? [
+											"Road trip + tren geçişleri",
+											"Rehberli günler + serbest zaman",
+											"7/24 Türkçe destek",
+										]
+									: tour.id === "komodo"
+										? [
+											"Tekne odaklı ada keşfi",
+											"Operasyon & güvenlik koordinasyonu",
+											"7/24 Türkçe destek",
+										]
+									: tour.id === "sulawesi"
+										? [
+											"Uçuş ağırlıklı rota (uzun kara yolu yok)",
+											"Rehberli günler + serbest zaman",
+											"7/24 Türkçe destek",
+										]
+									: ["Konaklama + kahvaltı", "Transfer/koordinasyon", "Türkçe destek"];
+
 						return (
 							<article
 								key={tour.id}
@@ -802,10 +960,18 @@ export default function Tours() {
 									</div>
 
 									{/* Süre + ek avantajlar + fiyat bloğu */}
-									<div className="mt-2 flex items-start justify-between text-xs text-gray-700">
-										<div className="mr-2">
+									<div className="mt-2 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 text-xs text-gray-700">
+										<div className="sm:mr-2">
 											<p>{tour.duration}</p>
-											<div className="text-[11px] text-gray-600 mt-0.5 space-y-0.5">
+											<ul className="sm:hidden text-[11px] text-gray-600 mt-1 space-y-0.5">
+												{mobilePerks.map((item) => (
+													<li key={item} className="flex items-start gap-2">
+														<span className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+														<span className="leading-snug">{item}</span>
+													</li>
+												))}
+											</ul>
+											<div className="hidden sm:block text-[11px] text-gray-600 mt-0.5 space-y-0.5">
 												{(tour.id === "bali" || tour.id === "lombok") ? (
 													<>
 														<p>4–5 yıldızlı otel konaklaması</p>
@@ -856,7 +1022,7 @@ export default function Tours() {
 												)}
 											</div>
 										</div>
-										<div className="flex flex-col items-end w-full sm:w-[220px]">
+										<div className="flex flex-col items-start sm:items-end w-full sm:w-[220px]">
 											<div className="inline-block rounded-2xl bg-gradient-to-l from-emerald-600/90 to-emerald-500/80 px-3 py-2 text-right shadow-sm w-full min-h-[112px] flex flex-col justify-center">
 												{pkgBasePrice ? (
 													<>
@@ -878,6 +1044,9 @@ export default function Tours() {
 														</span>
 														<span className="block text-[10px] font-normal text-white/90 leading-none">
 																{flightNoteShort}
+														</span>
+														<span className="block text-[10px] font-normal text-white/85 leading-tight mt-0.5">
+															{flightNoteReason}
 														</span>
 													</p>
 																<p className="text-sm text-white/90 mt-0.5">
@@ -906,48 +1075,64 @@ export default function Tours() {
 										{Array.isArray(tour.includes) && tour.includes.length > 0 && (
 											<div className="text-xs text-gray-700">
 												<p className="font-semibold mb-1">Pakete dahil bazı hizmetler:</p>
-												<ul className="space-y-0.5">
-													{tour.includes.map((item) => (
+												<ul className="space-y-0.5 sm:hidden">
+													{tour.includes.slice(0, 4).map((item) => (
 														<li key={item} className="flex items-center gap-1.5">
 															<span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
 															<span>{item}</span>
 														</li>
 													))}
 												</ul>
-												{tour.id === "bali" && (
-													<p className="mt-1 text-[11px] text-gray-600">
-														Program kapsamındaki otel konaklamaları ve her gün sabah kahvaltısı fiyata dahildir; 2. ve 4. gün rehberli programlarda grup halinde öğle yemeği dahildir. Diğer öğünler ve otel dışındaki yiyecek-içecek harcamaları tura dahil değildir.
-													</p>
+												{tour.includes.length > 4 && (
+													<p className="sm:hidden mt-1 text-[11px] text-gray-500">+ {tour.includes.length - 4} madde daha</p>
 												)}
-												{tour.id === "lombok" && (
-													<p className="mt-1 text-[11px] text-gray-600">
-														Lombok rotasında konaklamalar Gili ve sahil bölgelerinde planlanır; kahvaltılar fiyata dahil olup bölgesel transferler ve seçili doğa turları programa dahildir. Özel su sporu aktiviteleri ve bazı rehberli deneyimler paket kapsamında olmayabilir ve opsiyonel ek hizmet olarak sunulur.
-													</p>
-												)}
-																{tour.id === "java" && (
-																	<p className="mt-1 text-[11px] text-gray-600">
-																		Java turu road trip konseptindedir ve yalnızca Premium paket olarak planlanır. Rota içi transferler ve rehberli gün akışı paket kapsamında organize edilir; uçak bileti hariçtir ve net kapsam/tarih rezervasyon öncesinde yazılı paylaşılır.
-																	</p>
-																)}
-																{tour.id === "komodo" && (
-																	<p className="mt-1 text-[11px] text-gray-600">
-																		Komodo turu tekne odaklı bir ada keşfi konseptindedir. Tekne günleri, milli park operasyonu ve rehberli trekking akışı paket kapsamında organize edilir; net kapsam ve operasyon detayları rezervasyon öncesinde yazılı olarak paylaşılır.
-																	</p>
-																)}
-																{tour.id === "sulawesi" && (
-																	<p className="mt-1 text-[11px] text-gray-600">
-																		Sulawesi turu uçuş ağırlıklı bir akıştır; uzun ve yorucu kara yolu günleri planlanmaz. İç hat uçuşları ve rehberli gün akışı paket kapsamında organize edilir; uçuş saatleri ve operasyonel detaylar rezervasyon öncesinde yazılı olarak paylaşılır.
-																	</p>
-																)}
-																{tour.id === "sumatra" && (
-																	<p className="mt-1 text-[11px] text-gray-600">
-																		Sumatra turu doğa & macera odaklı, road trip mantığında planlanır. Medan → Bukit Lawang → Samosir (Lake Toba) rotasında transferler ve rehberli gün akışı paket kapsamında organize edilir; uçak bileti kapsamı ve net tarih/kapsam rezervasyon öncesinde yazılı olarak paylaşılır.
-																	</p>
-																)}
+
+												<div className="hidden sm:block">
+													<ul className="space-y-0.5">
+														{tour.includes.map((item) => (
+															<li key={item} className="flex items-center gap-1.5">
+																<span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+																<span>{item}</span>
+														</li>
+														))}
+													</ul>
+
+													{tour.id === "bali" && (
+														<p className="mt-1 text-[11px] text-gray-600">
+															Program kapsamındaki otel konaklamaları ve her gün sabah kahvaltısı fiyata dahildir; 2. ve 4. gün rehberli programlarda grup halinde öğle yemeği dahildir. Diğer öğünler ve otel dışındaki yiyecek-içecek harcamaları tura dahil değildir.
+														</p>
+													)}
+													{tour.id === "lombok" && (
+														<p className="mt-1 text-[11px] text-gray-600">
+															Lombok rotasında konaklamalar Gili ve sahil bölgelerinde planlanır; kahvaltılar fiyata dahil olup bölgesel transferler ve seçili doğa turları programa dahildir. Özel su sporu aktiviteleri ve bazı rehberli deneyimler paket kapsamında olmayabilir ve opsiyonel ek hizmet olarak sunulur.
+														</p>
+													)}
+
+													{tour.id === "java" && (
+														<p className="mt-1 text-[11px] text-gray-600">
+															Java turu road trip konseptindedir ve yalnızca Premium paket olarak planlanır. Rota içi transferler ve rehberli gün akışı paket kapsamında organize edilir; uçak bileti kişi başı ${formatUSD(DEFAULT_FLIGHT_INCLUDED_LIMIT_USD)}’a kadar dahildir (uçuş fiyatları değişken olduğu için limit sabitlenmiştir).
+														</p>
+													)}
+													{tour.id === "komodo" && (
+														<p className="mt-1 text-[11px] text-gray-600">
+															Komodo turu tekne odaklı bir ada keşfi konseptindedir. Tekne günleri, milli park operasyonu ve rehberli trekking akışı paket kapsamında organize edilir. Uçak bileti kişi başı ${formatUSD(DEFAULT_FLIGHT_INCLUDED_LIMIT_USD)}’a kadar dahildir (uçuş fiyatları değişken olduğu için limit sabitlenmiştir).
+														</p>
+													)}
+													{tour.id === "sulawesi" && (
+														<p className="mt-1 text-[11px] text-gray-600">
+															Sulawesi turu uçuş ağırlıklı bir akıştır; uzun ve yorucu kara yolu günleri planlanmaz. İç hat uçuşları ve rehberli gün akışı paket kapsamında organize edilir. Uçak bileti kişi başı ${formatUSD(DEFAULT_FLIGHT_INCLUDED_LIMIT_USD)}’a kadar dahildir (uçuş fiyatları değişken olduğu için limit sabitlenmiştir).
+														</p>
+													)}
+													{tour.id === "sumatra" && (
+														<p className="mt-1 text-[11px] text-gray-600">
+															Sumatra turu doğa & macera odaklı, road trip mantığında planlanır. Medan → Bukit Lawang → Samosir (Lake Toba) rotasında transferler ve rehberli gün akışı paket kapsamında organize edilir. Uçak bileti kişi başı ${formatUSD(DEFAULT_FLIGHT_INCLUDED_LIMIT_USD)}’a kadar dahildir (uçuş fiyatları değişken olduğu için limit sabitlenmiştir).
+														</p>
+													)}
+												</div>
 											</div>
 										)}
 
-										<div>
+										<div className="flex flex-col sm:flex-row sm:items-center gap-2">
 											<button
 												type="button"
 												onClick={() => setOpenPreRegId(tour.id)}
@@ -957,7 +1142,7 @@ export default function Tours() {
 											</button>
 											<Link
 												to={`/tours/${tour.id}`}
-												className="ml-3 text-xs md:text-sm font-semibold text-sky-700 hover:text-sky-800 underline-offset-2 hover:underline"
+												className="text-xs md:text-sm font-semibold text-sky-700 hover:text-sky-800 underline-offset-2 hover:underline"
 											>
 												Detayları gör
 											</Link>
@@ -974,20 +1159,86 @@ export default function Tours() {
 
 			{/* Tur kartlarının altı: YouTube Shorts izleme alanı (2x2) */}
 			<section className="pb-16 px-4 max-w-6xl mx-auto">
+				<h2 className="text-lg md:text-xl font-bold mb-3 text-gray-900">Kısa videolar (YouTube Shorts)</h2>
+				<p className="text-xs md:text-sm text-gray-700 mb-4 max-w-3xl">
+					Aşağıdaki videolar, rota ve atmosfer hakkında hızlı fikir verir. Dilerseniz WhatsApp üzerinden program detaylarını
+					isteyebilirsiniz.
+				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 					{youtubeShortUrls.slice(0, 4).map((u, idx) => {
-						const embedUrl = toYouTubeEmbedUrl(u);
+						const embedBaseUrl = toYouTubeEmbedUrl(u);
+						const videoId = getYouTubeVideoId(u);
+						const thumbnailUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : "";
+						const isActive = activeShortIndex === idx;
+						const embedUrl = (() => {
+							if (!embedBaseUrl) return "";
+							try {
+								const url = new URL(embedBaseUrl);
+								url.searchParams.set("autoplay", "1");
+								url.searchParams.set("mute", "1");
+								return url.toString();
+							} catch {
+								return embedBaseUrl;
+							}
+						})();
 						return (
-							<div key={`${idx}-${u || "empty"}`} className="bg-white rounded-2xl shadow-md overflow-hidden">
+							<div
+								key={`${idx}-${u || "empty"}`}
+								ref={(node) => {
+									shortCardRefs.current[idx] = node;
+								}}
+								className="bg-white rounded-2xl shadow-md overflow-hidden"
+							>
 								<div className="relative w-full pt-[177.78%]">
-									{embedUrl ? (
-										<iframe
-											src={embedUrl}
-											title={`YouTube Shorts ${idx + 1}`}
-											className="absolute inset-0 w-full h-full"
-											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-											allowFullScreen
-										/>
+									{embedBaseUrl ? (
+										isActive ? (
+											<>
+												<button
+													type="button"
+													onClick={() => setActiveShortIndex(null)}
+													className="absolute top-2 right-2 z-10 bg-black/60 text-white text-[11px] font-semibold px-3 py-1 rounded-full"
+													aria-label="Videoyu kapat"
+												>
+													Kapat
+												</button>
+												<iframe
+													src={embedUrl}
+													title={`YouTube Shorts ${idx + 1}`}
+													className="absolute inset-0 w-full h-full"
+													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+													allowFullScreen
+												/>
+											</>
+										) : (
+											<button
+												type="button"
+												onClick={() => setActiveShortIndex(idx)}
+												className="absolute inset-0 w-full h-full group"
+												aria-label={`YouTube Shorts ${idx + 1} oynat`}
+											>
+												{thumbnailUrl ? (
+													<img
+														src={thumbnailUrl}
+														alt={`YouTube Shorts ${idx + 1} kapak`}
+														className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+														loading="lazy"
+													/>
+												) : (
+													<div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500">
+														Video önizleme yok
+													</div>
+												)}
+												<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+												<div className="absolute inset-0 flex items-center justify-center">
+													<span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/95 text-slate-900 text-2xl shadow-lg group-hover:scale-105 transition-transform">
+														▶
+													</span>
+												</div>
+												<p className="absolute bottom-2 left-3 right-3 text-[11px] text-white/90">
+													Dokunarak oynat
+												</p>
+											</button>
+										)
 									) : (
 										<div className="absolute inset-0 flex items-center justify-center text-xs text-gray-500">
 											Video bağlantısı bulunamadı
@@ -997,6 +1248,140 @@ export default function Tours() {
 							</div>
 						);
 					})}
+				</div>
+			</section>
+
+			{/* Resmi metinler / doğrulanabilir güven unsurları */}
+			<section className="max-w-6xl mx-auto px-4 mb-16">
+				<div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 md:p-6">
+					<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+						<div>
+							<h2 className="text-lg md:text-xl font-bold text-gray-900">Şeffaflık ve resmi metinler</h2>
+							<p className="text-xs md:text-sm text-gray-700 mt-1 max-w-3xl">
+								Ön kayıt sonrası süreç, sözleşme onayı ve kişisel verilerin kullanımıyla ilgili metinlere buradan ulaşabilirsiniz.
+							</p>
+						</div>
+						<button
+							type="button"
+							onClick={openToursWhatsApp}
+							className="inline-flex items-center justify-center px-4 py-2 rounded-full text-xs font-semibold bg-sky-600 text-white hover:bg-sky-700"
+						>
+							WhatsApp’tan bilgi al
+						</button>
+					</div>
+
+					<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+						<a
+							href="/docs/on-kayit-bilgi-paketi.html"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors p-4"
+						>
+							<p className="text-sm font-semibold text-slate-900">Ön Kayıt Bilgi Paketi</p>
+							<p className="text-[11px] text-slate-600 mt-1">WhatsApp üzerinden paylaşılan paket (PDF)</p>
+						</a>
+						<a
+							href="/docs/tur-brosurleri.html"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors p-4"
+						>
+							<p className="text-sm font-semibold text-slate-900">Tur Broşürleri</p>
+							<p className="text-[11px] text-slate-600 mt-1">Bali, Lombok, Java, Sumatra, Komodo, Sulawesi</p>
+						</a>
+						<a
+							href="/docs/kvkk-aydinlatma-metni.html"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors p-4"
+						>
+							<p className="text-sm font-semibold text-slate-900">KVKK Aydınlatma Metni</p>
+							<p className="text-[11px] text-slate-600 mt-1">Kişisel verilerin işlenmesi ve saklanması</p>
+						</a>
+						<a
+							href="/docs/on-bilgilendirme-formu.html"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors p-4"
+						>
+							<p className="text-sm font-semibold text-slate-900">Ön Bilgilendirme Formu</p>
+							<p className="text-[11px] text-slate-600 mt-1">Satın alma öncesi genel bilgilendirme</p>
+						</a>
+						<a
+							href="/docs/paket-tur-sozlesmesi.html"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors p-4"
+						>
+							<p className="text-sm font-semibold text-slate-900">Paket Tur Sözleşmesi</p>
+							<p className="text-[11px] text-slate-600 mt-1">Kesin kayıt ve katılım şartları</p>
+						</a>
+						<a
+							href="/privacy"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors p-4"
+						>
+							<p className="text-sm font-semibold text-slate-900">Gizlilik Politikası</p>
+							<p className="text-[11px] text-slate-600 mt-1">Formlar ve iletişim izinleri</p>
+						</a>
+					</div>
+
+					<div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
+						<p className="text-[11px] md:text-xs text-amber-950/90">
+							Not: Ön kayıt bir “bilgi talebi” adımıdır; kesin kayıt sözleşme ve ödeme süreci tamamlandıktan sonra oluşur.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			{/* SSS / itiraz karşılama */}
+			<section className="max-w-6xl mx-auto px-4 mb-16">
+				<h2 className="text-lg md:text-xl font-bold mb-3 text-gray-900">Sık sorulan sorular</h2>
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<details className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+						<summary className="cursor-pointer list-none font-semibold text-sm text-slate-900 flex items-center justify-between">
+							Ön kayıt ücretli mi?
+							<span className="ml-3 text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
+						</summary>
+						<p className="mt-2 text-xs text-slate-700">
+							Ön kayıt; uygunluk ve bilgi paylaşımı için iletişim formudur. Kesin kayıt, sözleşme ve ödeme adımı tamamlandıktan sonra oluşur.
+						</p>
+					</details>
+					<details className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+						<summary className="cursor-pointer list-none font-semibold text-sm text-slate-900 flex items-center justify-between">
+							Fiyata neler dahil?
+							<span className="ml-3 text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
+						</summary>
+						<p className="mt-2 text-xs text-slate-700">
+							Her turun dahil olan hizmetleri kart üzerinde özetlenir. Net kapsamı tur detay sayfasında ve size iletilecek program dokümanında görebilirsiniz.
+						</p>
+					</details>
+					<details className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+						<summary className="cursor-pointer list-none font-semibold text-sm text-slate-900 flex items-center justify-between">
+							Uçak bileti nasıl dahil ediliyor?
+							<span className="ml-3 text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
+						</summary>
+						<p className="mt-2 text-xs text-slate-700">
+							Uçak bileti kişi başı <span className="font-semibold">$750</span>’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit tüm turlarda sabitlenmiştir; limit üzeri fark ayrıca yansıtılır.
+						</p>
+					</details>
+					<details className="group bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+						<summary className="cursor-pointer list-none font-semibold text-sm text-slate-900 flex items-center justify-between">
+							Sorularım var, hemen kiminle konuşabilirim?
+							<span className="ml-3 text-slate-400 group-open:rotate-180 transition-transform">⌄</span>
+						</summary>
+						<p className="mt-2 text-xs text-slate-700">
+							WhatsApp üzerinden mesaj atabilirsiniz; uygun olduğumuzda hızlıca dönüş yaparız.
+						</p>
+						<button
+							type="button"
+							onClick={openToursWhatsApp}
+							className="mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full text-xs font-semibold bg-sky-600 text-white hover:bg-sky-700"
+						>
+							WhatsApp’tan sor
+						</button>
+					</details>
 				</div>
 			</section>
 
@@ -1021,8 +1406,7 @@ export default function Tours() {
 							güncellenebilir.
 					</li>
 					<li>
-						Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete
-						dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.
+						Uçak bileti kişi başı <span className="font-semibold">$750</span>’a kadar pakete dahildir. Uçuş fiyatları değişken olduğu için limit sabitlenmiştir; limit üzeri fark ayrıca yansıtılır.
 					</li>
 					<li>
 						Endonezya&apos;ya gelmeden önce seyahat sağlık sigortası yaptırılması <span className="font-semibold">zorunludur</span>.
@@ -1227,10 +1611,9 @@ export default function Tours() {
 									<li>
 										Tur rota planları ve aktiviteler, operasyonel sebepler ya da hava şartlarına bağlı olarak tarafımızca güncellenebilir.
 									</li>
-										<li>
-											Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete
-											dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.
-										</li>
+									<li>
+										Uçak bileti kişi başı <span className="font-semibold">$750</span>’a kadar pakete dahildir. Uçuş fiyatları değişken olduğu için limit sabitlenmiştir; limit üzeri fark ayrıca yansıtılır.
+									</li>
 									<li>
 										Endonezya'ya gelmeden önce seyahat sağlık sigortası yaptırılması <span className="font-semibold">zorunludur</span>.
 									</li>
@@ -1264,6 +1647,74 @@ export default function Tours() {
 									</li>
 								</ol>
 							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Mobil Sticky CTA */}
+			{!activeTour && (
+				<div className="fixed bottom-0 left-0 right-0 z-[60] md:hidden">
+					<div className="mx-auto max-w-6xl px-4 pb-3">
+						<div className="bg-white/90 backdrop-blur border border-slate-200 shadow-lg rounded-2xl p-3 flex items-center gap-2">
+							<button
+								type="button"
+								onClick={openToursWhatsApp}
+								className="flex-1 px-3 py-2 rounded-xl text-xs font-semibold bg-sky-600 text-white hover:bg-sky-700"
+							>
+								WhatsApp
+							</button>
+							<button
+								type="button"
+								onClick={openTourPicker}
+								className="flex-1 px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700"
+							>
+								Ön Kayıt
+							</button>
+							<button
+								type="button"
+								onClick={scrollToToursList}
+								className="px-3 py-2 rounded-xl text-xs font-semibold border border-slate-300 text-slate-800 bg-white hover:bg-slate-50"
+							>
+								Turlar
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Tur seçici (mobilde sticky CTA ile açılır) */}
+			{!activeTour && isTourPickerOpen && (
+				<div className="fixed inset-0 z-[200] bg-black/70 flex items-end md:hidden" onClick={closeTourPicker}>
+					<div
+						className="w-full bg-white rounded-t-3xl p-4 max-h-[75vh] overflow-y-auto"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<div className="flex items-center justify-between mb-3">
+							<h3 className="text-sm font-semibold text-slate-900">Ön kayıt için tur seçin</h3>
+							<button
+								type="button"
+								onClick={closeTourPicker}
+								className="px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-800"
+							>
+								Kapat
+							</button>
+						</div>
+						<div className="space-y-2">
+							{tours.map((t) => (
+								<button
+									key={`pick-${t.id}`}
+									type="button"
+									onClick={() => {
+										setIsTourPickerOpen(false);
+										setOpenPreRegId(t.id);
+									}}
+									className="w-full text-left px-4 py-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50"
+								>
+									<p className="text-sm font-semibold text-slate-900">{t.name}</p>
+									<p className="text-[11px] text-slate-600">{t.duration}</p>
+								</button>
+							))}
 						</div>
 					</div>
 				</div>

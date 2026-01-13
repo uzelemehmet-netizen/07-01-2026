@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lombok Adası | Endonezya Kaşifi — Broşür</title>
+    <style>
+      :root {
+        --bg: #0b1120;
+        --bg-soft: #020617;
+        --card: rgba(2, 6, 23, 0.92);
+        --accent: #a855f7;
+        --accent-soft: rgba(168, 85, 247, 0.10);
+        --accent-strong: #60a5fa;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --border: rgba(148, 163, 184, 0.45);
+        --danger: #fb7185;
+        --warning: #facc15;
+      }
+
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+        color: var(--text);
+      }
+      body { padding: 32px 16px; }
+
+      .brochure {
+        max-width: 1020px;
+        margin: 0 auto;
+        background: radial-gradient(circle at top, rgba(168,85,247,0.06) 0, rgba(2,6,23,0.98) 55%, #020617 100%);
+        border-radius: 24px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
+        overflow: hidden;
+      }
+
+      .hero {
+        position: relative;
+        padding: 28px 28px 40px;
+        background:
+          radial-gradient(circle at top, rgba(96, 165, 250, 0.10) 0, rgba(15, 23, 42, 0.98) 55%, #020617 100%),
+          url("/lombok-island-beach-mountain-panoramic.jpg") center/cover no-repeat;
+        isolation: isolate;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(15, 23, 42, 0.92), rgba(59, 7, 100, 0.82), rgba(2, 6, 23, 0.95));
+        mix-blend-mode: multiply;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: 22px;
+        align-items: center;
+      }
+      @media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
+
+      .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+      .badge-main {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 4px 12px; border-radius: 999px;
+        border: 1px solid rgba(248, 250, 252, 0.2);
+        background: radial-gradient(circle at top left, rgba(168,85,247,0.28), rgba(2,6,23,0.95));
+        color: #f5f3ff; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+      }
+      .badge-soft {
+        padding: 4px 10px; border-radius: 999px; font-size: 11px; color: var(--muted);
+        background: rgba(15, 23, 42, 0.78); border: 1px solid rgba(148, 163, 184, 0.35);
+      }
+
+      .hero-title { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; margin: 0 0 10px; letter-spacing: 0.02em; color: #f9fafb; }
+      .hero-subtitle { margin: 0 0 12px; font-size: 14px; color: #e5e7eb; max-width: 620px; }
+      .hero-note { margin: 0 0 16px; font-size: 12px; color: #ddd6fe; max-width: 640px; }
+
+      .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; }
+      .pill {
+        padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.45);
+        font-size: 11px; color: #e5e7eb; background: rgba(15, 23, 42, 0.78);
+      }
+      .pill-accent { background: rgba(168, 85, 247, 0.16); border-color: rgba(168, 85, 247, 0.75); color: #e9d5ff; }
+
+      .hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+      .btn-primary {
+        display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
+        border: none;
+        background: radial-gradient(circle at 0% 0%, var(--accent-strong), var(--accent) 45%, #6d28d9 100%);
+        color: #f9fafb; font-size: 13px; font-weight: 650; cursor: pointer; text-decoration: none;
+        box-shadow: 0 14px 40px rgba(168, 85, 247, 0.35);
+      }
+      .btn-secondary {
+        display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        background: rgba(15, 23, 42, 0.8);
+        color: #e5e7eb;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .hero-side-card {
+        border-radius: 18px;
+        padding: 18px 18px 16px;
+        background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.16), rgba(2, 6, 23, 0.96));
+        border: 1px solid rgba(96, 165, 250, 0.35);
+        box-shadow: 0 20px 50px rgba(30, 58, 138, 0.75);
+      }
+      .hero-side-title { font-size: 13px; font-weight: 700; color: #dbeafe; margin: 0 0 4px; }
+      .hero-side-price { margin: 0 0 2px; font-size: 22px; font-weight: 800; color: #fefce8; }
+      .hero-side-sub { margin: 0; font-size: 11px; color: #c7d2fe; }
+      .hero-side-list { margin: 12px 0 0; padding: 0; list-style: none; font-size: 11px; color: #e5e7eb; }
+      .hero-side-list li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
+      .hero-side-list li span.bullet { margin-top: 2px; color: #e9d5ff; }
+      .hero-side-note { margin: 8px 0 0; font-size: 10px; color: #ddd6fe; }
+
+      .content {
+        padding: 24px 28px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        background: radial-gradient(circle at top, rgba(2, 6, 23, 0.98), #020617 45%, #020617 100%);
+      }
+
+      .mini-gallery { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+      .mini-gallery img {
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.55);
+        width: calc(33.333% - 6px);
+        height: 78px;
+        object-fit: cover;
+        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.7);
+      }
+      @media (max-width: 640px) { .mini-gallery img { width: calc(50% - 5px); } }
+
+      .section {
+        position: relative;
+        padding: 18px 18px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: radial-gradient(circle at top left, rgba(2, 6, 23, 0.90), rgba(2, 6, 23, 0.98));
+        overflow: hidden;
+      }
+      .section.bg { border-color: rgba(168, 85, 247, 0.45); }
+      .section-bg {
+        position: absolute;
+        inset: 0;
+        background: var(--bgimg) center/cover no-repeat;
+        filter: saturate(1.05) contrast(1.05);
+        opacity: 0.22;
+      }
+      .section-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top left, rgba(168,85,247,0.22), rgba(2,6,23,0.95) 55%, rgba(2,6,23,0.98) 100%);
+      }
+      .section-inner { position: relative; z-index: 1; }
+
+      .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+      .section-title { font-size: 15px; font-weight: 750; color: #e5e7eb; margin: 0; }
+      .section-tag {
+        padding: 3px 9px;
+        border-radius: 999px;
+        font-size: 10px;
+        color: #dbeafe;
+        background: rgba(2, 6, 23, 0.72);
+        border: 1px solid rgba(96, 165, 250, 0.35);
+      }
+      .section-text { margin: 0; font-size: 12px; line-height: 1.65; color: var(--muted); }
+
+      .columns-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      @media (max-width: 720px) { .columns-2 { grid-template-columns: 1fr; } }
+
+      .columns-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+      @media (max-width: 860px) { .columns-3 { grid-template-columns: 1fr; } }
+
+      .card-soft {
+        border-radius: 14px;
+        padding: 12px 12px 11px;
+        background: rgba(2, 6, 23, 0.75);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+      }
+      .card-soft.photo { position: relative; overflow: hidden; }
+      .card-soft.photo::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--bgimg) center/cover no-repeat;
+        opacity: 0.18;
+        filter: saturate(1.05) contrast(1.05);
+      }
+      .card-soft.photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top left, rgba(168,85,247,0.22), rgba(2,6,23,0.92) 60%, rgba(2,6,23,0.98));
+      }
+      .card-soft.photo > * { position: relative; z-index: 1; }
+      .card-soft.accent {
+        border-color: rgba(168, 85, 247, 0.75);
+        background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), rgba(2, 6, 23, 0.86));
+      }
+      .card-soft.warning {
+        border-color: rgba(250, 204, 21, 0.6);
+        background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.18), rgba(2, 6, 23, 0.90));
+      }
+      .card-soft-title { font-size: 13px; font-weight: 750; color: #e5e7eb; margin: 0 0 6px; }
+      .list { margin: 0; padding-left: 18px; color: #e5e7eb; font-size: 12px; }
+      .list li { margin: 0 0 6px; }
+
+      .timeline { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+      .day {
+        border-radius: 14px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(2, 6, 23, 0.70);
+        padding: 12px;
+      }
+      .day h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #e9d5ff; }
+      .day p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+      .footer {
+        padding: 18px 28px 24px;
+        font-size: 11px;
+        color: var(--muted);
+        background: rgba(2, 6, 23, 0.98);
+        border-top: 1px solid rgba(148, 163, 184, 0.35);
+      }
+
+      @media print {
+        body { padding: 0; }
+        .brochure { border-radius: 0; box-shadow: none; border: none; }
+        a { color: inherit; text-decoration: none; }
+        .section, .hero-side-card { break-inside: avoid; }
+        .mini-gallery img { break-inside: avoid; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="brochure">
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+          <div>
+            <div class="badge-row">
+              <span class="badge-main">🌋 Endonezya Kaşifi</span>
+              <span class="badge-soft">Lombok Adası</span>
+              <span class="badge-soft">6 Gece 7 Gün</span>
+            </div>
+            <h1 class="hero-title">Lombok: Daha Sakin, Daha “Doğal” Endonezya</h1>
+            <p class="hero-subtitle">Bali’nin enerjisinden biraz uzaklaşıp deniz–doğa dengesini arayanlara: Gili ritmi, sahil günleri ve seçili rehberli keşifler.</p>
+            <p class="hero-note">Ön kayıt ücretsiz ve bağlayıcı değildir. Önce yazılı paket + sözleşme inceleme, sonra onay & ödeme.</p>
+            <div class="pill-row">
+              <span class="pill pill-accent">Uçuş: kişi başı $750’a kadar dahil</span>
+              <span class="pill">Standart oda: 2 kişilik paylaşımlı</span>
+              <span class="pill">Sahil + adacık ritmi</span>
+              <span class="pill">Yazılı süreç, net kapsam</span>
+            </div>
+            <div class="hero-cta-row">
+              <a class="btn-primary" href="/tours" target="_blank" rel="noopener noreferrer">📌 Turları Gör</a>
+              <a class="btn-secondary" href="/docs/on-kayit-bilgi-paketi.html" target="_blank" rel="noopener noreferrer">📄 Ön Kayıt Bilgi Paketi</a>
+            </div>
+          </div>
+
+          <aside class="hero-side-card">
+            <p class="hero-side-title">Kısa özet</p>
+            <p class="hero-side-price">Sakin premium tatil</p>
+            <p class="hero-side-sub">Tarih: 29 Nisan – 5 Mayıs</p>
+            <ul class="hero-side-list">
+              <li><span class="bullet">✓</span> Lombok + Gili odağı</li>
+              <li><span class="bullet">✓</span> Seçili rehberli günler/transferler</li>
+              <li><span class="bullet">✓</span> Dahil/hariç şeffaflığı</li>
+              <li><span class="bullet">✓</span> Tek muhatap, aracısız organizasyon</li>
+            </ul>
+            <p class="hero-side-note">Not: Nihai kapsam/tarih/ücret, yazılı teklif ve sözleşme ekleriyle netleşir.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="content">
+        <section class="section bg" style="--bgimg:url('/lombok-island-beach-mountain-panoramic.jpg')">
+          <div class="section-bg"></div>
+          <div class="section-inner">
+            <div class="section-header">
+              <h2 class="section-title">Görsel Tadımlık</h2>
+              <span class="section-tag">Lombok & Gili</span>
+            </div>
+            <p class="section-text">Kartlarda karartılmış foto arka planları + mini galeri ile “vibe”ı önden veriyoruz.</p>
+            <div class="mini-gallery">
+              <img src="/lombok-island-beach-mountain-panoramic.jpg" alt="" />
+              <img src="/gili-islands-turquoise-water-beach.jpg" alt="" />
+              <img src="/lombok-island-beach-waterfall.jpg" alt="" />
+              <img src="/lombok-rinjani-volcano-mountain.jpg" alt="" />
+              <img src="/lombok-beach-surfing-waves.jpg" alt="" />
+              <img src="/young-man-surfs-ocean-clear-water-waves.jpg" alt="" />
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-inner">
+            <div class="section-header">
+              <h2 class="section-title">Neden Endonezya Kaşifi?</h2>
+              <span class="section-tag">Güven inşası</span>
+            </div>
+
+            <div class="columns-3">
+              <div class="card-soft accent photo" style="--bgimg:url('/lombok-island-beach-mountain-panoramic.jpg')">
+                <div class="card-soft-title">Aracısız / tek muhatap</div>
+                <ul class="list">
+                  <li>Planlama ve operasyon doğrudan bizde.</li>
+                  <li>İletişim tek hat üzerinden yürür.</li>
+                  <li>"Orası böyle dedi" karmaşası olmaz.</li>
+                </ul>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">Uzmanlık Endonezya</div>
+                <ul class="list">
+                  <li>Odak: Endonezya rotaları.</li>
+                  <li>Deneyim ve öğrenme eğrisi hızla yukarıda.</li>
+                  <li>Rota seçimi “görsel” değil “deneyim” odaklı.</li>
+                </ul>
+              </div>
+              <div class="card-soft warning">
+                <div class="card-soft-title">Şeffaf, yazılı süreç</div>
+                <ul class="list">
+                  <li>Bilgi paketi + sözleşme inceleme.</li>
+                  <li>Önce netlik, sonra ödeme.</li>
+                  <li>Sürpriz masrafı azaltan dahil/hariç çizgisi.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="columns-2" style="margin-top: 12px;">
+              <div class="card-soft">
+                <div class="card-soft-title">Memnuniyet önceliği</div>
+                <p class="section-text">Öncelik, tatilde “yetişme stresini” değil akışı yaşamanız. Zaman planını ve transfer koordinasyonunu bu yüzden önceden yazılı netleştiririz.</p>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">Endonezya içinden ekip</div>
+                <p class="section-text">Sahayı bilen ekip: doğru saat, doğru bölge, doğru tempo. İhtiyaç olduğunda hızlı çözüm için operasyon kanalı hazır.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section bg" style="--bgimg:url('/gili-islands-turquoise-water-beach.jpg')">
+          <div class="section-bg"></div>
+          <div class="section-inner">
+            <div class="section-header">
+              <h2 class="section-title">Örnek Tatil Akışı (özet)</h2>
+              <span class="section-tag">Nihai program yazılı</span>
+            </div>
+            <p class="section-text">Aşağıdaki akış “örnek”tir; nihai gün gün programı ön kayıt sonrası yazılı olarak paylaşılır.</p>
+
+            <div class="timeline">
+              <div class="day">
+                <h4>Gün 1 • Varış & yerleşme</h4>
+                <p>Otele giriş ve bölge tanıtımı. Akşam serbest zaman.</p>
+              </div>
+              <div class="day">
+                <h4>Gün 2 • Lombok sahil ritmi</h4>
+                <p>Plaj + dinlenme. İsteğe bağlı kısa keşifler.</p>
+              </div>
+              <div class="day">
+                <h4>Gün 3 • Gili günü (isteğe bağlı deneyim)</h4>
+                <p>Adacık atmosferi, deniz zamanı ve fotoğraf noktaları.</p>
+              </div>
+              <div class="day">
+                <h4>Gün 4 • Doğa & manzara</h4>
+                <p>Seçili rehberli rota: bakış noktaları, yerel lezzet durakları.</p>
+              </div>
+              <div class="day">
+                <h4>Gün 5–6 • Serbest günler</h4>
+                <p>Deniz, dinlenme, alışveriş. Dahil/hariç netliğiyle sürpriz masrafı azaltma.</p>
+              </div>
+              <div class="day">
+                <h4>Gün 7 • Dönüş</h4>
+                <p>Çıkış ve dönüş transferleri. Tüm teyitler yazılı ilerler.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-inner">
+            <div class="section-header">
+              <h2 class="section-title">Dahil / Hariç</h2>
+              <span class="section-tag">Net çerçeve</span>
+            </div>
+
+            <div class="columns-2">
+              <div class="card-soft accent">
+                <div class="card-soft-title">Dahil olan başlıca kalemler</div>
+                <ul class="list">
+                  <li>İstanbul çıkışlı gidiş–dönüş uçak bileti (kişi başı $750’a kadar dahil)</li>
+                  <li>6 gece konaklama</li>
+                  <li>Her gün otelde sabah kahvaltısı</li>
+                  <li>Programdaki seçili rehberli günler ve transferler</li>
+                </ul>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">Hariç olanlar (genel)</div>
+                <ul class="list">
+                  <li>Uçuş limit üzeri farklar</li>
+                  <li>Kişisel harcamalar</li>
+                  <li>Öğle/akşam yemekleri (pakete göre değişebilir)</li>
+                  <li>İsteğe bağlı ekstra turlar / aktiviteler</li>
+                  <li>Tek kişilik oda opsiyonu varsa oda farkı</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card-soft" style="margin-top: 12px;">
+              <div class="card-soft-title">Konaklama standardı</div>
+              <p class="section-text">Standart konaklama 2 kişilik paylaşımlı odadır. Çiftler veya birlikte kalmak isteyen arkadaşlar birlikte yerleştirilir. Tek kişi katılımlarda oda eşleştirme yapılır.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section bg" style="--bgimg:url('/lombok-island-beach-waterfall.jpg')">
+          <div class="section-bg"></div>
+          <div class="section-inner">
+            <div class="section-header">
+              <h2 class="section-title">Süreç (3 adım)</h2>
+              <span class="section-tag">yazılı + onaylı</span>
+            </div>
+            <div class="columns-3">
+              <div class="card-soft">
+                <div class="card-soft-title">1) Ön kayıt</div>
+                <p class="section-text">Ücretsiz ve bağlayıcı değil.</p>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">2) Yazılı bilgi paketi</div>
+                <p class="section-text">Program + dahil/hariç + kurallar WhatsApp’tan yazılı gönderilir.</p>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">3) Sözleşme inceleme → ödeme</div>
+                <p class="section-text">İnceleme sonrası onayla ödeme. Süreç net ve şeffaftır.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-inner">
+            <div class="section-header">
+              <h2 class="section-title">SSS</h2>
+              <span class="section-tag">kısa cevaplar</span>
+            </div>
+
+            <div class="columns-2">
+              <div class="card-soft">
+                <div class="card-soft-title">Uçuş limitini aşırsak?</div>
+                <p class="section-text">Uçuşlar kişi başı $750’a kadar dahildir. Uçuş fiyatı limit üzerindeyse fark ayrıca yansıtılır.</p>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">Ödeme ne zaman?</div>
+                <p class="section-text">Önce yazılı bilgi paketi + sözleşme inceleme. Onay olmadan ödeme yok.</p>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">Program kesin mi?</div>
+                <p class="section-text">Broşür özet verir; nihai program ve koşullar yazılı paylaşılır.</p>
+              </div>
+              <div class="card-soft">
+                <div class="card-soft-title">Tek kişilik oda?</div>
+                <p class="section-text">Standart paylaşımlı odadır. Tek oda opsiyonu varsa ayrıca fiyatlanır.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer class="footer">
+        <p><b>PDF alma:</b> Tarayıcıda “Yazdır” → “PDF olarak kaydet”.</p>
+        <p>Bu broşür bilgilendirme amaçlıdır. Nihai kapsam, tarih ve bedel; yazılı teklif ve sözleşme ekleriyle netleşir.</p>
+      </footer>
+    </main>
+  </body>
+</html>

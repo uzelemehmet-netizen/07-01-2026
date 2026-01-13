@@ -1,7 +1,7 @@
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import HeroSocialButtons from '../components/HeroSocialButtons';
-import { Heart, Plane, Video, MapPin, FileText, Users, MessageCircle } from 'lucide-react';
+import { Heart, Plane, Video, MapPin, FileText, Users, MessageCircle, IceCream } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -19,29 +19,38 @@ export default function Home() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-1 gap-10 items-center text-center">
             <div className="max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-2 mb-4">
+                <span className="inline-flex items-center rounded-full bg-white/10 text-white px-3 py-1 text-xs font-semibold border border-white/20" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
+                  PT MoonStar Global Indonesia
+                </span>
+                <span className="inline-flex items-center rounded-full bg-emerald-500/20 text-emerald-50 px-3 py-1 text-xs font-semibold border border-emerald-200/30" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
+                  EndonezyaKaşifi sosyal hesapları
+                </span>
+              </div>
               <h1
 	                className="text-3xl md:text-4xl font-medium text-white mb-4"
                 style={{ textShadow: '0 4px 12px rgba(0,0,0,0.7)' }}
               >
-                Endonezya Seyahat ve Tur Organizasyonu
+	              Endonezya Kaşifi
               </h1>
               <p
                 className="text-xs md:text-sm text-emerald-100 mb-3 tracking-wide uppercase"
                 style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
               >
-                Aracılara değil, turu sahada organize eden ekiple çalışın.
+	              Tur organizasyonu • Evlilik rehberliği • Sahada gerçek destek
               </p>
               <p
 	                className="text-base md:text-lg text-white mb-7 max-w-4xl mx-auto"
                 style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
               >
 	                Endonezya’da balayı, keşif ve tatil odaklı butik tur paketleri ve kişiye özel seyahat planları tasarlıyoruz.
-	                Aracılar üzerinden değil, organizasyonu sahada yürüten ekipten; şeffaf, sürpriz maliyet riski en aza indirilmiş
-	                ve detaylı bilgilendirme ile tur almanızı sağlıyoruz.
+	                Aynı zamanda Endonezya’da evlilik için gelen çiftlere; otel, ulaşım, tercümanlık ve resmi evrak süreçlerinde
+	                adım adım rehberlik ediyoruz.
               </p>
             </div>
           </div>
         </div>
+        <HeroSocialButtons align="right" />
       </section>
 
       {/* Services Section */}
@@ -147,6 +156,29 @@ export default function Home() {
                 <p className="text-sm text-emerald-50/95 flex-1">
                   Seyahatlerimizden ve evlilik sürecimizden seçilmiş videoları bu sitede bulabilir; YouTube kanalımızda diğer
                   videolarımızı izleyerek Endonezya&apos;yı ve sunduğumuz desteği daha yakından tanıyabilirsiniz.
+                </p>
+              </div>
+            </a>
+
+            {/* 6. Kart: DaMeTurk (ayrı web sitesi) */}
+            <a
+              href="https://www.dameturk.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-transform duration-300 transform hover:-translate-y-1 cursor-pointer flex flex-col"
+              aria-label="DaMeTurk - Orijinal Türk dondurması"
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=1600&q=80')" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/55 to-black/25" />
+              <div className="relative z-10 p-6 flex flex-col h-full">
+                <IceCream className="text-emerald-200 mb-2" size={30} />
+                <h3 className="text-base md:text-lg font-medium mb-1 text-white">DaMeTurk (alt marka)</h3>
+                <p className="text-sm text-emerald-50/95 flex-1">
+                  PT MoonStar Global Indonesia bünyesinde, Endonezya’da DaMeTurk markamızla orijinal Türk dondurması faaliyetini
+                  yürütüyoruz. Detaylar ve güncel içerik için dameturk.com’u ziyaret edebilirsiniz.
                 </p>
               </div>
             </a>

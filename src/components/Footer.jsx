@@ -5,6 +5,16 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   const location = useLocation();
 
+  const company = {
+    legalName: "PT MoonStar Global Indonesia",
+    address:
+      "Perum. Taman Serua Jalan Elodia Blok P1 No.1 RT 008 RW 008, Serua Bojongsari / Depok, Jawa Barat, Indonesia",
+    tax: "NPWP 59.422.0162-405.000",
+    nib: "3275056712830021",
+    email: "endonezyakasifi@gmail.com",
+    phone: "+6285888978383",
+  };
+
   const getWhatsappLink = () => {
     const baseUrl = "https://wa.me/905550343852?text=";
     let message = "Merhaba, web sitenizden yazıyorum. Genel bilgi almak istiyorum.";
@@ -29,7 +39,7 @@ export default function Footer() {
   const whatsappLink = getWhatsappLink();
   const instagramLink = "https://www.instagram.com/endonezyakasifi";
   const youtubeLink = "https://www.youtube.com/@endonezyakasifi";
-  const email = "uzelemehmet@gmail.com";
+  const email = company.email;
   const phone = "+905550343852";
   const indonesiaPhoneTel = "+6285888978383";
   const indonesiaPhoneDisplay = "+62 858 8897 8383";
@@ -37,14 +47,29 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           <div>
             <h3 className="text-xl font-bold mb-4" style={{ fontFamily: '"Poppins", sans-serif' }}>
-              Evlilik ve Seyahat Rehberi
+              Endonezya Kaşifi
             </h3>
             <p className="text-gray-400" style={{ fontFamily: '"Poppins", sans-serif' }}>
-              Endonezya'nın en güzel noktalarını keşfetmek için yanınızdayız.
+              PT MoonStar Global Indonesia çatısı altında; tur organizasyonu ve evlilik rehberliği hizmeti sunuyoruz.
             </p>
+            <div className="mt-4 text-gray-400 text-sm" style={{ fontFamily: '"Poppins", sans-serif' }}>
+              <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Markalar</p>
+              <p>Endonezya Kaşifi</p>
+              <p>
+                <a
+                  href="https://www.dameturk.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition"
+                >
+                  DaMeTurk
+                </a>{' '}
+                <span className="text-gray-500">(alt marka • dameturk.com)</span>
+              </p>
+            </div>
           </div>
 
           <div>
@@ -60,6 +85,11 @@ export default function Footer() {
               <li>
                 <Link to="/about" className="hover:text-white transition">
                   Hakkımızda
+                </Link>
+              </li>
+              <li>
+                <Link to="/kurumsal" className="hover:text-white transition">
+                  Kurumsal
                 </Link>
               </li>
               <li>
@@ -87,9 +117,72 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4" style={{ fontFamily: '"Poppins", sans-serif' }}>
+              Yasal
+            </h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <a href="/docs/paket-tur-sozlesmesi.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Paket Tur Sözleşmesi (TR)
+                </a>
+              </li>
+              <li>
+                <a href="/docs/on-bilgilendirme-formu.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Ön Bilgilendirme Formu (TR)
+                </a>
+              </li>
+              <li>
+                <a href="/docs/iptal-iade-politikasi.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  İptal / İade Politikası (TR)
+                </a>
+              </li>
+              <li>
+                <a href="/docs/kvkk-aydinlatma-metni.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  KVKK Aydınlatma Metni
+                </a>
+              </li>
+              <li>
+                <a href="/docs/odeme-yontemleri.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Ödeme Yöntemleri
+                </a>
+              </li>
+              <li>
+                <Link to="/privacy" className="hover:text-white transition">
+                  Gizlilik Politikası
+                </Link>
+              </li>
+              <li className="pt-2 text-xs text-gray-500" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                English
+              </li>
+              <li>
+                <a href="/docs/package-tour-agreement-en.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Package Tour Agreement (EN)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/docs/cancellation-refund-policy-en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition"
+                >
+                  Cancellation & Refund Policy (EN)
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4" style={{ fontFamily: '"Poppins", sans-serif' }}>
               İletişim
             </h4>
             <div className="space-y-3 text-gray-400">
+              <div className="text-sm" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Firma Bilgileri</p>
+                <p><span className="text-gray-300">Ünvan:</span> {company.legalName}</p>
+                <p><span className="text-gray-300">Adres:</span> {company.address}</p>
+                <p><span className="text-gray-300">Vergi:</span> {company.tax}</p>
+                <p><span className="text-gray-300">NIB:</span> {company.nib}</p>
+              </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} />
                 <a
@@ -99,13 +192,6 @@ export default function Footer() {
                 >
                   {email}
                 </a>
-              </div>
-              <div className="flex items-start gap-2">
-                <MapPin size={16} className="mt-0.5" />
-                <div className="text-sm" style={{ fontFamily: '"Poppins", sans-serif' }}>
-                  <p>Perum.Taman Serua jl.Elodia blok p1 no.1</p>
-                  <p>DEPOK/ENDONEZYA</p>
-                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={16} />
@@ -190,7 +276,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
           <p style={{ fontFamily: '"Poppins", sans-serif' }}>
-            &copy; {currentYear} Evlilik ve Seyahat Rehberi. Tüm hakları saklıdır.
+            &copy; {currentYear} Endonezya Kaşifi — PT MoonStar Global Indonesia. Tüm hakları saklıdır.
           </p>
         </div>
       </div>

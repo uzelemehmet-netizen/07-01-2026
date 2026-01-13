@@ -62,8 +62,8 @@ export default function Privacy() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">6. İletişim</h2>
             <p>
               Gizlilik politikası hakkında sorularınız için bize
-              <a href="mailto:info@endonezya.com" className="text-emerald-600 hover:underline">
-                {' '}info@endonezya.com
+              <a href="mailto:endonezyakasifi@gmail.com" className="text-emerald-600 hover:underline">
+                {' '}endonezyakasifi@gmail.com
               </a>
               adresinden ulaşabilirsiniz.
             </p>

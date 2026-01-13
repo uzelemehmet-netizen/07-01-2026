@@ -97,7 +97,7 @@ const toursData = {
     ],
     duration: "6 Gece 7 Gün",
     concept:
-      "Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.",
+	  "Uçak bileti kişi başı $750’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir.",
     price: "3.699",
     packages: [
       {
@@ -158,7 +158,7 @@ const toursData = {
         day: 1,
         title: "Bali Havalimanı'nda Buluşma, Otele Yerleşme ve Serbest Zaman",
         activities: [
-		  "Uçuşlar paket dahilinde. Herkes kendi kalkış noktasından aynı gün Bali'ye geliyor.",
+          "Uçuşlar paket dahilinde ve İstanbul çıkışlı planlanır. Farklı bir kalkış şehri talebiniz varsa müsaitlik ve olası fiyat farkı yazılı olarak netleştirilir.",
 		  "Bali Havalimanı'nda ekibimiz sizi karşılıyor, tur programı resmi olarak burada başlıyor.",
           "Bali'den otele özel transfer ve check-in işlemleri",
           "Yolculuk sonrası dinlenme ve Bali atmosferine alışma için serbest zaman",
@@ -332,7 +332,7 @@ const toursData = {
         "Bali'de zaman farklı akar. Sabahları yoga, gün boyunca plaj ve spa, akşamları gün batımı ve lezzetli yemekler... Ada, hem huzur arayanlar hem de macera tutkunları için mükemmel bir destinasyon.",
     },
     included: [
-      "Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
+      "Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir)",
       "Tüm paketlerde: seçili otellerde 6 gece konaklama ve her gün otel restoranında kahvaltı",
       "Tüm paketlerde: havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek",
       "Standart ve Premium paketlerde: rehberli günlerde programda yer alan geziler ve grup hizmetleri",
@@ -352,7 +352,7 @@ const toursData = {
     ],
     notes: {
       approach:
-        "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir toplu tatil organizasyonudur. Uçak bileti; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder. Konaklama ve sabah kahvaltısı sabittir. Standart ve Premium paketlerde 2. ve 4. gün rehberli aktiviteler, Premium pakette ise ek olarak 6. gün tam gün tekne turu dahildir. Diğer öğünler ve opsiyonel aktiviteler için misafirler dilerse otel restoranını, dilerse dışarıdaki farklı mekanları ve deneyimleri tercih edebilir. Böylece bütçenizi, neye ne kadar harcayacağınıza kendiniz karar verebileceğiniz şeffaf bir yapı içinde yönetebilirsiniz.",
+	    "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir toplu tatil organizasyonudur. Uçak bileti kişi başı $750’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir ve ödeme öncesinde açık şekilde paylaşılır. Konaklama ve sabah kahvaltısı sabittir. Standart ve Premium paketlerde 2. ve 4. gün rehberli aktiviteler, Premium pakette ise ek olarak 6. gün tam gün tekne turu dahildir. Diğer öğünler ve opsiyonel aktiviteler için misafirler dilerse otel restoranını, dilerse dışarıdaki farklı mekanları ve deneyimleri tercih edebilir. Böylece bütçenizi, neye ne kadar harcayacağınıza kendiniz karar verebileceğiniz şeffaf bir yapı içinde yönetebilirsiniz.",
       freeTime:
         "Serbest zaman dilimleri, katılımcıların kendi damak zevki, bütçe ve ritmine göre hareket edebilmesi için bilerek esnek bırakılmıştır. Akşam yemekleri ve serbest günlerdeki öğünler için isterseniz otel restoranında dahil olan menüden seçim yapabilir, isterseniz dışarıda yeni mekânlar keşfedebilirsiniz. Otel dışındaki restoran ve kafelerde yapılacak yiyecek-içecek harcamaları tura dahil değildir; talep edilmesi halinde rehberimiz ve ekibimiz restoran ve mekân önerileriyle destek olur.",
       discipline:
@@ -390,7 +390,7 @@ const toursData = {
     ],
     duration: "6 Gece 7 Gün",
     concept:
-      "Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder.",
+	  "Uçak bileti kişi başı $750’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir.",
     price: "3.299",
     packages: [
       {
@@ -616,7 +616,7 @@ const toursData = {
         "Lombok, bir yanda sörf tutkunları için dünya çapında tanınan güney plajlarına, diğer yanda doğa severler için kuzeydeki trekking ve şelale rotalarına sahiptir. Gili adalarında gün boyu denizle iç içe olup akşamları sakin bir sahil kasabasında dinlenebileceğiniz, özgünlüğünü büyük ölçüde koruyan nadir adalardan biridir.",
     },
     included: [
-      "Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
+      "Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir)",
       "Tüm paketlerde: Senggigi ve/veya Kuta Lombok bölgelerinde seçili otel veya butik tesislerde 6 gece konaklama ve her gün otel kahvaltısı",
       "Tüm paketlerde: Lombok Havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek",
       "Standart ve Premium paketlerde: bir tam gün Gili Adaları tekne turu (programda belirtilen içerik dahilinde)",
@@ -634,7 +634,7 @@ const toursData = {
     ],
     notes: {
       approach:
-        "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir Lombok tatilidir. Uçak bileti; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkını katılımcı öder. Konaklama ve sabah kahvaltısı sabittir. Standart ve Premium paketlerde Gili tekne turu ve güney plajları & sörf günü dahildir; Premium pakette ek olarak Senaru şelaleleri & Rinjani manzara turu da baştan ücrete dahildir. Diğer öğünler ve opsiyonel aktiviteler konusunda misafirler kendi bütçe ve ilgi alanlarına göre seçim yapabilir.",
+	    "Bu rota, Premium paket referans alınarak tasarlanmış deneyim odaklı bir Lombok tatilidir. Uçak bileti kişi başı $750’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir ve ödeme öncesinde açık şekilde paylaşılır. Konaklama ve sabah kahvaltısı sabittir. Standart ve Premium paketlerde Gili tekne turu ve güney plajları & sörf günü dahildir; Premium pakette ek olarak Senaru şelaleleri & Rinjani manzara turu da baştan ücrete dahildir. Diğer öğünler ve opsiyonel aktiviteler konusunda misafirler kendi bütçe ve ilgi alanlarına göre seçim yapabilir.",
       freeTime:
         "Serbest zaman blokları, Lombok'ta kendi ritminizi yakalayabilmeniz için bilerek korundu. Özellikle Kuta Lombok ve Senggigi çevresindeki akşamlar için sabit bir restoran zorunluluğu yoktur; dilerseniz sahil boyunca yerel warung'ları, dilerseniz daha şık restoran ve kafeleri tercih edebilirsiniz. Otel dışındaki yiyecek-içecek harcamaları tura dahil değildir; talep edilirse ekibimiz bölgeye uygun mekan ve aktivite önerileriyle destek olur.",
       discipline:
@@ -676,7 +676,7 @@ const toursData = {
           "Uçuş + konaklamayı sabitleyip; trekking, kültür günü ve bazı deneyimleri bütçe/ilgi alanına göre sonradan eklemek isteyenler için giriş seviyesi paket.",
         priceMultiplier: 0.7,
         highlights: [
-          "İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir)",
           "Medan (1 gece) + Bukit Lawang (3 gece) + Samosir/Lake Toba (4 gece) toplam 8 gece konaklama",
           "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
           "Varış günü kısa gün batımı tekne turu (Samosir) dahildir (hava/feribot koşullarına göre 6. güne kaydırılabilir)",
@@ -712,7 +712,7 @@ const toursData = {
           "Trekking + kültür günü dahil; sürpriz maliyetleri en aza indiren, dolu dolu Sumatra deneyimi.",
         priceMultiplier: 1,
         highlights: [
-          "İstanbul çıkışlı gidiş-dönüş uçak bileti (paket açıklaması/broşür/teklif formunda belirtilen tutara kadar; aşan fark katılımcı tarafından ödenir)",
+          "İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir)",
           "Medan, Bukit Lawang ve Samosir/Lake Toba bölgelerinde 8 gece konaklama (program akışına göre)",
           "Havalimanı ve ana rota transferleri + feribot geçişi ve 7/24 ulaşılabilir Türkçe destek",
           "3. gün orangutan trekking & tubing deneyimi (rehberli) dahildir",
@@ -1753,10 +1753,6 @@ export default function TourDetail() {
   // Kaporalı ön rezervasyon alanını açıp kapamak için
   const [showDepositForm, setShowDepositForm] = useState(false);
 
-  // Uçak bileti dahil seçildiyse ödeme öncesi zorunlu onay ekranı
-  const [showFlightConfirm, setShowFlightConfirm] = useState(false);
-  const [flightConfirmAccepted, setFlightConfirmAccepted] = useState(false);
-
   // Önemli açıklamalar & uyarılar bloğunu açıp kapamak için
   const [showImportantNotes, setShowImportantNotes] = useState(false);
 
@@ -1839,17 +1835,14 @@ export default function TourDetail() {
     return null;
   };
 
-  const flightIncludedLimitUsd = normalizeUsdNumber(pricingOverride?.flightIncludedLimitUsd);
-  const flightLimitPerPersonUsdRounded = Number.isFinite(flightIncludedLimitUsd)
-    ? Math.round(flightIncludedLimitUsd)
-    : 0;
-  const hasFlightLimit = flightLimitPerPersonUsdRounded > 0;
-  const flightInclusionShortNote = flightIncludedLimitUsd
-    ? `(uçak bileti kişi başı $${Math.round(flightIncludedLimitUsd)}’a kadar dahildir)`
-    : "(uçak bileti pakette belirtilen tutara kadar dahildir)";
-  const flightInclusionLongNote = flightIncludedLimitUsd
-    ? `Uçak bileti kişi başı $${Math.round(flightIncludedLimitUsd)}’a kadar pakete dahildir; belirtilen tutarı aşan fiyat farkı katılımcı tarafından ayrıca karşılanır.`
-    : "Uçak bileti, paket açıklamasında/broşürlerde/teklif formlarında belirtilen tutara kadar pakete dahildir; belirtilen tutarı aşan fiyat farkı katılımcı tarafından ayrıca karşılanır.";
+  const DEFAULT_FLIGHT_INCLUDED_LIMIT_USD = 750;
+  // Fiyat şeffaflığı için tüm turlarda aynı uçuş limiti kullanılır.
+  const flightLimitPerPersonUsdRounded = DEFAULT_FLIGHT_INCLUDED_LIMIT_USD;
+  const hasFlightLimit = true;
+  const flightInclusionShortNote = `(uçak bileti kişi başı $${flightLimitPerPersonUsdRounded}’a kadar dahildir)`;
+  const flightInclusionLongNote =
+    `Uçak bileti kişi başı $${flightLimitPerPersonUsdRounded}’a kadar pakete dahildir. ` +
+    "Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark ayrıca yansıtılır.";
 
   const normalizePlannedDateRangeLabel = (text) => {
     if (!text || typeof text !== "string") return "";
@@ -2192,10 +2185,10 @@ export default function TourDetail() {
     extras: {},
     reservationType: "deposit",
     includeFlight: true,
-    acceptScope: false,
-    acceptExtras: false,
-    acceptContract: false,
+    acceptTerms: false,
+    acceptPricingScope: false,
     acceptKvkk: false,
+    acceptDepositTerms: false,
   }));
 
   const [groupForm, setGroupForm] = useState({
@@ -2231,11 +2224,6 @@ export default function TourDetail() {
     }));
   };
 
-  const closeFlightConfirm = () => {
-    setShowFlightConfirm(false);
-    setFlightConfirmAccepted(false);
-  };
-
   const proceedToPayment = () => {
     const reservationType = depositForm.reservationType === "full" ? "full" : "deposit";
     const amountToPayNow = reservationType === "deposit" ? depositAmount : adjustedDepositGrandTotal;
@@ -2248,9 +2236,9 @@ export default function TourDetail() {
         packageName: selectedDepositPackage?.name || "",
         reservationType,
         people: depositPeopleCount,
-        includeFlight: hasFlightLimit ? !!depositForm.includeFlight : true,
-        flightLimitPerPersonUsd: hasFlightLimit ? flightLimitPerPersonUsdRounded : null,
-        flightDeductionTotalUsd: hasFlightLimit && !depositForm.includeFlight ? flightDeductionTotal : 0,
+        includeFlight: true,
+        flightLimitPerPersonUsd: hasFlightLimit ? flightLimitPerPersonUsdRounded : DEFAULT_FLIGHT_INCLUDED_LIMIT_USD,
+        flightDeductionTotalUsd: 0,
         packageTotalUsd: adjustedDepositPackageTotal,
         extrasSelected: selectedExtrasList.map((extra) => ({
           id: extra.id,
@@ -2397,13 +2385,6 @@ export default function TourDetail() {
 
     if (!selectedDepositPackage || !depositPeopleCount || !adjustedDepositGrandTotal || !depositAmount) {
       console.warn("Kaporalı ön rezervasyon için eksik bilgi: paket, kişi sayısı veya tutarlar hesaplanamadı.");
-      return;
-    }
-
-    // Uçak dahil seçildiyse ödeme öncesi zorunlu onay ekranını aç
-    if (hasFlightLimit && depositForm.includeFlight) {
-      setShowFlightConfirm(true);
-      setFlightConfirmAccepted(false);
       return;
     }
 
@@ -2556,10 +2537,22 @@ export default function TourDetail() {
     <div className="tour-detail-root min-h-screen bg-gradient-to-b from-white via-slate-50 to-sky-50/40">
       <Navigation />
 
+      {/* Mobil: her zaman görünen geri butonu (floating) */}
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        aria-label="Önceki sayfaya dön"
+        className="md:hidden fixed left-4 z-[80] inline-flex items-center justify-center rounded-full bg-slate-900/90 text-white w-11 h-11 shadow-[0_14px_30px_rgba(0,0,0,0.32)] ring-1 ring-white/20 backdrop-blur-sm active:scale-95 transition-transform"
+        style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+      >
+        <span className="text-xl leading-none">↩</span>
+      </button>
+
       {/* Hero */}
-      <section className="relative h-[60vh] flex items-end overflow-hidden">
+      <section className="relative min-h-[60vh] flex items-end overflow-hidden">
+        {/* Kampanya/indirim: mobilde overlay yapma, içerikte göster */}
         {promoLabel && (
-          <div className="absolute top-10 left-4 sm:left-10 z-20 flex items-center gap-3">
+          <div className="hidden md:flex absolute top-10 left-4 sm:left-10 z-20 items-center gap-3">
             <div className="flex flex-col gap-1 max-w-xs sm:max-w-sm">
               <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-white/80 drop-shadow-md">
                 Kampanya
@@ -2589,6 +2582,29 @@ export default function TourDetail() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
         <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pb-10">
+          {promoLabel && (
+            <div className="md:hidden mb-4 flex items-start justify-between gap-3">
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-semibold tracking-[0.22em] uppercase text-white/80 drop-shadow-md">
+                  Kampanya
+                </span>
+                <span className="text-sm font-semibold leading-snug text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.75)]">
+                  {promoLabel}
+                </span>
+                <span className="inline-flex w-fit text-[11px] font-semibold text-white bg-red-600/95 px-3 py-1 rounded-full drop-shadow-[0_3px_8px_rgba(0,0,0,0.7)] mt-1">
+                  Erken rezervasyon indirimini kaçırmayın
+                </span>
+              </div>
+              {hasDiscount && (
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center text-lg font-extrabold shadow-[0_16px_32px_rgba(0,0,0,0.65)]">
+                    %{discountPercent}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">{tour.name}</h1>
           <p className="text-base md:text-lg text-white/90 max-w-3xl">{tour.summary}</p>
 
@@ -2611,7 +2627,7 @@ export default function TourDetail() {
 
           {/* Bali broşürü indirme bağlantısı – yalnızca Bali sayfasında göster */}
           {effectiveId === "bali" && (
-            <div className="mt-6 space-y-1">
+            <div className="hidden md:block mt-6 space-y-1">
               <a
                 href="/docs/bali-tatil-brosuru.html"
                 target="_blank"
@@ -2628,10 +2644,12 @@ export default function TourDetail() {
             </div>
           )}
 
-          {/* Geri dön butonu: hero banner üzerinde sol alt köşe */}
+          {/* Masaüstü: yazılı geri dön */}
           <button
+            type="button"
             onClick={() => navigate(-1)}
-            className="absolute left-4 bottom-6 inline-flex items-center gap-1 text-xs md:text-sm text-white bg-transparent px-0 py-0 hover:underline transition-colors"
+            aria-label="Önceki sayfaya dön"
+            className="hidden md:inline-flex absolute left-4 bottom-6 items-center justify-start gap-1 text-xs md:text-sm text-white bg-transparent px-0 py-0 hover:underline transition-colors"
           >
             <span>←</span>
             <span>Önceki sayfaya dön</span>
@@ -2641,6 +2659,23 @@ export default function TourDetail() {
 
       {/* Üst Bilgiler */}
       <section className="max-w-6xl mx-auto px-4 -mt-10 relative z-10 mb-12">
+        {effectiveId === "bali" && (
+          <div className="md:hidden mb-6">
+            <a
+              href="/docs/bali-tatil-brosuru.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white text-sky-900 text-xs font-semibold px-4 py-2 shadow-sm border border-slate-200"
+            >
+              <span className="text-base">📄</span>
+              <span>Bali tatil broşürünü aç / PDF olarak indir</span>
+            </a>
+            <p className="text-[11px] text-slate-600 mt-1 max-w-md">
+              Açılan sayfayı tarayıcınızda "Yazdır &gt; PDF olarak kaydet" adımlarını izleyerek PDF olarak indirebilirsiniz.
+            </p>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-gradient-to-br from-sky-50 to-emerald-50 rounded-2xl shadow p-5 flex items-start gap-3">
           <div className="mt-1 text-sky-600">
@@ -2934,20 +2969,66 @@ export default function TourDetail() {
           </div>
         )}
 
+        {/* Mobilde metin okunabilirliği için karartma overlay */}
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-black/55 md:bg-black/30" />
+
         <div className="max-w-6xl mx-auto px-4 text-white relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {tour.name} tatil rezervasyonu
             </h2>
             <p className="text-sm md:text-base mb-6 text-white/90">
-              Bu organizasyonu bireysel / ailenizle katılabildiğiniz bir toplu tatil olarak değerlendiriyor ya da kendi grubunuz
-              için benzer bir rota talep etmek istiyorsanız, aşağıdaki butonlara tıklayarak formu açabilirsiniz. Formlar
-              varsayılan olarak kapalıdır ve yalnızca ihtiyaç duyduğunuzda açılır.
+              Ön kayıt ücretsizdir ve bağlayıcı değildir. Ön kayıt sonrası size WhatsApp üzerinden tur programı, dahil/hariç,
+              tur kuralları ve önemli uyarıları yazılı olarak iletiriz. Netleştirme sonrası; ön bilgilendirme + sözleşmeyi
+              inceleme için paylaşır, onayınızla ödeme ve imza adımına geçeriz.
             </p>
+            <div className="max-w-3xl mx-auto mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2 text-left">
+              <div className="rounded-xl bg-white/10 border border-white/15 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">1) Ön kayıt</p>
+                <p className="text-xs text-white/90 mt-1">Ücretsiz • bağlayıcı değil</p>
+              </div>
+              <div className="rounded-xl bg-white/10 border border-white/15 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">2) Yazılı paket</p>
+                <p className="text-xs text-white/90 mt-1">Program • dahil/hariç • uyarılar</p>
+              </div>
+              <div className="rounded-xl bg-white/10 border border-white/15 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">3) Onay & ödeme</p>
+                <p className="text-xs text-white/90 mt-1">Sözleşme inceleme → ödeme → imza</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
+              <a
+                href="/docs/on-kayit-bilgi-paketi.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 px-4 py-2 text-xs text-white transition-colors"
+              >
+                <span className="font-semibold">Ön Kayıt Bilgi Paketi (PDF)</span>
+                <span className="text-white/80">Aç</span>
+              </a>
+              <a
+                href={`/docs/tur-brosuru-${effectiveId}-v2.html`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 px-4 py-2 text-xs text-white transition-colors"
+              >
+                <span className="font-semibold">Tur Broşürü (PDF)</span>
+                <span className="text-white/80">Aç</span>
+              </a>
+            </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-3 mb-4">
               <button
                 type="button"
-                onClick={() => setShowPlannedForm((prev) => !prev)}
+                onClick={() =>
+                  setShowPlannedForm((prev) => {
+                    const next = !prev;
+                    if (next) {
+                      setShowGroupForm(false);
+                      setShowDepositForm(false);
+                    }
+                    return next;
+                  })
+                }
                 className="inline-flex items-center justify-center px-5 py-2 rounded-full border border-white/80 bg-white/95 text-sky-700 font-medium text-xs md:text-sm hover:bg-white shadow-sm transition-colors"
               >
                 <Calendar className="w-4 h-4 mr-2" />
@@ -2955,15 +3036,33 @@ export default function TourDetail() {
               </button>
               <button
                 type="button"
-                onClick={() => setShowGroupForm((prev) => !prev)}
-		className="inline-flex items-center justify-center px-5 py-2 rounded-full border border-sky-200 bg-sky-600/95 text-white font-medium text-xs md:text-sm hover:bg-sky-700 shadow-sm transition-colors"
+				onClick={() =>
+					setShowGroupForm((prev) => {
+						const next = !prev;
+						if (next) {
+							setShowPlannedForm(false);
+							setShowDepositForm(false);
+						}
+						return next;
+					})
+				}
+				className="inline-flex items-center justify-center px-5 py-2 rounded-full border border-sky-200 bg-sky-600/95 text-white font-medium text-xs md:text-sm hover:bg-sky-700 shadow-sm transition-colors"
               >
                 Grubum için bilgi / teklif
               </button>
               {hasPackages && (
                 <button
                   type="button"
-                  onClick={() => setShowDepositForm((prev) => !prev)}
+                  onClick={() =>
+                    setShowDepositForm((prev) => {
+                      const next = !prev;
+                      if (next) {
+                        setShowPlannedForm(false);
+                        setShowGroupForm(false);
+                      }
+                      return next;
+                    })
+                  }
                   className="inline-flex items-center justify-center px-5 py-2 rounded-full border border-amber-200 bg-amber-50/95 text-amber-900 font-medium text-xs md:text-sm hover:bg-amber-100 shadow-sm transition-colors"
                 >
                   Rezervasyon ve ödeme seçenekleri
@@ -3131,7 +3230,8 @@ export default function TourDetail() {
                     Turlara son kayıt tarihi, tur başlangıç tarihinden <span className="font-semibold">en geç 10 gün öncesidir</span>.
                   </li>
                   <li>
-                    Ön kayıttan sonra kesin kayıtlar için sözleşme onayı ve ödeme işleminin eksiksiz tamamlanmış olması gerekmektedir.
+                    Ön kayıttan sonra, kesin kayıt sürecinden önce ön bilgilendirme ve sözleşme metinleri inceleme için paylaşılır;
+                    onayınızın ardından ödeme ve imza/onay adımı tamamlanarak kesin kayıt oluşturulur.
                   </li>
                   <li>
                     Tur rota planları ve aktiviteler, operasyonel sebepler ya da hava şartlarına bağlı olarak tarafımızca güncellenebilir.
@@ -3221,24 +3321,10 @@ export default function TourDetail() {
                 </div>
               </div>
 
-              {hasFlightLimit && !isJava && (
+              {hasFlightLimit && (
                 <div className="border border-dashed border-slate-200 rounded-xl p-3 md:p-4 bg-slate-50">
-                  <label className="flex items-start gap-2 cursor-pointer text-sm text-gray-800">
-                    <input
-                      type="checkbox"
-                      name="includeFlight"
-                      checked={!!depositForm.includeFlight}
-                      onChange={handleDepositChange}
-                      className="mt-0.5 h-4 w-4 border-gray-300 rounded"
-                    />
-                    <span>
-                      <span className="font-semibold">Uçak bileti dahil</span>
-                      <span className="text-gray-600"> (kişi başı ${flightLimitPerPersonUsdRounded}’a kadar)</span>
-                    </span>
-                  </label>
-                  <p className="text-[11px] md:text-xs text-gray-600 mt-1">
-                    Uçak bileti hariç bırakılırsa, kişi başı ${flightLimitPerPersonUsdRounded} toplam bedelden düşülür ve ödeme ekranına
-                    direkt yönlendirilirsiniz.
+                  <p className="text-sm text-gray-800">
+                    <span className="font-semibold">Uçak bileti politikası:</span> {flightInclusionLongNote}
                   </p>
                 </div>
               )}
@@ -3298,12 +3384,6 @@ export default function TourDetail() {
                     Paket toplamı (tüm katılımcılar):
                     <span className="font-semibold ml-1">${adjustedDepositPackageTotal || 0}</span>
                   </p>
-                  {hasFlightLimit && !depositForm.includeFlight && (
-                    <p className="text-[11px] md:text-xs text-emerald-700">
-                      Uçak bileti hariç seçildi:
-                      <span className="font-semibold ml-1">−${flightDeductionTotal || 0}</span>
-                    </p>
-                  )}
                   <p>
                     Seçilen opsiyonel aktiviteler (toplam):
                     <span className="font-semibold ml-1">${extrasTotal || 0}</span>
@@ -3403,128 +3483,118 @@ export default function TourDetail() {
                 </div>
               </div>
 
-              <div className="space-y-2 text-[11px] md:text-xs text-gray-700">
-                <label className="flex items-start gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="acceptScope"
-                    checked={depositForm.acceptScope}
-                    onChange={handleDepositChange}
-                    required
-                    className="mt-0.5 h-4 w-4 border-gray-300 rounded"
-                  />
-                  <span>
-                    Bu tur için sayfada açıklanan paket kapsamını ve
-                    {" "}
-                    <a
-                      href="#pricing-details"
-                      className="text-sky-600 underline font-semibold"
-                    >
-                      "Fiyata Dahil Olanlar / Olmayanlar" bölümünü
-                    </a>
-                    {" "}
-                    okudum, anladım ve kabul ediyorum.
-                  </span>
-                </label>
-                <label className="flex items-start gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="acceptExtras"
-                    checked={depositForm.acceptExtras}
-                    onChange={handleDepositChange}
-                    required
-                    className="mt-0.5 h-4 w-4 border-gray-300 rounded"
-                  />
-                  <span>
-                    Seçtiğim opsiyonel aktivitelerin paket fiyatına <span className="font-semibold">dahil olmadığını ✕</span> ve katılım
-                    gösterdiğim kadar ayrıca ücretlendirileceğini biliyorum; burada gösterilen tutarların tahmini olduğunu ve tur kuralları ile
-                    önemli açıklamaları okuduğumu ve kabul ettiğimi onaylıyorum.
-                  </span>
-                </label>
-      <p className="mt-1 text-[11px] text-gray-600">
-        Tur kuralları ve önemli açıklamaları ayrı bir sayfada görmek için
-        {" "}
-        <a
-          href="#tour-rules"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sky-600 underline font-semibold"
-        >
-          buraya tıklayabilirsiniz
-        </a>
-        .
-      </p>
-                <label className="flex items-start gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="acceptContract"
-                    checked={depositForm.acceptContract}
-                    onChange={handleDepositChange}
-                    required
-                    className="mt-0.5 h-4 w-4 border-gray-300 rounded"
-                  />
-                  <span>
-                    Kaporalı ön rezervasyon talebim kapsamında,
-                    {" "}
-                    <a
-                      href="/docs/bali-tatil-teklifi.html"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sky-600 underline font-semibold"
-                    >
-                      güncel teklif ve ön bilgilendirme dokümanını (PDF)
-                    </a>
-                    {" "}
-                    ile
-                    {" "}
-                    <a
-                      href="/docs/on-bilgilendirme-formu.html"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sky-600 underline font-semibold"
-                    >
-                      ön bilgilendirme formunu
-                    </a>
-                    {" "}
-                    ve
-                    {" "}
-                    <a
-                      href="/docs/paket-tur-sozlesmesi.html"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sky-600 underline font-semibold"
-                    >
-                      paket tur sözleşmesi taslağını (PDF)
-                    </a>
-                    {" "}
-                    inceleyeceğimi, kesin kayıt aşamasında tarafıma iletilecek imzalı nüshaların esas olacağını ve kapora ödemesinin bu
-                    sözleşmelerle birlikte geçerlilik kazanacağını kabul ediyorum.
-                  </span>
-                </label>
-                <label className="flex items-start gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="acceptKvkk"
-                    checked={depositForm.acceptKvkk}
-                    onChange={handleDepositChange}
-                    required
-                    className="mt-0.5 h-4 w-4 border-gray-300 rounded"
-                  />
-                  <span>
-                    Kişisel verilerimin işlenmesine ilişkin
-                    {" "}
-                    <a
-                      href="/docs/kvkk-aydinlatma-metni.html"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sky-600 underline font-semibold"
-                    >
-                      KVKK Aydınlatma Metni'ni (PDF)
-                    </a>
-                    {" "}
-                    okudum; iletişim ve tekliflendirme amacıyla kullanılmasını onaylıyorum.
-                  </span>
-                </label>
+              <div className="space-y-3 text-[11px] md:text-xs text-gray-700">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 md:p-4">
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">1) Sözleşme ve kurallar</p>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="acceptTerms"
+                      checked={depositForm.acceptTerms}
+                      onChange={handleDepositChange}
+                      required
+                      className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                    />
+                    <span>
+                      <a
+                        href="/docs/paket-tur-sozlesmesi.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sky-600 underline font-semibold"
+                      >
+                        Paket tur sözleşmesini
+                      </a>
+                      {" "}
+                      ve
+                      {" "}
+                      <a
+                        href="#tour-rules"
+                        className="text-sky-600 underline font-semibold"
+                      >
+                        tur kurallarını
+                      </a>
+                      {" "}
+                      okudum; sözleşmede yer alan iptal/iade koşulları dahil tüm hükümleri kabul ediyorum.
+                    </span>
+                  </label>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 md:p-4">
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">2) Fiyata dahil/haric ve uçak bileti limiti</p>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="acceptPricingScope"
+                      checked={depositForm.acceptPricingScope}
+                      onChange={handleDepositChange}
+                      required
+                      className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                    />
+                    <span>
+                      <a
+                        href="#pricing-details"
+                        className="text-sky-600 underline font-semibold"
+                      >
+                        Fiyata dahil olanlar / olmayanlar
+                      </a>
+                      {" "}
+                      bilgilendirmesini okudum. Uçak bileti kişi başı
+                      {" "}
+                      <span className="font-semibold">$750</span>
+                      {" "}
+                      ’a kadar fiyata dahildir; bilet kesim tarihinde uçuş firmasının güncel fiyatının esas alınacağını ve
+                      {" "}
+                      <span className="font-semibold">$750 üzerindeki farkı</span>
+                      {" "}
+                      tarafımca karşılayacağımı okudum ve onayladım.
+                    </span>
+                  </label>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 md:p-4">
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">3) KVKK</p>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="acceptKvkk"
+                      checked={depositForm.acceptKvkk}
+                      onChange={handleDepositChange}
+                      required
+                      className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                    />
+                    <span>
+                      <a
+                        href="/docs/kvkk-aydinlatma-metni.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sky-600 underline font-semibold"
+                      >
+                        KVKK Aydınlatma Metni'ni
+                      </a>
+                      {" "}
+                      okudum; iletişim ve tekliflendirme amacıyla işlenmesini onaylıyorum.
+                    </span>
+                  </label>
+                </div>
+
+                {depositForm.reservationType === "deposit" && (
+                  <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-3 md:p-4">
+                    <p className="text-[11px] md:text-xs font-semibold text-amber-900 mb-2">Kaporalı ödeme onayı</p>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        name="acceptDepositTerms"
+                        checked={depositForm.acceptDepositTerms}
+                        onChange={handleDepositChange}
+                        required
+                        className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                      />
+                      <span>
+                        Kaporalı ödeme koşullarını ve sözleşmede geçen iptal/iade koşullarını okudum, anladım ve kabul ediyorum.
+                      </span>
+                    </label>
+                  </div>
+                )}
               </div>
 
               <button
@@ -3536,51 +3606,6 @@ export default function TourDetail() {
             </form>
           )}
 
-          {showDepositForm && showFlightConfirm && hasFlightLimit && !isJava && (
-            <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 px-4">
-              <div className="w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-slate-200 p-5 md:p-6">
-                <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  Uçak bileti dahil kapsam onayı
-                </h4>
-                <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                  Seçtiğiniz pakette, uçak bileti kişi başı <span className="font-semibold">${flightLimitPerPersonUsdRounded}</span>’a kadar
-                  fiyatlara dahildir. Bilet kesim tarihinde, uçuş firmasının resmi satış fiyatları esas alınır. Belirtilen tutarın üzerindeki
-                  fark katılımcı tarafından ayrıca ödenir.
-                </p>
-
-                <label className="flex items-start gap-2 cursor-pointer text-sm text-gray-800 mb-4">
-                  <input
-                    type="checkbox"
-                    checked={flightConfirmAccepted}
-                    onChange={(e) => setFlightConfirmAccepted(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 border-gray-300 rounded"
-                  />
-                  <span>Okudum, anladım ve onaylıyorum.</span>
-                </label>
-
-                <div className="flex flex-col sm:flex-row gap-2 sm:justify-end">
-                  <button
-                    type="button"
-                    onClick={closeFlightConfirm}
-                    className="px-4 py-2 rounded-full border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
-                  >
-                    Geri dön
-                  </button>
-                  <button
-                    type="button"
-                    disabled={!flightConfirmAccepted}
-                    onClick={() => {
-                      closeFlightConfirm();
-                      proceedToPayment();
-                    }}
-                    className="px-5 py-2 rounded-full bg-amber-500 text-slate-900 text-sm font-semibold hover:bg-amber-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Ödemeye devam et
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
 
           {showGroupForm && (
             <form
@@ -3822,6 +3847,16 @@ export default function TourDetail() {
 
               return (
                 <div key={day.day} className="relative w-full">
+                    {/* Mobilde üstte görsel */}
+                    <div className="md:hidden mb-3 rounded-lg overflow-hidden shadow-sm border border-slate-200 bg-slate-100">
+                      <img
+                        src={freeImageSrc}
+                        alt={`${day.title} için görsel`}
+                        className="w-full h-44 object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+
                   {/* Sol tarafta görsel alanı – kartın üst ve alt noktalarıyla hizalı */}
                   <div className="hidden md:block absolute inset-y-0 left-4 md:left-4 w-52 lg:left-8 lg:w-56 rounded-none overflow-hidden shadow-lg border border-slate-200 bg-slate-100">
                     <img
@@ -3933,6 +3968,16 @@ export default function TourDetail() {
             // Diğer günler: yalnızca program kartı (rehberli gün)
             return (
               <div key={day.day} className="relative w-full">
+                {/* Mobilde kartın dışında görsel (serbest günlerdeki gibi) */}
+                <div className="md:hidden mb-3 rounded-lg overflow-hidden shadow-sm border border-slate-200 bg-slate-100">
+                  <img
+                    src={dayBgImage}
+                    alt=""
+                    className="w-full h-44 object-cover"
+                    loading="lazy"
+                  />
+                </div>
+
                 {/* Rehberli gün kartı – masaüstünde sağdan sayfa bitişine kadar uzar */}
                 <div className="relative overflow-hidden rounded-lg bg-slate-300 text-slate-900 shadow-sm border border-slate-400 p-4 md:p-5 md:pr-[18rem] lg:pr-[22rem] flex gap-4 md:gap-6 ml-0 md:ml-0 lg:ml-0 mr-0 md:mr-[150px]">
                   {/* Sağ tarafta arka plan görseli (rehberli gün kartının üstünde) */}
@@ -4166,14 +4211,15 @@ export default function TourDetail() {
                 Turlara son kayıt tarihi, tur başlangıç tarihinden <span className="font-semibold text-rose-600">en geç 10 gün öncesidir</span>.
               </li>
               <li>
-                Ön kayıttan sonra kesin kayıtlar için sözleşme onayı ve ödeme işleminin eksiksiz tamamlanmış olması gerekmektedir.
+                Ön kayıttan sonra, kesin kayıt sürecinden önce ön bilgilendirme ve sözleşme metinleri inceleme için paylaşılır;
+                onayınızın ardından ödeme ve imza/onay adımı tamamlanarak kesin kayıt oluşturulur.
               </li>
               <li>
                 Tur rota planları ve aktiviteler, operasyonel sebepler ya da hava şartlarına bağlı olarak tarafımızca güncellenebilir.
               </li>
                     <li>
-                      Uçak biletleri; web sitesi paket açıklamalarında, broşürlerde ve teklif formlarında belirtilen tutara kadar pakete dahildir;
-                      belirtilen tutarı aşan fiyat farkı katılımcı tarafından ayrıca karşılanır.
+                      Uçak bileti kişi başı <span className="font-semibold">$750</span>’a kadar pakete dahildir.
+                      Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fark katılımcı tarafından ayrıca karşılanır.
                     </li>
               <li>
                 Endonezya&apos;ya gelmeden önce seyahat sağlık sigortası yaptırılmasını <span className="font-semibold text-rose-600">tavsiye ederiz</span>.
@@ -4357,7 +4403,7 @@ export default function TourDetail() {
               <p className="text-xl font-bold text-slate-900">
                 ${startingPrice}
                 <span className="ml-1 text-[11px] font-normal align-middle text-slate-600">
-	          (uçak bileti pakette belirtilen tutara kadar dahildir)
+	          (uçak bileti kişi başı $750’a kadar dahildir)
                 </span>
               </p>
             </div>
@@ -4378,7 +4424,11 @@ export default function TourDetail() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => setShowPlannedForm(true)}
+              onClick={() => {
+                setShowPlannedForm(true);
+                setShowGroupForm(false);
+                setShowDepositForm(false);
+              }}
               className="px-4 py-2 rounded-full bg-white text-sky-700 text-xs md:text-sm font-semibold shadow hover:bg-slate-100 transition-colors"
             >
               Bu tura ön kayıt bırak

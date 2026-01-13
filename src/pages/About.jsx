@@ -36,6 +36,47 @@ export default function About() {
       {/* Content Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
+          <div className="mb-10 p-6 rounded-2xl border border-emerald-100 bg-emerald-50/60">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2" style={{ fontFamily: '"Poppins", sans-serif' }}>
+              Marka yapımız
+            </h2>
+            <p className="text-sm text-gray-700" style={{ fontFamily: '"Poppins", sans-serif' }}>
+              Bu web sitesi, <span className="font-semibold">PT MoonStar Global Indonesia</span> çatısı altında yürüttüğümüz hizmetlerin
+              vitrini ve iletişim noktasıdır. Kamuya dönük marka iletişimimizi ise <span className="font-semibold">Endonezya Kaşifi</span>
+              adıyla sürdürüyoruz.
+            </p>
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Link to="/tours" className="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm hover:shadow-md transition block">
+                <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                  Tur organizasyonu
+                </p>
+                <p className="text-sm text-gray-700" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                  Bali, Lombok, Komodo ve daha fazlası için planlı turlar ve kişiye özel seyahat planları.
+                </p>
+              </Link>
+              <Link to="/wedding" className="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm hover:shadow-md transition block">
+                <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                  Evlilik rehberliği
+                </p>
+                <p className="text-sm text-gray-700" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                  Otel, ulaşım, tercümanlık ve resmi evrak süreci dahil uçtan uca takip.
+                </p>
+              </Link>
+              <Link to="/contact" className="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm hover:shadow-md transition block">
+                <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                  DaMeTurk
+                </p>
+                <p className="text-sm text-gray-700" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                  PT MoonStar Global Indonesia bünyesindeki orijinal Türk dondurması markamız. Detaylar için dameturk.com.
+                </p>
+              </Link>
+            </div>
+            <p className="mt-4 text-sm text-gray-700" style={{ fontFamily: '"Poppins", sans-serif' }}>
+              YouTube ve Instagram hesap adlarımız <span className="font-semibold">endonezyakasifi</span> olarak kalır ve bu marka çatısına
+              içerik üretimiyle destek verir.
+            </p>
+          </div>
+
           <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-10 text-center" style={{ fontFamily: '"Poppins", sans-serif' }}>
             Seyahati Nasıl Görüyoruz?
           </h2>
