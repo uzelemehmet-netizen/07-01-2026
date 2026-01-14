@@ -1,0 +1,9 @@
+{
+  // VS Code'da Git/GitHub arka plan aktivitelerini azaltmak için.
+  // Yeniden açmak istersen: git.enabled=true yapman yeterli.
+  "git.enabled": false,
+  "git.autofetch": false,
+  "git.decorations.enabled": false,
+  "git.showProgress": false,
+  "git.countBadge": "off"
+}

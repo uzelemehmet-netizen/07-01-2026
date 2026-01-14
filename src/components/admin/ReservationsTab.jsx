@@ -12,6 +12,8 @@ import {
 import { db } from '../../config/firebase';
 import { RESERVATION_STATUS, getReservationStatusLabel, normalizePhoneForWhatsApp } from '../../utils/reservationStatus';
 import { formatMaybeTimestamp } from '../../utils/formatDate';
+import { downloadJson } from '../../utils/downloadFile';
+import { downloadEk1Html, openEk1InNewTab } from '../../utils/ek1';
 
 function isPermissionDenied(err) {
   const code = err?.code || err?.name;
@@ -26,6 +28,7 @@ export default function ReservationsTab() {
 
   const [search, setSearch] = useState('');
   const [busyId, setBusyId] = useState('');
+  const [ek1MailProofById, setEk1MailProofById] = useState({});
 
   const whatsappBusinessNumber = useMemo(() => {
     const raw = import.meta.env.VITE_WHATSAPP_NUMBER || '905550343852';
@@ -244,6 +247,14 @@ export default function ReservationsTab() {
 
               const depositPaymentMethod = r?.depositPaymentMethod || '';
 
+              const audit = r?.audit && typeof r.audit === 'object' ? r.audit : null;
+              const acceptances = audit?.acceptances || {};
+              const docs = audit?.legalDocs || {};
+
+              const ek1MailProofValue =
+                ek1MailProofById?.[r.id] ??
+                (r?.deliveryProof?.ek1?.messageId ? String(r.deliveryProof.ek1.messageId) : '');
+
               const extras = Array.isArray(r?.extrasSelected) ? r.extrasSelected : [];
               const extrasEstimatedTotal = extras.reduce((sum, ex) => {
                 const per = Number(ex?.estimatedPricePerPersonUsd) || 0;
@@ -277,6 +288,78 @@ export default function ReservationsTab() {
                       <p className="text-sm font-semibold text-gray-900">{statusLabel}</p>
                       <p className="text-xs text-gray-500 mt-1">Kapora: ${amountNow}{depositPercent ? ` (\u0025${depositPercent})` : ''}</p>
                     </div>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => downloadEk1Html({ reservation: { id: r.id, ...r } })}
+                        className="px-3 py-1.5 rounded-full bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700"
+                      >
+                        Ek-1 indir (HTML)
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => openEk1InNewTab({ reservation: { id: r.id, ...r } })}
+                        className="px-3 py-1.5 rounded-full border border-emerald-300 text-emerald-800 text-xs font-semibold hover:bg-emerald-50"
+                      >
+                        Ek-1 önizle
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => downloadJson({ filename: `reservation-${r.id}`, data: { id: r.id, ...r } })}
+                        className="px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800"
+                      >
+                        Log indir (JSON)
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mt-3 bg-white border border-gray-200 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-gray-800">Onay / Audit Özeti</p>
+                    {!audit ? (
+                      <p className="text-xs text-gray-500 mt-1">Audit bulunamadı (eski kayıt olabilir).</p>
+                    ) : (
+                      <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div className="rounded-lg border border-gray-200 bg-gray-50 p-2">
+                          <p className="text-[11px] text-gray-600">Sözleşme</p>
+                          <p className="text-xs font-semibold text-gray-900">
+                            {docs?.packageTourAgreement?.version || '-'}
+                          </p>
+                          {docs?.packageTourAgreement?.url ? (
+                            <p className="text-[11px] text-gray-500 break-all">{docs.packageTourAgreement.url}</p>
+                          ) : null}
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-gray-50 p-2">
+                          <p className="text-[11px] text-gray-600">Mesafeli Satış</p>
+                          <p className="text-xs font-semibold text-gray-900">
+                            {docs?.distanceSalesAgreement?.version || '-'}
+                          </p>
+                          {docs?.distanceSalesAgreement?.url ? (
+                            <p className="text-[11px] text-gray-500 break-all">{docs.distanceSalesAgreement.url}</p>
+                          ) : null}
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-gray-50 p-2">
+                          <p className="text-[11px] text-gray-600">KVKK</p>
+                          <p className="text-xs font-semibold text-gray-900">{docs?.kvkk?.version || '-'}</p>
+                          {docs?.kvkk?.url ? (
+                            <p className="text-[11px] text-gray-500 break-all">{docs.kvkk.url}</p>
+                          ) : null}
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-gray-50 p-2 md:col-span-3">
+                          <p className="text-[11px] text-gray-600">Zorunlu checkbox'lar</p>
+                          <p className="text-xs text-gray-800">
+                            Terms: <span className={acceptances?.acceptTerms ? 'font-semibold text-emerald-700' : 'font-semibold text-rose-700'}>{String(!!acceptances?.acceptTerms)}</span>
+                            {' | '}Distance Sales: <span className={acceptances?.acceptDistanceSales ? 'font-semibold text-emerald-700' : 'font-semibold text-rose-700'}>{String(!!acceptances?.acceptDistanceSales)}</span>
+                            {' | '}Pricing: <span className={acceptances?.acceptPricingScope ? 'font-semibold text-emerald-700' : 'font-semibold text-rose-700'}>{String(!!acceptances?.acceptPricingScope)}</span>
+                            {' | '}KVKK: <span className={acceptances?.acceptKvkk ? 'font-semibold text-emerald-700' : 'font-semibold text-rose-700'}>{String(!!acceptances?.acceptKvkk)}</span>
+                            {' | '}Deposit: <span className={acceptances?.acceptDepositTerms ? 'font-semibold text-emerald-700' : 'font-semibold text-gray-600'}>{String(acceptances?.acceptDepositTerms)}</span>
+                          </p>
+                          <p className="text-[11px] text-gray-500 mt-1">Onay zamanı (client): {audit?.createdAtClientIso || '-'}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2">
@@ -369,6 +452,48 @@ export default function ReservationsTab() {
                         placeholder="Örn: Uçuş dahil değil, fiyat güncellendi"
                       />
                       <p className="text-[11px] text-gray-500 mt-1">Bu alan müşteri tarafına gösterilmez (şimdilik).</p>
+                    </div>
+
+                    <div className="bg-white border border-gray-200 rounded-lg p-3">
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">Ek-1 Gönderim Delili (E-posta No)</label>
+                      <input
+                        type="text"
+                        value={ek1MailProofValue}
+                        onChange={(e) =>
+                          setEk1MailProofById((prev) => ({
+                            ...(prev || {}),
+                            [r.id]: e.target.value,
+                          }))
+                        }
+                        disabled={busyId === r.id}
+                        className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                        placeholder="Örn: MSG-2026-000123 veya provider messageId"
+                      />
+                      <div className="mt-2 flex items-center gap-2">
+                        <button
+                          type="button"
+                          disabled={busyId === r.id}
+                          onClick={async () => {
+                            const trimmed = String(ek1MailProofValue || '').trim();
+                            const to = r?.contact?.email || r?.userEmail || null;
+                            await updateReservation(r.id, {
+                              'deliveryProof.ek1.channel': trimmed ? 'email' : null,
+                              'deliveryProof.ek1.to': trimmed ? to : null,
+                              'deliveryProof.ek1.messageId': trimmed || null,
+                              'deliveryProof.ek1.sentAt': trimmed ? serverTimestamp() : null,
+                            });
+                          }}
+                          className="px-3 py-2 rounded-lg bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 disabled:opacity-60"
+                        >
+                          Kaydet
+                        </button>
+                        <p className="text-[11px] text-gray-500">
+                          {r?.deliveryProof?.ek1?.sentAt ? `Kaydedildi: ${formatMaybeTimestamp(r.deliveryProof.ek1.sentAt)}` : 'Henüz kaydedilmedi'}
+                        </p>
+                      </div>
+                      <p className="text-[11px] text-gray-500 mt-1">
+                        Not: Bu alan, Ek-1 nüshasının e-posta ile gönderildiğine ilişkin delil kaydı tutmak içindir.
+                      </p>
                     </div>
                   </div>
 

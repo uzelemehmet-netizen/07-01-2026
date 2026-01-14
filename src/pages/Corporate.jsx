@@ -130,6 +130,36 @@ export default function Corporate() {
             </div>
           </div>
 
+          <div className="mt-6 p-6 rounded-2xl border border-slate-200 bg-white flex flex-col md:flex-row gap-6 items-center">
+            <img
+              src="/logos/moonstar-lockup-horizontal.png"
+              alt="MoonStar"
+              className="w-full max-w-[520px] md:max-w-[420px] rounded-2xl border border-slate-200 bg-white object-contain p-3"
+              loading="lazy"
+            />
+            <div className="flex-1">
+              <p className="text-xs uppercase tracking-wide text-slate-600 mb-2" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                Ana şirket
+              </p>
+              <div className="flex items-center gap-3">
+                <img
+                  src="/logos/moonstar-mark-square.png"
+                  alt="PT MoonStar Global Indonesia"
+                  className="h-10 w-10 rounded-xl border border-slate-200 bg-white object-contain"
+                  loading="lazy"
+                />
+                <div>
+                  <p className="text-sm font-semibold text-slate-900" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                    PT MoonStar Global Indonesia
+                  </p>
+                  <p className="text-sm text-slate-600" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                    Endonezya Kaşifi operasyonlarının yasal çatısı
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="mt-10 p-6 rounded-2xl border border-slate-200 bg-white">
             <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4" style={{ fontFamily: '"Poppins", sans-serif' }}>
               Faaliyet alanları ve markalar

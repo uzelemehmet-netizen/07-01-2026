@@ -52,6 +52,7 @@ export default function Navigation() {
       { to: "/tours", label: t("navigation.tours"), active: isActive("/tours") },
       { to: "/kesfet", label: t("navigation.explore"), active: isActive("/kesfet") },
       { to: "/wedding", label: t("navigation.wedding"), active: isActive("/wedding") },
+      { to: "/dokumanlar", label: "Dokümanlar", active: isActive("/dokumanlar") },
       { to: "/youtube", label: "YouTube", active: isActive("/youtube") },
       { to: "/contact", label: t("navigation.contact"), active: isActive("/contact") },
     ],
@@ -70,18 +71,18 @@ export default function Navigation() {
           >
             {/* Mobile: icon mark only */}
             <img
-              src="/ChatGPT%20Image%20Jan%2014,%202026,%2001_53_50%20PM%20123.PNG"
+              src="/ChatGPT%20Image%2014%20Oca%202026%2017_26_03.png"
               alt="Endonezya Kaşifi"
-              className="h-9 w-auto md:hidden"
+              className="h-12 w-auto md:hidden"
               loading="eager"
               decoding="async"
             />
 
             {/* Desktop: horizontal lockup */}
             <img
-              src="/ChatGPT%20Image%20Jan%2014,%202026,%2001_53_50%20PM%20123.PNG"
+              src="/ChatGPT%20Image%2014%20Oca%202026%2017_26_03.png"
               alt="Endonezya Kaşifi"
-              className="hidden md:block h-10 w-auto"
+              className="hidden md:block h-14 w-auto"
               loading="eager"
               decoding="async"
             />
@@ -159,6 +160,13 @@ export default function Navigation() {
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.wedding')}
             </Link>
+            <Link to="/dokumanlar" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+              isActive('/dokumanlar')
+                ? 'bg-sky-600 text-white shadow-lg'
+                : 'text-sky-700 hover:bg-sky-600 hover:text-white'
+            }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
+              Dokümanlar
+            </Link>
             <Link to="/youtube" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/youtube')
                 ? 'bg-red-500 text-white shadow-lg'
@@ -199,9 +207,9 @@ export default function Navigation() {
             <div className="max-w-7xl mx-auto px-4 py-4">
               <div className="flex items-center justify-center pb-3">
                 <img
-                  src="/ChatGPT%20Image%20Jan%2014,%202026,%2001_53_50%20PM%20123.PNG"
+                  src="/ChatGPT%20Image%2014%20Oca%202026%2017_26_03.png"
                   alt="Endonezya Kaşifi"
-                  className="h-16 w-auto"
+                  className="h-24 w-auto"
                   loading="eager"
                   decoding="async"
                 />

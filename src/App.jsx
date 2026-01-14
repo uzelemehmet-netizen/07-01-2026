@@ -20,6 +20,7 @@ import Kesfet from './pages/Kesfet';
 import KesfetIsland from './pages/KesfetIsland';
 import { DestinationDetailPage as KesfetDestination } from './pages/KesfetDestination';
 import Gallery from './pages/Gallery';
+import DocumentsHub from './pages/DocumentsHub';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
@@ -76,6 +77,8 @@ function TitleManager() {
       pageTitle = `Galeri | ${base}`;
     } else if (path === '/privacy') {
       pageTitle = `Gizlilik Politikası | ${base}`;
+    } else if (path.startsWith('/dokumanlar')) {
+      pageTitle = `Dokümanlar | ${base}`;
     }
 
     document.title = pageTitle;
@@ -102,6 +105,7 @@ function App() {
         <Route path="/kurumsal" element={<Corporate />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/travel" element={<Travel />} />
+        <Route path="/dokumanlar" element={<DocumentsHub />} />
         <Route path="/tours" element={<Tours />} />
         <Route path="/tours/groups" element={<GroupTours />} />
         <Route path="/tours/:id" element={<TourDetail />} />

@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 import { openWhatsApp } from "../utils/whatsapp";
 import { useAuth } from "../auth/AuthProvider";
 import { createReservationFromPaymentState } from "../utils/reservations";
+import { downloadJson } from "../utils/downloadFile";
+import { downloadEk1Html, openEk1InNewTab } from "../utils/ek1";
 
 const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "905550343852";
 
@@ -19,6 +21,19 @@ export default function Payment() {
   const [paymentReference, setPaymentReference] = useState(state.paymentReference || "");
   const [reservationBusy, setReservationBusy] = useState(false);
   const [reservationError, setReservationError] = useState("");
+
+  const audit = useMemo(() => {
+    const fromState = state?.audit && typeof state.audit === "object" ? state.audit : null;
+    if (fromState) return fromState;
+    const auditId = state?.auditId || state?.audit?.auditId;
+    if (!auditId) return null;
+    try {
+      const raw = localStorage.getItem(`reservation_audit_${auditId}`);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }, [state?.audit, state?.auditId]);
 
   const DEFAULT_FLIGHT_INCLUDED_LIMIT_USD = 750;
   const isFlightIncluded = state.includeFlight !== false;
@@ -176,9 +191,31 @@ export default function Payment() {
       <section className="max-w-3xl mx-auto px-4 py-16">
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Ödeme</h1>
-          <p className="text-sm text-gray-600 mb-6">
+          <p className="text-sm text-gray-600 mb-2">
             Bu sayfa, rezervasyon özetinizi gösterir ve ödeme adımına yönlendirir.
           </p>
+
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <img
+                src="/logos/moonstar-mark-square.png"
+                alt="PT MoonStar Global Indonesia"
+                className="h-9 w-9 rounded-lg border border-slate-200 bg-white object-contain"
+                loading="lazy"
+              />
+              <div>
+                <p className="text-[11px] text-slate-600">Yasal satıcı</p>
+                <p className="text-sm font-semibold text-slate-900">PT MoonStar Global Indonesia</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate("/kurumsal")}
+              className="px-4 py-2 rounded-full border border-slate-300 text-slate-800 text-sm font-semibold hover:bg-white transition-colors"
+            >
+              Kurumsal bilgileri gör
+            </button>
+          </div>
 
           <div className="space-y-2 text-sm text-gray-800">
             <p>
@@ -265,7 +302,7 @@ export default function Payment() {
                       </div>
                     );
                   })}
-                  <p className="text-xs text-gray-500 mt-2">Not: Ekstra fiyatları tahminidir; nihai toplam teklif aşamasında netleşir.</p>
+                  <p className="text-xs text-gray-500 mt-2">Not: Opsiyonel/ekstra kalemlerin bedelleri yaklaşık olabilir; seçime ve satın alma anına göre değişebilir.</p>
                 </div>
               )}
             </div>
@@ -290,9 +327,7 @@ export default function Payment() {
               Geri dön
             </button>
             <a
-              href="/docs/odeme-yontemleri.html"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/dokumanlar?doc=odeme-yontemleri"
               className="px-5 py-2 rounded-full bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition-colors text-center"
             >
               Ödeme yöntemlerini görüntüle
@@ -305,6 +340,65 @@ export default function Payment() {
               Fiyatlar USD olarak gösterilebilir; tahsilat işlem anındaki kur/komisyonlara göre IDR veya desteklenen para biriminde yapılabilir.
               Kredi kartında 3D Secure (3DS) zorunludur.
             </p>
+            <p className="text-xs text-slate-600 mt-2">
+              İade süreçlerinde, mevzuatın ve/veya ödeme kuruluşu/banka kurallarının zorunlu kıldığı haller saklı kalmak kaydıyla; iadeler kural olarak banka transferi (EFT/FAST/SWIFT) ile yapılır ve kredi kartına iade yapılmaması esastır.
+              Banka transferiyle tahsil edilen döviz cinsinden ödemeler, mümkün olduğu ölçüde aynı döviz cinsinden iade edilir.
+            </p>
+
+            <div className="mt-4 pt-4 border-t border-slate-200">
+              <p className="text-xs font-semibold text-slate-900">English legal documents</p>
+              <p className="text-[11px] text-slate-600 mt-1">
+                For payment-provider review purposes. Turkish documents and the written official offer/annexes prevail.
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <a
+                  href="/dokumanlar?lang=en"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-semibold hover:bg-slate-50"
+                >
+                  Documents (EN) hub
+                </a>
+                <a
+                  href="/docs/package-tour-agreement-en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-semibold hover:bg-slate-50"
+                >
+                  Package Tour (EN)
+                </a>
+                <a
+                  href="/docs/distance-sales-agreement-en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-semibold hover:bg-slate-50"
+                >
+                  Distance Sales (EN)
+                </a>
+                <a
+                  href="/docs/pre-information-form-en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-semibold hover:bg-slate-50"
+                >
+                  Pre-Information (EN)
+                </a>
+                <a
+                  href="/docs/cancellation-refund-policy-en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-semibold hover:bg-slate-50"
+                >
+                  Cancellation/Refund (EN)
+                </a>
+                <a
+                  href="/docs/kvkk-information-notice-en.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-900 text-xs font-semibold hover:bg-slate-50"
+                >
+                  KVKK Notice (EN)
+                </a>
+              </div>
+            </div>
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
@@ -317,9 +411,7 @@ export default function Payment() {
               </button>
 
               <a
-                href="/docs/wise-odeme-talimatlari.html"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/dokumanlar?doc=wise-odeme-talimatlari"
                 className="w-full px-5 py-3 rounded-2xl border border-slate-300 bg-white text-slate-900 text-sm font-semibold hover:bg-slate-50 transition-colors text-left"
               >
                 Wise ile ödeme
@@ -327,9 +419,7 @@ export default function Payment() {
               </a>
 
               <a
-                href="/docs/swift-odeme-talimatlari.html"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/dokumanlar?doc=swift-odeme-talimatlari"
                 className="w-full px-5 py-3 rounded-2xl border border-slate-300 bg-white text-slate-900 text-sm font-semibold hover:bg-slate-50 transition-colors text-left"
               >
                 SWIFT ile ödeme
@@ -337,9 +427,7 @@ export default function Payment() {
               </a>
 
               <a
-                href="/docs/eft-fast-odeme-talimatlari.html"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/dokumanlar?doc=eft-fast-odeme-talimatlari"
                 className="w-full px-5 py-3 rounded-2xl border border-slate-300 bg-white text-slate-900 text-sm font-semibold hover:bg-slate-50 transition-colors text-left"
               >
                 EFT / FAST (Türkiye)
@@ -356,6 +444,137 @@ export default function Payment() {
               >
                 Ödeme özeti + alternatif yöntemler
               </button>
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p className="text-xs text-slate-600">
+                Tahsilat ve sözleşmeler, <span className="font-semibold">PT MoonStar Global Indonesia</span> üzerinden yürütülür.
+              </p>
+              <img
+                src="/logos/moonstar-lockup-horizontal.png"
+                alt="MoonStar"
+                className="h-7 w-auto opacity-90"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4">
+            <p className="text-sm font-semibold text-slate-900">Kayıt & onay logu</p>
+            <p className="text-xs text-slate-600 mt-1">
+              Bu dosya; seçtiğiniz paket/ekstralar, iletişim bilgileriniz ve sözleşme/KVKK onaylarınızın özetini içerir.
+            </p>
+
+            <div className="mt-3 flex flex-col sm:flex-row gap-2">
+              <button
+                type="button"
+                disabled={!audit}
+                onClick={() => {
+                  const payload = {
+                    ...state,
+                    reservationType,
+                    people,
+                    extrasSelected,
+                    totalsUsd: {
+                      packageTotalUsd,
+                      extrasTotalUsd,
+                      grandTotalUsd,
+                      depositPercent,
+                      amountToPayNowUsd: amount,
+                    },
+                    contact: state?.contact || null,
+                    audit,
+                  };
+
+                  downloadEk1Html({
+                    paymentState: payload,
+                    reservationId: reservationId || null,
+                    paymentReference: paymentReference || null,
+                    audit,
+                  });
+                }}
+                className="px-5 py-2 rounded-full bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Ek-1 indir (HTML)
+              </button>
+
+              <button
+                type="button"
+                disabled={!audit}
+                onClick={() => {
+                  const payload = {
+                    ...state,
+                    reservationType,
+                    people,
+                    extrasSelected,
+                    totalsUsd: {
+                      packageTotalUsd,
+                      extrasTotalUsd,
+                      grandTotalUsd,
+                      depositPercent,
+                      amountToPayNowUsd: amount,
+                    },
+                    contact: state?.contact || null,
+                    audit,
+                  };
+
+                  openEk1InNewTab({
+                    paymentState: payload,
+                    reservationId: reservationId || null,
+                    paymentReference: paymentReference || null,
+                    audit,
+                  });
+                }}
+                className="px-5 py-2 rounded-full border border-emerald-300 text-emerald-800 text-sm font-semibold hover:bg-emerald-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Ek-1 önizle
+              </button>
+
+              <button
+                type="button"
+                disabled={!audit}
+                onClick={() => {
+                  const payload = {
+                    exportedAtClientIso: new Date().toISOString(),
+                    reservationId: reservationId || null,
+                    paymentReference: paymentReference || null,
+                    paymentState: {
+                      tourId: state?.tourId || null,
+                      tourName: state?.tourName || null,
+                      packageId: state?.packageId || null,
+                      packageName: state?.packageName || null,
+                      reservationType,
+                      people,
+                      includeFlight: isFlightIncluded,
+                      flightLimitPerPersonUsd: Number(effectiveFlightLimitPerPersonUsd) || null,
+                      extrasSelected,
+                      totalsUsd: {
+                        packageTotalUsd,
+                        extrasTotalUsd,
+                        grandTotalUsd,
+                        depositPercent,
+                        amountToPayNowUsd: amount,
+                      },
+                      contact: state?.contact || null,
+                    },
+                    audit,
+                  };
+                  const base = reservationId ? `reservation-${reservationId}-log` : "reservation-log";
+                  downloadJson({ filename: base, data: payload });
+                }}
+                className="px-5 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Log indir (JSON)
+              </button>
+
+              <a
+                href="/docs/paket-tur-sozlesmesi.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 rounded-full border border-slate-300 text-slate-900 text-sm font-semibold hover:bg-slate-50 text-center"
+              >
+                Sözleşmeyi aç
+              </a>
             </div>
           </div>
         </div>

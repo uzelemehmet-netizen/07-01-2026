@@ -18,6 +18,17 @@ export async function createReservationFromPaymentState({ user, paymentState }) 
   const reservationType = paymentState?.reservationType === "full" ? "full" : "deposit";
   const paymentReference = String(paymentState?.paymentReference || "").trim() || generatePaymentReference();
 
+  const audit = paymentState?.audit && typeof paymentState.audit === "object"
+    ? {
+        schemaVersion: Number(paymentState.audit.schemaVersion) || 1,
+        auditId: paymentState.audit.auditId || null,
+        createdAtClientIso: paymentState.audit.createdAtClientIso || null,
+        acceptances: paymentState.audit.acceptances || null,
+        legalDocs: paymentState.audit.legalDocs || null,
+        client: paymentState.audit.client || null,
+      }
+    : null;
+
   const docRef = await addDoc(collection(db, "reservations"), {
     userId: user.uid,
     userEmail: user.email || null,
@@ -66,6 +77,18 @@ export async function createReservationFromPaymentState({ user, paymentState }) 
       note:
         "Prices may be displayed in USD; card charge/settlement currency and FX rates depend on the provider and the card issuer.",
     },
+
+    deliveryProof: {
+      ek1: {
+        channel: null,
+        to: null,
+        messageId: null,
+        sentAt: null,
+        note: null,
+      },
+    },
+
+    audit,
   });
 
   return { id: docRef.id, paymentReference };

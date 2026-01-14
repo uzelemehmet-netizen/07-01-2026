@@ -17,9 +17,21 @@
       a { color:#0f766e; }
       .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
       @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+      .doc-header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom: 14px; padding: 12px 14px; background:#ffffff; border:1px solid #e5e7eb; border-radius: 12px; }
+      .doc-brand { display:flex; flex-direction:column; gap:2px; }
+      .doc-brand .title { font-weight: 800; font-size: 14px; letter-spacing: 0.2px; }
+      .doc-brand .subtitle { color:#6b7280; font-size: 12px; }
+      .doc-logo { width: 44px; height: 44px; object-fit: contain; }
     </style>
   </head>
   <body>
+    <div class="doc-header">
+      <div class="doc-brand">
+        <div class="title">Endonezya Kaşifi</div>
+        <div class="subtitle">Satıcı: PT MoonStar Global Indonesia</div>
+      </div>
+      <img src="/logos/moonstar-mark-dark.png" alt="PT MoonStar Global Indonesia" class="doc-logo" loading="eager" decoding="async" />
+    </div>
     <h1>Ödeme Yöntemleri</h1>
     <p class="muted">
       Ödemelerinizi güvenli şekilde tamamlayabilmeniz için birden fazla ödeme seçeneği sunarız. Kredi kartı ödemelerinde 3D Secure (3DS)

@@ -1,19 +1,10 @@
 ﻿import { Instagram, Youtube, Mail, Phone, MessageCircle, MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { COMPANY } from "../config/company";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const location = useLocation();
-
-  const company = {
-    legalName: "PT MoonStar Global Indonesia",
-    address:
-      "Perum. Taman Serua Jalan Elodia Blok P1 No.1 RT 008 RW 008, Serua Bojongsari / Depok, Jawa Barat, Indonesia",
-    tax: "NPWP 59.422.0162-405.000",
-    nib: "3275056712830021",
-    email: "endonezyakasifi@gmail.com",
-    phone: "+6285888978383",
-  };
 
   const getWhatsappLink = () => {
     const baseUrl = "https://wa.me/905550343852?text=";
@@ -39,19 +30,25 @@ export default function Footer() {
   const whatsappLink = getWhatsappLink();
   const instagramLink = "https://www.instagram.com/endonezyakasifi";
   const youtubeLink = "https://www.youtube.com/@endonezyakasifi";
-  const email = company.email;
-  const phone = "+905550343852";
-  const indonesiaPhoneTel = "+6285888978383";
-  const indonesiaPhoneDisplay = "+62 858 8897 8383";
+  const email = COMPANY.email;
+  const phone = COMPANY.phoneTr;
+  const indonesiaPhoneTel = COMPANY.phoneIdTel;
+  const indonesiaPhoneDisplay = COMPANY.phoneIdDisplay;
 
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-bold mb-4" style={{ fontFamily: '"Poppins", sans-serif' }}>
-              Endonezya Kaşifi
-            </h3>
+            <div className="mb-4">
+              <img
+                src="/logos/moonstar-mark-light.png"
+                alt="MoonStar Global Indonesia"
+                className="h-12 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <p className="text-gray-400" style={{ fontFamily: '"Poppins", sans-serif' }}>
               PT MoonStar Global Indonesia çatısı altında; tur organizasyonu ve evlilik rehberliği hizmeti sunuyoruz.
             </p>
@@ -120,30 +117,51 @@ export default function Footer() {
               Yasal
             </h4>
             <ul className="space-y-2 text-gray-400">
+              <li className="text-xs uppercase tracking-wide text-gray-500" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                Doküman Merkezi
+              </li>
               <li>
-                <a href="/docs/paket-tur-sozlesmesi.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                <Link to="/dokumanlar" className="hover:text-white transition">
+                  Dokümanlar (TR)
+                </Link>
+              </li>
+              <li>
+                <Link to="/dokumanlar?lang=en" className="hover:text-white transition">
+                  Documents (EN)
+                </Link>
+              </li>
+              <li className="pt-2 text-xs uppercase tracking-wide text-gray-500" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                TR
+              </li>
+              <li>
+                <Link to="/dokumanlar?doc=paket-tur-sozlesmesi" className="hover:text-white transition">
                   Paket Tur Sözleşmesi (TR)
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/docs/on-bilgilendirme-formu.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                <Link to="/dokumanlar?doc=mesafeli-satis-sozlesmesi" className="hover:text-white transition">
+                  Mesafeli Satış Sözleşmesi (TR)
+                </Link>
+              </li>
+              <li>
+                <Link to="/dokumanlar?doc=on-bilgilendirme-formu" className="hover:text-white transition">
                   Ön Bilgilendirme Formu (TR)
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/docs/iptal-iade-politikasi.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                <Link to="/dokumanlar?doc=iptal-iade-politikasi" className="hover:text-white transition">
                   İptal / İade Politikası (TR)
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/docs/kvkk-aydinlatma-metni.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                <Link to="/dokumanlar?doc=kvkk-aydinlatma-metni" className="hover:text-white transition">
                   KVKK Aydınlatma Metni
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/docs/odeme-yontemleri.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                <Link to="/dokumanlar?doc=odeme-yontemleri" className="hover:text-white transition">
                   Ödeme Yöntemleri
-                </a>
+                </Link>
               </li>
               <li>
                 <Link to="/privacy" className="hover:text-white transition">
@@ -156,6 +174,21 @@ export default function Footer() {
               <li>
                 <a href="/docs/package-tour-agreement-en.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
                   Package Tour Agreement (EN)
+                </a>
+              </li>
+              <li>
+                <a href="/docs/distance-sales-agreement-en.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Distance Sales Agreement (EN)
+                </a>
+              </li>
+              <li>
+                <a href="/docs/pre-information-form-en.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  Pre-Information Form (EN)
+                </a>
+              </li>
+              <li>
+                <a href="/docs/kvkk-information-notice-en.html" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                  KVKK Information Notice (EN)
                 </a>
               </li>
               <li>
@@ -178,10 +211,10 @@ export default function Footer() {
             <div className="space-y-3 text-gray-400">
               <div className="text-sm" style={{ fontFamily: '"Poppins", sans-serif' }}>
                 <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Firma Bilgileri</p>
-                <p><span className="text-gray-300">Ünvan:</span> {company.legalName}</p>
-                <p><span className="text-gray-300">Adres:</span> {company.address}</p>
-                <p><span className="text-gray-300">Vergi:</span> {company.tax}</p>
-                <p><span className="text-gray-300">NIB:</span> {company.nib}</p>
+                <p><span className="text-gray-300">Ünvan:</span> {COMPANY.legalName}</p>
+                <p><span className="text-gray-300">Adres:</span> {COMPANY.address}</p>
+                <p><span className="text-gray-300">Vergi:</span> {COMPANY.tax}</p>
+                <p><span className="text-gray-300">NIB:</span> {COMPANY.nib}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} />

@@ -8,6 +8,8 @@ import { auth, db } from "../config/firebase";
 import { useAuth } from "../auth/AuthProvider";
 import { getReservationStatusLabel, normalizePhoneForWhatsApp, RESERVATION_STATUS } from "../utils/reservationStatus";
 import { formatMaybeTimestamp } from "../utils/formatDate";
+import { downloadJson } from "../utils/downloadFile";
+import { downloadEk1Html, openEk1InNewTab } from "../utils/ek1";
 
 export default function Panel() {
   const navigate = useNavigate();
@@ -76,6 +78,27 @@ export default function Panel() {
             >
               Çıkış
             </button>
+          </div>
+
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <img
+                src="/logos/moonstar-mark-square.png"
+                alt="PT MoonStar Global Indonesia"
+                className="h-9 w-9 rounded-lg border border-slate-200 bg-white object-contain"
+                loading="lazy"
+              />
+              <div>
+                <p className="text-[11px] text-slate-600">Yasal satıcı</p>
+                <p className="text-sm font-semibold text-slate-900">PT MoonStar Global Indonesia</p>
+              </div>
+            </div>
+            <Link
+              to="/kurumsal"
+              className="px-4 py-2 rounded-full border border-slate-300 text-slate-800 text-sm font-semibold hover:bg-white transition-colors text-center"
+            >
+              Kurumsal
+            </Link>
           </div>
 
           <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -224,6 +247,30 @@ export default function Panel() {
                       </div>
 
                       <div className="mt-3 flex flex-col sm:flex-row gap-2">
+                        <button
+                          type="button"
+                          onClick={() => downloadEk1Html({ reservation: { id: r.id, ...r } })}
+                          className="px-4 py-2 rounded-full bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700"
+                        >
+                          Ek-1 indir (HTML)
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => openEk1InNewTab({ reservation: { id: r.id, ...r } })}
+                          className="px-4 py-2 rounded-full border border-emerald-300 text-emerald-800 text-sm font-semibold hover:bg-emerald-50"
+                        >
+                          Ek-1 önizle
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => downloadJson({ filename: `reservation-${r.id}`, data: { id: r.id, ...r } })}
+                          className="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800"
+                        >
+                          Log indir (JSON)
+                        </button>
+
                         <button
                           type="button"
                           onClick={() => {

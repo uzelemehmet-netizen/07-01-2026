@@ -1066,6 +1066,9 @@ export default function Tours() {
 
 									{/* Alt bilgi ve CTA bloğunu kartın altına sabitle */}
 									<div className="mt-auto pt-3 space-y-3">
+										<p className="text-[11px] text-gray-600">
+											Endonezya Kaşifi, <span className="font-semibold">PT MoonStar Global Indonesia</span> kuruluşudur.
+										</p>
 										{tour.dateRange && (
 											<p className="text-xs text-gray-700 font-semibold">
 												Planlanan Tur Tarihleri: {normalizePlannedDateRangeLabel(tour.dateRange)}

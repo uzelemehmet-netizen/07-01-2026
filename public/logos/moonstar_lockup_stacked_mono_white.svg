@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="640" viewBox="0 0 512 640" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:#FFFFFF">
+  <title>MoonStar Global Indonesia — Mono Stacked (White)</title>
+  <desc>Monochrome stacked lockup (mark above wordmark) using currentColor; default white.</desc>
+
+  <defs>
+    <symbol id="moonstarMark" viewBox="0 0 512 512">
+      <title>MoonStar Global Indonesia — Mono Mark</title>
+      <desc>Monochrome mark using currentColor.</desc>
+      <defs>
+        <mask id="crescentMaskMono">
+          <rect width="512" height="512" fill="white"/>
+          <circle cx="248" cy="256" r="140" fill="black"/>
+          <circle cx="292" cy="236" r="132" fill="white"/>
+        </mask>
+      </defs>
+
+      <circle cx="256" cy="256" r="156" fill="currentColor" mask="url(#crescentMaskMono)"/>
+      <path d="M356 162 L366 194 L398 204 L366 214 L356 246 L346 214 L314 204 L346 194 Z" fill="currentColor"/>
+      <path d="M104 318 C188 372 316 376 410 302" stroke="currentColor" stroke-width="18" stroke-linecap="round"/>
+      <path d="M424 294 L462 284 L438 316 Z" fill="currentColor"/>
+    </symbol>
+  </defs>
+
+  <use href="#moonstarMark" x="126" y="36" width="260" height="260"/>
+
+  <text x="256" y="410" text-anchor="middle" fill="currentColor"
+    font-family="Inter, Poppins, system-ui, -apple-system, 'Segoe UI', sans-serif"
+    font-size="92" font-weight="700" letter-spacing="-1">MoonStar</text>
+
+  <g opacity="0.86" fill="currentColor" stroke="currentColor">
+    <line x1="70" y1="455" x2="176" y2="455" stroke-width="3" stroke-linecap="round"/>
+    <line x1="336" y1="455" x2="442" y2="455" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <text x="256" y="466" text-anchor="middle" fill="currentColor" opacity="0.86"
+    font-family="Inter, Poppins, system-ui, -apple-system, 'Segoe UI', sans-serif"
+    font-size="26" font-weight="600" letter-spacing="6">GLOBAL INDONESIA</text>
+</svg>

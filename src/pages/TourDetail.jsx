@@ -1,5 +1,6 @@
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
+import { LEGAL_DOCS } from "../config/legalDocs";
 import { openWhatsApp } from "../utils/whatsapp";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -2186,6 +2187,7 @@ export default function TourDetail() {
     reservationType: "deposit",
     includeFlight: true,
     acceptTerms: false,
+    acceptDistanceSales: false,
     acceptPricingScope: false,
     acceptKvkk: false,
     acceptDepositTerms: false,
@@ -2228,8 +2230,53 @@ export default function TourDetail() {
     const reservationType = depositForm.reservationType === "full" ? "full" : "deposit";
     const amountToPayNow = reservationType === "deposit" ? depositAmount : adjustedDepositGrandTotal;
 
+    let auditId = "";
+    try {
+      auditId = typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+        ? crypto.randomUUID()
+        : `audit-${Math.random().toString(36).slice(2)}`;
+    } catch {
+      auditId = `audit-${Math.random().toString(36).slice(2)}`;
+    }
+
+    const audit = {
+      schemaVersion: 1,
+      auditId,
+      createdAtClientIso: new Date().toISOString(),
+      acceptances: {
+        acceptTerms: !!depositForm.acceptTerms,
+        acceptDistanceSales: !!depositForm.acceptDistanceSales,
+        acceptPricingScope: !!depositForm.acceptPricingScope,
+        acceptKvkk: !!depositForm.acceptKvkk,
+        acceptDepositTerms: reservationType === "deposit" ? !!depositForm.acceptDepositTerms : null,
+      },
+      legalDocs: {
+        packageTourAgreement: LEGAL_DOCS.packageTourAgreement,
+        distanceSalesAgreement: LEGAL_DOCS.distanceSalesAgreement,
+        kvkk: LEGAL_DOCS.kvkk,
+        paymentMethods: LEGAL_DOCS.paymentMethods,
+        tourRulesAnchor: "#tour-rules",
+        pricingDetailsAnchor: "#pricing-details",
+      },
+      client: {
+        userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+        language: typeof navigator !== "undefined" ? navigator.language : "",
+        timeZone:
+          typeof Intl !== "undefined" && Intl.DateTimeFormat
+            ? Intl.DateTimeFormat().resolvedOptions().timeZone
+            : "",
+      },
+    };
+
+    try {
+      localStorage.setItem(`reservation_audit_${auditId}`, JSON.stringify(audit));
+    } catch {
+      // ignore
+    }
+
     navigate("/payment", {
       state: {
+        audit,
         tourId: id,
         tourName: tour?.name || "",
         packageId: selectedDepositPackage?.id || "",
@@ -2383,12 +2430,37 @@ export default function TourDetail() {
   const handleDepositSubmit = (e) => {
     e.preventDefault();
 
+    const reservationType = depositForm.reservationType === "full" ? "full" : "deposit";
+
+    const missing = [];
+
+    if (!selectedDepositPackage) missing.push("Paket seçimi");
+    if (!depositPeopleCount || depositPeopleCount < 1) missing.push("Katılımcı sayısı");
+
+    if (!String(depositForm.name || "").trim()) missing.push("Ad Soyad");
+    if (!String(depositForm.email || "").trim()) missing.push("E-posta");
+    if (!String(depositForm.phone || "").trim()) missing.push("Telefon");
+
+    if (!depositForm.acceptTerms) missing.push("Paket tur sözleşmesi ve tur kuralları onayı");
+    if (!depositForm.acceptDistanceSales) missing.push("Mesafeli satış sözleşmesi onayı");
+    if (!depositForm.acceptPricingScope) missing.push("Fiyata dahil/haric ve uçak bileti limiti onayı");
+    if (!depositForm.acceptKvkk) missing.push("KVKK aydınlatma metni onayı");
+    if (reservationType === "deposit" && !depositForm.acceptDepositTerms) missing.push("Kaporalı ödeme koşulları onayı");
+
+    if (missing.length > 0) {
+      // Not: Bu formda preventDefault kullanıldığı için native HTML 'required' validasyonu çalışmaz.
+      // Bu yüzden manuel doğrulama + kullanıcı uyarısı yapıyoruz.
+      window.alert(
+        "Lütfen devam etmeden önce aşağıdaki alanları doldurun/onaylayın:\n\n- "
+          + missing.join("\n- "),
+      );
+      return;
+    }
+
     if (!selectedDepositPackage || !depositPeopleCount || !adjustedDepositGrandTotal || !depositAmount) {
       console.warn("Kaporalı ön rezervasyon için eksik bilgi: paket, kişi sayısı veya tutarlar hesaplanamadı.");
       return;
     }
-
-    const reservationType = depositForm.reservationType === "full" ? "full" : "deposit";
 
     const extrasSummary = selectedExtrasList.length
       ? selectedExtrasList
@@ -3497,9 +3569,7 @@ export default function TourDetail() {
                     />
                     <span>
                       <a
-                        href="/docs/paket-tur-sozlesmesi.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/dokumanlar?doc=paket-tur-sozlesmesi"
                         className="text-sky-600 underline font-semibold"
                       >
                         Paket tur sözleşmesini
@@ -3520,7 +3590,31 @@ export default function TourDetail() {
                 </div>
 
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 md:p-4">
-                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">2) Fiyata dahil/haric ve uçak bileti limiti</p>
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">2) Mesafeli satış sözleşmesi</p>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="acceptDistanceSales"
+                      checked={depositForm.acceptDistanceSales}
+                      onChange={handleDepositChange}
+                      required
+                      className="mt-0.5 h-4 w-4 border-gray-300 rounded"
+                    />
+                    <span>
+                      <a
+                        href="/dokumanlar?doc=mesafeli-satis-sozlesmesi"
+                        className="text-sky-600 underline font-semibold"
+                      >
+                        Mesafeli Satış Sözleşmesi'ni
+                      </a>
+                      {" "}
+                      okudum ve kabul ediyorum.
+                    </span>
+                  </label>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 md:p-4">
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">3) Fiyata dahil/haric ve uçak bileti limiti</p>
                   <label className="flex items-start gap-2 cursor-pointer">
                     <input
                       type="checkbox"
@@ -3552,7 +3646,7 @@ export default function TourDetail() {
                 </div>
 
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 md:p-4">
-                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">3) KVKK</p>
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900 mb-2">4) KVKK</p>
                   <label className="flex items-start gap-2 cursor-pointer">
                     <input
                       type="checkbox"
@@ -3564,9 +3658,7 @@ export default function TourDetail() {
                     />
                     <span>
                       <a
-                        href="/docs/kvkk-aydinlatma-metni.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/dokumanlar?doc=kvkk-aydinlatma-metni"
                         className="text-sky-600 underline font-semibold"
                       >
                         KVKK Aydınlatma Metni'ni
@@ -3595,11 +3687,81 @@ export default function TourDetail() {
                     </label>
                   </div>
                 )}
+
+                <div className="rounded-xl border border-slate-200 bg-white p-3 md:p-4">
+                  <p className="text-[11px] md:text-xs font-semibold text-slate-900">English legal documents</p>
+                  <p className="text-[11px] text-slate-600 mt-1">
+                    Payment-provider review purposes. Turkish documents and the written official offer/annexes prevail.
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <a
+                      href="/dokumanlar?lang=en"
+                      className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-[11px] font-semibold hover:bg-slate-100"
+                    >
+                      Documents (EN) hub
+                    </a>
+                    <a
+                      href="/docs/package-tour-agreement-en.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-[11px] font-semibold hover:bg-slate-100"
+                    >
+                      Package Tour (EN)
+                    </a>
+                    <a
+                      href="/docs/distance-sales-agreement-en.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-[11px] font-semibold hover:bg-slate-100"
+                    >
+                      Distance Sales (EN)
+                    </a>
+                    <a
+                      href="/docs/pre-information-form-en.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-[11px] font-semibold hover:bg-slate-100"
+                    >
+                      Pre-Information (EN)
+                    </a>
+                    <a
+                      href="/docs/cancellation-refund-policy-en.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-[11px] font-semibold hover:bg-slate-100"
+                    >
+                      Cancellation/Refund (EN)
+                    </a>
+                    <a
+                      href="/docs/kvkk-information-notice-en.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-[11px] font-semibold hover:bg-slate-100"
+                    >
+                      KVKK Notice (EN)
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full md:w-auto px-6 py-2.5 rounded-full bg-amber-500 text-slate-900 text-sm font-semibold hover:bg-amber-400 transition-colors"
+                disabled={
+                  !String(depositForm.name || "").trim()
+                  || !String(depositForm.email || "").trim()
+                  || !String(depositForm.phone || "").trim()
+                  || !depositPeopleCount
+                  || !depositForm.acceptTerms
+                  || !depositForm.acceptDistanceSales
+                  || !depositForm.acceptPricingScope
+                  || !depositForm.acceptKvkk
+                  || (depositForm.reservationType === "deposit" && !depositForm.acceptDepositTerms)
+                }
+                className={[
+                  "w-full md:w-auto px-6 py-2.5 rounded-full text-sm font-semibold transition-colors",
+                  "bg-amber-500 text-slate-900 hover:bg-amber-400",
+                  "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-amber-500",
+                ].join(" ")}
               >
                 Rezervasyonu tamamla
               </button>
