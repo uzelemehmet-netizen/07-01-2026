@@ -64,15 +64,27 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex items-center justify-between gap-4">
           <Link
             to="/"
-            className="flex flex-col leading-tight"
+            className="flex items-center gap-3 leading-tight"
             style={{ fontFamily: '"Poppins", sans-serif' }}
+            aria-label="Ana sayfa"
           >
-            <span className="text-xl md:text-2xl font-bold text-gray-900">
-              {t('navigation.siteTitle')}
-            </span>
-            <span className="text-[11px] md:text-xs font-semibold text-emerald-600">
-              {t('navigation.siteSubtitle')}
-            </span>
+            {/* Mobile: icon mark only */}
+            <img
+              src="/ChatGPT%20Image%20Jan%2014,%202026,%2001_53_50%20PM%20123.PNG"
+              alt="Endonezya Kaşifi"
+              className="h-9 w-auto md:hidden"
+              loading="eager"
+              decoding="async"
+            />
+
+            {/* Desktop: horizontal lockup */}
+            <img
+              src="/ChatGPT%20Image%20Jan%2014,%202026,%2001_53_50%20PM%20123.PNG"
+              alt="Endonezya Kaşifi"
+              className="hidden md:block h-10 w-auto"
+              loading="eager"
+              decoding="async"
+            />
           </Link>
 
           {/* Mobil: WhatsApp + Menü */}
@@ -185,6 +197,15 @@ export default function Navigation() {
           />
           <div className="absolute top-0 left-0 right-0 bg-white border-b border-slate-200 shadow-xl">
             <div className="max-w-7xl mx-auto px-4 py-4">
+              <div className="flex items-center justify-center pb-3">
+                <img
+                  src="/ChatGPT%20Image%20Jan%2014,%202026,%2001_53_50%20PM%20123.PNG"
+                  alt="Endonezya Kaşifi"
+                  className="h-16 w-auto"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-slate-900">Menü</p>
                 <button
