@@ -50,7 +50,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-400" style={{ fontFamily: '"Poppins", sans-serif' }}>
-              PT MoonStar Global Indonesia çatısı altında; tur organizasyonu ve evlilik rehberliği hizmeti sunuyoruz.
+              Endonezya Kaşifi, Endonezya’da kayıtlı <span className="font-semibold">PT MoonStar Global Indonesia</span> şirketinin markasıdır.
             </p>
             <div className="mt-4 text-gray-400 text-sm" style={{ fontFamily: '"Poppins", sans-serif' }}>
               <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Markalar</p>

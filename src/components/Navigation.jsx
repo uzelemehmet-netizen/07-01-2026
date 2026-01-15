@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import { Menu, MessageCircle, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function Navigation() {
@@ -19,29 +19,6 @@ export default function Navigation() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
-
-  const getWhatsappLink = () => {
-    const baseUrl = "https://wa.me/905550343852?text=";
-    let message = "Merhaba, web sitenizden yazıyorum. Genel bilgi almak istiyorum.";
-
-    if (location.pathname.startsWith("/wedding")) {
-      message = "Endonezya'da evlilik hakkında bilgi almak istiyorum";
-    } else if (location.pathname.startsWith("/travel")) {
-      message = "Endonezya seyahati hakkında bilgi almak istiyorum";
-    } else if (location.pathname.startsWith("/kesfet")) {
-      message = "Endonezya'nın tatil destinasyonları hakkında bilgi almak istiyorum";
-    } else if (location.pathname.startsWith("/youtube")) {
-      message = "Merhaba, YouTube sayfanızı ziyaret ettim ve size bir şey sormak istiyorum";
-    } else if (location.pathname.startsWith("/contact")) {
-      message = "Merhaba, bir konu hakkında bilgi almak istiyorum";
-    } else if (location.pathname === "/") {
-      message = "Merhaba, size genel anlamda bir şey sormak istiyorum";
-    }
-
-    return baseUrl + encodeURIComponent(message);
-  };
-
-  const whatsappLink = getWhatsappLink();
 
   const navItems = useMemo(
     () => [
@@ -62,44 +39,41 @@ export default function Navigation() {
   return (
     <>
       <nav className="sticky top-0 z-50 bg-gradient-to-r from-white via-emerald-50 to-white shadow-lg border-b border-emerald-100">
-        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex items-center gap-4">
           <Link
             to="/"
-            className="flex items-center gap-3 leading-tight"
+            className="flex items-center gap-3 leading-tight shrink-0"
             style={{ fontFamily: '"Poppins", sans-serif' }}
             aria-label="Ana sayfa"
           >
-            {/* Mobile: icon mark only */}
-            <img
-              src="/ChatGPT%20Image%2014%20Oca%202026%2017_26_03.png"
-              alt="Endonezya Kaşifi"
-              className="h-12 w-auto md:hidden"
-              loading="eager"
-              decoding="async"
-            />
+            <div className="flex flex-col leading-none">
+              {/* Mobile */}
+              <img
+                src="/logos/endonezya-kasifi-logo.png"
+                alt="Endonezya Kaşifi"
+                className="h-12 w-auto md:hidden"
+                loading="eager"
+                decoding="async"
+              />
 
-            {/* Desktop: horizontal lockup */}
-            <img
-              src="/ChatGPT%20Image%2014%20Oca%202026%2017_26_03.png"
-              alt="Endonezya Kaşifi"
-              className="hidden md:block h-14 w-auto"
-              loading="eager"
-              decoding="async"
-            />
+              {/* Desktop */}
+              <img
+                src="/logos/endonezya-kasifi-logo.png"
+                alt="Endonezya Kaşifi"
+                className="hidden md:block h-14 lg:h-16 w-auto"
+                loading="eager"
+                decoding="async"
+              />
+
+              <div className="hidden md:block mt-1">
+                <div className="text-[11px] text-slate-700 font-semibold tracking-wide">Seyahat organizasyon</div>
+                <div className="text-[10px] text-slate-600 font-semibold tracking-wide mt-0.5">Evlilik rehberliği</div>
+              </div>
+            </div>
           </Link>
 
           {/* Mobil: WhatsApp + Menü */}
-          <div className="md:hidden flex items-center gap-2">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-2 rounded-full font-semibold shadow hover:shadow-lg transition-all duration-200"
-              aria-label="WhatsApp"
-            >
-              <MessageCircle size={18} />
-              <span className="text-xs">WhatsApp</span>
-            </a>
+          <div className="md:hidden flex items-center gap-2 ml-auto">
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((v) => !v)}
@@ -110,86 +84,79 @@ export default function Navigation() {
             </button>
           </div>
 
-          <div className="hidden md:flex gap-3 items-center">
-            <Link to="/" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+          <div className="hidden md:flex flex-1 min-w-0 items-center justify-end">
+            <div className="flex items-center gap-2 flex-nowrap overflow-x-auto min-w-0">
+            <Link to="/" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/') 
                 ? 'bg-emerald-500 text-white shadow-lg' 
                 : 'text-gray-700 hover:bg-emerald-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.home')}
             </Link>
-            <Link to="/about" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/about" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/about')
                 ? 'bg-emerald-500 text-white shadow-lg'
                 : 'text-gray-700 hover:bg-emerald-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.about')}
             </Link>
-            <Link to="/kurumsal" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/kurumsal" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/kurumsal')
                 ? 'bg-slate-800 text-white shadow-lg'
                 : 'text-slate-700 hover:bg-slate-800 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.corporate')}
             </Link>
-            <Link to="/travel" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/travel" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/travel')
                 ? 'bg-emerald-500 text-white shadow-lg'
                 : 'text-gray-700 hover:bg-emerald-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.travel')}
             </Link>
-            <Link to="/tours" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/tours" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/tours')
                 ? 'bg-emerald-500 text-white shadow-lg'
                 : 'text-gray-700 hover:bg-emerald-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.tours')}
             </Link>
-            <Link to="/kesfet" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/kesfet" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/kesfet')
                 ? 'bg-orange-500 text-white shadow-lg'
                 : 'text-gray-700 hover:bg-orange-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.explore')}
             </Link>
-            <Link to="/wedding" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/wedding" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/wedding')
                 ? 'bg-emerald-500 text-white shadow-lg'
                 : 'text-gray-700 hover:bg-emerald-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.wedding')}
             </Link>
-            <Link to="/dokumanlar" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/dokumanlar" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/dokumanlar')
                 ? 'bg-sky-600 text-white shadow-lg'
                 : 'text-sky-700 hover:bg-sky-600 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               Dokümanlar
             </Link>
-            <Link to="/youtube" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/youtube" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/youtube')
                 ? 'bg-red-500 text-white shadow-lg'
                 : 'text-red-600 hover:bg-red-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               YouTube
             </Link>
-            <Link to="/contact" className={`px-2 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
+            <Link to="/contact" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/contact')
                 ? 'bg-blue-500 text-white shadow-lg'
                 : 'text-blue-600 hover:bg-blue-500 hover:text-white'
             }`} style={{ fontFamily: '"Poppins", sans-serif' }}>
               {t('navigation.contact')}
             </Link>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-200 whitespace-nowrap"
-            >
-              <MessageCircle size={18} />
-              WhatsApp
-            </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -207,9 +174,9 @@ export default function Navigation() {
             <div className="max-w-7xl mx-auto px-4 py-4">
               <div className="flex items-center justify-center pb-3">
                 <img
-                  src="/ChatGPT%20Image%2014%20Oca%202026%2017_26_03.png"
+                  src="/logos/endonezya-kasifi-logo.png"
                   alt="Endonezya Kaşifi"
-                  className="h-24 w-auto"
+                  className="h-28 w-auto"
                   loading="eager"
                   decoding="async"
                 />
@@ -241,16 +208,6 @@ export default function Navigation() {
                     {item.label}
                   </Link>
                 ))}
-
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-200"
-                >
-                  <MessageCircle size={18} />
-                  WhatsApp’tan yaz
-                </a>
               </div>
             </div>
           </div>

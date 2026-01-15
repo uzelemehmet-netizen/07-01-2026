@@ -25,6 +25,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import NotFound from './pages/NotFound';
 import RequireAuth from './auth/RequireAuth';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 function ScrollToTop() {
   const location = useLocation();
@@ -99,6 +100,7 @@ function App() {
       <ScrollToTop />
       <TitleManager />
       <AnalyticsTracker />
+      <FloatingWhatsApp />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

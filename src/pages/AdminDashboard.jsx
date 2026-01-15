@@ -77,6 +77,36 @@ const ISLANDS_DATA = {
   }
 };
 
+// public klasöründeki bazı büyük/varsayılan görselleri Cloudinary + Firestore'a taşıyıp
+// projeyi "public" bağımlılığından kurtarmak için yönetim kartları.
+const STATIC_PUBLIC_IMAGES = [
+  {
+    imageId: 'vecteezy_two-men-riding-jet-skis-side-by-side-on-the-water-concept_68431320.jpg',
+    name: 'Serbest gün görseli (Jet-ski)',
+    category: 'Sabit (public) görsel'
+  },
+  {
+    imageId: 'vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg',
+    name: 'Serbest gün görseli (Yat - Komodo)',
+    category: 'Sabit (public) görsel'
+  },
+  {
+    imageId: 'young-slim-woman-sitting-bikini-bathing-suit-yacht-basking-sun.jpg',
+    name: 'Serbest gün görseli (Yat - Güneş)',
+    category: 'Sabit (public) görsel'
+  },
+  {
+    imageId: 'three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg',
+    name: 'CTA sağ görsel (Arkadaş grubu / tekne)',
+    category: 'Sabit (public) görsel'
+  },
+  {
+    imageId: 'ernests-vaga-mzJFI9o5_zc-unsplash.jpg',
+    name: 'Varsayılan galeri görseli (Unsplash)',
+    category: 'Sabit (public) görsel'
+  },
+];
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('islands');
   const [selectedIsland, setSelectedIsland] = useState('bali');
@@ -409,27 +439,75 @@ export default function AdminDashboard() {
         };
         img.onerror = () => {
           URL.revokeObjectURL(objectUrl);
-          reject(new Error('Görsel okunamadı (bozuk dosya olabilir).'));
+          reject(new Error('Görsel okunamadı (bozuk dosya/CMYK olabilir).'));
         };
         img.src = objectUrl;
       });
 
-    const toBlob = (canvas, type, q) =>
-      new Promise((resolve) => {
+    const loadDrawableSource = async (file) => {
+      // Önce createImageBitmap dene (bazı görsellerde daha stabil)
+      if (typeof createImageBitmap === 'function') {
+        try {
+          const bitmap = await createImageBitmap(file);
+          return {
+            source: bitmap,
+            width: bitmap.width,
+            height: bitmap.height,
+            cleanup: () => {
+              try { bitmap.close(); } catch (e) {}
+            }
+          };
+        } catch (e) {
+          // fallback: HTMLImageElement
+        }
+      }
+
+      const img = await loadImageElement(file);
+      return {
+        source: img,
+        width: img.naturalWidth || img.width,
+        height: img.naturalHeight || img.height,
+        cleanup: () => {}
+      };
+    };
+
+    const toBlob = async (canvas, type, q) => {
+      const blob = await new Promise((resolve) => {
         canvas.toBlob((b) => resolve(b), type, q);
       });
+      if (blob) return blob;
+
+      // Safari vb. nadiren null döndürebiliyor; dataURL fallback
+      try {
+        const dataUrl = canvas.toDataURL(type, q);
+        const res = await fetch(dataUrl);
+        return await res.blob();
+      } catch (e) {
+        return null;
+      }
+    };
 
     const orientation = await readJpegOrientation(inputFile);
-    const img = await loadImageElement(inputFile);
-    const originalW = img.naturalWidth || img.width;
-    const originalH = img.naturalHeight || img.height;
+
+    let drawable;
+    try {
+      drawable = await loadDrawableSource(inputFile);
+    } catch (e) {
+      throw new Error(
+        'Bu görsel tarayıcıda işlenemiyor (bozuk/CMYK olabilir). Lütfen görseli JPG (sRGB) olarak yeniden dışa aktarın ve tekrar deneyin.'
+      );
+    }
+
+    const originalW = drawable.width;
+    const originalH = drawable.height;
 
     if (!originalW || !originalH) {
       throw new Error('Görsel boyutları okunamadı.');
     }
 
-    // Sıkıştırmayı en fazla birkaç tur dene: önce kalite düşür, sonra boyutu küçült.
-    for (let outer = 0; outer < 6; outer += 1) {
+    // Sıkıştırmayı birkaç tur dene: önce kalite düşür, sonra boyutu küçült.
+    // (10MB+ görselleri garanti altına almak için tur sayısını biraz artırıyoruz.)
+    for (let outer = 0; outer < 10; outer += 1) {
       const scale = Math.min(1, maxDimension / Math.max(originalW, originalH));
       const targetW = Math.max(1, Math.round(originalW * scale));
       const targetH = Math.max(1, Math.round(originalH * scale));
@@ -448,25 +526,34 @@ export default function AdminDashboard() {
       ctx.imageSmoothingQuality = 'high';
       applyOrientationTransform(ctx, orientation, canvasW, canvasH);
       // drawImage boyutları her zaman "orijinal" hedef boyuttur.
-      ctx.drawImage(img, 0, 0, targetW, targetH);
+      ctx.drawImage(drawable.source, 0, 0, targetW, targetH);
 
       // Kaliteyi birkaç adım düşür
-      const qualitySteps = [quality, 0.78, 0.7, 0.62, 0.54, 0.46, 0.4];
+      const qualitySteps = [quality, 0.78, 0.7, 0.62, 0.54, 0.46, 0.4, 0.34, 0.3, 0.26];
       for (let i = 0; i < qualitySteps.length; i += 1) {
         const q = qualitySteps[i];
-        const blob = await toBlob(canvas, 'image/jpeg', q);
+        let blob = await toBlob(canvas, 'image/jpeg', q);
+        // JPEG hala büyükse, WebP dene (genelde daha küçük olur)
+        if (blob && blob.size > maxBytes) {
+          const webp = await toBlob(canvas, 'image/webp', Math.min(0.9, q + 0.1));
+          if (webp && webp.size < blob.size) blob = webp;
+        }
         if (!blob) continue;
         if (blob.size <= maxBytes) {
-          const outName = inputFile.name.replace(/\.[a-z0-9]+$/i, '') + '.jpg';
-          const outFile = new File([blob], outName, { type: 'image/jpeg' });
+          const isWebp = blob.type === 'image/webp';
+          const outName = inputFile.name.replace(/\.[a-z0-9]+$/i, '') + (isWebp ? '.webp' : '.jpg');
+          const outFile = new File([blob], outName, { type: blob.type || (isWebp ? 'image/webp' : 'image/jpeg') });
+          drawable.cleanup();
           return { file: outFile, didCompress: true, originalBytes, outputBytes: blob.size };
         }
       }
 
       // Hâlâ büyükse boyutu biraz daha küçült
-      maxDimension = Math.round(maxDimension * 0.85);
-      quality = Math.max(0.75, quality - 0.05);
+      maxDimension = Math.round(maxDimension * 0.8);
+      quality = Math.max(0.7, quality - 0.06);
     }
+
+    drawable.cleanup();
 
     throw new Error(
       `Görsel 10MB altına indirilemedi. Lütfen daha küçük bir dosya seçin (mevcut: ${formatBytes(originalBytes)}).`
@@ -485,20 +572,49 @@ export default function AdminDashboard() {
       // Firebase Storage (Google Cloud Storage) free planda çoğu projede "Upgrade" isteyebilir.
       // Bu projede pratik çözüm: Cloudinary'ye upload edip URL'yi Firestore'a kaydetmek.
       const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
+      const TARGET_UPLOAD_BYTES = Math.floor(MAX_UPLOAD_BYTES * 0.95);
       let progressPrefix = '';
       let fileToUpload = file;
-      if (file.size > MAX_UPLOAD_BYTES) {
+      if (file.size > TARGET_UPLOAD_BYTES) {
         setUploadProgress((prev) => ({
           ...prev,
           [imageId]: `Sıkıştırılıyor... (${formatBytes(file.size)})`,
         }));
-        const compressed = await compressImageIfNeeded(file, MAX_UPLOAD_BYTES);
-        fileToUpload = compressed.file;
-        progressPrefix = `Sıkıştırıldı: ${formatBytes(compressed.originalBytes)} → ${formatBytes(compressed.outputBytes)} | `;
-        setUploadProgress((prev) => ({
-          ...prev,
-          [imageId]: `${progressPrefix}Yükleniyor...`,
-        }));
+        try {
+          const compressed = await compressImageIfNeeded(file, TARGET_UPLOAD_BYTES);
+          fileToUpload = compressed.file;
+          progressPrefix = `Sıkıştırıldı: ${formatBytes(compressed.originalBytes)} → ${formatBytes(compressed.outputBytes)} | `;
+          setUploadProgress((prev) => ({
+            ...prev,
+            [imageId]: `${progressPrefix}Yükleniyor...`,
+          }));
+        } catch (compressErr) {
+          // Bazı JPEG'ler (özellikle CMYK / bozuk metadata) tarayıcıda decode edilemeyebilir.
+          // Bu durumda sıkıştırma yapamıyoruz; Cloudinary genelde dosyayı kabul edip işleyebiliyor.
+          console.warn('Sıkıştırma başarısız, orijinal dosya ile denenecek:', compressErr);
+          // Ancak Cloudinary unsigned upload çoğu zaman 10MB üzerini reddeder.
+          // Sıkıştırma başarısızsa, kullanıcıyı net şekilde yönlendirelim.
+          if (file.size > MAX_UPLOAD_BYTES) {
+            throw new Error(
+              `Bu dosya ${formatBytes(file.size)} ve 10MB limitini aşıyor. Tarayıcı bu görseli sıkıştıramadı (bozuk/CMYK olabilir), bu yüzden Cloudinary yüklemeyi reddeder.\n\nÇözüm seçenekleri:\n- Görseli küçültüp tekrar dene (en uzun kenar 2000-2400px, JPEG kalite 75-85).\n- Cloudinary panelinden yükleyip oluşan URL'yi buraya yapıştır.\n- Alternatif: sunucu/worker ile "signed upload" + chunked upload (upload_large) kurabiliriz.`
+            );
+          }
+
+          // 10MB altındaysa sıkıştırmayı atlayıp orijinali göndermek güvenli.
+          fileToUpload = file;
+          progressPrefix = `Sıkıştırma atlandı (${formatBytes(file.size)}) | `;
+          setUploadProgress((prev) => ({
+            ...prev,
+            [imageId]: `${progressPrefix}Yükleniyor...`,
+          }));
+        }
+      }
+
+      // Son emniyet: Cloudinary limitini aşmayalım.
+      if (fileToUpload?.size && fileToUpload.size > MAX_UPLOAD_BYTES) {
+        throw new Error(
+          `Sıkıştırma sonrası dosya hâlâ ${formatBytes(fileToUpload.size)} ve 10MB limitini aşıyor.\n\nLütfen daha küçük bir görsel seçin veya Cloudinary panelinden yükleyip URL yapıştırın.`
+        );
       }
 
       const uploadToCloudinary = (uploadFile) =>
@@ -936,6 +1052,36 @@ export default function AdminDashboard() {
       );
     }
 
+    if (activeTab === 'staticPublic') {
+      return (
+        <div>
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-gray-800">Sabit (public) Görseller</h3>
+            <p className="text-xs text-gray-500">
+              Bu kartlar, projedeki bazı varsayılan public görselleri Cloudinary&apos;ye yükleyip URL&apos;yi Firestore&apos;a kaydetmenizi sağlar.
+              Böylece ilgili dosyaları public klasöründen silebilirsiniz.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {STATIC_PUBLIC_IMAGES.map((img) => (
+              <ImageCard
+                key={img.imageId}
+                imageId={img.imageId}
+                name={img.name}
+                category={img.category}
+                imageUrls={imageUrls}
+                editingId={editingId}
+                setEditingId={setEditingId}
+                handleImageUrlChange={handleImageUrlChange}
+                handleFileUpload={handleFileUpload}
+                uploadProgress={uploadProgress}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     if (activeTab === 'tabGallery') {
       const island = ISLANDS_DATA[selectedIsland];
       const TAB_CONFIG = [
@@ -1263,6 +1409,16 @@ export default function AdminDashboard() {
           >
             Tur Paketleri
           </button>
+          <button
+            onClick={() => setActiveTab('staticPublic')}
+            className={`px-6 py-3 font-semibold transition whitespace-nowrap ${
+              activeTab === 'staticPublic'
+                ? 'text-indigo-600 border-b-2 border-indigo-600'
+                : 'text-gray-600 hover:text-gray-800'
+            }`}
+          >
+            Sabit (Public) Görseller
+          </button>
     <button
       onClick={() => setActiveTab('reservations')}
       className={`px-6 py-3 font-semibold transition whitespace-nowrap ${
@@ -1327,6 +1483,10 @@ function ImageCard({
   const isEditing = editingId === imageId;
   const progress = uploadProgress[imageId];
 
+  // Bazı kartlar doğrudan public kök dosya adıyla (örn: "foo.jpg") yönetiliyor.
+  // Override yoksa, en azından mevcut public görseli önizleme olarak göster.
+  const previewSrc = imageUrls[imageId] || (String(imageId).includes('.') ? `/${imageId}` : null);
+
   const cardClass = compact 
     ? 'bg-white rounded-lg shadow p-3' 
     : 'bg-white rounded-lg shadow-md p-6';
@@ -1350,10 +1510,10 @@ function ImageCard({
         </button>
       </div>
 
-      {imageUrls[imageId] && (
+      {previewSrc && (
         <div className={`mb-3 overflow-hidden rounded-lg ${compact ? 'h-20' : 'h-40'}`}>
           <img
-            src={imageUrls[imageId]}
+            src={previewSrc}
             alt={name}
             className="w-full h-full object-cover"
             onError={(e) => {

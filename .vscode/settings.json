@@ -5,5 +5,39 @@
   "git.autofetch": false,
   "git.decorations.enabled": false,
   "git.showProgress": false,
-  "git.countBadge": "off"
+  "git.countBadge": "off",
+
+  // Büyük klasörler VS Code'un dosya izleyicisini ve arama indeksini yorabilir.
+  // (Özellikle iki ayrı projede ayrı ayrı node_modules olduğunda.)
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.turbo/**": true,
+    "**/.cache/**": true,
+    "**/.vercel/**": true,
+    "**/.netlify/**": true,
+    "**/.vite/**": true,
+    "**/.venv/**": true,
+    "**/coverage/**": true
+  },
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.turbo/**": true,
+    "**/.cache/**": true,
+    "**/.vercel/**": true,
+    "**/.netlify/**": true,
+    "**/.vite/**": true,
+    "**/.venv/**": true,
+    "**/coverage/**": true
+  },
+
+  // TS/JS projelerinde tsserver RAM'i düşük kalırsa UI gecikmesi hissedilebilir.
+  "typescript.tsserver.maxTsServerMemory": 4096
 }

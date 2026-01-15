@@ -1,7 +1,7 @@
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import HeroSocialButtons from '../components/HeroSocialButtons';
-import { Heart, Plane, Video, MapPin, FileText, Users, MessageCircle, IceCream } from 'lucide-react';
+import { Plane, MapPin, Users, FileText, BadgeCheck, Heart, Video, IceCream, MessageCircle } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
             <div className="max-w-4xl mx-auto">
               <div className="flex flex-wrap justify-center gap-2 mb-4">
                 <span className="inline-flex items-center rounded-full bg-white/10 text-white px-3 py-1 text-xs font-semibold border border-white/20" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
-                  PT MoonStar Global Indonesia
+                  Endonezya’da kayıtlı PT MoonStar Global Indonesia
                 </span>
                 <span className="inline-flex items-center rounded-full bg-emerald-500/20 text-emerald-50 px-3 py-1 text-xs font-semibold border border-emerald-200/30" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
                   EndonezyaKaşifi sosyal hesapları
@@ -47,10 +47,62 @@ export default function Home() {
 	                Aynı zamanda Endonezya’da evlilik için gelen çiftlere; otel, ulaşım, tercümanlık ve resmi evrak süreçlerinde
 	                adım adım rehberlik ediyoruz.
               </p>
+          <p
+            className="text-[11px] md:text-xs text-white/85 max-w-4xl mx-auto"
+            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
+          >
+            Endonezya’da yaşayan bir Türk girişimci tarafından kurulan, Endonezya merkezli bir yapı.
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            <a
+              href="/tours"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-emerald-500 text-white font-semibold text-sm shadow-md hover:bg-emerald-600 transition"
+            >
+              <Plane size={18} />
+              Tur paketlerini incele
+            </a>
+            <a
+              href="/docs/tur-brosurleri.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/10 text-white font-semibold text-sm border border-white/25 hover:bg-white/15 transition"
+            >
+              <FileText size={18} />
+              Broşürleri PDF indir
+            </a>
+            <a
+              href="/kurumsal"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/10 text-white font-semibold text-sm border border-white/25 hover:bg-white/15 transition"
+            >
+              <BadgeCheck size={18} />
+              Güven & Yasal
+            </a>
+          </div>
             </div>
           </div>
         </div>
         <HeroSocialButtons align="right" />
+      </section>
+
+      {/* Trust strip */}
+      <section className="px-4 -mt-8 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="rounded-2xl bg-white border border-emerald-100 shadow-sm p-4">
+              <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1">Şeffaf süreç</p>
+              <p className="text-sm text-gray-700">Ön kayıt → yazılı teklif → sözleşme/ödeme adımları net ilerler.</p>
+            </div>
+            <div className="rounded-2xl bg-white border border-emerald-100 shadow-sm p-4">
+              <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1">Türkçe destek</p>
+              <p className="text-sm text-gray-700">Türkiye hattı WhatsApp destekli; sahada Endonezya operasyonu.</p>
+            </div>
+            <div className="rounded-2xl bg-white border border-emerald-100 shadow-sm p-4">
+              <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1">Yasal yapı</p>
+              <p className="text-sm text-gray-700">Endonezya Kaşifi, Endonezya’da kayıtlı PT MoonStar Global Indonesia markasıdır.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Services Section */}
@@ -182,6 +234,33 @@ export default function Home() {
                 </p>
               </div>
             </a>
+          </div>
+
+          {/* How it works */}
+          <div className="mt-10 p-6 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+            <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Nasıl ilerliyoruz?</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1">1) Ön kayıt</p>
+                <p className="text-sm text-gray-700">Ücretsiz ve bağlayıcı değil. İhtiyacınızı netleştiriyoruz.</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-sky-50 border border-sky-100">
+                <p className="text-xs uppercase tracking-wide text-sky-700 mb-1">2) Yazılı paket</p>
+                <p className="text-sm text-gray-700">Program + dahil/hariç + önemli notlar yazılı paylaşılır.</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100">
+                <p className="text-xs uppercase tracking-wide text-amber-800 mb-1">3) Onay & ödeme</p>
+                <p className="text-sm text-gray-700">Sözleşme inceleme → ödeme → rezervasyon kesinleşir.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <a href="/tours" className="inline-flex items-center gap-2 rounded-full bg-emerald-600 text-white px-4 py-2 text-sm font-semibold hover:bg-emerald-700 transition">
+                <Plane size={18} /> Tur paketlerini gör
+              </a>
+              <a href="/dokumanlar" className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-4 py-2 text-sm font-semibold hover:shadow-sm transition">
+                <BadgeCheck size={18} className="text-emerald-700" /> Dokümanlar
+              </a>
+            </div>
           </div>
         </div>
       </section>

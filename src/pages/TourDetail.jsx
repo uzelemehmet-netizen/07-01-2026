@@ -68,8 +68,8 @@ const renderWithInclusionHighlight = (text) => {
           key={`inc-${key}`}
           className={
             type === "negative"
-              ? "font-semibold text-red-600"
-              : "font-semibold text-emerald-700"
+              ? "inline-flex items-center px-1.5 py-0.5 rounded-md bg-red-50 text-red-800 border border-red-200 font-semibold"
+              : "inline-flex items-center px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold"
           }
         >
           {phrase}
@@ -1786,6 +1786,17 @@ export default function TourDetail() {
   const [pricingOverride, setPricingOverride] = useState(null);
   const [imageUrls, setImageUrls] = useState({});
 
+  const resolveImageUrl = (maybeUrl) => {
+    if (!maybeUrl || typeof maybeUrl !== "string") return maybeUrl;
+
+    // Zaten uzaktaki (CDN) veya data URL ise dokunma
+    if (/^(https?:)?\/\//i.test(maybeUrl) || /^(data:|blob:)/i.test(maybeUrl)) return maybeUrl;
+
+    // public kök yollarını Firestore/localStorage override ile çöz
+    const key = maybeUrl.startsWith("/") ? maybeUrl.slice(1) : maybeUrl;
+    return imageUrls?.[maybeUrl] || imageUrls?.[key] || maybeUrl;
+  };
+
   // Sayfa her açıldığında en üste kaydır
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -2558,6 +2569,10 @@ export default function TourDetail() {
     ? galleryOverride
     : tour.gallery || [];
 
+  const resolvedGalleryImages = Array.isArray(galleryImages)
+    ? galleryImages.map((img) => resolveImageUrl(img || "/placeholder.svg"))
+    : [];
+
   // İlgili tur için, serbest günlerdeki opsiyonel ekstra aktiviteleri rezervasyon alanında kullanmak üzere düz listeye çevir
   const baseOptionalExtras = Array.isArray(tour.itinerary)
     ? tour.itinerary.flatMap((day) =>
@@ -2697,21 +2712,30 @@ export default function TourDetail() {
             </span>
           </div>
 
-          {/* Bali broşürü indirme bağlantısı – yalnızca Bali sayfasında göster */}
-          {effectiveId === "bali" && (
+          {/* Broşür: tüm destinasyonlarda hero alanında göster */}
+          {effectiveId && (
             <div className="hidden md:block mt-6 space-y-1">
-              <a
-                href="/docs/bali-tatil-brosuru.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white/95 text-sky-900 text-xs sm:text-sm font-semibold px-4 py-2 shadow-md shadow-black/40 hover:bg-white transition-colors"
-              >
-                <span className="text-base sm:text-lg">📄</span>
-                <span>Bali tatil broşürünü aç / PDF olarak indir</span>
-              </a>
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href={effectiveId === "bali" ? "/docs/bali-tatil-brosuru.html" : `/docs/tur-brosuru-${effectiveId}-v2.html`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/95 text-sky-900 text-xs sm:text-sm font-semibold px-4 py-2 shadow-md shadow-black/40 hover:bg-white transition-colors"
+                >
+                  <span className="text-base sm:text-lg">📄</span>
+                  <span>{tour.name} broşürünü aç</span>
+                </a>
+                <a
+                  href={effectiveId === "bali" ? "/docs/pdf/bali-tatil-brosuru.pdf" : `/docs/pdf/tur-brosuru-${effectiveId}-v2.pdf`}
+                  download
+                  className="inline-flex items-center gap-2 rounded-full bg-white/10 text-white text-xs sm:text-sm font-semibold px-4 py-2 border border-white/20 backdrop-blur-[2px] hover:bg-white/15 transition-colors"
+                >
+                  <span className="text-base sm:text-lg">⬇️</span>
+                  <span>PDF indir</span>
+                </a>
+              </div>
               <p className="text-[11px] text-white/85 max-w-md">
-	        Açılan sayfayı tarayıcınızda "Yazdır &gt; PDF olarak kaydet"
-	        adımlarını izleyerek PDF olarak indirebilirsiniz.
+	        PDF için: Açılan sayfada "Yazdır &gt; PDF olarak kaydet" adımlarını izleyebilirsiniz.
               </p>
             </div>
           )}
@@ -2731,19 +2755,29 @@ export default function TourDetail() {
 
       {/* Üst Bilgiler */}
       <section className="max-w-6xl mx-auto px-4 -mt-10 relative z-10 mb-12">
-        {effectiveId === "bali" && (
+        {effectiveId && (
           <div className="md:hidden mb-6">
-            <a
-              href="/docs/bali-tatil-brosuru.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white text-sky-900 text-xs font-semibold px-4 py-2 shadow-sm border border-slate-200"
-            >
-              <span className="text-base">📄</span>
-              <span>Bali tatil broşürünü aç / PDF olarak indir</span>
-            </a>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href={effectiveId === "bali" ? "/docs/bali-tatil-brosuru.html" : `/docs/tur-brosuru-${effectiveId}-v2.html`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white text-sky-900 text-xs font-semibold px-4 py-2 shadow-sm border border-slate-200"
+              >
+                <span className="text-base">📄</span>
+                <span>{tour.name} broşürünü aç</span>
+              </a>
+              <a
+                href={effectiveId === "bali" ? "/docs/pdf/bali-tatil-brosuru.pdf" : `/docs/pdf/tur-brosuru-${effectiveId}-v2.pdf`}
+                download
+                className="inline-flex items-center gap-2 rounded-full bg-slate-900 text-white text-xs font-semibold px-4 py-2 shadow-sm border border-slate-800"
+              >
+                <span className="text-base">⬇️</span>
+                <span>PDF indir</span>
+              </a>
+            </div>
             <p className="text-[11px] text-slate-600 mt-1 max-w-md">
-              Açılan sayfayı tarayıcınızda "Yazdır &gt; PDF olarak kaydet" adımlarını izleyerek PDF olarak indirebilirsiniz.
+              PDF için: Açılan sayfada "Yazdır &gt; PDF olarak kaydet" adımlarını izleyebilirsiniz.
             </p>
           </div>
         )}
@@ -2977,7 +3011,7 @@ export default function TourDetail() {
             {/* Üstten alta kadar sol tarafta dalış & mercan resifi görseli */}
             <div className="absolute inset-y-0 left-0 w-1/2 md:w-1/3 lg:w-1/4 opacity-95">
               <img
-                src={
+                src={resolveImageUrl(
                   isJava
                     ? tour?.hero || tour?.image || "/placeholder.svg"
                     : isSulawesi
@@ -2989,7 +3023,7 @@ export default function TourDetail() {
                     : isLombok
                       ? "/surya-bali-jet-ski-sanur.jpg"
                       : "https://res.cloudinary.com/dj1xg1c56/image/upload/v1767781298/vecteezy_diver-swimming-over-a-coral-reef-ai-generated_33502407_lsciky.jpg"
-                }
+                )}
                 alt={
                   isJava
                     ? "Java - tur görseli"
@@ -3010,7 +3044,7 @@ export default function TourDetail() {
             {/* Üstten alta kadar sağ tarafta tekne / arkadaş grubu görseli */}
             <div className="absolute inset-y-0 right-0 w-1/2 md:w-1/3 lg:w-1/4 opacity-95">
               <img
-                src={
+                src={resolveImageUrl(
                   isJava
                     ? (Array.isArray(tour?.gallery) && tour.gallery[1] ? tour.gallery[1] : tour?.hero || tour?.image || "/placeholder.svg")
                     : isSulawesi
@@ -3022,7 +3056,7 @@ export default function TourDetail() {
                     : isLombok
                       ? "/lombok-island-beach-waterfall.jpg"
                       : "/three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg"
-                }
+                )}
                 alt={
                   isJava
                     ? "Java - tur görseli"
@@ -3052,7 +3086,10 @@ export default function TourDetail() {
             <p className="text-sm md:text-base mb-6 text-white/90">
               Ön kayıt ücretsizdir ve bağlayıcı değildir. Ön kayıt sonrası size WhatsApp üzerinden tur programı, dahil/hariç,
               tur kuralları ve önemli uyarıları yazılı olarak iletiriz. Netleştirme sonrası; ön bilgilendirme + sözleşmeyi
-              inceleme için paylaşır, onayınızla ödeme ve imza adımına geçeriz.
+              inceleme için paylaşırız. Onayınızla ödeme adımı başlar: kaporalı ön rezervasyonda önce kapora alınır; tur programı
+              yeterli katılıma ulaşıp operasyon kesinleştiğinde kalan tutar için ödeme açılır ve ödeme tamamlanınca rezervasyon
+              kesinleşir. Bu yöntem, banka/ödeme sağlayıcı tarafında olası aksaklıklar yaşanmaması ve hem misafir hem organizasyon
+              tarafını korumak için uygulanır.
             </p>
             <div className="max-w-3xl mx-auto mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2 text-left">
               <div className="rounded-xl bg-white/10 border border-white/15 px-4 py-3">
@@ -3065,12 +3102,12 @@ export default function TourDetail() {
               </div>
               <div className="rounded-xl bg-white/10 border border-white/15 px-4 py-3">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">3) Onay & ödeme</p>
-                <p className="text-xs text-white/90 mt-1">Sözleşme inceleme → ödeme → imza</p>
+                <p className="text-xs text-white/90 mt-1">Sözleşme inceleme → kapora → (program netleşince) kalan ödeme</p>
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               <a
-                href="/docs/on-kayit-bilgi-paketi.html"
+                href="/docs/pdf/on-kayit-bilgi-paketi.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 px-4 py-2 text-xs text-white transition-colors"
@@ -3079,7 +3116,7 @@ export default function TourDetail() {
                 <span className="text-white/80">Aç</span>
               </a>
               <a
-                href={`/docs/tur-brosuru-${effectiveId}-v2.html`}
+                href={effectiveId === "bali" ? "/docs/pdf/bali-tatil-brosuru.pdf" : `/docs/pdf/tur-brosuru-${effectiveId}-v2.pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 px-4 py-2 text-xs text-white transition-colors"
@@ -3358,7 +3395,9 @@ export default function TourDetail() {
                 sadece <span className="font-semibold">kapora tutarı</span> veya <span className="font-semibold">toplam tur bedeli</span> esas alınır.
               </p>
               <p className="text-xs md:text-sm text-gray-600 mb-3">
-                Bu ekranda gördüğünüz tutar, seçtiğiniz seçeneklere göre hesaplanan ödeme tutarıdır.
+                Kaporalı ön rezervasyonda, kapora ödendikten sonra tur programı yeterli katılıma ulaşıp operasyon kesinleştiğinde
+                kalan tutar için ödeme adımı açılır; kalan ödeme tamamlandığında rezervasyon kesinleşir. Bu ekranda gördüğünüz tutar,
+                seçtiğiniz seçeneğe göre hesaplanan ödeme tutarıdır.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -4006,13 +4045,14 @@ export default function TourDetail() {
               ];
               const freeImageIndex = day.day % freeDayImages.length;
               const freeImageSrc = dayBgOverride || freeDayImages[freeImageIndex];
+              const freeImageResolved = resolveImageUrl(freeImageSrc);
 
               return (
                 <div key={day.day} className="relative w-full">
                     {/* Mobilde üstte görsel */}
                     <div className="md:hidden mb-3 rounded-lg overflow-hidden shadow-sm border border-slate-200 bg-slate-100">
                       <img
-                        src={freeImageSrc}
+                        src={freeImageResolved}
                         alt={`${day.title} için görsel`}
                         className="w-full h-44 object-cover"
                         loading="lazy"
@@ -4022,7 +4062,7 @@ export default function TourDetail() {
                   {/* Sol tarafta görsel alanı – kartın üst ve alt noktalarıyla hizalı */}
                   <div className="hidden md:block absolute inset-y-0 left-4 md:left-4 w-52 lg:left-8 lg:w-56 rounded-none overflow-hidden shadow-lg border border-slate-200 bg-slate-100">
                     <img
-                      src={freeImageSrc}
+                      src={freeImageResolved}
                       alt={`${day.title} için görsel`}
                       className="w-full h-full object-cover"
                       loading="lazy"
@@ -4526,7 +4566,7 @@ export default function TourDetail() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900">Turdan Kareler</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {galleryImages.map((image, idx) => (
+            {resolvedGalleryImages.map((image, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -4612,7 +4652,7 @@ export default function TourDetail() {
 
       {lightboxOpen && (
         <ImageLightbox
-          images={galleryImages}
+          images={resolvedGalleryImages}
           currentIndex={lightboxIndex}
           onClose={() => setLightboxOpen(false)}
         />

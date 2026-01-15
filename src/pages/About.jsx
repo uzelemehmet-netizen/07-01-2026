@@ -45,6 +45,12 @@ export default function About() {
               vitrini ve iletişim noktasıdır. Kamuya dönük marka iletişimimizi ise <span className="font-semibold">Endonezya Kaşifi</span>
               adıyla sürdürüyoruz.
             </p>
+            <p className="text-sm text-gray-700 mt-3" style={{ fontFamily: '"Poppins", sans-serif' }}>
+              MoonStar Global Indonesia; Endonezya’da yaşayan bir <span className="font-semibold">Türk girişimci</span> tarafından,
+              Türk misafirlerin beklentilerini yerinde anlayan ve sahada çözen bir yapı kurmak amacıyla hayata geçirilmiştir.
+              Tur paketleri ve satış iletişimi, Türk misafirlere daha anlaşılır bir deneyim sunmak için <span className="font-semibold">Endonezya Kaşifi</span>
+              markası altında yürütülür.
+            </p>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link to="/tours" className="p-4 rounded-2xl bg-white border border-emerald-100 shadow-sm hover:shadow-md transition block">
                 <p className="text-xs uppercase tracking-wide text-emerald-700 mb-1" style={{ fontFamily: '"Poppins", sans-serif' }}>

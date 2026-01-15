@@ -1,0 +1,10 @@
+# Cloudflare Pages / Netlify compatible headers
+# Amaç: /docs altındaki statik HTML dokümanları site içinde iframe ile görüntülenebilsin.
+
+/docs/*
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self';
+
+/docs/pdf/*
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: frame-ancestors 'self';

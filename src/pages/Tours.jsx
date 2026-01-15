@@ -1067,7 +1067,10 @@ export default function Tours() {
 									{/* Alt bilgi ve CTA bloğunu kartın altına sabitle */}
 									<div className="mt-auto pt-3 space-y-3">
 										<p className="text-[11px] text-gray-600">
-											Endonezya Kaşifi, <span className="font-semibold">PT MoonStar Global Indonesia</span> kuruluşudur.
+											Endonezya Kaşifi, Endonezya’da kayıtlı <span className="font-semibold">PT MoonStar Global Indonesia</span> şirketinin markasıdır; Endonezya’da resmi olarak faaliyet gösteren Türk girişimci tarafından yürütülen bir tur organizasyonudur.
+										</p>
+										<p className="text-[11px] text-gray-600">
+											Ödeme akışı: Sözleşme/onay sonrası kapora alınır; tur programı yeterli katılıma ulaşıp operasyon kesinleşince kalan tutar ödemesi açılır ve ödeme tamamlandığında rezervasyon kesinleşir.
 										</p>
 										{tour.dateRange && (
 											<p className="text-xs text-gray-700 font-semibold">

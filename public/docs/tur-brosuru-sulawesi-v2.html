@@ -3,484 +3,197 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sulawesi Adası | Endonezya Kaşifi — Broşür</title>
+    <title>Sulawesi – Deniz, Doğa, Dalış | Broşür</title>
+    <link rel="stylesheet" href="/docs/tur-brosuru-v2.css" />
     <style>
       :root {
-        --bg: #0b1120;
-        --bg-soft: #020617;
-        --card: rgba(2, 6, 23, 0.92);
-        --accent: #06b6d4;
-        --accent-soft: rgba(6, 182, 212, 0.10);
-        --accent-strong: #22c55e;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --border: rgba(148, 163, 184, 0.45);
-        --danger: #fb7185;
-        --warning: #facc15;
-      }
+        --accent: #6366f1;
+        --accent-light: #818cf8;
+        --accent-dark: #4338ca;
+        --accent-rgb: 99, 102, 241;
+        --hero-image: url("/22392be0-3624-49f7-ba42-3405352c5c8d.avif");
 
-      * { box-sizing: border-box; }
-      html, body {
-        margin: 0;
-        padding: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
-        color: var(--text);
-      }
-      body { padding: 32px 16px; }
-
-      .brochure {
-        max-width: 1020px;
-        margin: 0 auto;
-        background: radial-gradient(circle at top, rgba(6,182,212,0.06) 0, rgba(2,6,23,0.98) 55%, #020617 100%);
-        border-radius: 24px;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
-        overflow: hidden;
-      }
-
-      .hero {
-        position: relative;
-        padding: 28px 28px 40px;
-        background:
-          radial-gradient(circle at top, rgba(34, 197, 94, 0.08) 0, rgba(15, 23, 42, 0.98) 55%, #020617 100%),
-          url("/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg") center/cover no-repeat;
-        isolation: isolate;
-      }
-      .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, rgba(15, 23, 42, 0.92), rgba(8, 145, 178, 0.70), rgba(2, 6, 23, 0.95));
-        mix-blend-mode: multiply;
-      }
-      .hero-inner {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-        gap: 22px;
-        align-items: center;
-      }
-      @media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
-
-      .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-      .badge-main {
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 4px 12px; border-radius: 999px;
-        border: 1px solid rgba(248, 250, 252, 0.2);
-        background: radial-gradient(circle at top left, rgba(6,182,212,0.28), rgba(2,6,23,0.95));
-        color: #ecfeff; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-      }
-      .badge-soft {
-        padding: 4px 10px; border-radius: 999px; font-size: 11px; color: var(--muted);
-        background: rgba(15, 23, 42, 0.78); border: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      .hero-title { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; margin: 0 0 10px; letter-spacing: 0.02em; color: #f9fafb; }
-      .hero-subtitle { margin: 0 0 12px; font-size: 14px; color: #e5e7eb; max-width: 620px; }
-      .hero-note { margin: 0 0 16px; font-size: 12px; color: #cffafe; max-width: 640px; }
-
-      .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; }
-      .pill {
-        padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.45);
-        font-size: 11px; color: #e5e7eb; background: rgba(15, 23, 42, 0.78);
-      }
-      .pill-accent { background: rgba(6, 182, 212, 0.16); border-color: rgba(6, 182, 212, 0.75); color: #cffafe; }
-
-      .hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-      .btn-primary {
-        display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
-        border: none;
-        background: radial-gradient(circle at 0% 0%, var(--accent-strong), var(--accent) 45%, #0e7490 100%);
-        color: #f9fafb; font-size: 13px; font-weight: 650; cursor: pointer; text-decoration: none;
-        box-shadow: 0 14px 40px rgba(6, 182, 212, 0.35);
-      }
-      .btn-secondary {
-        display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 999px;
-        border: 1px solid rgba(148, 163, 184, 0.6);
-        background: rgba(15, 23, 42, 0.8);
-        color: #e5e7eb;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-      }
-
-      .hero-side-card {
-        border-radius: 18px;
-        padding: 18px 18px 16px;
-        background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), rgba(2, 6, 23, 0.96));
-        border: 1px solid rgba(34, 197, 94, 0.35);
-        box-shadow: 0 20px 50px rgba(6, 95, 70, 0.7);
-      }
-      .hero-side-title { font-size: 13px; font-weight: 700; color: #d1fae5; margin: 0 0 4px; }
-      .hero-side-price { margin: 0 0 2px; font-size: 22px; font-weight: 800; color: #fefce8; }
-      .hero-side-sub { margin: 0; font-size: 11px; color: #cffafe; }
-      .hero-side-list { margin: 12px 0 0; padding: 0; list-style: none; font-size: 11px; color: #e5e7eb; }
-      .hero-side-list li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
-      .hero-side-list li span.bullet { margin-top: 2px; color: #cffafe; }
-      .hero-side-note { margin: 8px 0 0; font-size: 10px; color: #cffafe; }
-
-      .content {
-        padding: 24px 28px 26px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        background: radial-gradient(circle at top, rgba(2, 6, 23, 0.98), #020617 45%, #020617 100%);
-      }
-
-      .mini-gallery { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-      .mini-gallery img {
-        border-radius: 12px;
-        border: 1px solid rgba(148, 163, 184, 0.55);
-        width: calc(33.333% - 6px);
-        height: 78px;
-        object-fit: cover;
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.7);
-      }
-      @media (max-width: 640px) { .mini-gallery img { width: calc(50% - 5px); } }
-
-      .section {
-        position: relative;
-        padding: 18px 18px 16px;
-        border-radius: 18px;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: radial-gradient(circle at top left, rgba(2, 6, 23, 0.90), rgba(2, 6, 23, 0.98));
-        overflow: hidden;
-      }
-      .section.bg { border-color: rgba(6, 182, 212, 0.45); }
-      .section-bg {
-        position: absolute;
-        inset: 0;
-        background: var(--bgimg) center/cover no-repeat;
-        filter: saturate(1.05) contrast(1.05);
-        opacity: 0.22;
-      }
-      .section-bg::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top left, rgba(6,182,212,0.20), rgba(2,6,23,0.95) 55%, rgba(2,6,23,0.98) 100%);
-      }
-      .section-inner { position: relative; z-index: 1; }
-
-      .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
-      .section-title { font-size: 15px; font-weight: 750; color: #e5e7eb; margin: 0; }
-      .section-tag {
-        padding: 3px 9px;
-        border-radius: 999px;
-        font-size: 10px;
-        color: #d1fae5;
-        background: rgba(2, 6, 23, 0.72);
-        border: 1px solid rgba(34, 197, 94, 0.35);
-      }
-      .section-text { margin: 0; font-size: 12px; line-height: 1.65; color: var(--muted); }
-
-      .columns-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      @media (max-width: 720px) { .columns-2 { grid-template-columns: 1fr; } }
-
-      .columns-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-      @media (max-width: 860px) { .columns-3 { grid-template-columns: 1fr; } }
-
-      .card-soft {
-        border-radius: 14px;
-        padding: 12px 12px 11px;
-        background: rgba(2, 6, 23, 0.75);
-        border: 1px solid rgba(148, 163, 184, 0.4);
-      }
-      .card-soft.photo { position: relative; overflow: hidden; }
-      .card-soft.photo::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--bgimg) center/cover no-repeat;
-        opacity: 0.18;
-        filter: saturate(1.05) contrast(1.05);
-      }
-      .card-soft.photo::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top left, rgba(6,182,212,0.20), rgba(2,6,23,0.92) 60%, rgba(2,6,23,0.98));
-      }
-      .card-soft.photo > * { position: relative; z-index: 1; }
-      .card-soft.accent {
-        border-color: rgba(6, 182, 212, 0.75);
-        background: radial-gradient(circle at top left, rgba(6, 182, 212, 0.25), rgba(2, 6, 23, 0.86));
-      }
-      .card-soft.warning {
-        border-color: rgba(250, 204, 21, 0.6);
-        background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.18), rgba(2, 6, 23, 0.90));
-      }
-      .card-soft-title { font-size: 13px; font-weight: 750; color: #e5e7eb; margin: 0 0 6px; }
-      .list { margin: 0; padding-left: 18px; color: #e5e7eb; font-size: 12px; }
-      .list li { margin: 0 0 6px; }
-
-      .timeline { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
-      .day {
-        border-radius: 14px;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: rgba(2, 6, 23, 0.70);
-        padding: 12px;
-      }
-      .day h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #cffafe; }
-      .day p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-      .footer {
-        padding: 18px 28px 24px;
-        font-size: 11px;
-        color: var(--muted);
-        background: rgba(2, 6, 23, 0.98);
-        border-top: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      @media print {
-        body { padding: 0; }
-        .brochure { border-radius: 0; box-shadow: none; border: none; }
-        a { color: inherit; text-decoration: none; }
-        .section, .hero-side-card { break-inside: avoid; }
-        .mini-gallery img { break-inside: avoid; }
+        --page-bg-top: #14143b;
+        --page-bg-mid: #020617;
+        --page-bg-bottom: #000000;
+        --frame-bg-top: #17184a;
+        --frame-bg-mid: #020617;
+        --frame-bg-bottom: #020617;
       }
     </style>
   </head>
   <body>
-    <main class="brochure">
-      <section class="hero">
+    <div class="brochure">
+      <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-inner">
           <div>
             <div class="badge-row">
-              <span class="badge-main">🪸 Endonezya Kaşifi</span>
-              <span class="badge-soft">Sulawesi Adası</span>
-              <span class="badge-soft">6 Gece 7 Gün</span>
+              <div class="badge-main">
+                <span class="icon">🌊</span>
+                <span>Sulawesi Adası – Deniz • Doğa • Dalış</span>
+              </div>
+              <div class="badge-soft">8 Gece 9 Gün · Uçuş Ağırlıklı Keşif Rotası</div>
             </div>
-            <h1 class="hero-title">Sulawesi: Deniz Altı + Sakin Koylar</h1>
-            <p class="hero-subtitle">Sulawesi rotası “az bilinen ama çok iyi” seçeneklerden. Deniz altı, sakin koylar ve fotoğraf molalarıyla tatil hissini güçlü tutar.</p>
-            <p class="hero-note">Ön kayıt ücretsiz ve bağlayıcı değildir. Önce yazılı paket + sözleşme inceleme, sonra onay & ödeme.</p>
+            <h1 class="hero-title">Sulawesi – Tropik Şehir Ritmi + Bunaken Su Altı Dünyası</h1>
+            <p class="hero-subtitle">
+              Makassar'ın tropik sahil ritminden başlayıp Manado ve Bunaken'in su altı dünyasına uzanan; Tangkoko yağmur ormanı ve
+              Tomohon'un volkanik manzaralarıyla güçlenen, finalde Jakarta ile metropol dokunuşu ekleyen planlı bir keşif akışı.
+            </p>
+            <p class="hero-note">
+              Tüm paketlerde uçak bileti kişi başı <strong>$750</strong>’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit
+              sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir ve ödeme öncesinde açık şekilde paylaşılır. Bu rotada iç hat uçuşları
+              (Makassar → Manado, Manado → Jakarta) pakete dahil edilebilir; nihai kapsam yazılı teklifte netleşir.
+            </p>
+            <p class="brand-line">endonezyakasifi.com, Endonezya’da kayıtlı PT MoonStar Global Indonesia şirketinin markasıdır.</p>
             <div class="pill-row">
-              <span class="pill pill-accent">Uçuş: kişi başı $750’a kadar dahil</span>
-              <span class="pill">Standart oda: 2 kişilik paylaşımlı</span>
-              <span class="pill">Deniz altı / koylar</span>
-              <span class="pill">Net dahil/hariç</span>
+              <span class="pill pill-accent">Tur değil, uçuş ağırlıklı keşif organizasyonu</span>
+              <span class="pill">8 Gece 9 Gün | Makassar + Manado + Jakarta</span>
+              <span class="pill">Bunaken şnorkel/dalış (isteğe bağlı)</span>
+              <span class="pill">Tangkoko yağmur ormanı & Tomohon manzaraları</span>
+              <span class="pill">Deniz + doğa + şehir dengesi</span>
             </div>
             <div class="hero-cta-row">
-              <a class="btn-primary" href="/tours" target="_blank" rel="noopener noreferrer">📌 Turları Gör</a>
-              <a class="btn-secondary" href="/docs/on-kayit-bilgi-paketi.html" target="_blank" rel="noopener noreferrer">📄 Ön Kayıt Bilgi Paketi</a>
+              <a href="#paketler" class="btn-primary"><span class="icon">⭐</span><span>Sulawesi paketini incele</span></a>
+              <a href="#onemli-notlar" class="btn-secondary"><span class="icon">⚠️</span><span>Önemli uyarılar & notlar</span></a>
+              <button type="button" class="btn-secondary" onclick="window.print()"><span class="icon">⬇️</span><span>PDF olarak kaydet</span></button>
             </div>
           </div>
-
           <aside class="hero-side-card">
-            <p class="hero-side-title">Kısa özet</p>
-            <p class="hero-side-price">Deniz odaklı tatil</p>
-            <p class="hero-side-sub">Tarih: 23 – 29 Mayıs</p>
+            <h2 class="hero-side-title">Premium Paket İçin Örnek Kapsam</h2>
+            <p class="hero-side-sub">Güncel kişi başı fiyat ve kampanya bilgisi, size özel yazılı teklif dokümanında paylaşılır.</p>
             <ul class="hero-side-list">
-              <li><span class="bullet">✓</span> Sakin koylar + deniz altı</li>
-              <li><span class="bullet">✓</span> Seçili rehberli günler/transferler</li>
-              <li><span class="bullet">✓</span> Şeffaf dahil/hariç</li>
-              <li><span class="bullet">✓</span> Yazılı bilgilendirme → onay → ödeme</li>
+              <li><span class="bullet">✓</span><span>Makassar (2 gece) + Manado (5 gece) + Jakarta (1 gece) toplam 8 gece konaklama</span></li>
+              <li><span class="bullet">✓</span><span>Makassar → Manado ve Manado → Jakarta iç hat uçuşları (pakete dahildir)</span></li>
+              <li><span class="bullet">✓</span><span>Havalimanı transferleri + rota içi operasyon koordinasyonu</span></li>
+              <li><span class="bullet">✓</span><span>7/24 Türkçe destek ve yerel ekip (rehberli günler pakete göre)</span></li>
             </ul>
-            <p class="hero-side-note">Not: Nihai kapsam/tarih/ücret, yazılı teklif ve sözleşme ekleriyle netleşir.</p>
+            <p class="hero-side-note">Bu rota genellikle Premium planlanır. Nihai kapsam ve gün planı yazılı teklifte netleşir.</p>
           </aside>
         </div>
-      </section>
+      </header>
 
-      <section class="content">
-        <section class="section bg" style="--bgimg:url('/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Görsel Tadımlık</h2>
-              <span class="section-tag">Mavi tonlar</span>
+      <main class="content">
+        <section class="section" id="neden-bu-tatil">
+          <div class="section-header"><h2 class="section-title">Neden Sulawesi &amp; Neden Bu Tatil?</h2><span class="section-tag">Tur değil, çok duraklı keşif</span></div>
+          <p class="section-text">Sulawesi rotası; deniz, doğa ve şehir ritmini tek akışta birleştirmek isteyenler için tasarlandı. Uçuş ağırlıklı yapı sayesinde uzun kara transferlerini azaltıp; Bunaken gibi su altı noktalarına, Tangkoko gibi doğa alanlarına ve Manado şehir yaşamına planlı şekilde geçiş yapılır.</p>
+          <div class="mini-gallery">
+            <img src="/22392be0-3624-49f7-ba42-3405352c5c8d.avif" alt="Sulawesi" />
+            <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="Su altı" />
+            <img src="/vecteezy_woman-enjoys-cocktail-by-tropical-pool-sunset_69181105.jpg" alt="Tropik şehir" />
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-column">
+            <div>
+              <div class="section-header"><h2 class="section-title">Bizi Diğer Klasik Turlardan Ayıran Noktalar</h2><span class="section-tag">Şeffaf &amp; operasyon odaklı yaklaşım</span></div>
+              <p class="section-text">Bu rotada "doğru bağlantı" ve "doğru zamanlama" en kritik unsurdur. İç hat uçuşları, transferler ve rehberli günler operasyon olarak bir bütün yönetilir.</p>
+              <ul class="card-soft-list">
+                <li>Uçuş bağlantıları ve transferler tek merkezden koordine edilir.</li>
+                <li>Bunaken günleri (şnorkel/dalış) hava şartlarına göre güvenli şekilde planlanır.</li>
+                <li>Serbest zaman blokları korunur; tatil hissi kaybolmaz.</li>
+              </ul>
             </div>
-            <p class="section-text">Sulawesi broşüründe daha “deniz” hissi veren mavi tonları kullandık. Kart arkaplanları karartılmış görsellerle zenginleştirildi.</p>
-            <div class="mini-gallery">
-              <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="" />
-              <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="" />
-              <img src="/gili-islands-turquoise-water-beach.jpg" alt="" />
-              <img src="/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg" alt="" />
-              <img src="/vecteezy_two-men-riding-jet-skis-side-by-side-on-the-water-concept_68431320.jpg" alt="" />
-              <img src="/vecteezy_a-group-of-people-rafting-down-a-river_49939929.jpg" alt="" />
+            <div>
+              <div class="section-header"><h2 class="section-title">Kimler İçin Uygun?</h2></div>
+              <p class="section-text">Deniz/şnorkel, doğa ve şehir atmosferini bir arada isteyen; uçuş ağırlıklı çok duraklı rotalara açık misafirler için.</p>
+              <div class="pill-list">
+                <span class="pill-small strong">Deniz &amp; şnorkel</span>
+                <span class="pill-small strong">Doğa &amp; vahşi yaşam</span>
+                <span class="pill-small">Dalış (isteğe bağlı)</span>
+                <span class="pill-small">Fotoğrafçılık</span>
+                <span class="pill-small">Şehir &amp; kafe kültürü</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="paketler">
+          <div class="section-header"><h2 class="section-title">Paket Yapısı – Temel, Standart, Premium</h2><span class="section-tag">Bu rota Premium odaklıdır</span></div>
+          <p class="section-text">Sulawesi rotası iç hat uçuşları ve çok duraklı akış nedeniyle genellikle Premium paket olarak planlanır. Broşür formatını standart tutmak için Temel/Standart seviyeler, rehberli günler ve dahil olan iç hat uçuşları azaltılarak talebe göre yazılı teklifte sunulabilir.</p>
+          <div class="columns-3" style="margin-top: 10px;">
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Temel Paket – "Altyapıyı Sabitle"</h3><span class="card-soft-tag">Talebe göre</span></div><p class="card-soft-body">Konaklama ve ana transfer altyapısını sabitleyip, rehberli günleri/opsiyonel deniz günlerini esnek bırakmak isteyen gruplar için.</p><ul class="card-soft-list"><li>Konaklamalar planlanır (Makassar/Manado/Jakarta).</li><li>Transferler planlanır.</li><li>İç hat uçuşları ve rehberli günler kapsamı yazılı teklifte netleşir.</li></ul></div>
+            <div class="card-soft accent"><div class="card-soft-header"><h3 class="card-soft-title">Standart Paket – "Dengeli Deneyim"</h3><span class="card-soft-tag">Talebe göre</span></div><p class="card-soft-body">Seçili rehberli doğa/deniz günlerini dahil edip serbest zamanı koruyan versiyon.</p><ul class="card-soft-list"><li>Programdaki seçili rehberli günler dahil edilebilir.</li><li>Bunaken günü kapsamı pakete göre netleşir.</li></ul></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Premium Paket – "En Kapsamlı"</h3><span class="card-soft-tag">Ana paket</span></div><p class="card-soft-body">İç hat uçuşları dahil, transfer ve operasyon koordinasyonunun tam kapsandığı premium paket.</p><ul class="card-soft-list"><li>Makassar → Manado ve Manado → Jakarta iç hat uçuşları</li><li>Havalimanı transferleri + operasyon koordinasyonu</li><li>7/24 Türkçe destek ve yerel ekip</li></ul></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-column">
+            <div class="card-soft" style="border-color: rgba(52, 211, 153, 0.8); background: var(--accent-soft);">
+              <div class="card-soft-header"><h3 class="card-soft-title">Fiyata Dahil Olanlar (Özet)</h3></div>
+              <ul class="card-soft-list">
+                <li>Makassar (2) + Manado (5) + Jakarta (1) toplam 8 gece konaklama</li>
+                <li>Makassar → Manado ve Manado → Jakarta iç hat uçuşları (pakete dahildir)</li>
+                <li>Havalimanı transferleri + rota içi operasyon koordinasyonu</li>
+                <li>7/24 Türkçe destek ve yerel ekip</li>
+              </ul>
+            </div>
+            <div class="card-soft danger">
+              <div class="card-soft-header"><h3 class="card-soft-title">Fiyata Dahil Olmayanlar (Özet)</h3></div>
+              <ul class="card-soft-list">
+                <li>Tüm paketlerde: akşam yemekleri ve kişisel harcamalar</li>
+                <li>Opsiyonel: dalış paketleri ve ekstra deniz aktiviteleri (katılım gösterdikçe ayrıca ücretlendirilir)</li>
+                <li>Resmi giriş/çıkış harçları ve yerel vergiler (varsa) + Türkiye yurtdışı çıkış harcı</li>
+              </ul>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Neden Endonezya Kaşifi?</h2>
-              <span class="section-tag">Güven inşası</span>
-            </div>
-
-            <div class="columns-3">
-              <div class="card-soft accent photo" style="--bgimg:url('/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg')">
-                <div class="card-soft-title">Aracısız / tek muhatap</div>
-                <ul class="list">
-                  <li>Planlama ve operasyon doğrudan bizde.</li>
-                  <li>İletişim tek hat üzerinden ilerler.</li>
-                  <li>Hızlı dönüş ve netlik.</li>
-                </ul>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Uzmanlık Endonezya</div>
-                <ul class="list">
-                  <li>Odak ülke Endonezya.</li>
-                  <li>Rota seçimi tecrübe ile derinleşir.</li>
-                  <li>Beklenti yönetimi yazılı kurulur.</li>
-                </ul>
-              </div>
-              <div class="card-soft warning">
-                <div class="card-soft-title">Şeffaf, planlı süreç</div>
-                <ul class="list">
-                  <li>Bilgi paketi + sözleşme inceleme.</li>
-                  <li>Önce netlik, sonra ödeme.</li>
-                  <li>Dahil/hariç yazılıdır.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="columns-2" style="margin-top: 12px;">
-              <div class="card-soft">
-                <div class="card-soft-title">Memnuniyet önceliği</div>
-                <p class="section-text">Tatilde en önemli şey “akış”. Zaman planı ve transfer koordinasyonu ile gereksiz koşturmayı azaltırız.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Endonezya içinden ekip</div>
-                <p class="section-text">Saha bilgisiyle rota gerçekçi planlanır: doğru saat / doğru koy / doğru tempo.</p>
-              </div>
-            </div>
-          </div>
+          <div class="section-header"><h2 class="section-title">Gün Gün Örnek Program Özeti (Premium Paket Referanslı)</h2></div>
+          <ul class="timeline">
+            <li class="timeline-item"><div class="timeline-day">1. Gün</div><div class="timeline-text">Makassar varış, otele transfer ve serbest zaman.</div></li>
+            <li class="timeline-item"><div class="timeline-day">2. Gün</div><div class="timeline-text">Makassar'da tropik şehir ritmi ve sahil atmosferi: serbest zaman ve seçili duraklar (pakete göre).</div></li>
+            <li class="timeline-item"><div class="timeline-day">3. Gün</div><div class="timeline-text">Makassar → Manado iç hat uçuşu, otele transfer ve şehirde serbest zaman.</div></li>
+            <li class="timeline-item"><div class="timeline-day">4. Gün</div><div class="timeline-text">Bunaken deniz günü: şnorkel (dalış isteğe bağlı) ve deniz molaları (pakete göre).</div></li>
+            <li class="timeline-item"><div class="timeline-day">5. Gün</div><div class="timeline-text">Tangkoko yağmur ormanı ve doğa gözlem günü (rehberli, pakete göre).</div></li>
+            <li class="timeline-item"><div class="timeline-day">6. Gün</div><div class="timeline-text">Tomohon ve volkanik manzaralar: seçili doğa durakları ve serbest zaman.</div></li>
+            <li class="timeline-item"><div class="timeline-day">7. Gün</div><div class="timeline-text">Manado serbest gün: dinlenme, şehir, kafe ve opsiyonel aktiviteler.</div></li>
+            <li class="timeline-item"><div class="timeline-day">8. Gün</div><div class="timeline-text">Manado → Jakarta iç hat uçuşu, otele transfer ve metropol atmosferi için serbest zaman.</div></li>
+            <li class="timeline-item"><div class="timeline-day">9. Gün</div><div class="timeline-text">Kahvaltı/serbest zaman, uçuş saatine göre havalimanı transferi ve dönüş.</div></li>
+          </ul>
+          <p class="disclaimer">Not: Bu broşür, örnek programı ve genel kapsamı anlatan bir özettir. Uçuş bağlantıları ve deniz günleri; hava koşulları ve operasyonel gerekliliklere göre revize edilebilir. Güncel ve bağlayıcı program yazılı teklif ve sözleşmede yer alır.</p>
         </section>
 
-        <section class="section bg" style="--bgimg:url('/gili-islands-turquoise-water-beach.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Örnek Tatil Akışı (özet)</h2>
-              <span class="section-tag">Nihai program yazılı</span>
+        <section class="section">
+          <div class="two-column">
+            <div>
+              <div class="section-header"><h2 class="section-title">Konaklama &amp; Ulaşım Yaklaşımı</h2></div>
+              <p class="section-text">Çok duraklı yapıda konaklamalar; erişilebilirlik ve operasyon bütünlüğü kriterleriyle seçilir. İç hat uçuşları sayesinde kara transferleri azaltılır ve tatil ritmi korunur.</p>
+              <p class="section-text" style="margin-top: 6px;">Uçak bileti kişi başı $750’a kadar dahildir; limit üzeri fark katılımcı tarafından karşılanır ve ödeme öncesinde yazılı olarak belirtilir.</p>
             </div>
-            <p class="section-text">Aşağıdaki akış “örnek”tir; nihai gün gün programı ön kayıt sonrası yazılı olarak paylaşılır.</p>
-
-            <div class="timeline">
-              <div class="day">
-                <h4>Gün 1 • Varış & yerleşme</h4>
-                <p>Otele giriş ve dinlenme.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 2 • Deniz günü</h4>
-                <p>Plaj/koy rutini, yüzme ve fotoğraf molaları.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 3 • Seçili keşif</h4>
-                <p>Seçili rehberli rota + transfer koordinasyonu.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 4 • Serbest gün</h4>
-                <p>Dinlenme + isteğe bağlı kısa aktiviteler.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 5–6 • Deniz altı / koylar</h4>
-                <p>Deniz altı deneyimi ve sakin koylarda zaman. Dahil/hariç netliğiyle sürpriz masrafı azaltma.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 7 • Dönüş</h4>
-                <p>Çıkış ve dönüş transferleri. Tüm teyitler yazılı ilerler.</p>
-              </div>
+            <div>
+              <div class="section-header"><h2 class="section-title">Fiyat &amp; Ödeme, Kapora Yapısı</h2></div>
+              <p class="section-text">Bu broşürde güncel rakam paylaşmıyoruz. Toplam tutar; tarih, grup büyüklüğü, iç hat uçuş kontenjanları ve seçilen kapsam ile belirlenir ve ödeme öncesinde yazılı olarak iletilir.</p>
+              <p class="section-text" style="margin-top: 6px;">Rezervasyon için genellikle kapora alınır; kalan bakiye, bilet/otel onayları öncesinde tamamlanır. Ödeme planı yazılı teklif ile bildirilir.</p>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Dahil / Hariç</h2>
-              <span class="section-tag">Net çerçeve</span>
-            </div>
-
-            <div class="columns-2">
-              <div class="card-soft accent">
-                <div class="card-soft-title">Dahil olan başlıca kalemler</div>
-                <ul class="list">
-                  <li>İstanbul çıkışlı gidiş–dönüş uçak bileti (kişi başı $750’a kadar dahil)</li>
-                  <li>6 gece konaklama</li>
-                  <li>Her gün otelde sabah kahvaltısı</li>
-                  <li>Programdaki seçili rehberli günler ve transferler</li>
-                </ul>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Hariç olanlar (genel)</div>
-                <ul class="list">
-                  <li>Uçuş limit üzeri farklar</li>
-                  <li>Kişisel harcamalar</li>
-                  <li>Öğle/akşam yemekleri (pakete göre değişebilir)</li>
-                  <li>İsteğe bağlı ekstra turlar / aktiviteler</li>
-                  <li>Tek kişilik oda opsiyonu varsa oda farkı</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="card-soft" style="margin-top: 12px;">
-              <div class="card-soft-title">Konaklama standardı</div>
-              <p class="section-text">Standart konaklama 2 kişilik paylaşımlı odadır. Çiftler veya birlikte kalmak isteyen arkadaşlar birlikte yerleştirilir. Tek kişi katılımlarda oda eşleştirme yapılır.</p>
-            </div>
+          <div class="section-header"><h2 class="section-title">Görsel Sulawesi Atmosferi</h2></div>
+          <p class="section-text">Bu bölüm, rotanın atmosferini hissetmeniz için kısa bir görsel özet sunar.</p>
+          <div class="mini-gallery">
+            <img src="/22392be0-3624-49f7-ba42-3405352c5c8d.avif" alt="Sulawesi" />
+            <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="Su altı" />
+            <img src="/vecteezy_woman-enjoys-cocktail-by-tropical-pool-sunset_69181105.jpg" alt="Tropik" />
           </div>
         </section>
 
-        <section class="section bg" style="--bgimg:url('/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Süreç (3 adım)</h2>
-              <span class="section-tag">yazılı + onaylı</span>
-            </div>
-            <div class="columns-3">
-              <div class="card-soft">
-                <div class="card-soft-title">1) Ön kayıt</div>
-                <p class="section-text">Ücretsiz ve bağlayıcı değil.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">2) Yazılı bilgi paketi</div>
-                <p class="section-text">Program + dahil/hariç + kurallar WhatsApp’tan yazılı gönderilir.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">3) Sözleşme inceleme → ödeme</div>
-                <p class="section-text">İnceleme sonrası onayla ödeme. Süreç net ve şeffaftır.</p>
-              </div>
-            </div>
+        <section class="section" id="onemli-notlar">
+          <div class="section-header"><h2 class="section-title">Önemli Notlar &amp; Uyarılar</h2><span class="section-tag">Lütfen dikkatlice okuyun</span></div>
+          <div class="columns-2">
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Pasaport &amp; Vize</h3></div><p class="card-soft-body">Endonezya'ya girişte pasaport geçerlilik sürenizin seyahat bitiminden itibaren en az 6 ay daha devam etmesi beklenmektedir. Güncel vize/kapı vizesi kuralları ve ücretleri değişken olabileceğinden, seyahat öncesinde bilgilendirme yazılı olarak yapılacaktır.</p></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Seyahat Sağlık Sigortası &amp; Güvenlik</h3></div><p class="card-soft-body">Yurt dışı seyahat sağlık sigortası kuvvetle tavsiye edilir. Deniz günlerinde güvenlik kuralları ve ekipman kullanımı titizlikle takip edilir.</p></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Grup Dinamiği &amp; Beklentiler</h3></div><p class="card-soft-body">Bu organizasyon planlı bir keşif akışıdır. Zamanlamaya uyum ve diğer misafirlerin konforuna özen beklenir. Grup düzenini bozan davranışlar kabul edilmez.</p></div>
+            <div class="card-soft"><div class="card-soft düşer-header"><h3 class="card-soft-title">Broşürün Niteliği</h3></div><p class="card-soft-body">Bu broşür bilgilendirme amaçlıdır; satış sözleşmesi veya resmi teklif yerine geçmez. Nihai hak ve yükümlülükler yazılı teklif/sözleşme dokümanlarında yer alır.</p></div>
           </div>
         </section>
+      </main>
 
-        <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">SSS</h2>
-              <span class="section-tag">kısa cevaplar</span>
-            </div>
-
-            <div class="columns-2">
-              <div class="card-soft">
-                <div class="card-soft-title">Uçuş limitini aşırsak?</div>
-                <p class="section-text">Uçuşlar kişi başı $750’a kadar dahildir. Uçuş fiyatı limit üzerindeyse fark ayrıca yansıtılır.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Ödeme ne zaman?</div>
-                <p class="section-text">Önce yazılı bilgi paketi + sözleşme inceleme. Onay olmadan ödeme yok.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Program kesin mi?</div>
-                <p class="section-text">Broşür özet verir; nihai program ve koşullar yazılı paylaşılır.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Tek kişilik oda?</div>
-                <p class="section-text">Standart paylaşımlı odadır. Tek oda opsiyonu varsa ayrıca fiyatlanır.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <footer class="footer">
-        <p><b>PDF alma:</b> Tarayıcıda “Yazdır” → “PDF olarak kaydet”.</p>
-        <p>Bu broşür bilgilendirme amaçlıdır. Nihai kapsam, tarih ve bedel; yazılı teklif ve sözleşme ekleriyle netleşir.</p>
-      </footer>
-    </main>
+      <footer class="footer-note"><strong>Önemli:</strong> Bu broşürde yer alan tüm içerik, Sulawesi rotası için planladığımız deneyim odaklı keşif organizasyonunu genel hatlarıyla anlatmak amacıyla hazırlanmıştır. Fiyatlar, tarih ve kapsam; yazılı teklif, sözleşme ve güncel mevzuat ışığında netleşir.</footer>
+    </div>
   </body>
 </html>

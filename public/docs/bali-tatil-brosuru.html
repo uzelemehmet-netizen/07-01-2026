@@ -17,6 +17,13 @@
         --border: rgba(148, 163, 184, 0.4);
         --danger: #f97373;
         --warning: #facc15;
+
+        --page-bg-top: #071a2b;
+        --page-bg-mid: #020617;
+        --page-bg-bottom: #000000;
+        --frame-bg-top: #0b2a45;
+        --frame-bg-mid: #020617;
+        --frame-bg-bottom: #020617;
       }
 
       * {
@@ -28,7 +35,7 @@
         margin: 0;
         padding: 0;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+        background: radial-gradient(circle at top, var(--page-bg-top) 0, var(--page-bg-mid) 45%, var(--page-bg-bottom) 100%);
         color: var(--text);
       }
 
@@ -39,7 +46,7 @@
       .brochure {
         max-width: 1000px;
         margin: 0 auto;
-        background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #020617 100%);
+        background: radial-gradient(circle at top, var(--frame-bg-top) 0, var(--frame-bg-mid) 45%, var(--frame-bg-bottom) 100%);
         border-radius: 24px;
         border: 1px solid rgba(148, 163, 184, 0.35);
         box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
@@ -131,6 +138,12 @@
         font-size: 12px;
         color: #bfdbfe;
         max-width: 580px;
+      }
+
+      .brand-line {
+        margin: 10px 0 0;
+        font-size: 11px;
+        color: rgba(229, 231, 235, 0.72);
       }
 
       .pill-row {
@@ -538,6 +551,7 @@
               kahvaltısı sabittir; konaklamalar iki kişilik paylaşımlı odalarda planlanır. Diğer farklar; oda tipi, dahil edilen aktiviteler ve
               esneklik seviyesinde ortaya çıkar.
             </p>
+              <p class="brand-line">endonezyakasifi.com, Endonezya’da kayıtlı PT MoonStar Global Indonesia şirketinin markasıdır.</p>
             <div class="pill-row">
               <span class="pill pill-accent">Tur değil, deneyim odaklı toplu tatil</span>
               <span class="pill">6 Gece 7 Gün | Ubud + Sahil Kombinasyonu</span>

@@ -3,489 +3,328 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bali Adası | Endonezya Kaşifi — Broşür</title>
+    <title>Bali – Tur Değil, Dolu Dolu Tatil Deneyimi | Broşür</title>
+    <link rel="stylesheet" href="/docs/tur-brosuru-v2.css" />
     <style>
       :root {
-        --bg: #0b1120;
-        --bg-soft: #020617;
-        --card: rgba(2, 6, 23, 0.92);
-        --accent: #14b8a6;
-        --accent-soft: rgba(20, 184, 166, 0.10);
-        --accent-strong: #38bdf8;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --border: rgba(148, 163, 184, 0.45);
-        --danger: #fb7185;
-        --warning: #facc15;
-      }
+        --accent: #0ea5e9;
+        --accent-light: #38bdf8;
+        --accent-dark: #0369a1;
+        --accent-rgb: 14, 165, 233;
+        --hero-image: url("/bali-island-temple-ocean-sunset-panoramic.jpg");
 
-      * { box-sizing: border-box; }
-      html, body {
-        margin: 0;
-        padding: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
-        color: var(--text);
-      }
-      body { padding: 32px 16px; }
-
-      a { color: inherit; }
-
-      .brochure {
-        max-width: 1020px;
-        margin: 0 auto;
-        background: radial-gradient(circle at top, rgba(20,184,166,0.06) 0, rgba(2,6,23,0.98) 55%, #020617 100%);
-        border-radius: 24px;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
-        overflow: hidden;
-      }
-
-      .hero {
-        position: relative;
-        padding: 28px 28px 40px;
-        background:
-          radial-gradient(circle at top, rgba(56, 189, 248, 0.10) 0, rgba(15, 23, 42, 0.98) 55%, #020617 100%),
-          url("/bali-island-tropical-beach-temple.jpg") center/cover no-repeat;
-        isolation: isolate;
-      }
-      .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, rgba(15, 23, 42, 0.92), rgba(8, 47, 73, 0.88), rgba(2, 6, 23, 0.95));
-        mix-blend-mode: multiply;
-      }
-      .hero-inner {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-        gap: 22px;
-        align-items: center;
-      }
-      @media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
-
-      .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-      .badge-main {
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 4px 12px; border-radius: 999px;
-        border: 1px solid rgba(248, 250, 252, 0.2);
-        background: radial-gradient(circle at top left, rgba(20,184,166,0.28), rgba(2,6,23,0.95));
-        color: #ecfeff; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-      }
-      .badge-soft {
-        padding: 4px 10px; border-radius: 999px; font-size: 11px; color: var(--muted);
-        background: rgba(15, 23, 42, 0.78); border: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      .hero-title { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; margin: 0 0 10px; letter-spacing: 0.02em; color: #f9fafb; }
-      .hero-subtitle { margin: 0 0 12px; font-size: 14px; color: #e5e7eb; max-width: 620px; }
-      .hero-note { margin: 0 0 16px; font-size: 12px; color: #bfdbfe; max-width: 640px; }
-
-      .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; }
-      .pill {
-        padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.45);
-        font-size: 11px; color: #e5e7eb; background: rgba(15, 23, 42, 0.78);
-      }
-      .pill-accent { background: rgba(20, 184, 166, 0.16); border-color: rgba(20, 184, 166, 0.7); color: #a7f3d0; }
-
-      .hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-      .btn-primary {
-        display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
-        border: none;
-        background: radial-gradient(circle at 0% 0%, var(--accent-strong), var(--accent) 45%, #0f766e 100%);
-        color: #f9fafb; font-size: 13px; font-weight: 650; cursor: pointer; text-decoration: none;
-        box-shadow: 0 14px 40px rgba(20, 184, 166, 0.35);
-      }
-      .btn-secondary {
-        display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 999px;
-        border: 1px solid rgba(148, 163, 184, 0.6);
-        background: rgba(15, 23, 42, 0.8);
-        color: #e5e7eb;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-      }
-
-      .hero-side-card {
-        border-radius: 18px;
-        padding: 18px 18px 16px;
-        background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), rgba(2, 6, 23, 0.96));
-        border: 1px solid rgba(56, 189, 248, 0.35);
-        box-shadow: 0 20px 50px rgba(8, 47, 73, 0.85);
-      }
-      .hero-side-title { font-size: 13px; font-weight: 700; color: #e0f2fe; margin: 0 0 4px; }
-      .hero-side-price { margin: 0 0 2px; font-size: 22px; font-weight: 800; color: #fefce8; }
-      .hero-side-sub { margin: 0; font-size: 11px; color: #bae6fd; }
-      .hero-side-list { margin: 12px 0 0; padding: 0; list-style: none; font-size: 11px; color: #e5e7eb; }
-      .hero-side-list li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
-      .hero-side-list li span.bullet { margin-top: 2px; color: #a7f3d0; }
-      .hero-side-note { margin: 8px 0 0; font-size: 10px; color: #bfdbfe; }
-
-      .content {
-        padding: 24px 28px 26px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        background: radial-gradient(circle at top, rgba(2, 6, 23, 0.98), #020617 45%, #020617 100%);
-      }
-
-      .mini-gallery { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-      .mini-gallery img {
-        border-radius: 12px;
-        border: 1px solid rgba(148, 163, 184, 0.55);
-        width: calc(33.333% - 6px);
-        height: 78px;
-        object-fit: cover;
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.7);
-      }
-      @media (max-width: 640px) { .mini-gallery img { width: calc(50% - 5px); } }
-
-      .section {
-        position: relative;
-        padding: 18px 18px 16px;
-        border-radius: 18px;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: radial-gradient(circle at top left, rgba(2, 6, 23, 0.90), rgba(2, 6, 23, 0.98));
-        overflow: hidden;
-      }
-      .section.bg {
-        border-color: rgba(20, 184, 166, 0.45);
-      }
-      .section-bg {
-        position: absolute;
-        inset: 0;
-        background: var(--bgimg) center/cover no-repeat;
-        filter: saturate(1.05) contrast(1.05);
-        opacity: 0.22;
-      }
-      .section-bg::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top left, rgba(20,184,166,0.22), rgba(2,6,23,0.95) 55%, rgba(2,6,23,0.98) 100%);
-      }
-      .section-inner { position: relative; z-index: 1; }
-
-      .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
-      .section-title { font-size: 15px; font-weight: 750; color: #e5e7eb; margin: 0; }
-      .section-tag {
-        padding: 3px 9px;
-        border-radius: 999px;
-        font-size: 10px;
-        color: #e0f2fe;
-        background: rgba(2, 6, 23, 0.72);
-        border: 1px solid rgba(56, 189, 248, 0.35);
-      }
-      .section-text { margin: 0; font-size: 12px; line-height: 1.65; color: var(--muted); }
-
-      .columns-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      @media (max-width: 720px) { .columns-2 { grid-template-columns: 1fr; } }
-
-      .columns-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-      @media (max-width: 860px) { .columns-3 { grid-template-columns: 1fr; } }
-
-      .card-soft {
-        border-radius: 14px;
-        padding: 12px 12px 11px;
-        background: rgba(2, 6, 23, 0.75);
-        border: 1px solid rgba(148, 163, 184, 0.4);
-      }
-      .card-soft.photo { position: relative; overflow: hidden; }
-      .card-soft.photo::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--bgimg) center/cover no-repeat;
-        opacity: 0.18;
-        filter: saturate(1.05) contrast(1.05);
-      }
-      .card-soft.photo::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top left, rgba(20,184,166,0.22), rgba(2,6,23,0.92) 60%, rgba(2,6,23,0.98));
-      }
-      .card-soft.photo > * { position: relative; z-index: 1; }
-      .card-soft.accent {
-        border-color: rgba(20, 184, 166, 0.75);
-        background: radial-gradient(circle at top left, rgba(20, 184, 166, 0.25), rgba(2, 6, 23, 0.86));
-      }
-      .card-soft.warning {
-        border-color: rgba(250, 204, 21, 0.6);
-        background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.18), rgba(2, 6, 23, 0.90));
-      }
-      .card-soft.danger {
-        border-color: rgba(251, 113, 133, 0.65);
-        background: radial-gradient(circle at top left, rgba(251, 113, 133, 0.18), rgba(2, 6, 23, 0.90));
-      }
-      .card-soft-title { font-size: 13px; font-weight: 750; color: #e5e7eb; margin: 0 0 6px; }
-      .list { margin: 0; padding-left: 18px; color: #e5e7eb; font-size: 12px; }
-      .list li { margin: 0 0 6px; }
-
-      .timeline { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
-      .day {
-        border-radius: 14px;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: rgba(2, 6, 23, 0.70);
-        padding: 12px;
-      }
-      .day h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #a7f3d0; }
-      .day p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-      .footer {
-        padding: 18px 28px 24px;
-        font-size: 11px;
-        color: var(--muted);
-        background: rgba(2, 6, 23, 0.98);
-        border-top: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      @media print {
-        body { padding: 0; }
-        .brochure { border-radius: 0; box-shadow: none; border: none; }
-        .hero { background-attachment: scroll; }
-        a { color: inherit; text-decoration: none; }
-        .section, .hero-side-card { break-inside: avoid; }
-        .mini-gallery img { break-inside: avoid; }
+        --page-bg-top: #061a2e;
+        --page-bg-mid: #020617;
+        --page-bg-bottom: #000000;
+        --frame-bg-top: #072a4f;
+        --frame-bg-mid: #020617;
+        --frame-bg-bottom: #020617;
       }
     </style>
   </head>
   <body>
-    <main class="brochure">
-      <section class="hero">
+    <div class="brochure">
+      <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-inner">
           <div>
             <div class="badge-row">
-              <span class="badge-main">🌿 Endonezya Kaşifi</span>
-              <span class="badge-soft">Bali Adası</span>
-              <span class="badge-soft">6 Gece 7 Gün</span>
+              <div class="badge-main">
+                <span class="icon">✈️</span>
+                <span>Bali Adası – Tur Değil, Dolu Dolu Tatil Deneyimi</span>
+              </div>
+              <div class="badge-soft">6 Gece 7 Gün · Deneyim Odaklı Toplu Tatil</div>
             </div>
-            <h1 class="hero-title">Bali: Tur Değil, Dolu Dolu Tatil Deneyimi</h1>
-            <p class="hero-subtitle">Deniz, kültür ve doğayı “tatil ritmi” bozulmadan yaşamak isteyenler için: Ubud + sahil akışı, seçili rehberli günler ve sürpriz maliyeti azaltan şeffaf dahil/hariç.</p>
-            <p class="hero-note">Ön kayıt ücretsiz ve bağlayıcı değildir. Önce yazılı bilgi paketi + sözleşme inceleme, sonra onay & ödeme adımı.</p>
+            <h1 class="hero-title">Bali – Sadece Gezi Değil, Gerçek Bir Tatil Deneyimi</h1>
+            <p class="hero-subtitle">
+              Klasik "şehir şehir dolaşmalı" gezi turlarından farklı olarak; uçak bileti, konaklama, kahvaltı ve özenle seçilmiş
+              deneyimleri bir araya getiren, sürpriz maliyetleri mümkün olduğunca azaltan, toplu ama özgür bir Bali tatili.
+            </p>
+            <p class="hero-note">
+              Tüm paketlerde uçak bileti kişi başı <strong>$750</strong>’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit
+              sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir ve ödeme öncesinde açık şekilde paylaşılır. Konaklama ve her gün otel
+              kahvaltısı sabittir; konaklamalar iki kişilik paylaşımlı odalarda planlanır. Diğer farklar; oda tipi, dahil edilen aktiviteler ve
+              esneklik seviyesinde ortaya çıkar.
+            </p>
+            <p class="brand-line">endonezyakasifi.com, Endonezya’da kayıtlı PT MoonStar Global Indonesia şirketinin markasıdır.</p>
             <div class="pill-row">
-              <span class="pill pill-accent">Uçuş: kişi başı $750’a kadar dahil</span>
-              <span class="pill">Standart oda: 2 kişilik paylaşımlı</span>
-              <span class="pill">WhatsApp’ta yazılı süreç</span>
-              <span class="pill">Sürpriz masrafı azaltma</span>
+              <span class="pill pill-accent">Tur değil, deneyim odaklı toplu tatil</span>
+              <span class="pill">6 Gece 7 Gün | Ubud + Sahil Kombinasyonu</span>
+              <span class="pill">Uçak bileti kişi başı $750’a kadar dahildir</span>
+              <span class="pill">Body rafting, tekne turu, su sporları opsiyonları</span>
+              <span class="pill">Balayı, arkadaş grubu ve macera severler için uygun</span>
             </div>
             <div class="hero-cta-row">
-              <a class="btn-primary" href="/tours" target="_blank" rel="noopener noreferrer">📌 Turları Gör</a>
-              <a class="btn-secondary" href="/docs/on-kayit-bilgi-paketi.html" target="_blank" rel="noopener noreferrer">📄 Ön Kayıt Bilgi Paketi</a>
+              <a href="#paketler" class="btn-primary">
+                <span class="icon">⭐</span>
+                <span>Bali paketlerini incele</span>
+              </a>
+              <a href="#onemli-notlar" class="btn-secondary">
+                <span class="icon">⚠️</span>
+                <span>Önemli uyarılar & notlar</span>
+              </a>
+              <button type="button" class="btn-secondary" onclick="window.print()">
+                <span class="icon">⬇️</span>
+                <span>PDF olarak kaydet</span>
+              </button>
             </div>
           </div>
-
           <aside class="hero-side-card">
-            <p class="hero-side-title">Kısa özet</p>
-            <p class="hero-side-price">Planlı premium tatil</p>
-            <p class="hero-side-sub">Tarih: 28 Mart – 3 Nisan (7 gün / 6 gece)</p>
+            <h2 class="hero-side-title">Premium Paket İçin Örnek Kapsam</h2>
+            <p class="hero-side-sub">Güncel kişi başı fiyat ve kampanya bilgisi, size özel yazılı teklif dokümanında paylaşılır.</p>
             <ul class="hero-side-list">
-              <li><span class="bullet">✓</span> Ubud + sahil konaklama akışı</li>
-              <li><span class="bullet">✓</span> Seçili rehberli günler ve transferler</li>
-              <li><span class="bullet">✓</span> Uçuş limit politikasıyla netlik</li>
-              <li><span class="bullet">✓</span> Yazılı bilgilendirme → sözleşme inceleme</li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir)</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>6 gece konaklama (Ubud + sahil bölgesi kombinasyonu), her gün otel kahvaltısı</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>2. gün Ubud & çevresi rehberli turu ve 4. gün Ayung Nehri rafting & doğa macerası</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span>6. gün tam gün tekne turu ve grup halinde öğle yemekleri</span>
+              </li>
             </ul>
-            <p class="hero-side-note">Not: Nihai kapsam/tarih/ücret, yazılı teklif ve sözleşme ekleriyle netleşir.</p>
+            <p class="hero-side-note">
+              Fiyatlar, kesin uçuş tarihleri, sezon yoğunluğu ve grup büyüklüğüne göre revize edilir. Net ve bağlayıcı fiyatlandırma,
+              tarafınızla paylaşılan yazılı teklif dokümanında yer alır.
+            </p>
           </aside>
         </div>
-      </section>
+      </header>
 
-      <section class="content">
-        <section class="section bg" style="--bgimg:url('/bali-rice-terraces-green.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Görsel Tadımlık</h2>
-              <span class="section-tag">Bali atmosferi</span>
+      <main class="content">
+        <section class="section" id="neden-bu-tatil">
+          <div class="section-header">
+            <h2 class="section-title">Neden Bali &amp; Neden Bu Tatil?</h2>
+            <span class="section-tag">Tur değil, toplu tatil organizasyonu</span>
+          </div>
+          <p class="section-text">
+            Bu program, klasik “günde 6–7 yer gezilen, otobüste saatler geçirilen, her durakta sadece fotoğraf çekilen” turlardan
+            bilinçli olarak farklı tasarlandı. Bali'yi sadece görmüş olmak için değil; deniz, doğa ve deneyim odaklı, gerçekten tatil
+            yaparak yaşamanız için planlıyoruz. Gün gün anlattığımız programın kalbinde; Ubud'un doğası, rafting ve tekne turu gibi
+            gerçekten yaşayacağınız aktiviteler ile dengeleyici serbest zaman blokları var. Akşamları tek bir restoran zorunluluğu
+            yerine, istediğiniz mekânda, istediğiniz bütçede seçim yapabileceğiniz esnek bir yapı sunuyoruz.
+          </p>
+          <div class="mini-gallery">
+            <img src="/bali-rice-terraces-green.jpg" alt="Bali pirinç terasları manzarası" />
+            <img src="/bali-beach-seminyak-palm-trees.jpg" alt="Bali sahili ve palmiyeler" />
+            <img src="/tanah-lot-temple-sunset-ocean.jpg" alt="Gün batımında Tanah Lot tapınağı" />
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-column">
+            <div>
+              <div class="section-header">
+                <h2 class="section-title">Bizi Diğer Klasik Turlardan Ayıran Noktalar</h2>
+                <span class="section-tag">Şeffaf &amp; deneyim odaklı yaklaşım</span>
+              </div>
+              <p class="section-text">
+                Tur mantığını, "sadece programı doldurmak" yerine "deneyimi zenginleştirmek" için kullanıyoruz. Listeyi doldurmak
+                için gereksiz tapınak ve durak eklemiyor; gün sayısını büyütmek için sizi yormuyoruz.
+              </p>
+              <ul class="card-soft-list">
+                <li>Odak, "kaç şehir gezdiniz?" değil; "hangi deneyimleri yaşadınız?" sorusunun cevabıdır.</li>
+                <li>Programda yazan her deneyimin, gerçek hayatta nasıl hissettireceğini düşünerek seçim yapıyoruz.</li>
+                <li>Serbest zamanları kasıtlı olarak koruyarak, tatil ritminizi kendinizin belirlemesini sağlıyoruz.</li>
+                <li>Ekstra aktiviteleri gizli sürpriz değil, en baştan yazılı ve isteğe bağlı şekilde sunuyoruz.</li>
+                <li>Kısacası, “tur paketi satmak”tan çok, “toplu ama özgür bir tatil organizasyonu” sunuyoruz.</li>
+              </ul>
             </div>
-            <p class="section-text">Broşürde “gözle karar verme” önemli. Bu yüzden her bölümde arka plan görselleri ve mini galeri kullandık.</p>
-            <div class="mini-gallery">
-              <img src="/bali-island-tropical-beach-temple.jpg" alt="" />
-              <img src="/bali-rice-terraces-green.jpg" alt="" />
-              <img src="/tanah-lot-temple-sunset-ocean.jpg" alt="" />
-              <img src="/bali-traditional-dance-kecak.jpg" alt="" />
-              <img src="/three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg" alt="" />
-              <img src="/22392be0-3624-49f7-ba42-3405352c5c8d.avif" alt="" />
+            <div>
+              <div class="section-header">
+                <h2 class="section-title">Kimler İçin Uygun?</h2>
+              </div>
+              <p class="section-text">
+                Aynı rotayı, farklı beklenti ve bütçelere göre üç ayrı paket seviyesiyle planladık. Aşağıdaki profillerden birine
+                kendinizi yakın görüyorsanız, bu Bali tatili sizin için ciddi bir aday demektir:
+              </p>
+              <div class="pill-list">
+                <span class="pill-small strong">Balayı çiftleri</span>
+                <span class="pill-small strong">Arkadaş grupları</span>
+                <span class="pill-small">Deniz &amp; plaj tatili sevenler</span>
+                <span class="pill-small">Doğa &amp; manzara odaklı seyahat severler</span>
+                <span class="pill-small">Body rafting, tekne turu ve hafif adrenalin sevenler</span>
+                <span class="pill-small">"Liste değil, deneyim" arayan misafirler</span>
+                <span class="pill-small">Akşamları kendi ritmine göre hareket etmek isteyenler</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="paketler">
+          <div class="section-header">
+            <h2 class="section-title">Paket Yapısı – Temel, Standart, Premium</h2>
+            <span class="section-tag">Aynı rota, üç farklı seviye</span>
+          </div>
+          <p class="section-text">
+            Gün gün anlattığımız detaylı program, Premium paket referans alınarak hazırlanmıştır. Temel ve Standart paketler, bu
+            programın sadeleştirilmiş hâlleridir. Tüm paketlerde uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir), 6 gece konaklama ve kahvaltı
+            sabittir; fark, dahil edilen aktiviteler, konaklama standardı ve esneklik seviyesinde ortaya çıkar.
+          </p>
+          <div class="columns-3" style="margin-top: 10px;">
+            <div class="card-soft">
+              <div class="card-soft-header">
+                <h3 class="card-soft-title">Temel Paket – "Altyapıyı Sabitle"</h3>
+                <span class="card-soft-tag">Bütçe dostu</span>
+              </div>
+              <p class="card-soft-body">
+                Uçuş ve konaklama altyapısını güvence altına almak; aktiviteleri ise bütçe ve isteğe göre sonradan eklemek isteyenler
+                için giriş seviyesi paket.
+              </p>
+              <ul class="card-soft-list">
+                <li>İstanbul çıkışlı gidiş-dönüş uçak bileti, kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir.</li>
+                <li>Ubud + sahil bölgesinde 6 gece konaklama ve her gün otel kahvaltısı dahildir.</li>
+                <li>2. gün Ubud &amp; çevresi turu, 4. gün rafting ve 6. gün tekne turu bu pakete dahil değildir.</li>
+                <li>3. gün ATV ve 5. gün su sporları gibi tüm aktiviteler isteğe bağlı ekstra olarak eklenir.</li>
+              </ul>
+            </div>
+            <div class="card-soft accent">
+              <div class="card-soft-header">
+                <h3 class="card-soft-title">Standart Paket – "Dengeli Deneyim"</h3>
+                <span class="card-soft-tag">En çok tercih edilen</span>
+              </div>
+              <p class="card-soft-body">
+                Bali'nin kalbini oluşturan rehberli günleri dahil etmek; serbest zaman ve ekstra aktiviteleri esnek bırakmak isteyenler
+                için ideal.
+              </p>
+              <ul class="card-soft-list">
+                <li>Uçak, konaklama ve kahvaltıya ek olarak 2. ve 4. gün rehberli turlar dahildir.</li>
+                <li>Bu günlerde grup halinde öğle yemekleri ve programda belirtilen girişler pakete dahildir.</li>
+                <li>6. gün tekne turu ve tüm ekstra su sporları deneyimleri isteğe bağlıdır.</li>
+                <li>Bütçe–deneyim dengesini koruyan, "ne çok boş, ne çok yoğun" seviyede bir tatil sunar.</li>
+              </ul>
+            </div>
+            <div class="card-soft">
+              <div class="card-soft-header">
+                <h3 class="card-soft-title">Premium Paket – "En Kapsamlı"</h3>
+                <span class="card-soft-tag">Tam deneyim</span>
+              </div>
+              <p class="card-soft-body">
+                Sayfadaki detaylı programın referans alındığı, rafting ve tam gün tekne turu dâhil, sürpriz maliyetleri en aza indiren
+                kapsamlı paket.
+              </p>
+              <ul class="card-soft-list">
+                <li>Uçak, konaklama, kahvaltı ve havalimanı–otel transferleri dahildir.</li>
+                <li>2. ve 4. gün rehberli aktiviteler ile 6. gün tam gün tekne turu pakete dahildir.</li>
+                <li>Tekne turu, grup büyüklüğüne göre özel veya paylaşımlı tekneyle yapılır; küçük gruplarda kişi başı fark teklif aşamasında netleştirilir.</li>
+                <li>3. gün ATV ve 5. gün su sporları deneyimleri opsiyoneldir; Premium misafirlere indirimli fiyat sunulur.</li>
+              </ul>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Neden Endonezya Kaşifi?</h2>
-              <span class="section-tag">"Neden biz?" cevabı</span>
+          <div class="two-column">
+            <div class="card-soft" style="border-color: rgba(52, 211, 153, 0.8); background: var(--accent-soft);">
+              <div class="card-soft-header">
+                <h3 class="card-soft-title">Fiyata Dahil Olanlar (Özet)</h3>
+              </div>
+              <ul class="card-soft-list">
+                <li>Tüm paketlerde: İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; uçuş fiyatları değişken olduğu için limit sabitlenmiştir; aşan fark katılımcı tarafından ödenir)</li>
+                <li>Tüm paketlerde: seçili otellerde 6 gece konaklama ve her gün otel kahvaltısı</li>
+                <li>Tüm paketlerde: havalimanı–otel–otel arası ana transferler ve 7/24 ulaşılabilir Türkçe destek</li>
+                <li>Standart ve Premium paketlerde: 2. gün Ubud &amp; çevresi doğa ve deneyim odaklı rehberli tur</li>
+                <li>Standart ve Premium paketlerde: 4. gün Ayung Nehri rafting deneyimi ve ilgili ekipmanlar</li>
+                <li>Yalnızca Premium paket: 6. gün tam gün tekne turu ve grup öğle yemeği</li>
+              </ul>
             </div>
-
-            <div class="columns-3">
-              <div class="card-soft accent photo" style="--bgimg:url('/bali-island-tropical-beach-temple.jpg')">
-                <div class="card-soft-title">Aracısız organizasyon</div>
-                <ul class="list">
-                  <li>Turu doğrudan biz organize ederiz.</li>
-                  <li>İstek/öneri/şikayet için <b>tek muhatap</b> biziz.</li>
-                  <li>Aracı zinciri olmadığı için iletişim daha hızlı ve net ilerler.</li>
-                </ul>
+            <div class="card-soft danger">
+              <div class="card-soft-header">
+                <h3 class="card-soft-title">Fiyata Dahil Olmayanlar (Özet)</h3>
               </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Uzmanlık Endonezya</div>
-                <ul class="list">
-                  <li>Odak noktamız Endonezya.</li>
-                  <li>YouTube/Instagram/web sitemiz bu uzmanlık üzerine kurulu.</li>
-                  <li>"X tur" değil; <b>Endonezya Kaşifi</b>yiz.</li>
-                </ul>
-              </div>
-              <div class="card-soft warning">
-                <div class="card-soft-title">Şeffaf + planlı süreç</div>
-                <ul class="list">
-                  <li>Yeni bir ekibiz; güveni <b>yazılı</b> süreçle kurarız.</li>
-                  <li>Önce bilgi paketi, sonra sözleşme inceleme.</li>
-                  <li>Onayınız olmadan ödeme adımına geçmeyiz.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="columns-2" style="margin-top: 12px;">
-              <div class="card-soft">
-                <div class="card-soft-title">Memnuniyet önceliği</div>
-                <p class="section-text">Para her işletme için önemlidir; bizde öncelik, verdiğiniz paranın karşılığını almanız ve tatilin sorunsuz akmasıdır. Bu yüzden kapsamı yazılı netleştiririz.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Endonezya içinden ekip</div>
-                <p class="section-text">Endonezya’da yaşayan, sahayı bilen bir ekiple tatili içeriden deneyimlersiniz. Operasyon ve iletişim tek hat üzerinden yönetilir.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section bg" style="--bgimg:url('/bali-island-temple-ocean-sunset-panoramic.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Örnek Tatil Akışı (özet)</h2>
-              <span class="section-tag">Nihai program WhatsApp’ta</span>
-            </div>
-            <p class="section-text">Aşağıdaki akış “örnek”tir; nihai gün gün programı ön kayıt sonrası yazılı olarak paylaşılır.</p>
-
-            <div class="timeline">
-              <div class="day">
-                <h4>Gün 1 • Varış & yerleşme</h4>
-                <p>Ulaşım/transfer planı, otele giriş ve bölge tanıtımı. Tatil temposunu bozmayan başlangıç.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 2–3 • Ubud & doğa</h4>
-                <p>Pirinç terasları, kültürel noktalar ve seçili deneyimler. Zaman planı ve transfer koordinasyonu dahil.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 4 • Sahile geçiş</h4>
-                <p>Ubud’dan sahil bölgesine geçiş; dinlenme ve deniz ritmine geçiş.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 5–6 • Deniz & serbest zaman</h4>
-                <p>Plaj günü, isteğe bağlı aktiviteler, alışveriş ve dinlenme. Dahil/hariç netliğiyle sürpriz masrafı azaltırız.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 7 • Dönüş</h4>
-                <p>Çıkış ve dönüş transferleri. Süreçte tüm teyitler yazılı olarak ilerler.</p>
-              </div>
+              <ul class="card-soft-list">
+                <li>Temel paket için: programdaki rehberli günler ve tüm aktiviteler</li>
+                <li>Standart paket için: 6. gün tekne turu ve tüm su sporları paketi</li>
+                <li>Tüm paketlerde: akşam yemekleri ve serbest günlerde otel kapsamı dışındaki yiyecek-içecek harcamaları</li>
+                <li>Tüm paketlerde: kişisel harcamalar, spa, masaj ve bireysel tercihlere bağlı ekstra hizmetler</li>
+                <li>Tüm paketlerde: 3. gün ATV ve 5. gün su sporları gibi opsiyonel ekstra aktiviteler (katılım gösterdikçe, ayrıca ücretlendirilir)</li>
+                <li>Endonezya/Bali turist vergisi ve resmi giriş harçları (lovebali.baliprov.go.id üzerinden online ödeme – misafire aittir)</li>
+                <li>Türkiye yurtdışı çıkış harcı</li>
+              </ul>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Dahil / Hariç (netlik)</h2>
-              <span class="section-tag">Sürpriz maliyeti azaltır</span>
-            </div>
-
-            <div class="columns-2">
-              <div class="card-soft accent">
-                <div class="card-soft-title">Dahil olan başlıca kalemler</div>
-                <ul class="list">
-                  <li>İstanbul çıkışlı gidiş–dönüş uçak bileti (kişi başı $750’a kadar dahil)</li>
-                  <li>Ubud + sahil bölgesinde 6 gece konaklama</li>
-                  <li>Her gün otelde sabah kahvaltısı</li>
-                  <li>Programdaki seçili rehberli günler ve transferler</li>
-                </ul>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Hariç olanlar (genel)</div>
-                <ul class="list">
-                  <li>Uçuş limit üzeri farklar</li>
-                  <li>Kişisel harcamalar</li>
-                  <li>Öğle/akşam yemekleri (pakete göre değişebilir)</li>
-                  <li>İsteğe bağlı ekstra turlar / aktiviteler</li>
-                  <li>Tek kişilik oda opsiyonu varsa oda farkı</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="card-soft" style="margin-top: 12px;">
-              <div class="card-soft-title">Konaklama standardı</div>
-              <p class="section-text">Standart konaklama 2 kişilik paylaşımlı odadır. Çiftler veya birlikte kalmak isteyen arkadaşlar birlikte yerleştirilir. Tek kişi katılımlarda oda eşleştirme yapılır. Tek kişilik oda opsiyonu varsa ayrıca fiyatlanır.</p>
-            </div>
+          <div class="section-header">
+            <h2 class="section-title">Gün Gün Örnek Program Özeti (Premium Paket Referanslı)</h2>
           </div>
+          <ul class="timeline">
+            <li class="timeline-item"><div class="timeline-day">1. Gün</div><div class="timeline-text">Bali Havalimanı'nda buluşma, otele transfer, check-in ve yol yorgunluğunu atmanız için serbest zaman. Ubud bölgesinde ilk gece.</div></li>
+            <li class="timeline-item"><div class="timeline-day">2. Gün</div><div class="timeline-text">Ubud &amp; çevresi rehberli turu: Tegenungan Şelalesi, Tegalalang pirinç terasları, Ubud Monkey Forest, kahve–çay tadımı ve Ubud sokaklarında serbest zaman. Grup halinde öğle yemeği.</div></li>
+            <li class="timeline-item"><div class="timeline-day">3. Gün</div><div class="timeline-text">Serbest gün: Ubud sokakları, kafeler, spa ve alışveriş için özgür zaman. İsteyen misafirler için opsiyonel ATV Quad Safari deneyimi (ücretli ekstra).</div></li>
+            <li class="timeline-item"><div class="timeline-day">4. Gün</div><div class="timeline-text">Ayung Nehri üzerinde rafting &amp; doğa macerası, ardından sahile geçiş (Sanur bölgesi). Rafting ekipmanları ve rehberlik pakete dahil.</div></li>
+            <li class="timeline-item"><div class="timeline-day">5. Gün</div><div class="timeline-text">Serbest gün: Sahilde deniz, havuz ve dinlenme. İsteyenler için aynı gün içinde Sea Walker, Jet Ski ve Parasailing gibi su sporlarından oluşan opsiyonel paket (ücretli ekstra).</div></li>
+            <li class="timeline-item"><div class="timeline-day">6. Gün</div><div class="timeline-text">Tam gün tekne turu ve ada deneyimi: şnorkel, yüzme molaları, sakin koylar ve gün batımına doğru dönüş. Grup halinde öğle yemeği dâhil.</div></li>
+            <li class="timeline-item"><div class="timeline-day">7. Gün</div><div class="timeline-text">Sabah kahvaltısı, uçuş saatine göre Bali'de serbest zaman ve ardından havalimanı transferi. Program Bali Havalimanı'nda sona erer.</div></li>
+          </ul>
+          <p class="disclaimer">Not: Bu broşür, örnek programı ve genel kapsamı anlatan bir özettir. Günlerin sırası, ziyaret noktaları ve saat aralıkları; uçuş saatleri, hava koşulları ve operasyonel gerekliliklere göre revize edilebilir. Güncel ve bağlayıcı program, size iletilen yazılı teklif ve sözleşmede yer alır.</p>
         </section>
 
-        <section class="section bg" style="--bgimg:url('/bali-island-tropical-beach-temple.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Süreç (3 adım)</h2>
-              <span class="section-tag">yazılı + onaylı</span>
+        <section class="section">
+          <div class="two-column">
+            <div>
+              <div class="section-header"><h2 class="section-title">Konaklama &amp; Ulaşım Yaklaşımı</h2></div>
+              <p class="section-text">Konaklamalarda, lokasyon ve güvenilirlik bizim için en önemli kriterdir. Ubud ve sahil bölgesindeki oteller, misafir yorumları, ulaşım kolaylığı ve çevredeki imkânlar dikkate alınarak seçilir. Oda tipleri, paket seviyesine göre değişiklik gösterir; temel prensip ise iki kişilik paylaşımlı odalarda konaklamadır (çiftler veya aynı odada kalmak isteyen arkadaşlar birlikte yerleştirilir).</p>
+              <p class="section-text" style="margin-top: 6px;">Uçuşlarda, mümkün olduğunca makul aktarma süreleri ve tanınmış havayolları tercih edilir. Uçak bileti; web sitesindeki paket açıklamalarında, broşürlerde ve teklif formlarında kişi başı $750’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit sabitlenmiştir; limit üzeri fiyat farkı katılımcı tarafından karşılanır ve ödeme öncesinde açık şekilde belirtilir.</p>
             </div>
-            <div class="columns-3">
-              <div class="card-soft">
-                <div class="card-soft-title">1) Ön kayıt</div>
-                <p class="section-text">Ücretsiz ve bağlayıcı değil.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">2) Yazılı bilgi paketi</div>
-                <p class="section-text">Program + dahil/hariç + kurallar WhatsApp’tan yazılı gönderilir.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">3) Sözleşme inceleme → ödeme</div>
-                <p class="section-text">Ön Bilgilendirme + Paket Tur Sözleşmesi inceleme sonrası onayla ödeme.</p>
-              </div>
+            <div>
+              <div class="section-header"><h2 class="section-title">Fiyat &amp; Ödeme, Kapora Yapısı</h2></div>
+              <p class="section-text">Bu broşürde güncel rakam paylaşmıyoruz. Güncel kişi başı başlayan fiyat; web sitemizdeki Bali turu detay sayfasında ve ödeme adımında açıkça belirtilir. Toplam tutar; seçtiğiniz tarih, grup büyüklüğü ve tercih edilen paket seviyesine göre belirlenir ve ödeme öncesinde net şekilde gösterilir.</p>
+              <p class="section-text" style="margin-top: 6px;">Rezervasyon için genellikle toplam turun belirli bir yüzdesi (örneğin %30) kapora olarak alınır; kalan bakiye, uçuş biletlerinin kesilmesi ve otel onayları öncesinde tamamlanır. Ödeme planı, sözleşme ve resmi teklif ile birlikte size yazılı olarak bildirilir.</p>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">SSS (kısa)</h2>
-              <span class="section-tag">en çok sorulanlar</span>
-            </div>
+          <div class="section-header"><h2 class="section-title">Görsel Bali Manzaraları</h2></div>
+          <p class="section-text">Aşağıdaki kareler, bu tatilin atmosferini hissetmeniz için seçilmiş birkaç küçük görseldir; detaylı fotoğraf galerisini web sitemizdeki tur sayfasında ve size iletilen dijital broşür bağlantısında daha geniş hâliyle inceleyebilirsiniz.</p>
+          <div class="mini-gallery">
+            <img src="/ubud-monkey-forest-bali.jpg" alt="Ubud Monkey Forest" />
+            <img src="/bali-traditional-dance-kecak.jpg" alt="Kecak dansı" />
+            <img src="/bali-luxury-pool-villa.jpg" alt="Bali konaklama" />
+          </div>
+        </section>
 
-            <div class="columns-2">
-              <div class="card-soft">
-                <div class="card-soft-title">Uçuş limitini aşırsak?</div>
-                <p class="section-text">Uçuşlar kişi başı $750’a kadar dahildir. Uçuş fiyatı limit üzerindeyse fark ayrıca yansıtılır.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Ödeme ne zaman?</div>
-                <p class="section-text">Önce yazılı bilgi paketi + sözleşme inceleme yapılır. Onayınız olmadan ödeme adımına geçilmez.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Tek kişilik oda var mı?</div>
-                <p class="section-text">Standart 2 kişilik paylaşımlı odadır. Tek kişilik oda opsiyonu varsa ayrıca fiyatlanır.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Program kesin mi?</div>
-                <p class="section-text">Broşürde özet akış verilir; nihai program ve koşullar yazılı olarak paylaşılır ve onayınıza sunulur.</p>
-              </div>
+        <section class="section" id="onemli-notlar">
+          <div class="section-header">
+            <h2 class="section-title">Önemli Notlar &amp; Uyarılar</h2>
+            <span class="section-tag">Lütfen dikkatlice okuyun</span>
+          </div>
+          <div class="columns-2">
+            <div class="card-soft">
+              <div class="card-soft-header"><h3 class="card-soft-title">Pasaport &amp; Vize</h3></div>
+              <p class="card-soft-body">Endonezya'ya girişte pasaport geçerlilik sürenizin seyahat bitiminden itibaren en az 6 ay daha devam etmesi beklenmektedir. Türkiye Cumhuriyeti vatandaşları için uygulanan güncel vize/kapı vizesi kuralları ve ücretleri değişken olabileceğinden, seyahat öncesinde güncel bilgilendirme tarafınıza yazılı olarak yapılacaktır.</p>
+            </div>
+            <div class="card-soft">
+              <div class="card-soft-header"><h3 class="card-soft-title">Seyahat Sağlık Sigortası &amp; Güvenlik</h3></div>
+              <p class="card-soft-body">Yurt dışı seyahat sağlık sigortası, olası sağlık sorunları ve bagaj kaybı gibi durumlara karşı güçlü bir güvence sağlar. Tur paketine dahil olup olmadığı yazılı teklif dokümanında açıkça belirtilir; dahil değilse, şahsi olarak yaptırmanız kuvvetle tavsiye edilir. Rafting, su sporları gibi aktivitelerde, ilgili yerel operatörlerin güvenlik kuralları ve ekipman kullanımı birebir takip edilir.</p>
+            </div>
+            <div class="card-soft">
+              <div class="card-soft-header"><h3 class="card-soft-title">Grup Dinamiği &amp; Beklentiler</h3></div>
+              <p class="card-soft-body">Bu organizasyon, deneyim odaklı toplu bir tatildir. Programın sağlıklı ve keyifli ilerlemesi için zamanlamaya uyum, rehber talimatlarına saygı ve diğer misafirlerin konforuna özen beklenir. Gürültü, aşırı alkol kullanımı veya grup düzenini bozan davranışlar kabul edilmez; bu konuda hassas bir yaklaşım benimsiyoruz.</p>
+            </div>
+            <div class="card-soft">
+              <div class="card-soft-header"><h3 class="card-soft-title">Broşürün Niteliği</h3></div>
+              <p class="card-soft-body">Bu broşür; turu, kapsamı ve yaklaşımı anlatan bilgilendirici bir dokümandır. Satış sözleşmesi veya resmi teklif yerine geçmez. Nihai hak ve yükümlülükler; tarafınıza iletilecek olan yazılı teklif, paket tur sözleşmesi ve bilgilendirme formlarında ayrıntılı şekilde yer alır.</p>
             </div>
           </div>
         </section>
-      </section>
+      </main>
 
-      <footer class="footer">
-        <p><b>PDF alma:</b> Tarayıcıda “Yazdır” → “PDF olarak kaydet”.</p>
-        <p>Bu broşür bilgilendirme amaçlıdır. Nihai kapsam, tarih ve bedel; yazılı teklif ve sözleşme ekleriyle netleşir.</p>
+      <footer class="footer-note">
+        <strong>Önemli:</strong>
+        Bu broşürde yer alan tüm içerik, Bali Adası için planladığımız deneyim odaklı toplu tatil organizasyonunu genel hatlarıyla
+        anlatmak amacıyla hazırlanmıştır. Fiyatlar, tarih ve kapsam; yazılı teklif, sözleşme ve güncel mevzuat ışığında netleşir.
+        Lütfen rezervasyon öncesinde size gönderilen resmi dokümanları dikkatle inceleyin.
       </footer>
-    </main>
+    </div>
   </body>
 </html>

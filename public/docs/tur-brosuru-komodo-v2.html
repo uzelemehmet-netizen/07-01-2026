@@ -3,493 +3,194 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Komodo | Endonezya Kaşifi — Broşür</title>
+    <title>Komodo – Tekne & Şnorkel Deneyimi | Broşür</title>
+    <link rel="stylesheet" href="/docs/tur-brosuru-v2.css" />
     <style>
       :root {
-        --bg: #0b1120;
-        --bg-soft: #020617;
-        --card: rgba(2, 6, 23, 0.92);
-        --accent: #fb7185;
-        --accent-soft: rgba(251, 113, 133, 0.10);
-        --accent-strong: #f97316;
-        --text: #e5e7eb;
-        --muted: #9ca3af;
-        --border: rgba(148, 163, 184, 0.45);
-        --danger: #fb7185;
-        --warning: #facc15;
-      }
+        --accent: #ec4899;
+        --accent-light: #f472b6;
+        --accent-dark: #be185d;
+        --accent-rgb: 236, 72, 153;
+        --hero-image: url("/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg");
 
-      * { box-sizing: border-box; }
-      html, body {
-        margin: 0;
-        padding: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
-        color: var(--text);
-      }
-      body { padding: 32px 16px; }
-
-      .brochure {
-        max-width: 1020px;
-        margin: 0 auto;
-        background: radial-gradient(circle at top, rgba(251,113,133,0.06) 0, rgba(2,6,23,0.98) 55%, #020617 100%);
-        border-radius: 24px;
-        border: 1px solid rgba(148, 163, 184, 0.35);
-        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
-        overflow: hidden;
-      }
-
-      .hero {
-        position: relative;
-        padding: 28px 28px 40px;
-        background:
-          radial-gradient(circle at top, rgba(249, 115, 22, 0.08) 0, rgba(15, 23, 42, 0.98) 55%, #020617 100%),
-          url("/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg") center/cover no-repeat;
-        isolation: isolate;
-      }
-      .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, rgba(15, 23, 42, 0.92), rgba(124, 45, 18, 0.84), rgba(2, 6, 23, 0.95));
-        mix-blend-mode: multiply;
-      }
-      .hero-inner {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-        gap: 22px;
-        align-items: center;
-      }
-      @media (max-width: 860px) { .hero-inner { grid-template-columns: 1fr; } }
-
-      .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-      .badge-main {
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 4px 12px; border-radius: 999px;
-        border: 1px solid rgba(248, 250, 252, 0.2);
-        background: radial-gradient(circle at top left, rgba(251,113,133,0.28), rgba(2,6,23,0.95));
-        color: #fff1f2; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-      }
-      .badge-soft {
-        padding: 4px 10px; border-radius: 999px; font-size: 11px; color: var(--muted);
-        background: rgba(15, 23, 42, 0.78); border: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      .hero-title { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; margin: 0 0 10px; letter-spacing: 0.02em; color: #f9fafb; }
-      .hero-subtitle { margin: 0 0 12px; font-size: 14px; color: #e5e7eb; max-width: 620px; }
-      .hero-note { margin: 0 0 16px; font-size: 12px; color: #fecdd3; max-width: 640px; }
-
-      .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 18px; }
-      .pill {
-        padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.45);
-        font-size: 11px; color: #e5e7eb; background: rgba(15, 23, 42, 0.78);
-      }
-      .pill-accent { background: rgba(251, 113, 133, 0.16); border-color: rgba(251, 113, 133, 0.75); color: #fecdd3; }
-
-      .hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-      .btn-primary {
-        display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px;
-        border: none;
-        background: radial-gradient(circle at 0% 0%, var(--accent-strong), var(--accent) 45%, #c2410c 100%);
-        color: #f9fafb; font-size: 13px; font-weight: 650; cursor: pointer; text-decoration: none;
-        box-shadow: 0 14px 40px rgba(251, 113, 133, 0.35);
-      }
-      .btn-secondary {
-        display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 999px;
-        border: 1px solid rgba(148, 163, 184, 0.6);
-        background: rgba(15, 23, 42, 0.8);
-        color: #e5e7eb;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-      }
-
-      .hero-side-card {
-        border-radius: 18px;
-        padding: 18px 18px 16px;
-        background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), rgba(2, 6, 23, 0.96));
-        border: 1px solid rgba(249, 115, 22, 0.35);
-        box-shadow: 0 20px 50px rgba(124, 45, 18, 0.7);
-      }
-      .hero-side-title { font-size: 13px; font-weight: 700; color: #ffedd5; margin: 0 0 4px; }
-      .hero-side-price { margin: 0 0 2px; font-size: 22px; font-weight: 800; color: #fefce8; }
-      .hero-side-sub { margin: 0; font-size: 11px; color: #fecaca; }
-      .hero-side-list { margin: 12px 0 0; padding: 0; list-style: none; font-size: 11px; color: #e5e7eb; }
-      .hero-side-list li { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
-      .hero-side-list li span.bullet { margin-top: 2px; color: #fecdd3; }
-      .hero-side-note { margin: 8px 0 0; font-size: 10px; color: #fecdd3; }
-
-      .content {
-        padding: 24px 28px 26px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        background: radial-gradient(circle at top, rgba(2, 6, 23, 0.98), #020617 45%, #020617 100%);
-      }
-
-      .mini-gallery { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-      .mini-gallery img {
-        border-radius: 12px;
-        border: 1px solid rgba(148, 163, 184, 0.55);
-        width: calc(33.333% - 6px);
-        height: 78px;
-        object-fit: cover;
-        box-shadow: 0 10px 22px rgba(15, 23, 42, 0.7);
-      }
-      @media (max-width: 640px) { .mini-gallery img { width: calc(50% - 5px); } }
-
-      .section {
-        position: relative;
-        padding: 18px 18px 16px;
-        border-radius: 18px;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: radial-gradient(circle at top left, rgba(2, 6, 23, 0.90), rgba(2, 6, 23, 0.98));
-        overflow: hidden;
-      }
-      .section.bg { border-color: rgba(251, 113, 133, 0.45); }
-      .section-bg {
-        position: absolute;
-        inset: 0;
-        background: var(--bgimg) center/cover no-repeat;
-        filter: saturate(1.05) contrast(1.05);
-        opacity: 0.22;
-      }
-      .section-bg::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top left, rgba(251,113,133,0.20), rgba(2,6,23,0.95) 55%, rgba(2,6,23,0.98) 100%);
-      }
-      .section-inner { position: relative; z-index: 1; }
-
-      .section-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
-      .section-title { font-size: 15px; font-weight: 750; color: #e5e7eb; margin: 0; }
-      .section-tag {
-        padding: 3px 9px;
-        border-radius: 999px;
-        font-size: 10px;
-        color: #ffedd5;
-        background: rgba(2, 6, 23, 0.72);
-        border: 1px solid rgba(249, 115, 22, 0.35);
-      }
-      .section-text { margin: 0; font-size: 12px; line-height: 1.65; color: var(--muted); }
-
-      .columns-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      @media (max-width: 720px) { .columns-2 { grid-template-columns: 1fr; } }
-
-      .columns-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-      @media (max-width: 860px) { .columns-3 { grid-template-columns: 1fr; } }
-
-      .card-soft {
-        border-radius: 14px;
-        padding: 12px 12px 11px;
-        background: rgba(2, 6, 23, 0.75);
-        border: 1px solid rgba(148, 163, 184, 0.4);
-      }
-      .card-soft.photo { position: relative; overflow: hidden; }
-      .card-soft.photo::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--bgimg) center/cover no-repeat;
-        opacity: 0.18;
-        filter: saturate(1.05) contrast(1.05);
-      }
-      .card-soft.photo::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top left, rgba(251,113,133,0.20), rgba(2,6,23,0.92) 60%, rgba(2,6,23,0.98));
-      }
-      .card-soft.photo > * { position: relative; z-index: 1; }
-      .card-soft.accent {
-        border-color: rgba(251, 113, 133, 0.75);
-        background: radial-gradient(circle at top left, rgba(251, 113, 133, 0.25), rgba(2, 6, 23, 0.86));
-      }
-      .card-soft.warning {
-        border-color: rgba(250, 204, 21, 0.6);
-        background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.18), rgba(2, 6, 23, 0.90));
-      }
-      .card-soft.danger {
-        border-color: rgba(251, 113, 133, 0.65);
-        background: radial-gradient(circle at top left, rgba(251, 113, 133, 0.18), rgba(2, 6, 23, 0.90));
-      }
-      .card-soft-title { font-size: 13px; font-weight: 750; color: #e5e7eb; margin: 0 0 6px; }
-      .list { margin: 0; padding-left: 18px; color: #e5e7eb; font-size: 12px; }
-      .list li { margin: 0 0 6px; }
-
-      .timeline { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
-      .day {
-        border-radius: 14px;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-        background: rgba(2, 6, 23, 0.70);
-        padding: 12px;
-      }
-      .day h4 { margin: 0 0 6px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #fecdd3; }
-      .day p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-      .footer {
-        padding: 18px 28px 24px;
-        font-size: 11px;
-        color: var(--muted);
-        background: rgba(2, 6, 23, 0.98);
-        border-top: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      @media print {
-        body { padding: 0; }
-        .brochure { border-radius: 0; box-shadow: none; border: none; }
-        a { color: inherit; text-decoration: none; }
-        .section, .hero-side-card { break-inside: avoid; }
-        .mini-gallery img { break-inside: avoid; }
+        --page-bg-top: #3b0a22;
+        --page-bg-mid: #020617;
+        --page-bg-bottom: #000000;
+        --frame-bg-top: #3b0a2a;
+        --frame-bg-mid: #020617;
+        --frame-bg-bottom: #020617;
       }
     </style>
   </head>
   <body>
-    <main class="brochure">
-      <section class="hero">
+    <div class="brochure">
+      <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-inner">
           <div>
             <div class="badge-row">
-              <span class="badge-main">🦎 Endonezya Kaşifi</span>
-              <span class="badge-soft">Komodo / Labuan Bajo</span>
-              <span class="badge-soft">6 Gece 7 Gün</span>
+              <div class="badge-main">
+                <span class="icon">🛥️</span>
+                <span>Komodo Adası – Tekne & Doğa Deneyimi</span>
+              </div>
+              <div class="badge-soft">6 Gece 7 Gün · Şnorkel, Koylar, Vahşi Doğa</div>
             </div>
-            <h1 class="hero-title">Komodo: Tekne Günü + Efsane Manzaralar</h1>
-            <p class="hero-subtitle">Komodo rotası “tek fotoğraf” değil: gün planı, transfer koordinasyonu ve tekne deneyimi bir bütündür. Dolu dolu ama kontrollü tempo.</p>
-            <p class="hero-note">Ön kayıt ücretsiz ve bağlayıcı değildir. Önce yazılı paket + sözleşme inceleme, sonra onay & ödeme.</p>
+            <h1 class="hero-title">Komodo – Ulusal Park, Pembe Kumsal ve Turkuaz Koylar</h1>
+            <p class="hero-subtitle">
+              UNESCO Dünya Mirası Komodo Ulusal Parkı; Komodo ejderleri, pembe kumsallar ve şnorkel noktalarıyla "tekne günü" odaklı
+              özel bir rota sunar. Bu paket; tekne günleri + serbest zaman dengesiyle, sürpriz maliyetleri azaltacak şekilde planlanır.
+            </p>
+            <p class="hero-note">
+              Tüm paketlerde uçak bileti kişi başı <strong>$750</strong>’a kadar pakete dahildir. Uçuş fiyatları çok değişken olduğu için bu limit
+              sabitlenmiştir; limit üzeri fark katılımcı tarafından ödenir ve ödeme öncesinde açık şekilde paylaşılır. Bu rotada liman/tekne
+              operasyonu önemli olduğu için; tekne günü sayısı ve kapsam, yazılı teklif dokümanında netleşir.
+            </p>
+            <p class="brand-line">endonezyakasifi.com, Endonezya’da kayıtlı PT MoonStar Global Indonesia şirketinin markasıdır.</p>
             <div class="pill-row">
-              <span class="pill pill-accent">Uçuş: kişi başı $750’a kadar dahil</span>
-              <span class="pill">Standart oda: 2 kişilik paylaşımlı</span>
-              <span class="pill">Tekne deneyimi odaklı</span>
-              <span class="pill">Net dahil/hariç</span>
+              <span class="pill pill-accent">Tur değil, planlı tekne deneyimi</span>
+              <span class="pill">6 Gece 7 Gün | Labuan Bajo merkezli</span>
+              <span class="pill">Tekne günleri + rehberli trekking rotaları (pakete göre)</span>
+              <span class="pill">Şnorkel, koylar, gün batımı</span>
+              <span class="pill">Fotoğrafçılık ve macera severlere uygun</span>
             </div>
             <div class="hero-cta-row">
-              <a class="btn-primary" href="/tours" target="_blank" rel="noopener noreferrer">📌 Turları Gör</a>
-              <a class="btn-secondary" href="/docs/on-kayit-bilgi-paketi.html" target="_blank" rel="noopener noreferrer">📄 Ön Kayıt Bilgi Paketi</a>
+              <a href="#paketler" class="btn-primary"><span class="icon">⭐</span><span>Komodo paketini incele</span></a>
+              <a href="#onemli-notlar" class="btn-secondary"><span class="icon">⚠️</span><span>Önemli uyarılar & notlar</span></a>
+              <button type="button" class="btn-secondary" onclick="window.print()"><span class="icon">⬇️</span><span>PDF olarak kaydet</span></button>
             </div>
           </div>
-
           <aside class="hero-side-card">
-            <p class="hero-side-title">Kısa özet</p>
-            <p class="hero-side-price">Tekne + manzara</p>
-            <p class="hero-side-sub">Tarih: 20 – 26 Mayıs</p>
+            <h2 class="hero-side-title">Premium Paket İçin Örnek Kapsam</h2>
+            <p class="hero-side-sub">Güncel kişi başı fiyat ve kampanya bilgisi, size özel yazılı teklif dokümanında paylaşılır.</p>
             <ul class="hero-side-list">
-              <li><span class="bullet">✓</span> Labuan Bajo konaklama akışı</li>
-              <li><span class="bullet">✓</span> Seçili tekne/rehberli günler</li>
-              <li><span class="bullet">✓</span> Şeffaf dahil/hariç</li>
-              <li><span class="bullet">✓</span> Yazılı bilgilendirme → onay → ödeme</li>
+              <li><span class="bullet">✓</span><span>İstanbul çıkışlı gidiş-dönüş uçak bileti (kişi başı $750’a kadar dahildir; aşan fark katılımcı tarafından ödenir)</span></li>
+              <li><span class="bullet">✓</span><span>Labuan Bajo konaklamaları + her gün otelde sabah kahvaltısı</span></li>
+              <li><span class="bullet">✓</span><span>Programdaki tekne günleri ve rehberli trekking rotaları (pakete göre)</span></li>
+              <li><span class="bullet">✓</span><span>Rota içi transferler (havalimanı/otel/liman) ve operasyon koordinasyonu</span></li>
             </ul>
-            <p class="hero-side-note">Not: Nihai kapsam/tarih/ücret, yazılı teklif ve sözleşme ekleriyle netleşir.</p>
+            <p class="hero-side-note">Bu rota genellikle Premium planlanır. Nihai kapsam ve tekne günü sayısı yazılı teklifte netleşir.</p>
           </aside>
         </div>
-      </section>
+      </header>
 
-      <section class="content">
-        <section class="section bg" style="--bgimg:url('/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Görsel Tadımlık</h2>
-              <span class="section-tag">Komodo vibe</span>
+      <main class="content">
+        <section class="section" id="neden-bu-tatil">
+          <div class="section-header"><h2 class="section-title">Neden Komodo &amp; Neden Bu Tatil?</h2><span class="section-tag">Tur değil, toplu deneyim organizasyonu</span></div>
+          <p class="section-text">Komodo'nun “olayı” tekne günü ve ulusal park deneyimidir. Bu yüzden rotayı; tekne günleri + dinlenme günleri ile dengeler, günübirlik koşturma yerine denizde geçirilen kaliteli zamanı öne çıkarırız. Amaç; hem şnorkel/koylar hem de yürüyüş/seyir noktaları gibi deneyimleri "dozunda" yaşatmak.</p>
+          <div class="mini-gallery">
+            <img src="/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg" alt="Komodo tekne" />
+            <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="Şnorkel" />
+            <img src="/vecteezy_ai-generated-woman-walking-on-the-beach-romantic_37348905.jpg" alt="Kumsal" />
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-column">
+            <div>
+              <div class="section-header"><h2 class="section-title">Bizi Diğer Klasik Turlardan Ayıran Noktalar</h2><span class="section-tag">Şeffaf &amp; operasyon odaklı yaklaşım</span></div>
+              <p class="section-text">Tekne günü planı; hava, dalga ve tekne kontenjanına göre esnek yönetilmelidir. Bu yüzden programı "sözde" değil, operasyon gerçekliğine uygun tasarlarız.</p>
+              <ul class="card-soft-list">
+                <li>Tekne günleri, grup büyüklüğü ve sezona göre en baştan şeffaflaştırılır.</li>
+                <li>Şnorkel ekipmanları ve güvenlik kuralları, yerel operatörlerle birlikte takip edilir.</li>
+                <li>Serbest zaman blokları korunur; tatil hissi kaybolmaz.</li>
+              </ul>
             </div>
-            <p class="section-text">Bu broşürde “kızıl/şafak” tonları kullandık. Kart arkaplanlarında karartılmış ada fotoğrafları var.</p>
-            <div class="mini-gallery">
-              <img src="/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg" alt="" />
-              <img src="/three-happy-cheerful-european-people-having-lunch-board-yacht-drinking-champagne-spending-fantastic-time-together-friends-arranged-surprise-party-boat-b-day-girl.jpg" alt="" />
-              <img src="/Theme-Dining-in-sea-breeze-Sanje-Lounge-2-1024x682.jpg" alt="" />
-              <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="" />
-              <img src="/vecteezy_two-men-riding-jet-skis-side-by-side-on-the-water-concept_68431320.jpg" alt="" />
-              <img src="/vecteezy_woman-enjoys-cocktail-by-tropical-pool-sunset_69181105.jpg" alt="" />
+            <div>
+              <div class="section-header"><h2 class="section-title">Kimler İçin Uygun?</h2></div>
+              <p class="section-text">Tekne, şnorkel ve fotoğraf odaklı bir rota arayan; vahşi doğa ve ulusal park deneyimini seven misafirler için.</p>
+              <div class="pill-list">
+                <span class="pill-small strong">Tekne turu</span>
+                <span class="pill-small strong">Şnorkel</span>
+                <span class="pill-small">Doğa &amp; macera</span>
+                <span class="pill-small">Fotoğrafçılık</span>
+                <span class="pill-small">Deniz &amp; plaj</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="paketler">
+          <div class="section-header"><h2 class="section-title">Paket Yapısı – Temel, Standart, Premium</h2><span class="section-tag">Bu rota Premium odaklıdır</span></div>
+          <p class="section-text">Komodo rotası tekne operasyonu nedeniyle genellikle Premium paket olarak planlanır. Broşür formatını standart tutmak için Temel/Standart seviyeler, tekne günü sayısı ve kapsamı azaltılarak talebe göre yazılı teklifte sunulabilir.</p>
+          <div class="columns-3" style="margin-top: 10px;">
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Temel Paket – "Altyapıyı Sabitle"</h3><span class="card-soft-tag">Talebe göre</span></div><p class="card-soft-body">Konaklama + ana transfer altyapısını sabitleyip, tekne günlerini opsiyonel bırakmak isteyen gruplar için.</p><ul class="card-soft-list"><li>Labuan Bajo konaklamaları planlanır.</li><li>Liman/havalimanı transferleri planlanır.</li><li>Tekne günleri opsiyonel olabilir.</li></ul></div>
+            <div class="card-soft accent"><div class="card-soft-header"><h3 class="card-soft-title">Standart Paket – "Dengeli Deneyim"</h3><span class="card-soft-tag">Talebe göre</span></div><p class="card-soft-body">Seçili tekne günü/trekking rotalarını dahil edip serbest zamanı koruyan versiyon.</p><ul class="card-soft-list"><li>Programdaki seçili tekne günü ve trekking rotaları dahil edilebilir.</li><li>Kapsam yazılı teklifte netleşir.</li></ul></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Premium Paket – "En Kapsamlı"</h3><span class="card-soft-tag">Ana paket</span></div><p class="card-soft-body">Tekne günleri ve rehberli trekking rotalarının kapsamlı şekilde dahil olduğu premium paket.</p><ul class="card-soft-list"><li>Tekne günleri + rehberli rotalar (pakete göre)</li><li>Transferler (havalimanı/otel/liman) + operasyon koordinasyonu</li><li>Kahvaltı ve konaklama</li></ul></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-column">
+            <div class="card-soft" style="border-color: rgba(52, 211, 153, 0.8); background: var(--accent-soft);">
+              <div class="card-soft-header"><h3 class="card-soft-title">Fiyata Dahil Olanlar (Özet)</h3></div>
+              <ul class="card-soft-list">
+                <li>Labuan Bajo konaklamaları + her gün otelde sabah kahvaltısı</li>
+                <li>Rota içi transferler (havalimanı/otel/liman) ve operasyon koordinasyonu</li>
+                <li>Programdaki tekne günleri ve rehberli trekking rotaları (pakete göre)</li>
+              </ul>
+            </div>
+            <div class="card-soft danger">
+              <div class="card-soft-header"><h3 class="card-soft-title">Fiyata Dahil Olmayanlar (Özet)</h3></div>
+              <ul class="card-soft-list">
+                <li>Tüm paketlerde: akşam yemekleri ve kişisel harcamalar</li>
+                <li>Opsiyonel ekstra aktiviteler (daha fazla tekne günü, özel dalış vb.)</li>
+                <li>Resmi giriş/çıkış harçları ve yerel vergiler (varsa) + Türkiye yurtdışı çıkış harcı</li>
+              </ul>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Neden Endonezya Kaşifi?</h2>
-              <span class="section-tag">Güven inşası</span>
-            </div>
-
-            <div class="columns-3">
-              <div class="card-soft accent photo" style="--bgimg:url('/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg')">
-                <div class="card-soft-title">Aracısız / tek muhatap</div>
-                <ul class="list">
-                  <li>Organizasyon doğrudan bizde.</li>
-                  <li>Tekne günü gibi kritik günlerde iletişim tek kanaldan yürür.</li>
-                  <li>Planlama hızlı ve nettir.</li>
-                </ul>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Uzmanlık Endonezya</div>
-                <ul class="list">
-                  <li>Odak ülke Endonezya: rotalar derinleşir.</li>
-                  <li>Beklenti yönetimi doğru kurulur.</li>
-                  <li>Görsel kadar “akış” da önemlidir.</li>
-                </ul>
-              </div>
-              <div class="card-soft warning">
-                <div class="card-soft-title">Şeffaf, planlı süreç</div>
-                <ul class="list">
-                  <li>Bilgi paketi + sözleşme inceleme.</li>
-                  <li>Önce netlik, sonra ödeme.</li>
-                  <li>Dahil/hariç yazılıdır.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="columns-2" style="margin-top: 12px;">
-              <div class="card-soft">
-                <div class="card-soft-title">Memnuniyet önceliği</div>
-                <p class="section-text">Tekne günü sorunsuz aksın diye saatler ve geçişler planlanır. Tatil “koşuşturma”ya dönmesin.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Endonezya içinden ekip</div>
-                <p class="section-text">Saha bilgisiyle doğru iskele/saat/rota kararları daha gerçekçi kurulur. Operasyon kanalı hazırdır.</p>
-              </div>
-            </div>
-          </div>
+          <div class="section-header"><h2 class="section-title">Gün Gün Örnek Program Özeti (Premium Paket Referanslı)</h2></div>
+          <ul class="timeline">
+            <li class="timeline-item"><div class="timeline-day">1. Gün</div><div class="timeline-text">Labuan Bajo varış, otele transfer, check-in ve serbest zaman.</div></li>
+            <li class="timeline-item"><div class="timeline-day">2. Gün</div><div class="timeline-text">Tekne günü: koylar, şnorkel molaları ve seçili adalar (program tekne/hava durumuna göre şekillenir).</div></li>
+            <li class="timeline-item"><div class="timeline-day">3. Gün</div><div class="timeline-text">Serbest gün: dinlenme, plaj/havuz, opsiyonel şehir içi keşif veya ekstra aktivite.</div></li>
+            <li class="timeline-item"><div class="timeline-day">4. Gün</div><div class="timeline-text">Tekne günü: ulusal park rotaları, rehberli yürüyüş/seyir noktaları (pakete göre).</div></li>
+            <li class="timeline-item"><div class="timeline-day">5. Gün</div><div class="timeline-text">Serbest gün: dinlenme ve opsiyonel aktiviteler (şnorkel/dalış vb.).</div></li>
+            <li class="timeline-item"><div class="timeline-day">6. Gün</div><div class="timeline-text">Premium tekne günü / gün batımı odaklı deniz deneyimi ve grup öğle yemeği (pakete göre).</div></li>
+            <li class="timeline-item"><div class="timeline-day">7. Gün</div><div class="timeline-text">Kahvaltı, uçuş saatine göre serbest zaman ve havalimanı transferi. Program havalimanında sona erer.</div></li>
+          </ul>
+          <p class="disclaimer">Not: Bu broşür, örnek programı ve genel kapsamı anlatan bir özettir. Tekne rotaları ve günlerin sırası; hava koşulları, dalga durumu ve operasyonel gerekliliklere göre revize edilebilir. Güncel ve bağlayıcı program yazılı teklif ve sözleşmede yer alır.</p>
         </section>
 
-        <section class="section bg" style="--bgimg:url('/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Örnek Tatil Akışı (özet)</h2>
-              <span class="section-tag">Nihai program yazılı</span>
+        <section class="section">
+          <div class="two-column">
+            <div>
+              <div class="section-header"><h2 class="section-title">Konaklama &amp; Ulaşım Yaklaşımı</h2></div>
+              <p class="section-text">Komodo rotasında Labuan Bajo merkezi seçilerek, liman ve tekne operasyonuna hızlı erişim hedeflenir. Transferler (havalimanı/otel/liman) operasyon akışının parçasıdır.</p>
+              <p class="section-text" style="margin-top: 6px;">Uçak bileti kişi başı $750’a kadar dahildir; limit üzeri fark katılımcı tarafından karşılanır ve ödeme öncesinde yazılı olarak belirtilir.</p>
             </div>
-            <p class="section-text">Aşağıdaki akış “örnek”tir; nihai gün gün programı ön kayıt sonrası yazılı olarak paylaşılır.</p>
-
-            <div class="timeline">
-              <div class="day">
-                <h4>Gün 1 • Varış & yerleşme</h4>
-                <p>Otele giriş ve kısa bölge tanıtımı.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 2 • Tekne günü (ana deneyim)</h4>
-                <p>Seçili adalar, manzara noktaları, yüzme/snorkel molaları. Rota ve saatler yazılı netleştirilir.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 3 • Dinlenme / serbest gün</h4>
-                <p>Tekne sonrası dinlenme ve serbest zaman.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 4 • Keşif günü</h4>
-                <p>Manzara + yerel duraklar. Transfer koordinasyonu dahil.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 5–6 • Esnek plan</h4>
-                <p>Hava/tempo/tercihe göre alternatif planlar. Dahil/hariç netliğiyle sürpriz masrafı azaltma.</p>
-              </div>
-              <div class="day">
-                <h4>Gün 7 • Dönüş</h4>
-                <p>Çıkış ve dönüş transferleri. Tüm teyitler yazılı ilerler.</p>
-              </div>
+            <div>
+              <div class="section-header"><h2 class="section-title">Fiyat &amp; Ödeme, Kapora Yapısı</h2></div>
+              <p class="section-text">Bu broşürde güncel rakam paylaşmıyoruz. Toplam tutar; tarih, grup büyüklüğü, tekne kontenjanı ve seçilen kapsam ile belirlenir ve ödeme öncesinde yazılı olarak iletilir.</p>
+              <p class="section-text" style="margin-top: 6px;">Rezervasyon için genellikle kapora alınır; kalan bakiye, tekne/otel onayları öncesinde tamamlanır. Ödeme planı yazılı teklif ile bildirilir.</p>
             </div>
           </div>
         </section>
 
         <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Dahil / Hariç</h2>
-              <span class="section-tag">Net çerçeve</span>
-            </div>
-
-            <div class="columns-2">
-              <div class="card-soft accent">
-                <div class="card-soft-title">Dahil olan başlıca kalemler</div>
-                <ul class="list">
-                  <li>İstanbul çıkışlı gidiş–dönüş uçak bileti (kişi başı $750’a kadar dahil)</li>
-                  <li>6 gece konaklama</li>
-                  <li>Her gün otelde sabah kahvaltısı</li>
-                  <li>Programdaki seçili rehberli günler ve transferler</li>
-                </ul>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Hariç olanlar (genel)</div>
-                <ul class="list">
-                  <li>Uçuş limit üzeri farklar</li>
-                  <li>Kişisel harcamalar</li>
-                  <li>Öğle/akşam yemekleri (pakete göre değişebilir)</li>
-                  <li>İsteğe bağlı ekstra turlar / aktiviteler</li>
-                  <li>Tek kişilik oda opsiyonu varsa oda farkı</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="card-soft danger" style="margin-top: 12px;">
-              <div class="card-soft-title">Tekne günü notu (netlik)</div>
-              <p class="section-text">Tekne/rota kapsamı pakete göre değişebilir. Sizin turunuzda dahil olanlar yazılı pakette maddeler halinde paylaşılır.</p>
-            </div>
-
-            <div class="card-soft" style="margin-top: 12px;">
-              <div class="card-soft-title">Konaklama standardı</div>
-              <p class="section-text">Standart konaklama 2 kişilik paylaşımlı odadır. Çiftler veya birlikte kalmak isteyen arkadaşlar birlikte yerleştirilir. Tek kişi katılımlarda oda eşleştirme yapılır.</p>
-            </div>
+          <div class="section-header"><h2 class="section-title">Görsel Komodo Atmosferi</h2></div>
+          <p class="section-text">Bu bölüm, rotanın atmosferini hissetmeniz için kısa bir görsel özet sunar.</p>
+          <div class="mini-gallery">
+            <img src="/vecteezy_luxurious-yacht-anchored-in-a-tropical-paradise-under-a-clear_73309259.jpeg" alt="Tekne" />
+            <img src="/vecteezy_underwater-adventure-blond-swimmer-explore-tropical-sea-life_69359669.jpg" alt="Deniz" />
+            <img src="/vecteezy_ai-generated-woman-walking-on-the-beach-romantic_37348905.jpg" alt="Sahil" />
           </div>
         </section>
 
-        <section class="section bg" style="--bgimg:url('/vecteezy_luxury-vacation-friends-relaxing-in-infinity-pool_71458818.jpg')">
-          <div class="section-bg"></div>
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">Süreç (3 adım)</h2>
-              <span class="section-tag">yazılı + onaylı</span>
-            </div>
-            <div class="columns-3">
-              <div class="card-soft">
-                <div class="card-soft-title">1) Ön kayıt</div>
-                <p class="section-text">Ücretsiz ve bağlayıcı değil.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">2) Yazılı bilgi paketi</div>
-                <p class="section-text">Program + dahil/hariç + kurallar WhatsApp’tan yazılı gönderilir.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">3) Sözleşme inceleme → ödeme</div>
-                <p class="section-text">İnceleme sonrası onayla ödeme. Süreç net ve şeffaftır.</p>
-              </div>
-            </div>
+        <section class="section" id="onemli-notlar">
+          <div class="section-header"><h2 class="section-title">Önemli Notlar &amp; Uyarılar</h2><span class="section-tag">Lütfen dikkatlice okuyun</span></div>
+          <div class="columns-2">
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Pasaport &amp; Vize</h3></div><p class="card-soft-body">Endonezya'ya girişte pasaport geçerlilik sürenizin seyahat bitiminden itibaren en az 6 ay daha devam etmesi beklenmektedir. Güncel vize/kapı vizesi kuralları ve ücretleri değişken olabileceğinden, seyahat öncesinde bilgilendirme yazılı olarak yapılacaktır.</p></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Seyahat Sağlık Sigortası &amp; Güvenlik</h3></div><p class="card-soft-body">Yurt dışı seyahat sağlık sigortası kuvvetle tavsiye edilir. Tekne günlerinde can yeleği/ekipman kullanımı ve güvenlik kuralları titizlikle takip edilir.</p></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Grup Dinamiği &amp; Beklentiler</h3></div><p class="card-soft-body">Bu organizasyon planlı bir deneyim akışıdır. Zamanlamaya uyum ve diğer misafirlerin konforuna özen beklenir. Grup düzenini bozan davranışlar kabul edilmez.</p></div>
+            <div class="card-soft"><div class="card-soft-header"><h3 class="card-soft-title">Broşürün Niteliği</h3></div><p class="card-soft-body">Bu broşür bilgilendirme amaçlıdır; satış sözleşmesi veya resmi teklif yerine geçmez. Nihai hak ve yükümlülükler yazılı teklif/sözleşme dokümanlarında yer alır.</p></div>
           </div>
         </section>
+      </main>
 
-        <section class="section">
-          <div class="section-inner">
-            <div class="section-header">
-              <h2 class="section-title">SSS</h2>
-              <span class="section-tag">kısa cevaplar</span>
-            </div>
-
-            <div class="columns-2">
-              <div class="card-soft">
-                <div class="card-soft-title">Uçuş limitini aşırsak?</div>
-                <p class="section-text">Uçuşlar kişi başı $750’a kadar dahildir. Uçuş fiyatı limit üzerindeyse fark ayrıca yansıtılır.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Ödeme ne zaman?</div>
-                <p class="section-text">Önce yazılı bilgi paketi + sözleşme inceleme. Onay olmadan ödeme yok.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Program kesin mi?</div>
-                <p class="section-text">Broşür özet verir; nihai program ve koşullar yazılı paylaşılır.</p>
-              </div>
-              <div class="card-soft">
-                <div class="card-soft-title">Tek kişilik oda?</div>
-                <p class="section-text">Standart paylaşımlı odadır. Tek oda opsiyonu varsa ayrıca fiyatlanır.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <footer class="footer">
-        <p><b>PDF alma:</b> Tarayıcıda “Yazdır” → “PDF olarak kaydet”.</p>
-        <p>Bu broşür bilgilendirme amaçlıdır. Nihai kapsam, tarih ve bedel; yazılı teklif ve sözleşme ekleriyle netleşir.</p>
-      </footer>
-    </main>
+      <footer class="footer-note"><strong>Önemli:</strong> Bu broşürde yer alan tüm içerik, Komodo rotası için planladığımız deneyim odaklı tekne organizasyonunu genel hatlarıyla anlatmak amacıyla hazırlanmıştır. Fiyatlar, tarih ve kapsam; yazılı teklif, sözleşme ve güncel mevzuat ışığında netleşir.</footer>
+    </div>
   </body>
 </html>
