@@ -4,9 +4,11 @@ import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function Navigation() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const currentLang = (i18n.language || "tr").split("-")[0];
 
   // Aktif sayfayı kontrol et
   const isActive = (path) => {
@@ -29,8 +31,8 @@ export default function Navigation() {
       { to: "/tours", label: t("navigation.tours"), active: isActive("/tours") },
       { to: "/kesfet", label: t("navigation.explore"), active: isActive("/kesfet") },
       { to: "/wedding", label: t("navigation.wedding"), active: isActive("/wedding") },
-      { to: "/dokumanlar", label: "Dokümanlar", active: isActive("/dokumanlar") },
-      { to: "/youtube", label: "YouTube", active: isActive("/youtube") },
+      { to: "/dokumanlar", label: t("navigation.documents"), active: isActive("/dokumanlar") },
+      { to: "/youtube", label: t("navigation.youtube"), active: isActive("/youtube") },
       { to: "/contact", label: t("navigation.contact"), active: isActive("/contact") },
     ],
     [location.pathname, t]
@@ -86,6 +88,16 @@ export default function Navigation() {
 
           <div className="hidden md:flex flex-1 min-w-0 items-center justify-end">
             <div className="flex items-center gap-2 flex-nowrap overflow-x-auto min-w-0">
+            <select
+              value={currentLang}
+              onChange={(e) => i18n.changeLanguage(e.target.value)}
+              className="px-2 py-1.5 rounded-full text-xs sm:text-sm font-semibold border border-emerald-200 bg-white text-slate-800 shadow-sm"
+              aria-label="Dil seç"
+            >
+              <option value="tr">TR</option>
+              <option value="en">EN</option>
+              <option value="id">ID</option>
+            </select>
             <Link to="/" className={`px-2 sm:px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap ${
               isActive('/') 
                 ? 'bg-emerald-500 text-white shadow-lg' 
